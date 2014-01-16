@@ -7,7 +7,6 @@
 " javascript  :   синтаксис для javascript (в том числе в html-файлах)       :   https://github.com/pangloss/vim-javascript
 " jade        :   подсветка синтаксиса для jade                              :   https://github.com/digitaltoad/vim-jade
 " html5       :   подсветка синтаксиса html5, автозавершение                 :   https://github.com/othree/html5.vim
-" jsBeautify  :   быстрое форматирование js, html, css                       :   https://github.com/maksimr/vim-jsbeautify
 " solarized   :   цветовая схема                                             :   https://github.com/altercation/solarized
 " jshint      :   проверка js                                                :   https://github.com/Shutnik/jshint2.vim
 
@@ -114,6 +113,15 @@ execute "set colorcolumn=" . join(range(76,335), ',')
 " ----------------------------------------
 " Форматирование текста
 " ----------------------------------------
+
+" Установить keymap (переключается CTRL + ^)
+set keymap=russian-jcukenwin
+
+" По умолчанию - латинская раскладка
+set iminsert=0
+
+" По умолчанию - латинская раскладка при поиске
+set imsearch=0
 
 " Невидимый курсор мыши при наборе текста
 set mousehide
@@ -287,16 +295,10 @@ endfunction
 
 map <silent> <F8> :call ToggleScheme()<CR>
 
-" F9 Формат файла под стандарт (в работе!)
-"autocmd FileType javascript noremap <buffer>  <F9> :call JsBeautify()<cr>
-" for html
-"autocmd FileType html noremap <buffer> <F9> :call HtmlBeautify()<cr>
-" for css or scss
-"autocmd FileType css noremap <buffer> <F9> :call CSSBeautify()<cr>
+" F9 JSHint
+map <silent> <F9> :JSHint<CR>
 
-" F10 JSHint
-map <silent> <F10> :JSHint<CR>
-
+" F10
 " F11
 " F12
 " F13
