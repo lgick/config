@@ -1,24 +1,42 @@
+" ----------------------------------------
 " Плагины VIM:
+" ----------------------------------------
 
-" pathogen    :   менеджер плагинов для VIM                                  :   https://github.com/tpope/vim-pathogen
-" nerdtree    :   навигация по файлам                                        :   https://github.com/scrooloose/nerdtree
-" snipMate    :   вставляет текстовый шаблон. Использование: слово + <tab>   :   https://github.com/msanders/snipmate.vim
-" template    :   шаблоны при создании новых файлов                          :   https://github.com/thinca/vim-template
-" javascript  :   синтаксис для javascript (в том числе в html-файлах)       :   https://github.com/pangloss/vim-javascript
-" jade        :   подсветка синтаксиса для jade                              :   https://github.com/digitaltoad/vim-jade
-" html5       :   подсветка синтаксиса html5, автозавершение                 :   https://github.com/othree/html5.vim
-" solarized   :   цветовая схема                                             :   https://github.com/altercation/solarized
-" jshint      :   проверка js                                                :   https://github.com/Shutnik/jshint2.vim
+set nocompatible
+filetype off
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" let Vundle manage Vundle
+Bundle 'gmarik/vundle'
+
+" My bundles here:
+" nerdtree:   навигация по файлам
+Bundle 'scrooloose/nerdtree'
+" snipMate:   вставляет текстовый шаблон. Использование: слово + <tab>
+Bundle 'msanders/snipmate.vim'
+" template:   шаблоны при создании новых файлов
+Bundle 'thinca/vim-template'
+" javascript:   синтаксис для javascript (в том числе в html-файлах)
+Bundle 'pangloss/vim-javascript'
+" jade:   подсветка синтаксиса для jade
+Bundle 'digitaltoad/vim-jade'
+" html5:   подсветка синтаксиса html5, автозавершение
+Bundle 'othree/html5.vim'
+" solarized:   цветовая схема
+Bundle 'altercation/vim-colors-solarized'
+" jshint:   проверка js
+Bundle 'Shutnik/jshint2.vim'
+" term: js плагин (автокомплит)
+"Bundle 'marijnh/tern_for_vim'
+
+filetype plugin indent on
 
 
 " ----------------------------------------
 " Общие настройки VIM
 " ----------------------------------------
-
-" Загрузка плагинов из папки bundle
-filetype off
-execute pathogen#infect()
-filetype plugin indent on
 
 " Настройки в режиме чтения
 if &readonly
@@ -148,6 +166,10 @@ set tabstop=2
 
 " Количиство символов при автоматическом табе
 set shiftwidth=2
+
+" Вид курсора при разных режимах
+let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 
 
 " ----------------------------------------
