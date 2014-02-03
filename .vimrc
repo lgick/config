@@ -30,6 +30,7 @@ Bundle 'altercation/vim-colors-solarized'
 Bundle 'Shutnik/jshint2.vim'
 " term: js плагин (автокомплит)
 "Bundle 'marijnh/tern_for_vim'
+"let g:tern_show_argument_hints = 'on_move'
 
 filetype plugin indent on
 
@@ -109,7 +110,11 @@ let g:solarized_contrast='normal'
 let g:solarized_visibility='low'
 
 " Цветовая схема
-colorscheme solarized
+try
+  colorscheme solarized
+catch /^Vim\%((\a\+)\)\=:E185/
+  colorscheme desert
+endtry
 
 " Цвет невидимых символов
 highlight SpecialKey ctermbg=none ctermfg=15
@@ -303,7 +308,11 @@ let g:userScheme=0
 
 function! ToggleScheme()
   if(g:userScheme)
-    colorscheme solarized
+    try
+      colorscheme solarized
+    catch /^Vim\%((\a\+)\)\=:E185/
+      colorscheme desert
+    endtry
     highlight SpecialKey ctermbg=none ctermfg=15
     highlight ColorColumn ctermbg=none ctermfg=11
     let g:userScheme=0
