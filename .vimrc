@@ -12,25 +12,45 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 " My bundles here:
-" nerdtree:   навигация по файлам
+" Nerdtree: навигация по файлам
 Bundle 'scrooloose/nerdtree'
-" snipMate:   вставляет текстовый шаблон. Использование: слово + <tab>
+
+" SnipMate: вставляет текстовый шаблон. Использование: слово + <tab>
 Bundle 'msanders/snipmate.vim'
-" template:   шаблоны при создании новых файлов
+
+" Template: шаблоны при создании новых файлов
 Bundle 'thinca/vim-template'
-" javascript:   синтаксис для javascript (в том числе в html-файлах)
+
+" Javascript: синтаксис для javascript (в том числе в html-файлах)
 Bundle 'pangloss/vim-javascript'
-" jade:   подсветка синтаксиса для jade
+
+" Jade: подсветка синтаксиса для jade
 Bundle 'digitaltoad/vim-jade'
-" html5:   подсветка синтаксиса html5, автозавершение
+
+" Html5: подсветка синтаксиса html5, автозавершение
 Bundle 'othree/html5.vim'
-" solarized:   цветовая схема
+
+" Solarized: цветовая схема
 Bundle 'altercation/vim-colors-solarized'
-" jshint:   проверка js
+"let g:solarized_termcolors=256
+let g:solarized_termtrans=0
+let g:solarized_degrade=0
+let g:solarized_bold=1
+let g:solarized_underline=1
+let g:solarized_italic=1
+let g:solarized_contrast='normal'
+let g:solarized_visibility='low'
+
+" Jshint: проверка js
 Bundle 'Shutnik/jshint2.vim'
-" term: js плагин (автокомплит)
-"Bundle 'marijnh/tern_for_vim'
-"let g:tern_show_argument_hints = 'on_move'
+
+" Neocomplcache: автозавершение с кешированием
+Bundle 'Shougo/neocomplcache.vim'
+let g:neocomplcache_enable_at_startup = 1
+
+" Term: js плагин (автокомплит)
+Bundle 'marijnh/tern_for_vim'
+let g:tern_show_argument_hints = 'on_move'
 
 filetype plugin indent on
 
@@ -98,16 +118,6 @@ set background=dark
 
 " Поддержка цвета
 set t_Co=256
-
-" Solarized настройки
-"let g:solarized_termcolors=256
-let g:solarized_termtrans=0
-let g:solarized_degrade=0
-let g:solarized_bold=1
-let g:solarized_underline=1
-let g:solarized_italic=1
-let g:solarized_contrast='normal'
-let g:solarized_visibility='low'
 
 " Цветовая схема
 try
@@ -231,6 +241,9 @@ imap { {}<left>
 "
 " Сигнал ошибке при отсутствии открывающей скобки
 set showmatch
+
+" Автозавершение на TAB
+inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " Автозавершение синтаксиса
 autocmd FileType python set omnifunc=pythoncomplete#Complete
