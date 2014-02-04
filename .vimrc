@@ -44,13 +44,9 @@ let g:solarized_visibility='low'
 " Jshint: проверка js
 Bundle 'Shutnik/jshint2.vim'
 
-" Neocomplcache: автозавершение с кешированием
-Bundle 'Shougo/neocomplcache.vim'
-let g:neocomplcache_enable_at_startup = 1
-
-" Term: js плагин (автокомплит)
+" Tern: js плагин (автокомплит)
 Bundle 'marijnh/tern_for_vim'
-let g:tern_show_argument_hints = 'on_move'
+"let g:tern_show_argument_hints = 'on_move'
 
 filetype plugin indent on
 
@@ -93,6 +89,17 @@ set nowrap
 
 " Отступы сверху и снизу при скролле
 set scrolloff=10
+
+
+" ----------------------------------------
+" Hardcore mode
+" ----------------------------------------
+
+" Отключение стрелочек
+noremap <Up> <nop>
+noremap <Down> <nop>
+noremap <Left> <nop>
+noremap <Right> <nop>
 
 
 " ----------------------------------------
@@ -242,20 +249,12 @@ imap { {}<left>
 " Сигнал ошибке при отсутствии открывающей скобки
 set showmatch
 
-" Автозавершение на TAB
-inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-
 " Автозавершение синтаксиса
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType tt2html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-autocmd FileType c set omnifunc=ccomplete#Complete
-autocmd FileType cpp set omnifunc=cppcomplete#Complete
-autocmd FileType objc set omnifunc=objcomplete#Complete
+"autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+"autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+"autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+"autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+"autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 
 " ----------------------------------------
