@@ -51,6 +51,10 @@ Bundle 'Shutnik/jshint2.vim'
 Bundle 'marijnh/tern_for_vim'
 "let g:tern_show_argument_hints = 'on_move'
 
+" SuperTab: многофункциональная клавиша <Tab>
+Bundle 'ervandew/supertab.git'
+let g:SuperTabDefaultCompletionType = "<c-n>"
+
 filetype plugin indent on
 
 
@@ -208,9 +212,12 @@ set hlsearch
 set incsearch
 
 " Регистр при поиске
+" infercase: учитывать
 " ignorecase: игнорировать
-" smartcase: учитывать
 set ignorecase
+
+" Умный поиск
+set smartcase
 
 
 " ----------------------------------------
