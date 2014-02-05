@@ -15,8 +15,11 @@ Bundle 'gmarik/vundle'
 " Nerdtree: навигация по файлам
 Bundle 'scrooloose/nerdtree'
 
-" SnipMate: вставляет текстовый шаблон. Использование: слово + <tab>
-Bundle 'msanders/snipmate.vim'
+" UltiSnips: вставляет текстовый шаблон. Использование: слово + <tab>
+Bundle 'SirVer/ultisnips.git'
+let g:UltiSnipsExpandTrigger='<tab>'
+let g:UltiSnipsJumpForwardTrigger='<tab>'
+let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
 
 " Template: шаблоны при создании новых файлов
 Bundle 'thinca/vim-template'
@@ -248,6 +251,12 @@ imap { {}<left>
 "
 " Сигнал ошибке при отсутствии открывающей скобки
 set showmatch
+
+" Отключение добавления первого значения при вызове <c-x><c-o>
+set completeopt=longest,menuone
+
+" Ввод выбранного значения при нажатии Enter
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Автозавершение синтаксиса
 "autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
