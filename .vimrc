@@ -51,10 +51,6 @@ Bundle 'Shutnik/jshint2.vim'
 Bundle 'marijnh/tern_for_vim'
 "let g:tern_show_argument_hints = 'on_move'
 
-" SuperTab: многофункциональная клавиша <Tab>
-Bundle 'ervandew/supertab.git'
-let g:SuperTabDefaultCompletionType = "<c-n>"
-
 filetype plugin indent on
 
 
@@ -107,6 +103,7 @@ noremap <Up> <nop>
 noremap <Down> <nop>
 noremap <Left> <nop>
 noremap <Right> <nop>
+inoremap <BS> <nop>
 
 
 " ----------------------------------------
@@ -181,6 +178,9 @@ set encoding=utf-8
 " Отключение .swp и резервных файлов
 set nobackup
 set noswapfile
+
+" Опции при удалении в режиме ввода
+set backspace=indent,eol,start
 
 " Умные отступы
 "set cin
