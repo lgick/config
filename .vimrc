@@ -30,6 +30,10 @@ Bundle 'pangloss/vim-javascript'
 " Jade: подсветка синтаксиса для jade
 Bundle 'digitaltoad/vim-jade'
 
+" Markdown: подсветка синтаксиса
+Bundle 'plasticboy/vim-markdown'
+let g:vim_markdown_folding_disabled=1
+
 " Html5: подсветка синтаксиса html5, автозавершение
 Bundle 'othree/html5.vim'
 
