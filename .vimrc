@@ -51,6 +51,9 @@ let g:solarized_visibility='low'
 " Jshint: проверка js
 Bundle 'Shutnik/jshint2.vim'
 
+" Bbye: удаление ненужных буферов
+Bundle 'moll/vim-bbye.git'
+
 filetype plugin indent on
 
 
@@ -357,7 +360,9 @@ map <silent> <F8> :call ToggleScheme()<CR>
 " F9 JSHint
 map <silent> <F9> :JSHint<CR>
 
-" F10
+" F10 Bbye
+map <silent> <F10> :Bdelete<CR>
+
 " F11
 " F12
 " F13
