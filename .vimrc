@@ -203,6 +203,9 @@ set shiftwidth=2
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 
+" Настройка сессий
+set sessionoptions=buffers,folds,sesdir,tabpages,globals,options,resize,winpos
+
 
 " ----------------------------------------
 " Поиск
@@ -299,12 +302,6 @@ set lcs=tab:·\ ,trail:·,extends:>,precedes:<,nbsp:&
 
 " F2 Файловая система
 map <silent> <F2> :NERDTreeToggle<CR>
-
-" F3 Сворачивание блоков кода
-inoremap <F3> <C-O>za
-nnoremap <F3> za
-onoremap <F3> <C-C>za
-vnoremap <F3> zf
 
 " F4 Переключения режима вставки
 set pastetoggle=<F4>
