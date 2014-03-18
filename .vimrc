@@ -303,6 +303,39 @@ set lcs=tab:·\ ,trail:·,extends:>,precedes:<,nbsp:&
 " F2 Файловая система
 map <silent> <F2> :NERDTreeToggle<CR>
 
+" F3 Сворачивание функциональных блоков
+function! CloseFunctions()
+
+  execute 'normal zE'
+
+  let i = 0
+  let lenline = line('$')
+
+  call inputsave()
+  let space = input('how many space (dafault: 2)? ')
+  call inputrestore()
+
+  if !strlen(space)
+    let space = 2
+  endif
+
+  while i <= lenline
+    let str = getline(i)
+    if match(str, '\S') == space
+      if match(str, 'function') >= 0
+        if match(str, '{') > 0
+          execute i + 'G'
+          execute 'normal $zf%'
+        endif
+      endif
+    endif
+    let i += 1
+  endwhile
+
+endfunction
+
+map <silent> <F3> :call CloseFunctions()<CR>
+
 " F4 Переключения режима вставки
 set pastetoggle=<F4>
 
