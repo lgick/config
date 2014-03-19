@@ -304,7 +304,7 @@ set lcs=tab:·\ ,trail:·,extends:>,precedes:<,nbsp:&
 map <silent> <F2> :NERDTreeToggle<CR>
 
 " F3 Сворачивание функциональных блоков
-function! CloseFunctions()
+function! FoldingBlocks()
 
   execute 'normal zE'
 
@@ -312,7 +312,7 @@ function! CloseFunctions()
   let lenline = line('$')
 
   call inputsave()
-  let space = input('how many space (dafault: 2)? ')
+  let space = input('how many space (default: 2)? ')
   call inputrestore()
 
   if !strlen(space)
@@ -322,11 +322,9 @@ function! CloseFunctions()
   while i <= lenline
     let str = getline(i)
     if match(str, '\S') == space
-      if match(str, 'function') >= 0
-        if match(str, '{') > 0
-          execute i + 'G'
-          execute 'normal $zf%'
-        endif
+      if match(str, '{') > 0
+        execute i + 'G'
+        execute 'normal $zf%'
       endif
     endif
     let i += 1
@@ -334,7 +332,7 @@ function! CloseFunctions()
 
 endfunction
 
-map <silent> <F3> :call CloseFunctions()<CR>
+map <silent> <F3> :call FoldingBlocks()<CR>
 
 " F4 Переключения режима вставки
 set pastetoggle=<F4>
