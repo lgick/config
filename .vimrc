@@ -54,6 +54,14 @@ Bundle 'Shutnik/jshint2.vim'
 " Bbye: удаление ненужных буферов
 Bundle 'moll/vim-bbye.git'
 
+" Neocomplete: автозавершение
+Bundle 'Shougo/neocomplete.vim.git'
+let g:acp_enableAtStartup = 0
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
 filetype plugin indent on
 
 
@@ -268,14 +276,10 @@ set showmatch
 " Отключение добавления первого значения при вызове <c-x><c-o>
 set completeopt=longest,menuone
 
-" Ввод выбранного значения при нажатии Enter
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
 " Автозавершение синтаксиса
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 
@@ -322,7 +326,7 @@ function! FoldingBlocks()
   while i <= lenline
     let str = getline(i)
     if match(str, '\S') == space
-      if match(str, '{') > 0
+      if match(str, '[{[]') > 0
         execute i + 'G'
         execute 'normal $zf%'
       endif
