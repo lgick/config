@@ -1,9 +1,9 @@
-#!.plist/com.googlecode.iterm2.plist
-#*
-#!.vimrc
-
-
 /*
+!.bash_profile
+!.jshintrc
 !.gitignore
 !.vimrc
+!/.vim/
 !/.plist/
+
+/.vim/bundle/
