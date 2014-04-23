@@ -1439,7 +1439,7 @@
 	<key>HideTab</key>
 	<true/>
 	<key>HighlightTabLabels</key>
-	<true/>
+	<false/>
 	<key>HotKeyBookmark</key>
 	<string>476D06B1-3E60-47B6-9D20-6987C6184946</string>
 	<key>HotKeyTogglesWindow</key>
@@ -1513,7 +1513,7 @@
 	<key>NSWindow Frame Preferences</key>
 	<string>270 293 924 485 0 0 1280 800 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>131 -171 1280 704 0 0 1280 778 </string>
+	<string>131 -234 1280 706 0 0 1280 778 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>126 309 570 398 0 0 1280 778 </string>
 	<key>New Bookmarks</key>
@@ -2313,7 +2313,7 @@
 		</dict>
 	</dict>
 	<key>PrefsCustomFolder</key>
-	<string>~/</string>
+	<string>~/.plist/</string>
 	<key>PromptOnClose</key>
 	<true/>
 	<key>PromptOnQuit</key>
@@ -2331,7 +2331,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2014-04-18T09:21:21Z</date>
+	<date>2014-04-23T10:13:57Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Secure Input</key>
@@ -12023,6 +12023,6 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>1.0.0.20140112</string>
+	<string>1.0.0.20140421</string>
 </dict>
 </plist>
