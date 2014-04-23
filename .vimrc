@@ -314,6 +314,7 @@ function! FoldingBlocks()
 
   let i = 0
   let lenline = line('$')
+  let currentline = line('.')
 
   call inputsave()
   let space = input('how many space (default: 2)? ')
@@ -333,6 +334,8 @@ function! FoldingBlocks()
     endif
     let i += 1
   endwhile
+
+  execute currentline + 'G'
 
 endfunction
 
