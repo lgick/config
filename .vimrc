@@ -304,10 +304,41 @@ set lcs=tab:·\ ,trail:·,extends:>,precedes:<,nbsp:&
 " Hotkeys
 " ----------------------------------------
 
-" F2 Файловая система
-map <silent> <F2> :NERDTreeToggle<CR>
+let mapleader = ','
 
-" F3 Сворачивание функциональных блоков
+
+" , + f: Файловая система
+nmap <silent> <Leader>f :NERDTreeToggle<CR>
+
+" , + p: Открывает предыдущий буфер
+nmap <silent> <Leader>p :bp<CR>
+
+" , + n: Открывает следующий буфер
+nmap <silent> <Leader>n :bn<CR>
+
+" , + d: Bbye - закрывает файл
+nmap <silent> <Leader>d :Bdelete<CR>
+
+" , + t: Переключение режима вставки
+nmap <Leader>t :call PasteToggle()<CR>
+
+let g:pasteMode=0
+
+function! PasteToggle()
+  if(g:pasteMode)
+    set nopaste
+    let g:pasteMode=0
+    echo 'nopaste mode'
+  else
+    set paste
+    let g:pasteMode=1
+    echo 'paste mode'
+  endif
+endfunction
+
+" , + z: Сворачивание функциональных блоков в файле
+nmap <Leader>z :call FoldingBlocks()<CR>
+
 function! FoldingBlocks()
 
   execute 'normal zE'
@@ -336,40 +367,13 @@ function! FoldingBlocks()
   endwhile
 
   execute currentline + 'G'
+  echo ''
 
 endfunction
 
-map <silent> <F3> :call FoldingBlocks()<CR>
+" , + s: Меняет цветовую схему
+nmap <Leader>s :call ToggleScheme()<CR>
 
-" F4 Переключения режима вставки
-set pastetoggle=<F4>
-
-" F5 Открывает предыдущий буфер
-map <silent> <F5> :bprevious<CR>
-
-" F6 Открывает следующий буфер
-map <silent> <F6> :bnext<CR>
-
-" F7 Подсветка координат курсора
-set nocursorline
-set nocursorcolumn
-let g:cursorLight=0
-
-function! ToggleCursorLight()
-  if(g:cursorLight)
-    set nocursorline
-    set nocursorcolumn
-    let g:cursorLight=0
-  else
-    set cursorline
-    set cursorcolumn
-    let g:cursorLight=1
-  endif
-endfunction
-
-map <silent> <F7> :call ToggleCursorLight()<CR>
-
-" F8 Меняет цветовую схему
 let g:userScheme=0
 
 function! ToggleScheme()
@@ -390,14 +394,24 @@ function! ToggleScheme()
   endif
 endfunction
 
-map <silent> <F8> :call ToggleScheme()<CR>
+" , + h: JSHint
+map <silent> <Leader>h :JSHint<CR>
 
-" F9 JSHint
-map <silent> <F9> :JSHint<CR>
+" , + l: Подсветка координат курсора
+map <silent> <Leader>l :call ToggleCursorLight()<CR>
 
-" F10 Bbye
-map <silent> <F10> :Bdelete<CR>
+set nocursorline
+set nocursorcolumn
+let g:cursorLight=0
 
-" F11
-" F12
-" F13
+function! ToggleCursorLight()
+  if(g:cursorLight)
+    set nocursorline
+    set nocursorcolumn
+    let g:cursorLight=0
+  else
+    set cursorline
+    set cursorcolumn
+    let g:cursorLight=1
+  endif
+endfunction
