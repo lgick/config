@@ -319,6 +319,27 @@ nmap <silent> <Leader>n :bn<CR>
 " , + d: Bbye - закрывает файл
 nmap <silent> <Leader>d :Bdelete<CR>
 
+" , + g: Поиск слова под курсором в текущей директории
+nmap <Leader>g :set operatorfunc=<SID>GrepOperator<CR>g@
+vmap <Leader>g :<c-u>call <SID>GrepOperator(visualmode())<CR>
+
+function! s:GrepOperator(type)
+    let saved_unnamed_register = @@
+
+    if a:type ==# 'v'
+        normal! `<v`>y
+    elseif a:type ==# 'char'
+        normal! `[v`]y
+    else
+        return
+    endif
+
+    execute 'grep! -R ' . shellescape(@@) . ' . --exclude-dir={node_modules,vendor,.git}'
+    copen
+
+    let @@ = saved_unnamed_register
+endfunction
+
 " , + t: Переключение режима вставки
 nmap <Leader>t :call PasteToggle()<CR>
 
