@@ -1466,14 +1466,10 @@
 	<true/>
 	<key>MaxVertically</key>
 	<false/>
-	<key>NSFontPanelAttributes</key>
-	<string>1, 8</string>
+	<key>NSFontPanelPreviewHeight</key>
+	<real>0.0</real>
 	<key>NSNavLastRootDirectory</key>
-	<string>~</string>
-	<key>NSNavPanelExpandedSizeForOpenMode</key>
-	<string>{888, 512}</string>
-	<key>NSNavPanelMediaBrowserTypeForOpenModeKey</key>
-	<integer>0</integer>
+	<string>~/Public</string>
 	<key>NSQuotedKeystrokeBinding</key>
 	<string></string>
 	<key>NSRepeatCountBinding</key>
@@ -1491,31 +1487,18 @@
 		BAtzdHJlYW10eXBlZIHoA4QBQISEhAhOU1N0cmluZwGEhAhOU09iamVjdACF
 		hAErATGG
 		</data>
-		<string>302</string>
+		<string>198</string>
 	</array>
 	<key>NSTableView Hidden Columns KeyBingingTable</key>
 	<array/>
 	<key>NSTableView Sort Ordering KeyBingingTable</key>
 	<array/>
-	<key>NSToolbar Configuration Terminal Toolbar</key>
-	<dict>
-		<key>TB Display Mode</key>
-		<integer>3</integer>
-		<key>TB Icon Size Mode</key>
-		<integer>1</integer>
-		<key>TB Is Shown</key>
-		<integer>0</integer>
-		<key>TB Size Mode</key>
-		<integer>1</integer>
-	</dict>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>769 82 445 270 0 0 1280 778 </string>
+	<string>625 494 446 270 0 0 1920 1080 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>270 293 924 485 0 0 1280 800 </string>
+	<string>269 168 605 485 0 0 1920 1080 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>131 -234 1280 706 0 0 1280 778 </string>
-	<key>NSWindow Frame iTerm Window 1</key>
-	<string>126 309 570 398 0 0 1280 778 </string>
+	<string>254 -300 1282 823 0 0 1920 1058 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -2084,11 +2067,11 @@
 			<key>Name</key>
 			<string>lgick</string>
 			<key>Non Ascii Font</key>
-			<string>DejaVuSansMono 12</string>
+			<string>DejaVuSansMono 20</string>
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>DejaVuSansMono 12</string>
+			<string>DejaVuSansMono 20</string>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Prompt Before Closing 2</key>
@@ -2263,8 +2246,6 @@
 			<string>/Users/lgick</string>
 		</dict>
 	</array>
-	<key>NoSyncNeverRemindPrefsChangesLost</key>
-	<true/>
 	<key>OnlyWhenMoreTabs</key>
 	<true/>
 	<key>OpenArrangementAtStartup</key>
@@ -2313,7 +2294,7 @@
 		</dict>
 	</dict>
 	<key>PrefsCustomFolder</key>
-	<string>~/.plist/</string>
+	<string>~/.plist/imac/</string>
 	<key>PromptOnClose</key>
 	<true/>
 	<key>PromptOnQuit</key>
@@ -2331,7 +2312,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2014-04-23T10:13:57Z</date>
+	<date>2014-05-27T15:20:54Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Secure Input</key>
@@ -2391,7 +2372,7 @@
 				<key>Desired Rows</key>
 				<integer>25</integer>
 				<key>Height</key>
-				<real>800</real>
+				<real>1080</real>
 				<key>Hide After Opening</key>
 				<false/>
 				<key>Old Height</key>
@@ -2405,7 +2386,7 @@
 				<key>Screen</key>
 				<integer>0</integer>
 				<key>Selected Tab Index</key>
-				<integer>0</integer>
+				<integer>5</integer>
 				<key>Tabs</key>
 				<array>
 					<dict>
@@ -2443,27 +2424,27 @@
 												<key>Blue Component</key>
 												<real>0.19370138645172119</real>
 												<key>Green Component</key>
-												<real>0.15575926005840299</real>
+												<real>0.15575926005840302</real>
 												<key>Red Component</key>
 												<real>0.0</real>
 											</dict>
 											<key>Ansi 1 Color</key>
 											<dict>
 												<key>Blue Component</key>
-												<real>0.1414571404457092</real>
+												<real>0.14145714044570923</real>
 												<key>Green Component</key>
-												<real>0.10840655118227011</real>
+												<real>0.10840655118227005</real>
 												<key>Red Component</key>
 												<real>0.81926977634429932</real>
 											</dict>
 											<key>Ansi 10 Color</key>
 											<dict>
 												<key>Blue Component</key>
-												<real>0.38298487663269037</real>
+												<real>0.38298487663269043</real>
 												<key>Green Component</key>
-												<real>0.35665956139564509</real>
+												<real>0.35665956139564514</real>
 												<key>Red Component</key>
-												<real>0.27671992778778082</real>
+												<real>0.27671992778778076</real>
 											</dict>
 											<key>Ansi 11 Color</key>
 											<dict>
@@ -2472,7 +2453,7 @@
 												<key>Green Component</key>
 												<real>0.40717673301696777</real>
 												<key>Red Component</key>
-												<real>0.32436618208885187</real>
+												<real>0.32436618208885193</real>
 											</dict>
 											<key>Ansi 12 Color</key>
 											<dict>
@@ -2481,14 +2462,14 @@
 												<key>Green Component</key>
 												<real>0.50962930917739868</real>
 												<key>Red Component</key>
-												<real>0.44058024883270258</real>
+												<real>0.44058024883270264</real>
 											</dict>
 											<key>Ansi 13 Color</key>
 											<dict>
 												<key>Blue Component</key>
 												<real>0.72908437252044678</real>
 												<key>Green Component</key>
-												<real>0.33896297216415411</real>
+												<real>0.33896297216415405</real>
 												<key>Red Component</key>
 												<real>0.34798634052276611</real>
 											</dict>
@@ -2513,16 +2494,16 @@
 											<key>Ansi 2 Color</key>
 											<dict>
 												<key>Blue Component</key>
-												<real>0.02020875550806522</real>
+												<real>0.020208755508065224</real>
 												<key>Green Component</key>
 												<real>0.54115492105484009</real>
 												<key>Red Component</key>
-												<real>0.44977453351020807</real>
+												<real>0.44977453351020813</real>
 											</dict>
 											<key>Ansi 3 Color</key>
 											<dict>
 												<key>Blue Component</key>
-												<real>0.02348481118679047</real>
+												<real>0.023484811186790466</real>
 												<key>Green Component</key>
 												<real>0.46751424670219421</real>
 												<key>Red Component</key>
@@ -2533,16 +2514,16 @@
 												<key>Blue Component</key>
 												<real>0.78231418132781982</real>
 												<key>Green Component</key>
-												<real>0.46265947818756098</real>
+												<real>0.46265947818756104</real>
 												<key>Red Component</key>
-												<real>0.12754884362220761</real>
+												<real>0.12754884362220764</real>
 											</dict>
 											<key>Ansi 5 Color</key>
 											<dict>
 												<key>Blue Component</key>
 												<real>0.43516635894775391</real>
 												<key>Green Component</key>
-												<real>0.10802463442087171</real>
+												<real>0.10802463442087173</real>
 												<key>Red Component</key>
 												<real>0.77738940715789795</real>
 											</dict>
@@ -2567,7 +2548,7 @@
 											<key>Ansi 8 Color</key>
 											<dict>
 												<key>Blue Component</key>
-												<real>0.15170273184776309</real>
+												<real>0.15170273184776306</real>
 												<key>Green Component</key>
 												<real>0.11783610284328461</real>
 												<key>Red Component</key>
@@ -2578,7 +2559,7 @@
 												<key>Blue Component</key>
 												<real>0.073530435562133789</real>
 												<key>Green Component</key>
-												<real>0.21325300633907321</real>
+												<real>0.21325300633907318</real>
 												<key>Red Component</key>
 												<real>0.74176257848739624</real>
 											</dict>
@@ -2589,7 +2570,7 @@
 											<key>Background Color</key>
 											<dict>
 												<key>Blue Component</key>
-												<real>0.15170273184776309</real>
+												<real>0.15170273184776306</real>
 												<key>Green Component</key>
 												<real>0.11783610284328461</real>
 												<key>Red Component</key>
@@ -2600,7 +2581,7 @@
 											<key>Background Image Location</key>
 											<string></string>
 											<key>Blend</key>
-											<real>0.30000001192092901</real>
+											<real>0.30000001192092896</real>
 											<key>Blink Allowed</key>
 											<false/>
 											<key>Blinking Cursor</key>
@@ -2608,7 +2589,7 @@
 											<key>Blur</key>
 											<false/>
 											<key>Blur Radius</key>
-											<real>10.99293899536133</real>
+											<real>10.992938995361328</real>
 											<key>Bold Color</key>
 											<dict>
 												<key>Blue Component</key>
@@ -2633,14 +2614,14 @@
 												<key>Green Component</key>
 												<real>0.50962930917739868</real>
 												<key>Red Component</key>
-												<real>0.44058024883270258</real>
+												<real>0.44058024883270264</real>
 											</dict>
 											<key>Cursor Text Color</key>
 											<dict>
 												<key>Blue Component</key>
 												<real>0.19370138645172119</real>
 												<key>Green Component</key>
-												<real>0.15575926005840299</real>
+												<real>0.15575926005840302</real>
 												<key>Red Component</key>
 												<real>0.0</real>
 											</dict>
@@ -2667,10 +2648,10 @@
 												<key>Green Component</key>
 												<real>0.50962930917739868</real>
 												<key>Red Component</key>
-												<real>0.44058024883270258</real>
+												<real>0.44058024883270264</real>
 											</dict>
 											<key>Guid</key>
-											<string>22A0D355-6266-476B-AD93-451A751BDD65</string>
+											<string>D0D17B4E-C8D1-49ED-A7DF-46CEE2A75548</string>
 											<key>Hide After Opening</key>
 											<false/>
 											<key>Horizontal Spacing</key>
@@ -2985,15 +2966,15 @@
 											<key>Name</key>
 											<string>server</string>
 											<key>Non Ascii Font</key>
-											<string>DejaVuSansMono 12</string>
+											<string>DejaVuSansMono 20</string>
 											<key>Non-ASCII Anti Aliased</key>
 											<true/>
 											<key>Normal Font</key>
-											<string>DejaVuSansMono 12</string>
+											<string>DejaVuSansMono 20</string>
 											<key>Option Key Sends</key>
 											<integer>0</integer>
 											<key>Original Guid</key>
-											<string>F7D10DDF-E5F3-4F96-9834-AFC541AAD3DF</string>
+											<string>22A0D355-6266-476B-AD93-451A751BDD65</string>
 											<key>Prompt Before Closing 2</key>
 											<integer>0</integer>
 											<key>Right Option Key Sends</key>
@@ -3022,7 +3003,7 @@
 												<key>Blue Component</key>
 												<real>0.19370138645172119</real>
 												<key>Green Component</key>
-												<real>0.15575926005840299</real>
+												<real>0.15575926005840302</real>
 												<key>Red Component</key>
 												<real>0.0</real>
 											</dict>
@@ -3166,9 +3147,9 @@
 											<string>/Users/hnoe</string>
 										</dict>
 										<key>Columns</key>
-										<integer>181</integer>
+										<integer>146</integer>
 										<key>Rows</key>
-										<integer>55</integer>
+										<integer>43</integer>
 										<key>Working Directory</key>
 										<string>/Users/lgick/Sites/tank</string>
 									</dict>
@@ -3177,9 +3158,9 @@
 									<key>frame</key>
 									<dict>
 										<key>height</key>
-										<real>778</real>
+										<real>1058</real>
 										<key>width</key>
-										<real>1280</real>
+										<real>1920</real>
 										<key>x</key>
 										<real>0.0</real>
 										<key>y</key>
@@ -3192,9 +3173,9 @@
 							<key>frame</key>
 							<dict>
 								<key>height</key>
-								<real>778</real>
+								<real>1058</real>
 								<key>width</key>
-								<real>1280</real>
+								<real>1920</real>
 								<key>x</key>
 								<real>0.0</real>
 								<key>y</key>
@@ -3239,27 +3220,27 @@
 												<key>Blue Component</key>
 												<real>0.19370138645172119</real>
 												<key>Green Component</key>
-												<real>0.15575926005840299</real>
+												<real>0.15575926005840302</real>
 												<key>Red Component</key>
 												<real>0.0</real>
 											</dict>
 											<key>Ansi 1 Color</key>
 											<dict>
 												<key>Blue Component</key>
-												<real>0.1414571404457092</real>
+												<real>0.14145714044570923</real>
 												<key>Green Component</key>
-												<real>0.10840655118227011</real>
+												<real>0.10840655118227005</real>
 												<key>Red Component</key>
 												<real>0.81926977634429932</real>
 											</dict>
 											<key>Ansi 10 Color</key>
 											<dict>
 												<key>Blue Component</key>
-												<real>0.38298487663269037</real>
+												<real>0.38298487663269043</real>
 												<key>Green Component</key>
-												<real>0.35665956139564509</real>
+												<real>0.35665956139564514</real>
 												<key>Red Component</key>
-												<real>0.27671992778778082</real>
+												<real>0.27671992778778076</real>
 											</dict>
 											<key>Ansi 11 Color</key>
 											<dict>
@@ -3268,7 +3249,7 @@
 												<key>Green Component</key>
 												<real>0.40717673301696777</real>
 												<key>Red Component</key>
-												<real>0.32436618208885187</real>
+												<real>0.32436618208885193</real>
 											</dict>
 											<key>Ansi 12 Color</key>
 											<dict>
@@ -3277,14 +3258,14 @@
 												<key>Green Component</key>
 												<real>0.50962930917739868</real>
 												<key>Red Component</key>
-												<real>0.44058024883270258</real>
+												<real>0.44058024883270264</real>
 											</dict>
 											<key>Ansi 13 Color</key>
 											<dict>
 												<key>Blue Component</key>
 												<real>0.72908437252044678</real>
 												<key>Green Component</key>
-												<real>0.33896297216415411</real>
+												<real>0.33896297216415405</real>
 												<key>Red Component</key>
 												<real>0.34798634052276611</real>
 											</dict>
@@ -3309,16 +3290,16 @@
 											<key>Ansi 2 Color</key>
 											<dict>
 												<key>Blue Component</key>
-												<real>0.02020875550806522</real>
+												<real>0.020208755508065224</real>
 												<key>Green Component</key>
 												<real>0.54115492105484009</real>
 												<key>Red Component</key>
-												<real>0.44977453351020807</real>
+												<real>0.44977453351020813</real>
 											</dict>
 											<key>Ansi 3 Color</key>
 											<dict>
 												<key>Blue Component</key>
-												<real>0.02348481118679047</real>
+												<real>0.023484811186790466</real>
 												<key>Green Component</key>
 												<real>0.46751424670219421</real>
 												<key>Red Component</key>
@@ -3329,16 +3310,16 @@
 												<key>Blue Component</key>
 												<real>0.78231418132781982</real>
 												<key>Green Component</key>
-												<real>0.46265947818756098</real>
+												<real>0.46265947818756104</real>
 												<key>Red Component</key>
-												<real>0.12754884362220761</real>
+												<real>0.12754884362220764</real>
 											</dict>
 											<key>Ansi 5 Color</key>
 											<dict>
 												<key>Blue Component</key>
 												<real>0.43516635894775391</real>
 												<key>Green Component</key>
-												<real>0.10802463442087171</real>
+												<real>0.10802463442087173</real>
 												<key>Red Component</key>
 												<real>0.77738940715789795</real>
 											</dict>
@@ -3363,7 +3344,7 @@
 											<key>Ansi 8 Color</key>
 											<dict>
 												<key>Blue Component</key>
-												<real>0.15170273184776309</real>
+												<real>0.15170273184776306</real>
 												<key>Green Component</key>
 												<real>0.11783610284328461</real>
 												<key>Red Component</key>
@@ -3374,7 +3355,7 @@
 												<key>Blue Component</key>
 												<real>0.073530435562133789</real>
 												<key>Green Component</key>
-												<real>0.21325300633907321</real>
+												<real>0.21325300633907318</real>
 												<key>Red Component</key>
 												<real>0.74176257848739624</real>
 											</dict>
@@ -3385,7 +3366,7 @@
 											<key>Background Color</key>
 											<dict>
 												<key>Blue Component</key>
-												<real>0.15170273184776309</real>
+												<real>0.15170273184776306</real>
 												<key>Green Component</key>
 												<real>0.11783610284328461</real>
 												<key>Red Component</key>
@@ -3396,7 +3377,7 @@
 											<key>Background Image Location</key>
 											<string></string>
 											<key>Blend</key>
-											<real>0.30000001192092901</real>
+											<real>0.30000001192092896</real>
 											<key>Blink Allowed</key>
 											<false/>
 											<key>Blinking Cursor</key>
@@ -3404,7 +3385,7 @@
 											<key>Blur</key>
 											<false/>
 											<key>Blur Radius</key>
-											<real>10.99293899536133</real>
+											<real>10.992938995361328</real>
 											<key>Bold Color</key>
 											<dict>
 												<key>Blue Component</key>
@@ -3429,14 +3410,14 @@
 												<key>Green Component</key>
 												<real>0.50962930917739868</real>
 												<key>Red Component</key>
-												<real>0.44058024883270258</real>
+												<real>0.44058024883270264</real>
 											</dict>
 											<key>Cursor Text Color</key>
 											<dict>
 												<key>Blue Component</key>
 												<real>0.19370138645172119</real>
 												<key>Green Component</key>
-												<real>0.15575926005840299</real>
+												<real>0.15575926005840302</real>
 												<key>Red Component</key>
 												<real>0.0</real>
 											</dict>
@@ -3463,10 +3444,10 @@
 												<key>Green Component</key>
 												<real>0.50962930917739868</real>
 												<key>Red Component</key>
-												<real>0.44058024883270258</real>
+												<real>0.44058024883270264</real>
 											</dict>
 											<key>Guid</key>
-											<string>ED5D36F3-F0E2-4A06-A4B5-697A2DA69F2C</string>
+											<string>B9587846-E5D3-4F09-ABF0-A64C5901D678</string>
 											<key>Hide After Opening</key>
 											<false/>
 											<key>Horizontal Spacing</key>
@@ -3781,15 +3762,15 @@
 											<key>Name</key>
 											<string>dev#1</string>
 											<key>Non Ascii Font</key>
-											<string>DejaVuSansMono 12</string>
+											<string>DejaVuSansMono 20</string>
 											<key>Non-ASCII Anti Aliased</key>
 											<true/>
 											<key>Normal Font</key>
-											<string>DejaVuSansMono 12</string>
+											<string>DejaVuSansMono 20</string>
 											<key>Option Key Sends</key>
 											<integer>0</integer>
 											<key>Original Guid</key>
-											<string>5D426631-7701-4BFA-B2F1-7632C271DFD5</string>
+											<string>ED5D36F3-F0E2-4A06-A4B5-697A2DA69F2C</string>
 											<key>Prompt Before Closing 2</key>
 											<integer>0</integer>
 											<key>Right Option Key Sends</key>
@@ -3818,7 +3799,7 @@
 												<key>Blue Component</key>
 												<real>0.19370138645172119</real>
 												<key>Green Component</key>
-												<real>0.15575926005840299</real>
+												<real>0.15575926005840302</real>
 												<key>Red Component</key>
 												<real>0.0</real>
 											</dict>
@@ -3962,9 +3943,9 @@
 											<string>/Users/hnoe</string>
 										</dict>
 										<key>Columns</key>
-										<integer>181</integer>
+										<integer>146</integer>
 										<key>Rows</key>
-										<integer>55</integer>
+										<integer>43</integer>
 										<key>Working Directory</key>
 										<string>/Users/lgick/Sites/tank</string>
 									</dict>
@@ -3973,9 +3954,9 @@
 									<key>frame</key>
 									<dict>
 										<key>height</key>
-										<real>778</real>
+										<real>1058</real>
 										<key>width</key>
-										<real>1280</real>
+										<real>1920</real>
 										<key>x</key>
 										<real>0.0</real>
 										<key>y</key>
@@ -3988,9 +3969,9 @@
 							<key>frame</key>
 							<dict>
 								<key>height</key>
-								<real>778</real>
+								<real>1058</real>
 								<key>width</key>
-								<real>1280</real>
+								<real>1920</real>
 								<key>x</key>
 								<real>0.0</real>
 								<key>y</key>
@@ -4035,27 +4016,27 @@
 												<key>Blue Component</key>
 												<real>0.19370138645172119</real>
 												<key>Green Component</key>
-												<real>0.15575926005840299</real>
+												<real>0.15575926005840302</real>
 												<key>Red Component</key>
 												<real>0.0</real>
 											</dict>
 											<key>Ansi 1 Color</key>
 											<dict>
 												<key>Blue Component</key>
-												<real>0.1414571404457092</real>
+												<real>0.14145714044570923</real>
 												<key>Green Component</key>
-												<real>0.10840655118227011</real>
+												<real>0.10840655118227005</real>
 												<key>Red Component</key>
 												<real>0.81926977634429932</real>
 											</dict>
 											<key>Ansi 10 Color</key>
 											<dict>
 												<key>Blue Component</key>
-												<real>0.38298487663269037</real>
+												<real>0.38298487663269043</real>
 												<key>Green Component</key>
-												<real>0.35665956139564509</real>
+												<real>0.35665956139564514</real>
 												<key>Red Component</key>
-												<real>0.27671992778778082</real>
+												<real>0.27671992778778076</real>
 											</dict>
 											<key>Ansi 11 Color</key>
 											<dict>
@@ -4064,7 +4045,7 @@
 												<key>Green Component</key>
 												<real>0.40717673301696777</real>
 												<key>Red Component</key>
-												<real>0.32436618208885187</real>
+												<real>0.32436618208885193</real>
 											</dict>
 											<key>Ansi 12 Color</key>
 											<dict>
@@ -4073,14 +4054,14 @@
 												<key>Green Component</key>
 												<real>0.50962930917739868</real>
 												<key>Red Component</key>
-												<real>0.44058024883270258</real>
+												<real>0.44058024883270264</real>
 											</dict>
 											<key>Ansi 13 Color</key>
 											<dict>
 												<key>Blue Component</key>
 												<real>0.72908437252044678</real>
 												<key>Green Component</key>
-												<real>0.33896297216415411</real>
+												<real>0.33896297216415405</real>
 												<key>Red Component</key>
 												<real>0.34798634052276611</real>
 											</dict>
@@ -4105,16 +4086,16 @@
 											<key>Ansi 2 Color</key>
 											<dict>
 												<key>Blue Component</key>
-												<real>0.02020875550806522</real>
+												<real>0.020208755508065224</real>
 												<key>Green Component</key>
 												<real>0.54115492105484009</real>
 												<key>Red Component</key>
-												<real>0.44977453351020807</real>
+												<real>0.44977453351020813</real>
 											</dict>
 											<key>Ansi 3 Color</key>
 											<dict>
 												<key>Blue Component</key>
-												<real>0.02348481118679047</real>
+												<real>0.023484811186790466</real>
 												<key>Green Component</key>
 												<real>0.46751424670219421</real>
 												<key>Red Component</key>
@@ -4125,16 +4106,16 @@
 												<key>Blue Component</key>
 												<real>0.78231418132781982</real>
 												<key>Green Component</key>
-												<real>0.46265947818756098</real>
+												<real>0.46265947818756104</real>
 												<key>Red Component</key>
-												<real>0.12754884362220761</real>
+												<real>0.12754884362220764</real>
 											</dict>
 											<key>Ansi 5 Color</key>
 											<dict>
 												<key>Blue Component</key>
 												<real>0.43516635894775391</real>
 												<key>Green Component</key>
-												<real>0.10802463442087171</real>
+												<real>0.10802463442087173</real>
 												<key>Red Component</key>
 												<real>0.77738940715789795</real>
 											</dict>
@@ -4159,7 +4140,7 @@
 											<key>Ansi 8 Color</key>
 											<dict>
 												<key>Blue Component</key>
-												<real>0.15170273184776309</real>
+												<real>0.15170273184776306</real>
 												<key>Green Component</key>
 												<real>0.11783610284328461</real>
 												<key>Red Component</key>
@@ -4170,7 +4151,7 @@
 												<key>Blue Component</key>
 												<real>0.073530435562133789</real>
 												<key>Green Component</key>
-												<real>0.21325300633907321</real>
+												<real>0.21325300633907318</real>
 												<key>Red Component</key>
 												<real>0.74176257848739624</real>
 											</dict>
@@ -4181,7 +4162,7 @@
 											<key>Background Color</key>
 											<dict>
 												<key>Blue Component</key>
-												<real>0.15170273184776309</real>
+												<real>0.15170273184776306</real>
 												<key>Green Component</key>
 												<real>0.11783610284328461</real>
 												<key>Red Component</key>
@@ -4192,7 +4173,7 @@
 											<key>Background Image Location</key>
 											<string></string>
 											<key>Blend</key>
-											<real>0.30000001192092901</real>
+											<real>0.30000001192092896</real>
 											<key>Blink Allowed</key>
 											<false/>
 											<key>Blinking Cursor</key>
@@ -4200,7 +4181,7 @@
 											<key>Blur</key>
 											<false/>
 											<key>Blur Radius</key>
-											<real>10.99293899536133</real>
+											<real>10.992938995361328</real>
 											<key>Bold Color</key>
 											<dict>
 												<key>Blue Component</key>
@@ -4225,14 +4206,14 @@
 												<key>Green Component</key>
 												<real>0.50962930917739868</real>
 												<key>Red Component</key>
-												<real>0.44058024883270258</real>
+												<real>0.44058024883270264</real>
 											</dict>
 											<key>Cursor Text Color</key>
 											<dict>
 												<key>Blue Component</key>
 												<real>0.19370138645172119</real>
 												<key>Green Component</key>
-												<real>0.15575926005840299</real>
+												<real>0.15575926005840302</real>
 												<key>Red Component</key>
 												<real>0.0</real>
 											</dict>
@@ -4259,10 +4240,10 @@
 												<key>Green Component</key>
 												<real>0.50962930917739868</real>
 												<key>Red Component</key>
-												<real>0.44058024883270258</real>
+												<real>0.44058024883270264</real>
 											</dict>
 											<key>Guid</key>
-											<string>31AAC6C8-F708-4E4A-9BC0-F8A6C032AB88</string>
+											<string>CE165774-E71E-4A11-9532-9ABC2DB2E00D</string>
 											<key>Hide After Opening</key>
 											<false/>
 											<key>Horizontal Spacing</key>
@@ -4577,15 +4558,15 @@
 											<key>Name</key>
 											<string>dev#2</string>
 											<key>Non Ascii Font</key>
-											<string>DejaVuSansMono 12</string>
+											<string>DejaVuSansMono 20</string>
 											<key>Non-ASCII Anti Aliased</key>
 											<true/>
 											<key>Normal Font</key>
-											<string>DejaVuSansMono 12</string>
+											<string>DejaVuSansMono 20</string>
 											<key>Option Key Sends</key>
 											<integer>0</integer>
 											<key>Original Guid</key>
-											<string>F10A1937-CDEB-43E7-B74A-24B0858DF85A</string>
+											<string>31AAC6C8-F708-4E4A-9BC0-F8A6C032AB88</string>
 											<key>Prompt Before Closing 2</key>
 											<integer>0</integer>
 											<key>Right Option Key Sends</key>
@@ -4614,7 +4595,7 @@
 												<key>Blue Component</key>
 												<real>0.19370138645172119</real>
 												<key>Green Component</key>
-												<real>0.15575926005840299</real>
+												<real>0.15575926005840302</real>
 												<key>Red Component</key>
 												<real>0.0</real>
 											</dict>
@@ -4758,9 +4739,9 @@
 											<string>/Users/hnoe</string>
 										</dict>
 										<key>Columns</key>
-										<integer>181</integer>
+										<integer>146</integer>
 										<key>Rows</key>
-										<integer>55</integer>
+										<integer>43</integer>
 										<key>Working Directory</key>
 										<string>/Users/lgick/Sites/tank/public/js</string>
 									</dict>
@@ -4769,9 +4750,9 @@
 									<key>frame</key>
 									<dict>
 										<key>height</key>
-										<real>778</real>
+										<real>1058</real>
 										<key>width</key>
-										<real>1280</real>
+										<real>1920</real>
 										<key>x</key>
 										<real>0.0</real>
 										<key>y</key>
@@ -4784,9 +4765,9 @@
 							<key>frame</key>
 							<dict>
 								<key>height</key>
-								<real>778</real>
+								<real>1058</real>
 								<key>width</key>
-								<real>1280</real>
+								<real>1920</real>
 								<key>x</key>
 								<real>0.0</real>
 								<key>y</key>
@@ -4831,27 +4812,27 @@
 												<key>Blue Component</key>
 												<real>0.19370138645172119</real>
 												<key>Green Component</key>
-												<real>0.15575926005840299</real>
+												<real>0.15575926005840302</real>
 												<key>Red Component</key>
 												<real>0.0</real>
 											</dict>
 											<key>Ansi 1 Color</key>
 											<dict>
 												<key>Blue Component</key>
-												<real>0.1414571404457092</real>
+												<real>0.14145714044570923</real>
 												<key>Green Component</key>
-												<real>0.10840655118227011</real>
+												<real>0.10840655118227005</real>
 												<key>Red Component</key>
 												<real>0.81926977634429932</real>
 											</dict>
 											<key>Ansi 10 Color</key>
 											<dict>
 												<key>Blue Component</key>
-												<real>0.38298487663269037</real>
+												<real>0.38298487663269043</real>
 												<key>Green Component</key>
-												<real>0.35665956139564509</real>
+												<real>0.35665956139564514</real>
 												<key>Red Component</key>
-												<real>0.27671992778778082</real>
+												<real>0.27671992778778076</real>
 											</dict>
 											<key>Ansi 11 Color</key>
 											<dict>
@@ -4860,7 +4841,7 @@
 												<key>Green Component</key>
 												<real>0.40717673301696777</real>
 												<key>Red Component</key>
-												<real>0.32436618208885187</real>
+												<real>0.32436618208885193</real>
 											</dict>
 											<key>Ansi 12 Color</key>
 											<dict>
@@ -4869,14 +4850,14 @@
 												<key>Green Component</key>
 												<real>0.50962930917739868</real>
 												<key>Red Component</key>
-												<real>0.44058024883270258</real>
+												<real>0.44058024883270264</real>
 											</dict>
 											<key>Ansi 13 Color</key>
 											<dict>
 												<key>Blue Component</key>
 												<real>0.72908437252044678</real>
 												<key>Green Component</key>
-												<real>0.33896297216415411</real>
+												<real>0.33896297216415405</real>
 												<key>Red Component</key>
 												<real>0.34798634052276611</real>
 											</dict>
@@ -4901,16 +4882,16 @@
 											<key>Ansi 2 Color</key>
 											<dict>
 												<key>Blue Component</key>
-												<real>0.02020875550806522</real>
+												<real>0.020208755508065224</real>
 												<key>Green Component</key>
 												<real>0.54115492105484009</real>
 												<key>Red Component</key>
-												<real>0.44977453351020807</real>
+												<real>0.44977453351020813</real>
 											</dict>
 											<key>Ansi 3 Color</key>
 											<dict>
 												<key>Blue Component</key>
-												<real>0.02348481118679047</real>
+												<real>0.023484811186790466</real>
 												<key>Green Component</key>
 												<real>0.46751424670219421</real>
 												<key>Red Component</key>
@@ -4921,16 +4902,16 @@
 												<key>Blue Component</key>
 												<real>0.78231418132781982</real>
 												<key>Green Component</key>
-												<real>0.46265947818756098</real>
+												<real>0.46265947818756104</real>
 												<key>Red Component</key>
-												<real>0.12754884362220761</real>
+												<real>0.12754884362220764</real>
 											</dict>
 											<key>Ansi 5 Color</key>
 											<dict>
 												<key>Blue Component</key>
 												<real>0.43516635894775391</real>
 												<key>Green Component</key>
-												<real>0.10802463442087171</real>
+												<real>0.10802463442087173</real>
 												<key>Red Component</key>
 												<real>0.77738940715789795</real>
 											</dict>
@@ -4955,7 +4936,7 @@
 											<key>Ansi 8 Color</key>
 											<dict>
 												<key>Blue Component</key>
-												<real>0.15170273184776309</real>
+												<real>0.15170273184776306</real>
 												<key>Green Component</key>
 												<real>0.11783610284328461</real>
 												<key>Red Component</key>
@@ -4966,7 +4947,7 @@
 												<key>Blue Component</key>
 												<real>0.073530435562133789</real>
 												<key>Green Component</key>
-												<real>0.21325300633907321</real>
+												<real>0.21325300633907318</real>
 												<key>Red Component</key>
 												<real>0.74176257848739624</real>
 											</dict>
@@ -4977,7 +4958,7 @@
 											<key>Background Color</key>
 											<dict>
 												<key>Blue Component</key>
-												<real>0.15170273184776309</real>
+												<real>0.15170273184776306</real>
 												<key>Green Component</key>
 												<real>0.11783610284328461</real>
 												<key>Red Component</key>
@@ -4988,7 +4969,7 @@
 											<key>Background Image Location</key>
 											<string></string>
 											<key>Blend</key>
-											<real>0.30000001192092901</real>
+											<real>0.30000001192092896</real>
 											<key>Blink Allowed</key>
 											<false/>
 											<key>Blinking Cursor</key>
@@ -4996,7 +4977,7 @@
 											<key>Blur</key>
 											<false/>
 											<key>Blur Radius</key>
-											<real>10.99293899536133</real>
+											<real>10.992938995361328</real>
 											<key>Bold Color</key>
 											<dict>
 												<key>Blue Component</key>
@@ -5021,14 +5002,14 @@
 												<key>Green Component</key>
 												<real>0.50962930917739868</real>
 												<key>Red Component</key>
-												<real>0.44058024883270258</real>
+												<real>0.44058024883270264</real>
 											</dict>
 											<key>Cursor Text Color</key>
 											<dict>
 												<key>Blue Component</key>
 												<real>0.19370138645172119</real>
 												<key>Green Component</key>
-												<real>0.15575926005840299</real>
+												<real>0.15575926005840302</real>
 												<key>Red Component</key>
 												<real>0.0</real>
 											</dict>
@@ -5055,10 +5036,10 @@
 												<key>Green Component</key>
 												<real>0.50962930917739868</real>
 												<key>Red Component</key>
-												<real>0.44058024883270258</real>
+												<real>0.44058024883270264</real>
 											</dict>
 											<key>Guid</key>
-											<string>74840F20-9079-4FD1-AD64-B13A09519F5C</string>
+											<string>018F9ECD-7602-4C6E-9E60-00B552DCCDA0</string>
 											<key>Hide After Opening</key>
 											<false/>
 											<key>Horizontal Spacing</key>
@@ -5373,15 +5354,15 @@
 											<key>Name</key>
 											<string>dev++</string>
 											<key>Non Ascii Font</key>
-											<string>DejaVuSansMono 12</string>
+											<string>DejaVuSansMono 20</string>
 											<key>Non-ASCII Anti Aliased</key>
 											<true/>
 											<key>Normal Font</key>
-											<string>DejaVuSansMono 12</string>
+											<string>DejaVuSansMono 20</string>
 											<key>Option Key Sends</key>
 											<integer>0</integer>
 											<key>Original Guid</key>
-											<string>6AAE4851-FDD2-40CD-85B0-5044591F6AF4</string>
+											<string>74840F20-9079-4FD1-AD64-B13A09519F5C</string>
 											<key>Prompt Before Closing 2</key>
 											<integer>0</integer>
 											<key>Right Option Key Sends</key>
@@ -5410,7 +5391,7 @@
 												<key>Blue Component</key>
 												<real>0.19370138645172119</real>
 												<key>Green Component</key>
-												<real>0.15575926005840299</real>
+												<real>0.15575926005840302</real>
 												<key>Red Component</key>
 												<real>0.0</real>
 											</dict>
@@ -5554,9 +5535,9 @@
 											<string>/Users/hnoe</string>
 										</dict>
 										<key>Columns</key>
-										<integer>181</integer>
+										<integer>146</integer>
 										<key>Rows</key>
-										<integer>55</integer>
+										<integer>43</integer>
 										<key>Working Directory</key>
 										<string>/Users/lgick/Sites/tank</string>
 									</dict>
@@ -5565,9 +5546,9 @@
 									<key>frame</key>
 									<dict>
 										<key>height</key>
-										<real>778</real>
+										<real>1058</real>
 										<key>width</key>
-										<real>1280</real>
+										<real>1920</real>
 										<key>x</key>
 										<real>0.0</real>
 										<key>y</key>
@@ -5580,9 +5561,9 @@
 							<key>frame</key>
 							<dict>
 								<key>height</key>
-								<real>778</real>
+								<real>1058</real>
 								<key>width</key>
-								<real>1280</real>
+								<real>1920</real>
 								<key>x</key>
 								<real>0.0</real>
 								<key>y</key>
@@ -5627,27 +5608,27 @@
 												<key>Blue Component</key>
 												<real>0.19370138645172119</real>
 												<key>Green Component</key>
-												<real>0.15575926005840299</real>
+												<real>0.15575926005840302</real>
 												<key>Red Component</key>
 												<real>0.0</real>
 											</dict>
 											<key>Ansi 1 Color</key>
 											<dict>
 												<key>Blue Component</key>
-												<real>0.1414571404457092</real>
+												<real>0.14145714044570923</real>
 												<key>Green Component</key>
-												<real>0.10840655118227011</real>
+												<real>0.10840655118227005</real>
 												<key>Red Component</key>
 												<real>0.81926977634429932</real>
 											</dict>
 											<key>Ansi 10 Color</key>
 											<dict>
 												<key>Blue Component</key>
-												<real>0.38298487663269037</real>
+												<real>0.38298487663269043</real>
 												<key>Green Component</key>
-												<real>0.35665956139564509</real>
+												<real>0.35665956139564514</real>
 												<key>Red Component</key>
-												<real>0.27671992778778082</real>
+												<real>0.27671992778778076</real>
 											</dict>
 											<key>Ansi 11 Color</key>
 											<dict>
@@ -5656,7 +5637,7 @@
 												<key>Green Component</key>
 												<real>0.40717673301696777</real>
 												<key>Red Component</key>
-												<real>0.32436618208885187</real>
+												<real>0.32436618208885193</real>
 											</dict>
 											<key>Ansi 12 Color</key>
 											<dict>
@@ -5665,14 +5646,14 @@
 												<key>Green Component</key>
 												<real>0.50962930917739868</real>
 												<key>Red Component</key>
-												<real>0.44058024883270258</real>
+												<real>0.44058024883270264</real>
 											</dict>
 											<key>Ansi 13 Color</key>
 											<dict>
 												<key>Blue Component</key>
 												<real>0.72908437252044678</real>
 												<key>Green Component</key>
-												<real>0.33896297216415411</real>
+												<real>0.33896297216415405</real>
 												<key>Red Component</key>
 												<real>0.34798634052276611</real>
 											</dict>
@@ -5697,16 +5678,16 @@
 											<key>Ansi 2 Color</key>
 											<dict>
 												<key>Blue Component</key>
-												<real>0.02020875550806522</real>
+												<real>0.020208755508065224</real>
 												<key>Green Component</key>
 												<real>0.54115492105484009</real>
 												<key>Red Component</key>
-												<real>0.44977453351020807</real>
+												<real>0.44977453351020813</real>
 											</dict>
 											<key>Ansi 3 Color</key>
 											<dict>
 												<key>Blue Component</key>
-												<real>0.02348481118679047</real>
+												<real>0.023484811186790466</real>
 												<key>Green Component</key>
 												<real>0.46751424670219421</real>
 												<key>Red Component</key>
@@ -5717,16 +5698,16 @@
 												<key>Blue Component</key>
 												<real>0.78231418132781982</real>
 												<key>Green Component</key>
-												<real>0.46265947818756098</real>
+												<real>0.46265947818756104</real>
 												<key>Red Component</key>
-												<real>0.12754884362220761</real>
+												<real>0.12754884362220764</real>
 											</dict>
 											<key>Ansi 5 Color</key>
 											<dict>
 												<key>Blue Component</key>
 												<real>0.43516635894775391</real>
 												<key>Green Component</key>
-												<real>0.10802463442087171</real>
+												<real>0.10802463442087173</real>
 												<key>Red Component</key>
 												<real>0.77738940715789795</real>
 											</dict>
@@ -5751,7 +5732,7 @@
 											<key>Ansi 8 Color</key>
 											<dict>
 												<key>Blue Component</key>
-												<real>0.15170273184776309</real>
+												<real>0.15170273184776306</real>
 												<key>Green Component</key>
 												<real>0.11783610284328461</real>
 												<key>Red Component</key>
@@ -5762,7 +5743,7 @@
 												<key>Blue Component</key>
 												<real>0.073530435562133789</real>
 												<key>Green Component</key>
-												<real>0.21325300633907321</real>
+												<real>0.21325300633907318</real>
 												<key>Red Component</key>
 												<real>0.74176257848739624</real>
 											</dict>
@@ -5773,7 +5754,7 @@
 											<key>Background Color</key>
 											<dict>
 												<key>Blue Component</key>
-												<real>0.15170273184776309</real>
+												<real>0.15170273184776306</real>
 												<key>Green Component</key>
 												<real>0.11783610284328461</real>
 												<key>Red Component</key>
@@ -5784,7 +5765,7 @@
 											<key>Background Image Location</key>
 											<string></string>
 											<key>Blend</key>
-											<real>0.30000001192092901</real>
+											<real>0.30000001192092896</real>
 											<key>Blink Allowed</key>
 											<false/>
 											<key>Blinking Cursor</key>
@@ -5792,7 +5773,7 @@
 											<key>Blur</key>
 											<false/>
 											<key>Blur Radius</key>
-											<real>10.99293899536133</real>
+											<real>10.992938995361328</real>
 											<key>Bold Color</key>
 											<dict>
 												<key>Blue Component</key>
@@ -5817,14 +5798,14 @@
 												<key>Green Component</key>
 												<real>0.50962930917739868</real>
 												<key>Red Component</key>
-												<real>0.44058024883270258</real>
+												<real>0.44058024883270264</real>
 											</dict>
 											<key>Cursor Text Color</key>
 											<dict>
 												<key>Blue Component</key>
 												<real>0.19370138645172119</real>
 												<key>Green Component</key>
-												<real>0.15575926005840299</real>
+												<real>0.15575926005840302</real>
 												<key>Red Component</key>
 												<real>0.0</real>
 											</dict>
@@ -5851,10 +5832,10 @@
 												<key>Green Component</key>
 												<real>0.50962930917739868</real>
 												<key>Red Component</key>
-												<real>0.44058024883270258</real>
+												<real>0.44058024883270264</real>
 											</dict>
 											<key>Guid</key>
-											<string>797A34A3-B0DB-4981-A015-1F389941EC86</string>
+											<string>2A39BD87-BDB9-412F-A40A-6934BD76343D</string>
 											<key>Hide After Opening</key>
 											<false/>
 											<key>Horizontal Spacing</key>
@@ -6169,15 +6150,15 @@
 											<key>Name</key>
 											<string>git</string>
 											<key>Non Ascii Font</key>
-											<string>DejaVuSansMono 12</string>
+											<string>DejaVuSansMono 20</string>
 											<key>Non-ASCII Anti Aliased</key>
 											<true/>
 											<key>Normal Font</key>
-											<string>DejaVuSansMono 12</string>
+											<string>DejaVuSansMono 20</string>
 											<key>Option Key Sends</key>
 											<integer>0</integer>
 											<key>Original Guid</key>
-											<string>2235D245-8F59-4589-8237-965ED5C5A542</string>
+											<string>797A34A3-B0DB-4981-A015-1F389941EC86</string>
 											<key>Prompt Before Closing 2</key>
 											<integer>0</integer>
 											<key>Right Option Key Sends</key>
@@ -6206,7 +6187,7 @@
 												<key>Blue Component</key>
 												<real>0.19370138645172119</real>
 												<key>Green Component</key>
-												<real>0.15575926005840299</real>
+												<real>0.15575926005840302</real>
 												<key>Red Component</key>
 												<real>0.0</real>
 											</dict>
@@ -6350,9 +6331,9 @@
 											<string>/Users/hnoe</string>
 										</dict>
 										<key>Columns</key>
-										<integer>181</integer>
+										<integer>146</integer>
 										<key>Rows</key>
-										<integer>55</integer>
+										<integer>43</integer>
 										<key>Working Directory</key>
 										<string>/Users/lgick/Sites/tank</string>
 									</dict>
@@ -6361,9 +6342,9 @@
 									<key>frame</key>
 									<dict>
 										<key>height</key>
-										<real>778</real>
+										<real>1058</real>
 										<key>width</key>
-										<real>1280</real>
+										<real>1920</real>
 										<key>x</key>
 										<real>0.0</real>
 										<key>y</key>
@@ -6376,9 +6357,9 @@
 							<key>frame</key>
 							<dict>
 								<key>height</key>
-								<real>778</real>
+								<real>1058</real>
 								<key>width</key>
-								<real>1280</real>
+								<real>1920</real>
 								<key>x</key>
 								<real>0.0</real>
 								<key>y</key>
@@ -6423,27 +6404,27 @@
 												<key>Blue Component</key>
 												<real>0.19370138645172119</real>
 												<key>Green Component</key>
-												<real>0.15575926005840299</real>
+												<real>0.15575926005840302</real>
 												<key>Red Component</key>
 												<real>0.0</real>
 											</dict>
 											<key>Ansi 1 Color</key>
 											<dict>
 												<key>Blue Component</key>
-												<real>0.1414571404457092</real>
+												<real>0.14145714044570923</real>
 												<key>Green Component</key>
-												<real>0.10840655118227011</real>
+												<real>0.10840655118227005</real>
 												<key>Red Component</key>
 												<real>0.81926977634429932</real>
 											</dict>
 											<key>Ansi 10 Color</key>
 											<dict>
 												<key>Blue Component</key>
-												<real>0.38298487663269037</real>
+												<real>0.38298487663269043</real>
 												<key>Green Component</key>
-												<real>0.35665956139564509</real>
+												<real>0.35665956139564514</real>
 												<key>Red Component</key>
-												<real>0.27671992778778082</real>
+												<real>0.27671992778778076</real>
 											</dict>
 											<key>Ansi 11 Color</key>
 											<dict>
@@ -6452,7 +6433,7 @@
 												<key>Green Component</key>
 												<real>0.40717673301696777</real>
 												<key>Red Component</key>
-												<real>0.32436618208885187</real>
+												<real>0.32436618208885193</real>
 											</dict>
 											<key>Ansi 12 Color</key>
 											<dict>
@@ -6461,14 +6442,14 @@
 												<key>Green Component</key>
 												<real>0.50962930917739868</real>
 												<key>Red Component</key>
-												<real>0.44058024883270258</real>
+												<real>0.44058024883270264</real>
 											</dict>
 											<key>Ansi 13 Color</key>
 											<dict>
 												<key>Blue Component</key>
 												<real>0.72908437252044678</real>
 												<key>Green Component</key>
-												<real>0.33896297216415411</real>
+												<real>0.33896297216415405</real>
 												<key>Red Component</key>
 												<real>0.34798634052276611</real>
 											</dict>
@@ -6493,16 +6474,16 @@
 											<key>Ansi 2 Color</key>
 											<dict>
 												<key>Blue Component</key>
-												<real>0.02020875550806522</real>
+												<real>0.020208755508065224</real>
 												<key>Green Component</key>
 												<real>0.54115492105484009</real>
 												<key>Red Component</key>
-												<real>0.44977453351020807</real>
+												<real>0.44977453351020813</real>
 											</dict>
 											<key>Ansi 3 Color</key>
 											<dict>
 												<key>Blue Component</key>
-												<real>0.02348481118679047</real>
+												<real>0.023484811186790466</real>
 												<key>Green Component</key>
 												<real>0.46751424670219421</real>
 												<key>Red Component</key>
@@ -6513,16 +6494,16 @@
 												<key>Blue Component</key>
 												<real>0.78231418132781982</real>
 												<key>Green Component</key>
-												<real>0.46265947818756098</real>
+												<real>0.46265947818756104</real>
 												<key>Red Component</key>
-												<real>0.12754884362220761</real>
+												<real>0.12754884362220764</real>
 											</dict>
 											<key>Ansi 5 Color</key>
 											<dict>
 												<key>Blue Component</key>
 												<real>0.43516635894775391</real>
 												<key>Green Component</key>
-												<real>0.10802463442087171</real>
+												<real>0.10802463442087173</real>
 												<key>Red Component</key>
 												<real>0.77738940715789795</real>
 											</dict>
@@ -6547,7 +6528,7 @@
 											<key>Ansi 8 Color</key>
 											<dict>
 												<key>Blue Component</key>
-												<real>0.15170273184776309</real>
+												<real>0.15170273184776306</real>
 												<key>Green Component</key>
 												<real>0.11783610284328461</real>
 												<key>Red Component</key>
@@ -6558,7 +6539,7 @@
 												<key>Blue Component</key>
 												<real>0.073530435562133789</real>
 												<key>Green Component</key>
-												<real>0.21325300633907321</real>
+												<real>0.21325300633907318</real>
 												<key>Red Component</key>
 												<real>0.74176257848739624</real>
 											</dict>
@@ -6569,7 +6550,7 @@
 											<key>Background Color</key>
 											<dict>
 												<key>Blue Component</key>
-												<real>0.15170273184776309</real>
+												<real>0.15170273184776306</real>
 												<key>Green Component</key>
 												<real>0.11783610284328461</real>
 												<key>Red Component</key>
@@ -6580,7 +6561,7 @@
 											<key>Background Image Location</key>
 											<string></string>
 											<key>Blend</key>
-											<real>0.30000001192092901</real>
+											<real>0.30000001192092896</real>
 											<key>Blink Allowed</key>
 											<false/>
 											<key>Blinking Cursor</key>
@@ -6588,7 +6569,7 @@
 											<key>Blur</key>
 											<false/>
 											<key>Blur Radius</key>
-											<real>10.99293899536133</real>
+											<real>10.992938995361328</real>
 											<key>Bold Color</key>
 											<dict>
 												<key>Blue Component</key>
@@ -6613,14 +6594,14 @@
 												<key>Green Component</key>
 												<real>0.50962930917739868</real>
 												<key>Red Component</key>
-												<real>0.44058024883270258</real>
+												<real>0.44058024883270264</real>
 											</dict>
 											<key>Cursor Text Color</key>
 											<dict>
 												<key>Blue Component</key>
 												<real>0.19370138645172119</real>
 												<key>Green Component</key>
-												<real>0.15575926005840299</real>
+												<real>0.15575926005840302</real>
 												<key>Red Component</key>
 												<real>0.0</real>
 											</dict>
@@ -6647,10 +6628,10 @@
 												<key>Green Component</key>
 												<real>0.50962930917739868</real>
 												<key>Red Component</key>
-												<real>0.44058024883270258</real>
+												<real>0.44058024883270264</real>
 											</dict>
 											<key>Guid</key>
-											<string>8AC50191-6219-4E59-B96B-7E48AB1B2BC5</string>
+											<string>B6D38A56-D85D-40E0-95D2-04AA1ACCFE79</string>
 											<key>Hide After Opening</key>
 											<false/>
 											<key>Horizontal Spacing</key>
@@ -6965,15 +6946,15 @@
 											<key>Name</key>
 											<string>(.)(.)</string>
 											<key>Non Ascii Font</key>
-											<string>DejaVuSansMono 12</string>
+											<string>DejaVuSansMono 20</string>
 											<key>Non-ASCII Anti Aliased</key>
 											<true/>
 											<key>Normal Font</key>
-											<string>DejaVuSansMono 12</string>
+											<string>DejaVuSansMono 20</string>
 											<key>Option Key Sends</key>
 											<integer>0</integer>
 											<key>Original Guid</key>
-											<string>8DF08B6D-92BB-4E4C-946D-F70A73E0CC1C</string>
+											<string>8AC50191-6219-4E59-B96B-7E48AB1B2BC5</string>
 											<key>Prompt Before Closing 2</key>
 											<integer>0</integer>
 											<key>Right Option Key Sends</key>
@@ -7002,7 +6983,7 @@
 												<key>Blue Component</key>
 												<real>0.19370138645172119</real>
 												<key>Green Component</key>
-												<real>0.15575926005840299</real>
+												<real>0.15575926005840302</real>
 												<key>Red Component</key>
 												<real>0.0</real>
 											</dict>
@@ -7146,9 +7127,9 @@
 											<string>/Users/hnoe</string>
 										</dict>
 										<key>Columns</key>
-										<integer>181</integer>
+										<integer>146</integer>
 										<key>Rows</key>
-										<integer>55</integer>
+										<integer>43</integer>
 										<key>Working Directory</key>
 										<string>/Users/lgick</string>
 									</dict>
@@ -7157,9 +7138,9 @@
 									<key>frame</key>
 									<dict>
 										<key>height</key>
-										<real>778</real>
+										<real>1058</real>
 										<key>width</key>
-										<real>1280</real>
+										<real>1920</real>
 										<key>x</key>
 										<real>0.0</real>
 										<key>y</key>
@@ -7172,9 +7153,9 @@
 							<key>frame</key>
 							<dict>
 								<key>height</key>
-								<real>778</real>
+								<real>1058</real>
 								<key>width</key>
-								<real>1280</real>
+								<real>1920</real>
 								<key>x</key>
 								<real>0.0</real>
 								<key>y</key>
@@ -7188,7 +7169,7 @@
 				<key>TerminalGuid</key>
 				<string>pty-C1D605DD-F36F-49F2-A228-8083689E432C</string>
 				<key>Width</key>
-				<real>1280</real>
+				<real>1920</real>
 				<key>Window Type</key>
 				<integer>4</integer>
 				<key>X Origin</key>
@@ -12023,6 +12004,6 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>1.0.0.20140421</string>
+	<string>1.0.0.20130622</string>
 </dict>
 </plist>
