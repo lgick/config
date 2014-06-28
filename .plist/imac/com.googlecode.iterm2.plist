@@ -1496,9 +1496,9 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>625 494 446 270 0 0 1920 1080 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>269 174 924 485 0 0 1920 1080 </string>
+	<string>995 376 924 485 0 0 1920 1058 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>254 -531 1920 1054 0 0 1920 1058 </string>
+	<string>0 26 891 1054 0 0 1920 1080 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>317 55 892 552 0 0 1920 1058 </string>
 	<key>New Bookmarks</key>
@@ -1690,9 +1690,9 @@
 			<key>Blinking Cursor</key>
 			<false/>
 			<key>Blur</key>
-			<false/>
+			<true/>
 			<key>Blur Radius</key>
-			<real>10.992938995361328</real>
+			<real>0.10000000149011612</real>
 			<key>Bold Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -2225,7 +2225,7 @@
 			<key>Terminal Type</key>
 			<string>xterm-256color</string>
 			<key>Transparency</key>
-			<real>0.0</real>
+			<real>0.042561944574117661</real>
 			<key>Triggers</key>
 			<array/>
 			<key>Unlimited Scrollback</key>
@@ -2243,7 +2243,7 @@
 			<key>Visual Bell</key>
 			<true/>
 			<key>Window Type</key>
-			<integer>0</integer>
+			<integer>6</integer>
 			<key>Working Directory</key>
 			<string>/Users/lgick</string>
 		</dict>
