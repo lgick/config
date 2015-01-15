@@ -16,7 +16,8 @@ Bundle 'gmarik/vundle'
 Bundle 'scrooloose/nerdtree'
 
 " UltiSnips: вставляет текстовый шаблон. Использование: слово + <tab>
-Bundle 'SirVer/ultisnips.git'
+Bundle 'SirVer/ultisnips'
+Bundle 'honza/vim-snippets'
 let g:UltiSnipsExpandTrigger='<tab>'
 let g:UltiSnipsJumpForwardTrigger='<tab>'
 let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
@@ -61,6 +62,15 @@ let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
 let g:neocomplete#sources#syntax#min_keyword_length = 3
 let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+" Colorschemes: цветовые схемы
+Bundle 'flazz/vim-colorschemes.git'
+
+" Colorswitcher: переключение цветовых схем
+Bundle 'vim-scripts/vim-colorscheme-switcher.git'
+Bundle 'xolox/vim-misc.git'
+let g:colorscheme_switcher_define_mappings = 0
+let g:colorscheme_switcher_keep_background = 1
 
 filetype plugin indent on
 
@@ -136,27 +146,27 @@ endif
 syntax enable
 
 " Фон
-set background=dark
+set background=light
 
 " Поддержка цвета
 set t_Co=256
 
 " Цветовая схема
 try
-  colorscheme solarized
+  colorscheme github
 catch /^Vim\%((\a\+)\)\=:E185/
   colorscheme desert
 endtry
 
 " Цвет невидимых символов
-highlight SpecialKey ctermbg=none ctermfg=15
+"highlight SpecialKey ctermbg=none ctermfg=15
 
 " Цвет колонки-ограничителя
-highlight ColorColumn ctermbg=none ctermfg=11
+"highlight ColorColumn ctermbg=none ctermfg=11
 
 " Цветная колонка-ограничитель
 "set colorcolumn=76
-execute "set colorcolumn=" . join(range(76,335), ',')
+"execute "set colorcolumn=" . join(range(76,335), ',')
 
 " Стили текста за пределами допустимой области
 "highlight OverLength ctermfg=234
@@ -392,28 +402,14 @@ function! FoldingBlocks()
 
 endfunction
 
-" , + s: Меняет цветовую схему
-nmap <Leader>s :call ToggleScheme()<CR>
+" , + sn: Меняет на следующую цветовую схему
+nmap <silent> <Leader>sn :NextColorScheme<CR>
 
-let g:userScheme=0
+" , + sp: Меняет на предыдущую цветовую схему
+nmap <silent> <Leader>sp :PrevColorScheme<CR>
 
-function! ToggleScheme()
-  if(g:userScheme)
-    try
-      colorscheme solarized
-    catch /^Vim\%((\a\+)\)\=:E185/
-      colorscheme desert
-    endtry
-    highlight SpecialKey ctermbg=none ctermfg=15
-    highlight ColorColumn ctermbg=none ctermfg=11
-    let g:userScheme=0
-  else
-    colorscheme desert
-    highlight SpecialKey ctermbg=none ctermfg=15
-    highlight ColorColumn ctermbg=none ctermfg=11
-    let g:userScheme=1
-  endif
-endfunction
+" , + s: Меняет на рандомную цветовую схему
+nmap <silent> <Leader>s :RandomColorScheme<CR>
 
 " , + h: JSHint
 map <silent> <Leader>h :JSHint<CR>
