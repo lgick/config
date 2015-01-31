@@ -146,14 +146,14 @@ endif
 syntax enable
 
 " Фон
-set background=light
+"set background=light
 
 " Поддержка цвета
 set t_Co=256
 
 " Цветовая схема
 try
-  colorscheme github
+  colorscheme lucius
 catch /^Vim\%((\a\+)\)\=:E185/
   colorscheme desert
 endtry
@@ -169,10 +169,10 @@ endtry
 "execute "set colorcolumn=" . join(range(76,335), ',')
 
 " Стили текста за пределами допустимой области
-"highlight OverLength ctermfg=234
+highlight OverLength ctermfg=160
 
 " Допустимая рабочая область
-"match OverLength /\%76v.\+/
+match OverLength /\%80v.\+/
 
 
 " ----------------------------------------
