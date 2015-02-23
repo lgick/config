@@ -159,7 +159,7 @@ catch /^Vim\%((\a\+)\)\=:E185/
 endtry
 
 " Цвет невидимых символов
-"highlight SpecialKey ctermbg=none ctermfg=15
+highlight SpecialKey ctermbg=none ctermfg=160
 
 " Цвет колонки-ограничителя
 "highlight ColorColumn ctermbg=none ctermfg=11
@@ -344,7 +344,13 @@ function! s:GrepOperator(type)
         return
     endif
 
-    execute 'grep! -R ' . shellescape(@@) . ' . --exclude-dir={node_modules,vendor,.git}'
+    " поиск везде, кроме:
+    " - папок node_modules, vendor, .git
+    " - папок начинающихся на '_'
+    " - файлов начинающихся с '_'
+    execute 'grep! -R ' . shellescape(@@) .
+          \ ' . --exclude-dir={node_modules,vendor,.git,_*}
+          \ --exclude="_*"'
     copen
 
     let @@ = saved_unnamed_register
@@ -379,11 +385,11 @@ function! FoldingBlocks()
   let currentline = line('.')
 
   call inputsave()
-  let space = input('how many space (default: 2)? ')
+  let space = input('how many space (default: 0)? ')
   call inputrestore()
 
   if !strlen(space)
-    let space = 2
+    let space = 0
   endif
 
   while i <= lenline
