@@ -1,2 +1,6 @@
 set gui=nonavigation
 set focuscontent
+set defsearch=google
+set! browser.tabs.loadInBackground=false
+set! browser.newtab.url=http://yandex.ru
+set! browser.startup.page=3
