@@ -348,7 +348,7 @@ function! s:GrepOperator(type)
     " - папок node_modules, vendor, .git
     " - папок начинающихся на '_'
     " - файлов начинающихся с '_'
-    execute 'grep! -R ' . shellescape(@@) .
+    execute 'grep! -aR ' . shellescape(@@) .
           \ ' . --exclude-dir={node_modules,vendor,.git,_*}
           \ --exclude="_*"'
     copen
@@ -438,3 +438,9 @@ function! ToggleCursorLight()
     let g:cursorLight=1
   endif
 endfunction
+
+" , + c: Копирование в системный буфер
+vmap <silent> <Leader>c "+y<CR>
+
+" , + v: Вставка из системного буфера
+nmap <silent> <Leader>v "+p<CR>

@@ -1471,7 +1471,7 @@
 	<key>NSFontPanelPreviewHeight</key>
 	<real>0.0</real>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/Downloads/lucius-master/iterm2</string>
+	<string>~/Desktop</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
 	<string>{888, 512}</string>
 	<key>NSNavPanelMediaBrowserTypeForOpenModeKey</key>
@@ -1513,9 +1513,9 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>480 0 800 482 0 0 1280 800 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>178 208 924 485 0 0 1280 800 </string>
+	<string>305 231 605 485 0 0 1280 800 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>131 -302 1280 774 0 0 1280 778 </string>
+	<string>131 -306 1228 778 0 0 1280 778 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>126 309 570 398 0 0 1280 778 </string>
 	<key>New Bookmarks</key>
@@ -2267,6 +2267,10 @@
 	</array>
 	<key>NoSyncNeverRemindPrefsChangesLost</key>
 	<true/>
+	<key>NoSyncTimeOfLastPromo</key>
+	<real>453475571.37477499</real>
+	<key>NoSyncTimeOfLastPromoDownload</key>
+	<real>459546826.36302698</real>
 	<key>OnlyWhenMoreTabs</key>
 	<true/>
 	<key>OpenArrangementAtStartup</key>
@@ -2335,7 +2339,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2015-02-07T08:31:59Z</date>
+	<date>2015-07-25T19:53:39Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Secure Input</key>
@@ -2602,9 +2606,9 @@
 											<key>Background Image Is Tiled</key>
 											<false/>
 											<key>Background Image Location</key>
-											<string></string>
+                      <string>/Users/lgick/.plist/notebook/hedgehog.png</string>
 											<key>Blend</key>
-											<real>0.30000001192092896</real>
+											<real>0.73636549711227417</real>
 											<key>Blink Allowed</key>
 											<false/>
 											<key>Blinking Cursor</key>
@@ -2674,7 +2678,7 @@
 												<real>0.0</real>
 											</dict>
 											<key>Guid</key>
-											<string>8DEE994F-B54E-4596-82AB-4F192207E9AD</string>
+											<string>0A94DEA5-B3F3-4D9F-A3AA-4C52A92A3834</string>
 											<key>Hide After Opening</key>
 											<false/>
 											<key>Horizontal Spacing</key>
@@ -2997,7 +3001,7 @@
 											<key>Option Key Sends</key>
 											<integer>0</integer>
 											<key>Original Guid</key>
-											<string>6E99409F-208D-4D79-B5E2-2A3EFA260340</string>
+											<string>213A5802-A3AF-463D-A3FE-119371041828</string>
 											<key>Prompt Before Closing 2</key>
 											<integer>0</integer>
 											<key>Right Option Key Sends</key>
@@ -3470,7 +3474,7 @@
 												<real>0.0</real>
 											</dict>
 											<key>Guid</key>
-											<string>4E899CB0-6433-498D-AE2B-3215E9104221</string>
+											<string>FE6FDC7A-86CA-47C7-BDE1-5B857FA1D75A</string>
 											<key>Hide After Opening</key>
 											<false/>
 											<key>Horizontal Spacing</key>
@@ -3793,7 +3797,7 @@
 											<key>Option Key Sends</key>
 											<integer>0</integer>
 											<key>Original Guid</key>
-											<string>9BB8EC16-E680-4EE3-8FC0-B4499F3745C9</string>
+											<string>AF576468-1C3F-480D-A012-ADE7ECBF471E</string>
 											<key>Prompt Before Closing 2</key>
 											<integer>0</integer>
 											<key>Right Option Key Sends</key>
@@ -4266,7 +4270,7 @@
 												<real>0.0</real>
 											</dict>
 											<key>Guid</key>
-											<string>C72D614D-4687-419E-9B4C-F1826F9E569E</string>
+											<string>462B3604-6D94-452C-8ECD-4490C1B5F478</string>
 											<key>Hide After Opening</key>
 											<false/>
 											<key>Horizontal Spacing</key>
@@ -4589,7 +4593,7 @@
 											<key>Option Key Sends</key>
 											<integer>0</integer>
 											<key>Original Guid</key>
-											<string>B4B9CBC5-AD02-4168-A714-A511E03BAC7E</string>
+											<string>9CD37E24-A436-4FCC-87FC-A298CCB089EB</string>
 											<key>Prompt Before Closing 2</key>
 											<integer>0</integer>
 											<key>Right Option Key Sends</key>
@@ -5062,7 +5066,7 @@
 												<real>0.0</real>
 											</dict>
 											<key>Guid</key>
-											<string>6232FC89-6FF1-4F68-B0E3-FCCB626591AF</string>
+											<string>43E480E1-4D74-4F2F-B524-DED15622577D</string>
 											<key>Hide After Opening</key>
 											<false/>
 											<key>Horizontal Spacing</key>
@@ -5385,7 +5389,7 @@
 											<key>Option Key Sends</key>
 											<integer>0</integer>
 											<key>Original Guid</key>
-											<string>6ABDF3E4-6D82-4991-AEC2-B131F8BEF5EA</string>
+											<string>7950004F-AC51-4F90-9B3F-93C61EE407BA</string>
 											<key>Prompt Before Closing 2</key>
 											<integer>0</integer>
 											<key>Right Option Key Sends</key>
@@ -5858,7 +5862,7 @@
 												<real>0.0</real>
 											</dict>
 											<key>Guid</key>
-											<string>3C9436D1-AEBC-45C7-98BA-ED206AA26C0C</string>
+											<string>ED960AE6-E446-4D19-8C16-59083FDAB2E5</string>
 											<key>Hide After Opening</key>
 											<false/>
 											<key>Horizontal Spacing</key>
@@ -6181,7 +6185,7 @@
 											<key>Option Key Sends</key>
 											<integer>0</integer>
 											<key>Original Guid</key>
-											<string>2EEBD21F-5B1C-49BC-A1C0-E489E6D72917</string>
+											<string>72791F6F-4C9A-4FA9-9CE9-080FAE2B65B7</string>
 											<key>Prompt Before Closing 2</key>
 											<integer>0</integer>
 											<key>Right Option Key Sends</key>
@@ -6654,7 +6658,7 @@
 												<real>0.0</real>
 											</dict>
 											<key>Guid</key>
-											<string>7EB1BCC6-8A4C-4A9B-8FDC-FFBDBCE1495C</string>
+											<string>51DB060F-CF42-46AB-B2F1-976E36EA0D26</string>
 											<key>Hide After Opening</key>
 											<false/>
 											<key>Horizontal Spacing</key>
@@ -6977,7 +6981,7 @@
 											<key>Option Key Sends</key>
 											<integer>0</integer>
 											<key>Original Guid</key>
-											<string>09212D02-C708-4907-8FA5-EA933A375EB6</string>
+											<string>1A91E15F-650F-4837-B841-7F3A3323459B</string>
 											<key>Prompt Before Closing 2</key>
 											<integer>0</integer>
 											<key>Right Option Key Sends</key>
@@ -12027,6 +12031,6 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>2.0.0.20141103</string>
+	<string>2.1.1</string>
 </dict>
 </plist>
