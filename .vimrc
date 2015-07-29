@@ -146,7 +146,7 @@ endif
 syntax enable
 
 " Фон
-"set background=light
+set background=light
 
 " Поддержка цвета
 set t_Co=256
@@ -217,10 +217,6 @@ set tabstop=2
 " Количиство символов при автоматическом табе
 set shiftwidth=2
 
-" Вид курсора при разных режимах
-let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-
 " Настройка сессий
 set sessionoptions=buffers,folds,sesdir,tabpages,globals,options,resize,winpos
 
@@ -271,7 +267,7 @@ set foldcolumn=0
 
 
 " ----------------------------------------
-" Плагины & Автозавершение
+" Автозавершение & Синтаксис
 " ----------------------------------------
 
 " Автозавершение двойных знаков
@@ -291,6 +287,9 @@ autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Автообновление данных конфиг файла VIM при сохранении
+autocmd! bufwritepost $MYVIMRC source $MYVIMRC
 
 
 " ----------------------------------------
@@ -316,7 +315,6 @@ set lcs=tab:·\ ,trail:·,extends:>,precedes:<,nbsp:&
 
 let mapleader = ','
 
-
 " , + f: Файловая система
 nmap <silent> <Leader>f :NERDTreeToggle<CR>
 
@@ -334,50 +332,32 @@ nmap <Leader>g :set operatorfunc=<SID>GrepOperator<CR>g@
 vmap <Leader>g :<c-u>call <SID>GrepOperator(visualmode())<CR>
 
 function! s:GrepOperator(type)
-    let saved_unnamed_register = @@
+  let saved_unnamed_register = @@
 
-    if a:type ==# 'v'
-        normal! `<v`>y
-    elseif a:type ==# 'char'
-        normal! `[v`]y
-    else
-        return
-    endif
-
-    " поиск везде, кроме:
-    " - папок node_modules, vendor, .git
-    " - папок начинающихся на '_'
-    " - файлов начинающихся с '_'
-    execute 'grep! -aR ' . shellescape(@@) .
-          \ ' . --exclude-dir={node_modules,vendor,.git,_*}
-          \ --exclude="_*"'
-    copen
-
-    let @@ = saved_unnamed_register
-endfunction
-
-" , + t: Переключение режима вставки
-nmap <Leader>t :call PasteToggle()<CR>
-
-let g:pasteMode=0
-
-function! PasteToggle()
-  if(g:pasteMode)
-    set nopaste
-    let g:pasteMode=0
-    echo 'nopaste mode'
+  if a:type ==# 'v'
+    normal! `<v`>y
+  elseif a:type ==# 'char'
+    normal! `[v`]y
   else
-    set paste
-    let g:pasteMode=1
-    echo 'paste mode'
+    return
   endif
+
+  " поиск везде, кроме:
+  " - папок node_modules, vendor, .git
+  " - папок начинающихся на '_'
+  " - файлов начинающихся с '_'
+  execute 'grep! -aR ' . shellescape(@@) .
+        \ ' . --exclude-dir={node_modules,vendor,.git,_*}
+        \ --exclude="_*"'
+  copen
+
+  let @@ = saved_unnamed_register
 endfunction
 
 " , + z: Сворачивание функциональных блоков в файле
 nmap <Leader>z :call FoldingBlocks()<CR>
 
 function! FoldingBlocks()
-
   execute 'normal zE'
 
   let i = 0
