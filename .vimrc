@@ -358,6 +358,10 @@ endfunction
 nmap <Leader>z :call FoldingBlocks()<CR>
 
 function! FoldingBlocks()
+  if exists('b:space') == 0
+    let b:space = 0
+  endif
+
   execute 'normal zE'
 
   let i = 0
@@ -365,16 +369,16 @@ function! FoldingBlocks()
   let currentline = line('.')
 
   call inputsave()
-  let space = input('how many space (default: 0)? ')
+  let space = input('how many space (current value: ' . b:space . ')? ')
   call inputrestore()
 
-  if !strlen(space)
-    let space = 0
+  if strlen(space) != 0
+    let b:space = +space
   endif
 
   while i <= lenline
     let str = getline(i)
-    if match(str, '\S') == space
+    if match(str, '\S') == b:space
       if match(str, '[{[]') != -1
         execute i + 'G'
         execute 'normal $zf%'
