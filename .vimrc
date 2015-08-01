@@ -375,7 +375,7 @@ function! FoldingBlocks()
   while i <= lenline
     let str = getline(i)
     if match(str, '\S') == space
-      if match(str, '[{[]') > 0
+      if match(str, '[{[]') != -1
         execute i + 'G'
         execute 'normal $zf%'
       endif
