@@ -72,6 +72,21 @@ Bundle 'xolox/vim-misc.git'
 let g:colorscheme_switcher_define_mappings = 0
 let g:colorscheme_switcher_keep_background = 1
 
+" JSBeautify: форматирование js, html, css
+Bundle 'maksimr/vim-jsbeautify'
+let g:editorconfig_Beautifier = $HOME . '/.vim/.editorconfig'
+
+" Table: создание таблиц
+Bundle 'dhruvasagar/vim-table-mode'
+let g:table_mode_align_char = ':'
+let g:table_mode_corner_corner = '|'
+let g:table_mode_header_fillchar = "-"
+
+" Buffergator: управление буферами
+Bundle 'jeetsukumaran/vim-buffergator'
+let g:buffergator_viewport_split_policy = 'B'
+let g:buffergator_suppress_keymaps = 1
+
 filetype plugin indent on
 
 
@@ -113,6 +128,9 @@ set nowrap
 
 " Отступы сверху и снизу при скролле
 set scrolloff=10
+
+" Вертикальное окно справа
+set splitright
 
 
 " ----------------------------------------
@@ -314,6 +332,20 @@ set lcs=tab:·\ ,trail:·,extends:>,precedes:<,nbsp:&
 " ----------------------------------------
 
 let mapleader = ','
+
+" , + jt: Table enable
+nmap <Leader>jt :TableModeToggle<CR>
+
+" , + jv: VIM edit
+nmap <leader>jv :vsplit $MYVIMRC<CR>
+
+" , + jb: JSBeautify
+autocmd FileType javascript nmap <buffer> <Leader>jb :call JsBeautify()<CR>
+autocmd FileType html nmap <buffer> <Leader>jb :call HtmlBeautify()<CR>
+autocmd FileType css nmap <buffer> <Leader>jb :call CSSBeautify()<CR>
+
+" , + b: Buffergator
+nmap <Leader>b  :BuffergatorToggle<CR>
 
 " , + f: Файловая система
 nmap <silent> <Leader>f :NERDTreeToggle<CR>
