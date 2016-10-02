@@ -164,14 +164,15 @@ endif
 syntax enable
 
 " Фон
-set background=light
+set background=dark
 
 " Поддержка цвета
 set t_Co=256
 
 " Цветовая схема
 try
-  colorscheme lucius
+  "colorscheme lucius
+  colorscheme solarized
 catch /^Vim\%((\a\+)\)\=:E185/
   colorscheme desert
 endtry
