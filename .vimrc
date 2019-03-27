@@ -149,11 +149,7 @@ inoremap <BS> <nop>
 " Дата и время
 " ----------------------------------------
 
-if has("win32")
-  set statusline=%<%f%h%m%r%=%{strftime(\"%I:%M:%S\\%p,\ %a\ %b\ %d,\ %Y\")}\ %{&ff}\ %l,%c%V\ %P
-else
-  set statusline=%<%f%h%m%r%=%{strftime(\"%l:%M:%S\\%p,\ %a\ %b\ %d,\ %Y\")}\ %{&ff}\ %l,%c%V\ %P
-endif
+set statusline=%<%f%h%m%r\ \[%{&fenc}]\ %=%c\|%l\/%L\ %P\ \[%{strftime('%a\ %d/%b/%Y\ %H:%M\')}\]
 
 
 " ----------------------------------------
@@ -170,12 +166,7 @@ set background=dark
 set t_Co=256
 
 " Цветовая схема
-try
-  "colorscheme lucius
-  colorscheme solarized
-catch /^Vim\%((\a\+)\)\=:E185/
-  colorscheme desert
-endtry
+colorscheme solarized
 
 " Цвет невидимых символов
 highlight SpecialKey ctermbg=none ctermfg=160
