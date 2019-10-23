@@ -5,8 +5,8 @@
 set nocompatible
 filetype off
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
 " let Vundle manage Vundle
 Bundle 'gmarik/vundle'
@@ -86,6 +86,8 @@ let g:table_mode_header_fillchar = "-"
 Bundle 'jeetsukumaran/vim-buffergator'
 let g:buffergator_viewport_split_policy = 'B'
 let g:buffergator_suppress_keymaps = 1
+
+call vundle#end()
 
 filetype plugin indent on
 
