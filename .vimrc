@@ -14,6 +14,8 @@ Bundle 'gmarik/vundle'
 " My bundles here:
 " Nerdtree: навигация по файлам
 Bundle 'scrooloose/nerdtree'
+set wildignore+=*.pyc,*.o,*.obj,*.svn,*.swp,*.class,*.hg,*.DS_Store,*.min.*
+let NERDTreeRespectWildIgnore=1
 
 " UltiSnips: вставляет текстовый шаблон. Использование: слово + <tab>
 Bundle 'SirVer/ultisnips'
@@ -151,7 +153,7 @@ inoremap <BS> <nop>
 " Дата и время
 " ----------------------------------------
 
-set statusline=%<%f%h%m%r\ \[%{&fenc}]\ %=%c\|%l\/%L\ %P\ \[%{strftime('%a\ %d/%b/%Y\ %H:%M\')}\]
+set statusline=%<%f%h%m%r\ \[%{&fenc}]\ %=%c\|%l\/%L\ %P\ \[%{strftime('%a\ %d.%m.%Y\ %H:%M\')}\]
 
 
 " ----------------------------------------
@@ -184,7 +186,7 @@ highlight SpecialKey ctermbg=none ctermfg=160
 highlight OverLength ctermfg=160
 
 " Допустимая рабочая область
-match OverLength /\%80v.\+/
+match OverLength /\%480v.\+/
 
 
 " ----------------------------------------
@@ -374,7 +376,7 @@ function! s:GrepOperator(type)
   " - файлов начинающихся с '_'
   execute 'grep! -aR ' . shellescape(@@) .
         \ ' . --exclude-dir={node_modules,vendor,.git,_*}
-        \ --exclude="_*"'
+        \ --exclude={_*,*.pyc}'
   copen
 
   let @@ = saved_unnamed_register
@@ -433,18 +435,18 @@ map <silent> <Leader>h :JSHint<CR>
 " , + l: Подсветка координат курсора
 map <silent> <Leader>l :call ToggleCursorLight()<CR>
 
-set nocursorline
-set nocursorcolumn
-let g:cursorLight=0
+set cursorline
+"set cursorcolumn
+let g:cursorLight=1
 
 function! ToggleCursorLight()
   if(g:cursorLight)
     set nocursorline
-    set nocursorcolumn
+    "set nocursorcolumn
     let g:cursorLight=0
   else
     set cursorline
-    set cursorcolumn
+    "set cursorcolumn
     let g:cursorLight=1
   endif
 endfunction
