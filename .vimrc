@@ -436,17 +436,17 @@ map <silent> <Leader>h :JSHint<CR>
 map <silent> <Leader>l :call ToggleCursorLight()<CR>
 
 set cursorline
-"set cursorcolumn
+set cursorcolumn
 let g:cursorLight=1
 
 function! ToggleCursorLight()
   if(g:cursorLight)
     set nocursorline
-    "set nocursorcolumn
+    set nocursorcolumn
     let g:cursorLight=0
   else
     set cursorline
-    "set cursorcolumn
+    set cursorcolumn
     let g:cursorLight=1
   endif
 endfunction
