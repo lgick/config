@@ -5,91 +5,103 @@
 set nocompatible
 filetype off
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin('~/.vim/plugged')
 
-" let Vundle manage Vundle
-Bundle 'gmarik/vundle'
-
-" My bundles here:
 " Nerdtree: навигация по файлам
-Bundle 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree'
 set wildignore+=*.pyc,*.o,*.obj,*.svn,*.swp,*.class,*.hg,*.DS_Store,*.min.*
 let NERDTreeRespectWildIgnore=1
 
 " UltiSnips: вставляет текстовый шаблон. Использование: слово + <tab>
-Bundle 'SirVer/ultisnips'
-Bundle 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'mlaursen/vim-react-snippets'
 let g:UltiSnipsExpandTrigger='<tab>'
 let g:UltiSnipsJumpForwardTrigger='<tab>'
 let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
 
-" Template: шаблоны при создании новых файлов
-Bundle 'thinca/vim-template'
+" Codi: выполнение кода в vim
+Plug 'metakirby5/codi.vim'
 
 " Javascript: синтаксис для javascript (в том числе в html-файлах)
-Bundle 'pangloss/vim-javascript'
+Plug 'pangloss/vim-javascript'
+
+" Typescript: подсветка и отступы
+Plug 'leafgarland/typescript-vim'
+
+" JSX: подсветка синтаксиса и отступы для JSX
+Plug 'maxmellon/vim-jsx-pretty'
 
 " Jade: подсветка синтаксиса для jade
-Bundle 'digitaltoad/vim-jade'
+Plug 'digitaltoad/vim-jade'
 
 " Markdown: подсветка синтаксиса
-Bundle 'plasticboy/vim-markdown'
-let g:vim_markdown_folding_disabled=1
-
-" Html5: подсветка синтаксиса html5, автозавершение
-Bundle 'othree/html5.vim'
-
-" Solarized: цветовая схема
-Bundle 'altercation/vim-colors-solarized'
-"let g:solarized_termcolors=256
-let g:solarized_termtrans=0
-let g:solarized_degrade=0
-let g:solarized_bold=1
-let g:solarized_underline=1
-let g:solarized_italic=1
-let g:solarized_contrast='normal'
-let g:solarized_visibility='low'
+Plug 'plasticboy/vim-markdown'
+let g:vim_markdown_folding_disabled = 1
 
 " Jshint: проверка js
-Bundle 'Shutnik/jshint2.vim'
+Plug 'Shutnik/jshint2.vim'
 
 " Bbye: удаление ненужных буферов
-Bundle 'moll/vim-bbye.git'
+Plug 'moll/vim-bbye'
 
-" Neocomplete: автозавершение
-Bundle 'Shougo/neocomplete.vim.git'
-let g:acp_enableAtStartup = 0
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+" Deoplete: автозавершение
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+let g:deoplete#enable_at_startup = 1
 
 " Colorschemes: цветовые схемы
-Bundle 'flazz/vim-colorschemes.git'
+Plug 'flazz/vim-colorschemes'
 
 " Colorswitcher: переключение цветовых схем
-Bundle 'vim-scripts/vim-colorscheme-switcher.git'
-Bundle 'xolox/vim-misc.git'
+Plug 'vim-scripts/vim-colorscheme-switcher'
+Plug 'xolox/vim-misc'
 let g:colorscheme_switcher_define_mappings = 0
 let g:colorscheme_switcher_keep_background = 1
 
-" JSBeautify: форматирование js, html, css
-Bundle 'maksimr/vim-jsbeautify'
-let g:editorconfig_Beautifier = $HOME . '/.vim/.editorconfig'
-
 " Table: создание таблиц
-Bundle 'dhruvasagar/vim-table-mode'
+Plug 'dhruvasagar/vim-table-mode'
 let g:table_mode_align_char = ':'
 let g:table_mode_corner_corner = '|'
 let g:table_mode_header_fillchar = "-"
 
 " Buffergator: управление буферами
-Bundle 'jeetsukumaran/vim-buffergator'
+Plug 'jeetsukumaran/vim-buffergator'
 let g:buffergator_viewport_split_policy = 'B'
 let g:buffergator_suppress_keymaps = 1
 
-call vundle#end()
+" Asynchronous Lint Engine: проверка синтаксиса и семантических ошибок
+Plug 'dense-analysis/ale'
+" Enable Prettier only for JavaScript.
+let g:ale_linters = {'javascript': ['prettier']}
+" Only run linters named in ale_linters settings.
+let g:ale_linters_explicit = 1
+"let g:ale_lint_on_text_changed = 'always'
+"let g:ale_fix_on_save = 1
+"let g:ale_fixers = {'javascript': ['eslint']}
+"let g:ale_disable_lsp = 1
+"let g:ale_set_highlights = 1
+"let g:ale_echo_msg_format = '[%linter%] (%code%) - %s'
+"let g:ale_lint_on_save = 1
+"let g:ale_lint_on_enter = 1
+
+" Prettier: форматирование для js, ts, less, scss, css, json, graphql and markdown files
+Plug 'prettier/vim-prettier'
+let g:prettier#autoformat = 1
+let g:prettier#exec_cmd_async = 1
+let g:prettier#autoformat_require_pragma = 0
+let g:prettier#config#semi = 'false'
+let g:prettier#config#single_quote = 'true'
+let g:prettier#config#bracket_spacing = 'true'
+let g:prettier#config#jsx_bracket_same_line = 'true'
+packloadall
+
+call plug#end()
 
 filetype plugin indent on
 
@@ -164,13 +176,17 @@ set statusline=%<%f%h%m%r\ \[%{&fenc}]\ %=%c\|%l\/%L\ %P\ \[%{strftime('%a\ %d.%
 syntax enable
 
 " Фон
-set background=dark
+set background=light
 
 " Поддержка цвета
 set t_Co=256
 
 " Цветовая схема
-colorscheme solarized
+"colorscheme monokai
+"colorscheme desert
+"colorscheme lucius
+"colorscheme morning
+colorscheme PaperColor
 
 " Цвет невидимых символов
 highlight SpecialKey ctermbg=none ctermfg=160
@@ -336,9 +352,12 @@ nmap <Leader>jt :TableModeToggle<CR>
 nmap <leader>jv :vsplit $MYVIMRC<CR>
 
 " , + jb: JSBeautify
-autocmd FileType javascript nmap <buffer> <Leader>jb :call JsBeautify()<CR>
-autocmd FileType html nmap <buffer> <Leader>jb :call HtmlBeautify()<CR>
-autocmd FileType css nmap <buffer> <Leader>jb :call CSSBeautify()<CR>
+"autocmd FileType javascript nmap <buffer> <Leader>jb :call JsBeautify()<CR>
+"autocmd FileType html nmap <buffer> <Leader>jb :call HtmlBeautify()<CR>
+"autocmd FileType css nmap <buffer> <Leader>jb :call CSSBeautify()<CR>
+
+" , + jb: Форматирование кода
+nmap <leader>jb :Prettier<CR>
 
 " , + b: Buffergator
 nmap <Leader>b  :BuffergatorToggle<CR>
