@@ -68,21 +68,6 @@ Plug 'jeetsukumaran/vim-buffergator'
 let g:buffergator_viewport_split_policy = 'B'
 let g:buffergator_suppress_keymaps = 1
 
-" Asynchronous Lint Engine: проверка синтаксиса и семантических ошибок
-Plug 'dense-analysis/ale'
-" Enable Prettier only for JavaScript.
-let g:ale_linters = {'javascript': ['prettier']}
-" Only run linters named in ale_linters settings.
-let g:ale_linters_explicit = 1
-"let g:ale_lint_on_text_changed = 'always'
-"let g:ale_fix_on_save = 1
-"let g:ale_fixers = {'javascript': ['eslint']}
-"let g:ale_disable_lsp = 1
-"let g:ale_set_highlights = 1
-"let g:ale_echo_msg_format = '[%linter%] (%code%) - %s'
-"let g:ale_lint_on_save = 1
-"let g:ale_lint_on_enter = 1
-
 " Prettier: форматирование для js, ts, less, scss, css, json, graphql and markdown files
 Plug 'prettier/vim-prettier'
 let g:prettier#autoformat = 1
@@ -388,7 +373,7 @@ function! s:GrepOperator(type)
   " - файлов начинающихся с '_'
   execute 'grep! -aR ' . shellescape(@@) .
         \ ' . --exclude-dir={node_modules,vendor,.git,_*}
-        \ --exclude={_*,*.pyc}'
+        \ --exclude={package-lock.json,_*,*.pyc}'
   copen
 
   let @@ = saved_unnamed_register
