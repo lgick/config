@@ -69,7 +69,7 @@ let g:buffergator_viewport_split_policy = 'B'
 let g:buffergator_suppress_keymaps = 1
 
 " Prettier: форматирование для js, ts, less, scss, css, json, graphql and markdown files
-Plug 'prettier/vim-prettier'
+Plug 'prettier/vim-prettier', { 'do': 'npm install' }
 let g:prettier#autoformat = 1
 let g:prettier#exec_cmd_async = 1
 let g:prettier#autoformat_require_pragma = 0
