@@ -1,3 +1,5 @@
+extends javascript
+
 snippet html "html template"
 <!DOCTYPE html>
 <html>
@@ -9,47 +11,4 @@ snippet html "html template"
 $0
 </body>
 </html>
-endsnippet
-
-snippet c "console.log"
-console.log($0)
-endsnippet
-
-snippet f "function"
-function (${1}) {
-	$0
-}${2}
-endsnippet
-
-snippet fn "function with name"
-function ${1}(${2}) {
-	$0
-}
-endsnippet
-
-snippet for "for"
-for (${1}; ${2:i < len}; ${3:i += 1}) {
-	$0
-}
-endsnippet
-
-snippet fin "for in"
-for (${1:p} in ${2:data}) {
-	if ($2.hasOwnProperty($1)) {
-		$0
-	}
-}
-endsnippet
-
-snippet if "if"
-if (${1}) {
-	$0
-}
-endsnippet
-
-snippet ife "if else"
-if (${1}) {
-	$0
-} else {
-}
 endsnippet

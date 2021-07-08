@@ -1,4 +1,3 @@
-" ----------------------------------------
 " Плагины VIM:
 " ----------------------------------------
 
@@ -55,14 +54,8 @@ else
 endif
 let g:deoplete#enable_at_startup = 1
 
-" Colorschemes: цветовые схемы
-Plug 'flazz/vim-colorschemes'
-
-" Colorswitcher: переключение цветовых схем
-Plug 'vim-scripts/vim-colorscheme-switcher'
-Plug 'xolox/vim-misc'
-let g:colorscheme_switcher_define_mappings = 0
-let g:colorscheme_switcher_keep_background = 1
+"PaperColor: цветовая схема
+Plug 'NLKNguyen/papercolor-theme'
 
 " Table: создание таблиц
 Plug 'dhruvasagar/vim-table-mode'
@@ -99,6 +92,7 @@ let g:prettier#config#semi = 'false'
 let g:prettier#config#single_quote = 'true'
 let g:prettier#config#bracket_spacing = 'true'
 let g:prettier#config#jsx_bracket_same_line = 'true'
+let g:prettier#config#trailing_comma = 'none'
 packloadall
 
 call plug#end()
@@ -182,11 +176,10 @@ set background=light
 set t_Co=256
 
 " Цветовая схема
-"colorscheme monokai
 "colorscheme desert
-"colorscheme lucius
 "colorscheme morning
 colorscheme PaperColor
+
 
 " Цвет невидимых символов
 highlight SpecialKey ctermbg=none ctermfg=160
@@ -438,15 +431,6 @@ function! FoldingBlocks()
   echo ''
 
 endfunction
-
-" , + sn: Меняет на следующую цветовую схему
-nmap <silent> <Leader>sn :NextColorScheme<CR>
-
-" , + sp: Меняет на предыдущую цветовую схему
-nmap <silent> <Leader>sp :PrevColorScheme<CR>
-
-" , + s: Меняет на рандомную цветовую схему
-nmap <silent> <Leader>s :RandomColorScheme<CR>
 
 " , + h: JSHint
 map <silent> <Leader>h :JSHint<CR>
