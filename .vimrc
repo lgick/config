@@ -245,6 +245,9 @@ set sessionoptions=buffers,folds,sesdir,tabpages,globals,options,resize,winpos
 " Подсветка искомых значений
 set hlsearch
 
+" Выделение слова с знаком '-'
+set iskeyword+=-
+
 " Быстрый переход к искомому значению
 set incsearch
 
