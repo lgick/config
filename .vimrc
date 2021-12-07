@@ -8,7 +8,7 @@ call plug#begin('~/.vim/plugged')
 
 " Nerdtree: навигация по файлам
 Plug 'scrooloose/nerdtree'
-set wildignore+=*.pyc,*.o,*.obj,*.svn,*.swp,*.class,*.hg,*.DS_Store,*.min.*
+set wildignore+=*.pyc,*.o,*.obj,*.svn,*.swp,*.class,*.hg,*.DS_Store
 let NERDTreeRespectWildIgnore=1
 
 " UltiSnips: вставляет текстовый шаблон. Использование: слово + <tab>
@@ -68,12 +68,21 @@ Plug 'jeetsukumaran/vim-buffergator'
 let g:buffergator_viewport_split_policy = 'B'
 let g:buffergator_suppress_keymaps = 1
 
+" Arsync: asynchronous synchronisation of remote files
+Plug 'kenn7/vim-arsync'
+
+" Blade highlighting
+Plug 'jwalton512/vim-blade'
+
+" Git support
+Plug 'tpope/vim-fugitive'
+
 " Prettier: форматирование для js, ts, less, scss, css, json, graphql and markdown files
 Plug 'prettier/vim-prettier', { 'do': 'npm install' }
-let g:prettier#autoformat = 1
+let g:prettier#autoformat = 0
 let g:prettier#exec_cmd_async = 1
 let g:prettier#autoformat_require_pragma = 0
-let g:prettier#config#semi = 'false'
+let g:prettier#config#semi = 'true'
 let g:prettier#config#single_quote = 'true'
 let g:prettier#config#bracket_spacing = 'true'
 let g:prettier#config#jsx_bracket_same_line = 'true'
@@ -220,10 +229,10 @@ set smartindent
 set expandtab
 
 " Количество символов за одно нажание на TAB
-set tabstop=2
+set tabstop=4
 
 " Количиство символов при автоматическом табе
-set shiftwidth=2
+set shiftwidth=4
 
 " Настройка сессий
 set sessionoptions=buffers,folds,sesdir,tabpages,globals,options,resize,winpos
@@ -340,6 +349,9 @@ nmap <leader>jb :Prettier<CR>
 " , + b: Buffergator
 nmap <Leader>b  :BuffergatorToggle<CR>
 
+" , + s: Save remote
+nmap <silent> <Leader>s  :ARsyncUp<CR>
+
 " , + f: Файловая система
 nmap <silent> <Leader>f :NERDTreeToggle<CR>
 
@@ -444,3 +456,6 @@ vmap <silent> <Leader>c "+y<CR>
 
 " , + v: Вставка из системного буфера
 nmap <silent> <Leader>v "+p<CR>
+
+" , + w: Git blame (who)
+map <silent> <Leader>w :Git blame<CR>
