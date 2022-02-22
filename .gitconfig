@@ -19,5 +19,7 @@
 [core]
   editor = vim
 	excludesFile = ~/.gitignore_global
+	ignorecase = false
 [push]
   default = matching
+[pull]

@@ -19,27 +19,44 @@ let g:UltiSnipsExpandTrigger='<tab>'
 let g:UltiSnipsJumpForwardTrigger='<tab>'
 let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
 
+" Polyglot: поддержка синтаксиса и отступов для разных языков
+Plug 'sheerun/vim-polyglot'
+"let g:blade_custom_directives = ['datetime', 'javascript']
+
 " Codi: выполнение кода в vim
-Plug 'metakirby5/codi.vim'
+"Plug 'metakirby5/codi.vim'
 
 " Javascript: синтаксис для javascript (в том числе в html-файлах)
-Plug 'pangloss/vim-javascript'
+"Plug 'pangloss/vim-javascript'
 
 " Typescript: подсветка и отступы
-Plug 'leafgarland/typescript-vim'
+"Plug 'leafgarland/typescript-vim'
+
+" Jade: подсветка синтаксиса для jade
+"Plug 'digitaltoad/vim-jade'
+
+" Blade highlighting
+"Plug 'jwalton512/vim-blade'
+
+" Markdown: подсветка синтаксиса
+"Plug 'plasticboy/vim-markdown'
+"let g:vim_markdown_folding_disabled = 1
+
+" Table: создание таблиц
+"Plug 'dhruvasagar/vim-table-mode'
+"let g:table_mode_align_char = ':'
+"let g:table_mode_corner_corner = '|'
+"let g:table_mode_header_fillchar = "-"
+" , + jt: Table enable
+"nmap <Leader>jt :TableModeToggle<CR>
+
+" Jshint: проверка js
+"Plug 'Shutnik/jshint2.vim'
+" , + h: JSHint
+"map <silent> <Leader>h :JSHint<CR>
 
 " JSX: подсветка синтаксиса и отступы для JSX
 Plug 'maxmellon/vim-jsx-pretty'
-
-" Jade: подсветка синтаксиса для jade
-Plug 'digitaltoad/vim-jade'
-
-" Markdown: подсветка синтаксиса
-Plug 'plasticboy/vim-markdown'
-let g:vim_markdown_folding_disabled = 1
-
-" Jshint: проверка js
-Plug 'Shutnik/jshint2.vim'
 
 " Bbye: удаление ненужных буферов
 Plug 'moll/vim-bbye'
@@ -57,12 +74,6 @@ let g:deoplete#enable_at_startup = 1
 "PaperColor: цветовая схема
 Plug 'NLKNguyen/papercolor-theme'
 
-" Table: создание таблиц
-Plug 'dhruvasagar/vim-table-mode'
-let g:table_mode_align_char = ':'
-let g:table_mode_corner_corner = '|'
-let g:table_mode_header_fillchar = "-"
-
 " Buffergator: управление буферами
 Plug 'jeetsukumaran/vim-buffergator'
 let g:buffergator_viewport_split_policy = 'B'
@@ -70,9 +81,6 @@ let g:buffergator_suppress_keymaps = 1
 
 " Arsync: asynchronous synchronisation of remote files
 Plug 'kenn7/vim-arsync'
-
-" Blade highlighting
-Plug 'jwalton512/vim-blade'
 
 " Git support
 Plug 'tpope/vim-fugitive'
@@ -120,6 +128,7 @@ set cmdheight=1
 
 " Номерация строк
 set number
+set relativenumber
 
 " Количество символов в номерации строк
 set numberwidth=4
@@ -307,6 +316,7 @@ autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+autocmd BufNewFile,BufRead *.blade.php set filetype=html
 
 " Автообновление данных конфиг файла VIM при сохранении
 autocmd! bufwritepost $MYVIMRC source $MYVIMRC
@@ -335,16 +345,8 @@ set lcs=tab:·\ ,trail:·,extends:>,precedes:<,nbsp:&
 
 let mapleader = ','
 
-" , + jt: Table enable
-nmap <Leader>jt :TableModeToggle<CR>
-
 " , + jv: VIM edit
 nmap <leader>jv :vsplit $MYVIMRC<CR>
-
-" , + jb: JSBeautify
-"autocmd FileType javascript nmap <buffer> <Leader>jb :call JsBeautify()<CR>
-"autocmd FileType html nmap <buffer> <Leader>jb :call HtmlBeautify()<CR>
-"autocmd FileType css nmap <buffer> <Leader>jb :call CSSBeautify()<CR>
 
 " , + jb: Форматирование кода
 nmap <leader>jb :Prettier<CR>
@@ -431,9 +433,6 @@ function! FoldingBlocks()
   echo ''
 
 endfunction
-
-" , + h: JSHint
-map <silent> <Leader>h :JSHint<CR>
 
 " , + l: Подсветка координат курсора
 map <silent> <Leader>l :call ToggleCursorLight()<CR>

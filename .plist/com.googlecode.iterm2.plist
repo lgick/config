@@ -817,7 +817,7 @@
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>Monaco 14</string>
+			<string>Monaco 12</string>
 			<key>Open Toolbelt</key>
 			<false/>
 			<key>Option Key Sends</key>
@@ -4304,7 +4304,7 @@
 				<key>Has Toolbelt</key>
 				<false/>
 				<key>Height</key>
-				<real>800</real>
+				<real>1080</real>
 				<key>Hide After Opening</key>
 				<false/>
 				<key>Hiding Toolbelt Should Resize Window</key>
@@ -4318,9 +4318,9 @@
 				<key>Old Width</key>
 				<real>400</real>
 				<key>Old X Origin</key>
-				<real>131</real>
+				<real>226</real>
 				<key>Old Y Origin</key>
-				<real>73</real>
+				<real>130</real>
 				<key>Saved Window Type</key>
 				<integer>0</integer>
 				<key>Screen</key>
@@ -4607,7 +4607,7 @@
 												<real>0.2357795387506485</real>
 											</dict>
 											<key>Guid</key>
-											<string>22A46231-2F02-47AC-9ED8-4361354760A5</string>
+											<string>768C7BBA-DC8E-4368-8F8D-9376F86CFCB6</string>
 											<key>Horizontal Spacing</key>
 											<real>1</real>
 											<key>Idle Code</key>
@@ -4930,11 +4930,13 @@
 											<key>Non-ASCII Anti Aliased</key>
 											<true/>
 											<key>Normal Font</key>
-											<string>Monaco 14</string>
+											<string>Monaco 12</string>
 											<key>Open Toolbelt</key>
 											<false/>
 											<key>Option Key Sends</key>
 											<integer>0</integer>
+											<key>Original Guid</key>
+											<string>22A46231-2F02-47AC-9ED8-4361354760A5</string>
 											<key>Prompt Before Closing 2</key>
 											<false/>
 											<key>Right Option Key Sends</key>
@@ -5013,25 +5015,116 @@
 											<string>/Users/dmitry/</string>
 										</dict>
 										<key>Columns</key>
-										<integer>158</integer>
+										<integer>272</integer>
 										<key>Commands</key>
 										<array/>
 										<key>Directories</key>
 										<array>
-											<string>/Users/dmitry/Desktop/AbletonLive10.1_MIDIRemoteScripts-master</string>
-											<string>/Users/dmitry/Desktop/AbletonLive10.1_MIDIRemoteScripts-master</string>
-											<string>/Users/dmitry/Desktop/AbletonLive10.1_MIDIRemoteScripts-master</string>
-											<string>/Users/dmitry/Desktop/AbletonLive10.1_MIDIRemoteScripts-master</string>
-											<string>/Users/dmitry/Desktop/AbletonLive10.1_MIDIRemoteScripts-master</string>
-											<string>/</string>
-											<string>/</string>
-											<string>/</string>
-											<string>/</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
+											<string>/Users/dmitry/Sites/octb3</string>
 										</array>
 										<key>Environment</key>
 										<dict>
 											<key>PWD</key>
-											<string>/</string>
+											<string>/Users/dmitry</string>
 										</dict>
 										<key>Hostname to Shell</key>
 										<dict/>
@@ -5044,17 +5137,34 @@
 										<key>Name Controller State</key>
 										<dict>
 											<key>icon title stack</key>
-											<array/>
+											<array>
+												<string>Default</string>
+												<string>Default</string>
+												<string>Default</string>
+												<string>Default</string>
+												<string>Default</string>
+											</array>
 											<key>window title stack</key>
-											<array/>
+											<array>
+												<integer>0</integer>
+												<integer>0</integer>
+												<integer>0</integer>
+												<integer>0</integer>
+												<string>index.blade.php (~/Sites/octb3/html/individuals/resources/views/appointment) - VIM</string>
+											</array>
 										</dict>
+										<key>Overridden Fields</key>
+										<array>
+											<string>Original Guid</string>
+											<string>Guid</string>
+										</array>
 										<key>Program</key>
 										<dict>
 											<key>Type</key>
 											<string>Shell Launcher</string>
 										</dict>
 										<key>Rows</key>
-										<integer>41</integer>
+										<integer>63</integer>
 										<key>Session GUID</key>
 										<string>458BBA9B-0386-4471-B4A5-36FE3619A111</string>
 										<key>Short Lived Single Use</key>
@@ -5066,7 +5176,7 @@
 										<key>Substitutions</key>
 										<dict/>
 										<key>Working Directory</key>
-										<string>/Users/dmitry</string>
+										<string>/Users/dmitry/Sites/octb3</string>
 										<key>Working Directory Poller Disabled</key>
 										<false/>
 									</dict>
@@ -5075,9 +5185,9 @@
 									<key>frame</key>
 									<dict>
 										<key>height</key>
-										<real>800</real>
+										<real>1080</real>
 										<key>width</key>
-										<real>1280</real>
+										<real>1920</real>
 										<key>x</key>
 										<real>0.0</real>
 										<key>y</key>
@@ -5090,9 +5200,9 @@
 							<key>frame</key>
 							<dict>
 								<key>height</key>
-								<real>800</real>
+								<real>1080</real>
 								<key>width</key>
-								<real>1280</real>
+								<real>1920</real>
 								<key>x</key>
 								<real>0.0</real>
 								<key>y</key>
@@ -5135,7 +5245,7 @@
 				<key>Use Transparency</key>
 				<true/>
 				<key>Width</key>
-				<real>1280</real>
+				<real>1920</real>
 				<key>Window Type</key>
 				<integer>4</integer>
 				<key>X Origin</key>
