@@ -82,6 +82,7 @@ let g:buffergator_suppress_keymaps = 1
 " Arsync: asynchronous synchronisation of remote files
 Plug 'kenn7/vim-arsync'
 
+
 " Git support
 Plug 'tpope/vim-fugitive'
 
@@ -95,6 +96,7 @@ let g:prettier#config#single_quote = 'true'
 let g:prettier#config#bracket_spacing = 'true'
 let g:prettier#config#jsx_bracket_same_line = 'true'
 let g:prettier#config#trailing_comma = 'none'
+let g:prettier#config#print_width = 200
 packloadall
 
 call plug#end()
