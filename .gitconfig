@@ -11,11 +11,9 @@
   st = status
   br = branch
   push = push --follow-tags
-  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short --all
-  type = cat-file -t
-  dump = cat-file -p
-  lg1 = log --pretty=format:'%h : %s' --graph
-  lg = !"git lg1"
+  br = branch --format='%(HEAD) %(color:blue)%(refname:short)%(color:reset) - %(contents:subject) %(color:green)(%(committerdate:relative)) [%(authorname)]' --sort=-committerdate
+  lg = !git log --pretty=format:\"%C(magenta)%h%Creset -%C(red)%d%Creset %s %C(dim green)(%cr) [%an]\" --abbrev-commit -30
+  lg1 = !git log --pretty=format:'%h : %s' --graph
 [core]
   editor = vim
 	excludesFile = ~/.gitignore_global
