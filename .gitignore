@@ -3,6 +3,7 @@
 !.vimperatorrc
 !.jshintrc
 !.gitignore
+!.gitignore_global
 !.gitconfig
 !.vimrc
 !/.vim/
