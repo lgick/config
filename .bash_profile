@@ -15,3 +15,5 @@ export GREP_OPTIONS='--color=auto'
 #alias cp='cp -i'
 #alias mv='mv -i'
 #alias rm='rm -i'
+eval "$(/opt/homebrew/bin/brew shellenv)"
+export PATH="/opt/homebrew/opt/python@3.10/bin:$PATH"

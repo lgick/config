@@ -240,10 +240,10 @@ set smartindent
 set expandtab
 
 " Количество символов за одно нажание на TAB
-set tabstop=4
+set tabstop=2
 
 " Количиство символов при автоматическом табе
-set shiftwidth=4
+set shiftwidth=2
 
 " Настройка сессий
 set sessionoptions=buffers,folds,sesdir,tabpages,globals,options,resize,winpos
