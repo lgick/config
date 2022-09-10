@@ -30,30 +30,11 @@ Plug 'sheerun/vim-polyglot'
 "Plug 'pangloss/vim-javascript'
 
 " Typescript: подсветка и отступы
-"Plug 'leafgarland/typescript-vim'
+Plug 'leafgarland/typescript-vim'
+let g:typescript_indent_disable = 1
 
-" Jade: подсветка синтаксиса для jade
-"Plug 'digitaltoad/vim-jade'
-
-" Blade highlighting
-"Plug 'jwalton512/vim-blade'
-
-" Markdown: подсветка синтаксиса
-"Plug 'plasticboy/vim-markdown'
-"let g:vim_markdown_folding_disabled = 1
-
-" Table: создание таблиц
-"Plug 'dhruvasagar/vim-table-mode'
-"let g:table_mode_align_char = ':'
-"let g:table_mode_corner_corner = '|'
-"let g:table_mode_header_fillchar = "-"
-" , + jt: Table enable
-"nmap <Leader>jt :TableModeToggle<CR>
-
-" Jshint: проверка js
-"Plug 'Shutnik/jshint2.vim'
-" , + h: JSHint
-"map <silent> <Leader>h :JSHint<CR>
+" Typescript: ide
+Plug 'Quramy/tsuquyomi'
 
 " JSX: подсветка синтаксиса и отступы для JSX
 Plug 'maxmellon/vim-jsx-pretty'
@@ -353,11 +334,17 @@ nmap <leader>jv :vsplit $MYVIMRC<CR>
 " , + jb: Форматирование кода
 nmap <leader>jb :Prettier<CR>
 
+" , + tf: typescript fix
+nmap <leader>tf :TsuQuickFix<CR>
+
+" , + tr: typescript rename
+nmap <leader>tr :TsuRenameSymbol<CR>
+
 " , + b: Buffergator
-nmap <Leader>b  :BuffergatorToggle<CR>
+nmap <Leader>b :BuffergatorToggle<CR>
 
 " , + s: Save remote
-nmap <silent> <Leader>s  :ARsyncUp<CR>
+nmap <silent> <Leader>s :ARsyncUp<CR>
 
 " , + f: Файловая система
 nmap <silent> <Leader>f :NERDTreeToggle<CR>
