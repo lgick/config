@@ -1,0 +1,37 @@
+{
+  "explorer.width": 30,
+  "explorer.file.showHiddenFiles": false,
+  "explorer.keyMappingMode": "none",
+  "explorer.keyMappings.global": {
+    "h": ["wait", "collapse"],
+    "l": ["wait", "expandable?", "expand", "open"],
+    "o": ["wait", "expanded?", "collapse", "expand"],
+    "<cr>": ["wait", "expandable?", "cd", "open"],
+    "S": "open:split",
+    "s": "open:vsplit",
+    "t": "open:tab",
+    "d": "deleteForever",
+    "c": "copyFile",
+    "x": "cutFile",
+    "p": "pasteFile",
+    "a": "addFile",
+    "A": "addDirectory",
+    "r": "rename",
+    "R": "refresh",
+    "i": "toggleHidden"
+  },
+  "explorer.file.hiddenRules": {
+    "extensions": ["o", "a", "svn", "swp", "class", "hg", "obj", "pyc"],
+    "filenames": ["node_modules"],
+    "patternMatches": ["^\\."]
+  },
+  "explorer.file.root.template": "[icon & 1][root]",
+  "explorer.file.child.template": "[selection | clip | 1] [indent][icon | 1] [diagnosticError & 1][filename omitCenter 1][modified][readonly] [linkIcon & 1][link growRight 1 omitCenter 5]",
+  "explorer.openAction.relativePath": true,
+  "explorer.sources": [
+    {
+      "name": "file",
+      "expand": true
+    }
+  ]
+}

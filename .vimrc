@@ -6,51 +6,21 @@ filetype off
 
 call plug#begin('~/.vim/plugged')
 
-" Nerdtree: навигация по файлам
-Plug 'scrooloose/nerdtree'
-set wildignore+=*.pyc,*.o,*.obj,*.svn,*.swp,*.class,*.hg,*.DS_Store
-let NERDTreeRespectWildIgnore=1
-
 " UltiSnips: вставляет текстовый шаблон. Использование: слово + <tab>
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'mlaursen/vim-react-snippets'
-let g:UltiSnipsExpandTrigger='<tab>'
-let g:UltiSnipsJumpForwardTrigger='<tab>'
-let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
+" отключение действия по умолчанию, управление через coc.nvim
+let g:UltiSnipsExpandTrigger = "<nop>"
 
 " Polyglot: поддержка синтаксиса и отступов для разных языков
 Plug 'sheerun/vim-polyglot'
-"let g:blade_custom_directives = ['datetime', 'javascript']
-
-" Codi: выполнение кода в vim
-"Plug 'metakirby5/codi.vim'
-
-" Javascript: синтаксис для javascript (в том числе в html-файлах)
-"Plug 'pangloss/vim-javascript'
-
-" Typescript: подсветка и отступы
-Plug 'leafgarland/typescript-vim'
-let g:typescript_indent_disable = 1
-
-" Typescript: ide
-Plug 'Quramy/tsuquyomi'
 
 " JSX: подсветка синтаксиса и отступы для JSX
 Plug 'maxmellon/vim-jsx-pretty'
 
 " Bbye: удаление ненужных буферов
 Plug 'moll/vim-bbye'
-
-" Deoplete: автозавершение
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
-let g:deoplete#enable_at_startup = 1
 
 "PaperColor: цветовая схема
 Plug 'NLKNguyen/papercolor-theme'
@@ -62,7 +32,6 @@ let g:buffergator_suppress_keymaps = 1
 
 " Arsync: asynchronous synchronisation of remote files
 Plug 'kenn7/vim-arsync'
-
 
 " Git support
 Plug 'tpope/vim-fugitive'
@@ -79,6 +48,29 @@ let g:prettier#config#jsx_bracket_same_line = 'true'
 let g:prettier#config#trailing_comma = 'none'
 let g:prettier#config#print_width = 200
 packloadall
+
+" Coc.nvim
+" требует CocInstall coc-tsserver coc-snippets coc-prettier coc-styled-components coc-react-refactor coc-json
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+inoremap <silent><expr> <C-i>
+      \ coc#pum#visible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap',['snippets-expand-jump',''])\<C-i>" :
+      \ CheckBackSpace() ? "\<C-i>" :
+      \ coc#refresh()
+
+function! CheckBackSpace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<C-i>'
+
+let g:coc_explorer_global_presets = {
+\   '.vim': {
+\     'root-uri': '~/.vim',
+\   },
+\}
 
 call plug#end()
 
@@ -112,6 +104,9 @@ set cmdheight=1
 " Номерация строк
 set number
 set relativenumber
+
+" Скрыть вывод информации в нумерации
+set signcolumn=no
 
 " Количество символов в номерации строк
 set numberwidth=4
@@ -334,20 +329,20 @@ nmap <leader>jv :vsplit $MYVIMRC<CR>
 " , + jb: Форматирование кода
 nmap <leader>jb :Prettier<CR>
 
-" , + tf: typescript fix
-nmap <leader>tf :TsuQuickFix<CR>
+" , + ti: Fix bugs
+nmap <silent> <leader>ti :CocCommand tsserver.executeAutofix<CR>
 
-" , + tr: typescript rename
-nmap <leader>tr :TsuRenameSymbol<CR>
+" , + r изменить слово во всём документе
+nmap <silent> <leader>r :CocCommand document.renameCurrentWord<CR>
 
 " , + b: Buffergator
-nmap <Leader>b :BuffergatorToggle<CR>
+nmap <silent> <Leader>b :BuffergatorToggle<CR>
 
 " , + s: Save remote
 nmap <silent> <Leader>s :ARsyncUp<CR>
 
 " , + f: Файловая система
-nmap <silent> <Leader>f :NERDTreeToggle<CR>
+nmap <silent> <Leader>f :CocCommand explorer<CR>
 
 " , + p: Открывает предыдущий буфер
 nmap <silent> <Leader>p :bp<CR>
