@@ -6,6 +6,13 @@ filetype off
 
 call plug#begin('~/.vim/plugged')
 
+" Nerdtree: навигация по файлам
+"Plug 'scrooloose/nerdtree'
+Plug 'preservim/nerdtree'
+set wildignore+=*.pyc,*.o,*.obj,*.svn,*.swp,*.class,*.hg,*.DS_Store
+let NERDTreeRespectWildIgnore=1
+Plug 'Xuyuanp/nerdtree-git-plugin'
+
 " UltiSnips: вставляет текстовый шаблон. Использование: слово + <tab>
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -342,7 +349,7 @@ nmap <silent> <Leader>b :BuffergatorToggle<CR>
 nmap <silent> <Leader>s :ARsyncUp<CR>
 
 " , + f: Файловая система
-nmap <silent> <Leader>f :CocCommand explorer<CR>
+nmap <silent> <Leader>f :NERDTreeToggle<CR>
 
 " , + p: Открывает предыдущий буфер
 nmap <silent> <Leader>p :bp<CR>
