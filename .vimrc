@@ -24,7 +24,7 @@ let g:UltiSnipsExpandTrigger = "<nop>"
 Plug 'sheerun/vim-polyglot'
 
 " JSX: подсветка синтаксиса и отступы для JSX
-Plug 'maxmellon/vim-jsx-pretty'
+"Plug 'maxmellon/vim-jsx-pretty'
 
 " Bbye: удаление ненужных буферов
 Plug 'moll/vim-bbye'
@@ -44,20 +44,21 @@ Plug 'kenn7/vim-arsync'
 Plug 'tpope/vim-fugitive'
 
 " Prettier: форматирование для js, ts, less, scss, css, json, graphql and markdown files
-Plug 'prettier/vim-prettier', { 'do': 'npm install' }
-let g:prettier#autoformat = 0
-let g:prettier#exec_cmd_async = 1
-let g:prettier#autoformat_require_pragma = 0
-let g:prettier#config#semi = 'true'
-let g:prettier#config#single_quote = 'true'
-let g:prettier#config#bracket_spacing = 'true'
-let g:prettier#config#jsx_bracket_same_line = 'true'
-let g:prettier#config#trailing_comma = 'none'
-let g:prettier#config#print_width = 200
-packloadall
+"Plug 'prettier/vim-prettier', { 'do': 'npm install' }
+"let g:prettier#autoformat = 0
+"let g:prettier#exec_cmd_async = 1
+"let g:prettier#autoformat_require_pragma = 0
+"let g:prettier#config#semi = 'true'
+"let g:prettier#config#single_quote = 'true'
+"let g:prettier#config#bracket_spacing = 'true'
+"let g:prettier#config#jsx_bracket_same_line = 'true'
+"let g:prettier#config#trailing_comma = 'none'
+"let g:prettier#config#print_width = 200
+"packloadall
 
 " Coc.nvim
 " требует CocInstall coc-tsserver coc-snippets coc-prettier coc-styled-components coc-react-refactor coc-json
+" CocInstall https://github.com/dsznajder/vscode-es7-javascript-react-snippets
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 inoremap <silent><expr> <C-i>
@@ -334,13 +335,16 @@ let mapleader = ','
 nmap <leader>jv :vsplit $MYVIMRC<CR>
 
 " , + jb: Форматирование кода
-nmap <leader>jb :Prettier<CR>
+"nmap <leader>jb :Prettier<CR>
 
 " , + ti: Fix bugs
 nmap <silent> <leader>ti :CocCommand tsserver.executeAutofix<CR>
 
 " , + r изменить слово во всём документе
 nmap <silent> <leader>r :CocCommand document.renameCurrentWord<CR>
+
+" , + r изменить слово во всём документе
+nmap <silent> <leader>h :call CocActionAsync('doHover')<CR>
 
 " , + b: Buffergator
 nmap <silent> <Leader>b :BuffergatorToggle<CR>

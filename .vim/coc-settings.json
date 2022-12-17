@@ -1,0 +1,27 @@
+{
+  "coc.preferences.formatOnSaveFiletypes": [
+    "htmlWhitespaceSensitivity",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "tsserver.formatOnType": true,
+  "typescript.preferences.includePackageJsonAutoImports": "on",
+  "coc.preferences.formatOnType": false,
+  "javascript.suggest.autoImports": true,
+  "typescript.suggest.autoImports": true,
+
+  "prettier.arrowParens": "avoid",
+  "prettier.bracketSpacing": true,
+  "prettier.endOfLine": "lf", // ?
+  "prettier.htmlWhitespaceSensitivity": "css", // ?
+  "prettier.bracketSameLine": true,
+  "prettier.jsxSingleQuote": true,
+  "prettier.printWidth": 100,
+  "prettier.semi": true,
+  "prettier.singleQuote": true,
+  "prettier.tabWidth": 2,
+  "prettier.trailingComma": "none",
+  "prettier.useTabs": false,
+  "prettier.embeddedLanguageFormatting": "auto"
+}
