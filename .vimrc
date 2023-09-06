@@ -381,8 +381,8 @@ function! s:GrepOperator(type)
   " - папок начинающихся на '_'
   " - файлов начинающихся с '_'
   execute 'grep! -aR ' . shellescape(@@) .
-        \ ' . --exclude-dir={node_modules,vendor,.git,_*}
-        \ --exclude={package-lock.json,_*,*.pyc}'
+        \ ' . --exclude-dir={node_modules,vendor,.git,_\*}
+        \ --exclude={package-lock.json,_\*,\*.pyc}'
   copen
 
   let @@ = saved_unnamed_register
