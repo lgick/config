@@ -23,9 +23,6 @@ let g:UltiSnipsExpandTrigger = "<nop>"
 " Polyglot: поддержка синтаксиса и отступов для разных языков
 Plug 'sheerun/vim-polyglot'
 
-" JSX: подсветка синтаксиса и отступы для JSX
-"Plug 'maxmellon/vim-jsx-pretty'
-
 " Bbye: удаление ненужных буферов
 Plug 'moll/vim-bbye'
 

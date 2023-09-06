@@ -16,8 +16,10 @@
   lg1 = !git log --pretty=format:'%h : %s' --graph
 [core]
   editor = vim
-	excludesFile = ~/.gitignore_global
-	ignorecase = false
+  excludesFile = ~/.gitignore_global
+  ignorecase = false
 [push]
   default = matching
 [pull]
+[oh-my-zsh]
+ hide-status = 1
