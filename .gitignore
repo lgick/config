@@ -1,12 +1,14 @@
+# Blocklist files/folders in same directory as the .gitignore file
 /*
+
+# Includelist some files
 !.gitignore
 !.gitignore_global
 !.gitconfig
 !.vimrc
 !.zshrc
-!/.vim/
-!/.plist/
+!.plist/
 
-/.vim/bundle/
-/.vim/autoload/
-/.vim/plugged/
+!.config/
+.config/*
+!.config/nvim/
