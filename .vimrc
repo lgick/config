@@ -1,3 +1,4 @@
+" ----------------------------------------
 " Плагины VIM:
 " ----------------------------------------
 
@@ -7,18 +8,19 @@ filetype off
 call plug#begin('~/.vim/plugged')
 
 " Nerdtree: навигация по файлам
-"Plug 'scrooloose/nerdtree'
 Plug 'preservim/nerdtree'
 set wildignore+=*.pyc,*.o,*.obj,*.svn,*.swp,*.class,*.hg,*.DS_Store
 let NERDTreeRespectWildIgnore=1
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
-" UltiSnips: вставляет текстовый шаблон. Использование: слово + <tab>
+" UltiSnips: сниппеты
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'mlaursen/vim-react-snippets'
-" отключение действия по умолчанию, управление через coc.nvim
-let g:UltiSnipsExpandTrigger = "<nop>"
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<C-n>"
+let g:UltiSnipsJumpBackwardTrigger="<C-p>"
+let g:UltiSnipsEditSplit="vertical"
 
 " Polyglot: поддержка синтаксиса и отступов для разных языков
 Plug 'sheerun/vim-polyglot'
@@ -40,47 +42,24 @@ Plug 'kenn7/vim-arsync'
 " Git support
 Plug 'tpope/vim-fugitive'
 
-" Prettier: форматирование для js, ts, less, scss, css, json, graphql and markdown files
-"Plug 'prettier/vim-prettier', { 'do': 'npm install' }
-"let g:prettier#autoformat = 0
-"let g:prettier#exec_cmd_async = 1
-"let g:prettier#autoformat_require_pragma = 0
-"let g:prettier#config#semi = 'true'
-"let g:prettier#config#single_quote = 'true'
-"let g:prettier#config#bracket_spacing = 'true'
-"let g:prettier#config#jsx_bracket_same_line = 'true'
-"let g:prettier#config#trailing_comma = 'none'
-"let g:prettier#config#print_width = 200
-"packloadall
-
-" Coc.nvim
-" требует CocInstall coc-tsserver coc-snippets coc-prettier coc-styled-components coc-react-refactor coc-json
-" CocInstall https://github.com/dsznajder/vscode-es7-javascript-react-snippets
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-inoremap <silent><expr> <C-i>
-      \ coc#pum#visible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap',['snippets-expand-jump',''])\<C-i>" :
-      \ CheckBackSpace() ? "\<C-i>" :
-      \ coc#refresh()
-
-function! CheckBackSpace() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-let g:coc_snippet_next = '<C-i>'
-
-let g:coc_explorer_global_presets = {
-\   '.vim': {
-\     'root-uri': '~/.vim',
-\   },
-\}
+" Easycomplete: автозавершение, lsp, навигация по проекту
+Plug 'ycm-core/YouCompleteMe'
+let g:ycm_key_list_select_completion = ['<C-n>']
+let g:ycm_key_list_previous_completion = ['<C-p>']
 
 call plug#end()
 
 filetype plugin indent on
 
+
+" ----------------------------------------
+"  settings
+" ----------------------------------------
+"
+
+"autocmd FileType javascript,javascriptreact,typescript,typescriptreact
+"  \ UltiSnipsAddFiletypes javascript.javascript_react.typescript.typescript_react
+"
 
 " ----------------------------------------
 " Общие настройки VIM
@@ -158,24 +137,11 @@ syntax enable
 " Фон
 set background=light
 
-" Поддержка цвета
-set t_Co=256
-
 " Цветовая схема
-"colorscheme desert
-"colorscheme morning
 colorscheme PaperColor
-
 
 " Цвет невидимых символов
 highlight SpecialKey ctermbg=none ctermfg=160
-
-" Цвет колонки-ограничителя
-"highlight ColorColumn ctermbg=none ctermfg=11
-
-" Цветная колонка-ограничитель
-"set colorcolumn=76
-"execute "set colorcolumn=" . join(range(76,335), ',')
 
 " Стили текста за пределами допустимой области
 highlight OverLength ctermfg=160
@@ -188,8 +154,14 @@ match OverLength /\%480v.\+/
 " Форматирование текста
 " ----------------------------------------
 
-" Установить keymap (переключается CTRL + ^)
-set keymap=russian-jcukenwin
+" Установить keymap
+set keymap=russian-jcukenmac
+
+" Переключение языка в режиме ввода
+imap <C-l> <C-^>
+
+" Переключение языка в режиме поиска
+cmap <C-l> <C-^>
 
 " По умолчанию - латинская раскладка
 set iminsert=0
@@ -285,9 +257,8 @@ set foldcolumn=0
 " Автозавершение двойных знаков
 imap [ []<left>
 imap ( ()<left>
-"imap < <><left>
 imap { {}<left>
-"
+
 " Сигнал ошибке при отсутствии открывающей скобки
 set showmatch
 
@@ -313,12 +284,6 @@ autocmd! bufwritepost $MYVIMRC source $MYVIMRC
 set list
 
 " Вид табуляции и пробела
-"set lcs=tab:│\ ,trail:·,extends:>,precedes:<,nbsp:&
-"set lcs=tab:└─,trail:·,extends:>,precedes:<,nbsp:&
-"set lcs=tab:│┈,trail:·,extends:>,precedes:<,nbsp:&
-"set lcs=tab:▸\ ,trail:·,extends:>,precedes:<,nbsp:&
-"set lcs=tab:▸·,trail:·,extends:>,precedes:<,nbsp:&
-"set lcs=tab:\ \ ,trail:·,extends:>,precedes:<,nbsp:&
 set lcs=tab:·\ ,trail:·,extends:>,precedes:<,nbsp:&
 
 
@@ -331,39 +296,27 @@ let mapleader = ','
 " , + jv: VIM edit
 nmap <leader>jv :vsplit $MYVIMRC<CR>
 
-" , + jb: Форматирование кода
-"nmap <leader>jb :Prettier<CR>
-
-" , + ti: Fix bugs
-nmap <silent> <leader>ti :CocCommand tsserver.executeAutofix<CR>
-
-" , + r изменить слово во всём документе
-nmap <silent> <leader>r :CocCommand document.renameCurrentWord<CR>
-
-" , + r изменить слово во всём документе
-nmap <silent> <leader>h :call CocActionAsync('doHover')<CR>
-
 " , + b: Buffergator
-nmap <silent> <Leader>b :BuffergatorToggle<CR>
+nmap <silent> <leader>b :BuffergatorToggle<CR>
 
 " , + s: Save remote
-nmap <silent> <Leader>s :ARsyncUp<CR>
+nmap <silent> <leader>s :ARsyncUp<CR>
 
 " , + f: Файловая система
-nmap <silent> <Leader>f :NERDTreeToggle<CR>
+nmap <silent> <leader>f :NERDTreeToggle<CR>
 
 " , + p: Открывает предыдущий буфер
-nmap <silent> <Leader>p :bp<CR>
+nmap <silent> <leader>p :bp<CR>
 
 " , + n: Открывает следующий буфер
-nmap <silent> <Leader>n :bn<CR>
+nmap <silent> <leader>n :bn<CR>
 
 " , + d: Bbye - закрывает файл
-nmap <silent> <Leader>d :Bdelete<CR>
+nmap <silent> <leader>d :Bdelete<CR>
 
 " , + g: Поиск слова под курсором в текущей директории
-nmap <Leader>g :set operatorfunc=<SID>GrepOperator<CR>g@
-vmap <Leader>g :<c-u>call <SID>GrepOperator(visualmode())<CR>
+nmap <leader>g :set operatorfunc=<SID>GrepOperator<CR>g@
+vmap <leader>g :<c-u>call <SID>GrepOperator(visualmode())<CR>
 
 function! s:GrepOperator(type)
   let saved_unnamed_register = @@
@@ -389,7 +342,7 @@ function! s:GrepOperator(type)
 endfunction
 
 " , + z: Сворачивание функциональных блоков в файле
-nmap <Leader>z :call FoldingBlocks()<CR>
+nmap <leader>z :call FoldingBlocks()<CR>
 
 function! FoldingBlocks()
   if exists('b:space') == 0
@@ -427,7 +380,7 @@ function! FoldingBlocks()
 endfunction
 
 " , + l: Подсветка координат курсора
-map <silent> <Leader>l :call ToggleCursorLight()<CR>
+map <silent> <leader>l :call ToggleCursorLight()<CR>
 
 set cursorline
 set cursorcolumn
@@ -446,10 +399,10 @@ function! ToggleCursorLight()
 endfunction
 
 " , + c: Копирование в системный буфер
-vmap <silent> <Leader>c "+y<CR>
+vmap <silent> <leader>c "+y<CR>
 
 " , + v: Вставка из системного буфера
-nmap <silent> <Leader>v "+p<CR>
+nmap <silent> <leader>v "+p<CR>
 
 " , + w: Git blame (who)
-map <silent> <Leader>w :Git blame<CR>
+map <silent> <leader>w :Git blame<CR>
