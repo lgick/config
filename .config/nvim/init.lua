@@ -10,8 +10,8 @@ g.mapleader = ","
 
 vim.call('plug#begin')
 
--- PaperColor: цветовая схема
-Plug('NLKNguyen/papercolor-theme')
+-- Цветовая схема
+Plug('catppuccin/nvim', {['as'] = 'catppuccin'})
 
 -- Treesitter: Подсветка синтаксиса
 Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
@@ -141,14 +141,8 @@ opt.statusline = "%<%f%h%m%r [%{&fenc}] %=%c|%l/%L %P [%{strftime('%a %d.%m.%Y %
 -- Цвет
 ------------------------------------------
 
--- 24-битные цвета
-opt.termguicolors = true
-
--- Фон
-opt.background = "light"
-
 -- Цветовая схема
-cmd('silent! colorscheme PaperColor')
+cmd('silent! colorscheme catppuccin-frappe')
 
 -- Цвет невидимых символов listchars
 cmd("highlight Whitespace guifg = #af0000 guibg = none")
