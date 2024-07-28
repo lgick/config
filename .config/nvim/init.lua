@@ -20,6 +20,27 @@ Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
 Plug('preservim/nerdtree', { ['on'] = 'NERDTreeToggle' })
 g.NERDTreeRespectWildIgnore = 1
 
+-- LSP & autocomplete
+Plug('neovim/nvim-lspconfig')
+Plug('hrsh7th/cmp-nvim-lsp')
+Plug('hrsh7th/cmp-buffer')
+Plug('hrsh7th/cmp-path')
+Plug('hrsh7th/cmp-cmdline')
+Plug('hrsh7th/nvim-cmp')
+-- For vsnip users.
+Plug('hrsh7th/cmp-vsnip')
+Plug('hrsh7th/vim-vsnip')
+
+-- Mason: добавление серверов, форматеров
+Plug('williamboman/mason.nvim')
+
+-- Telescope: поиск
+Plug('nvim-lua/plenary.nvim')
+Plug('nvim-telescope/telescope.nvim', { ['tag'] = '0.1.8' })
+
+-- Null-ls: диагностика
+Plug('jose-elias-alvarez/null-ls.nvim')
+
 vim.call('plug#end')
 
 
@@ -285,15 +306,11 @@ end
 
 
 ----------------------------------------
--- Config
+-- Plugins
 ----------------------------------------
-
--- Treesitter
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = {"typescript", "lua", "tsx", "typescript", "javascript", "html", "css"},
-  sync_install = false,
-  auto_install = true,
-  highlight = {
-    enable = true
-  }
-}
+require("plugins.treesitter")
+require("plugins.lsp")
+require("plugins.cmp")
+require("plugins.mason")
+require("plugins.telescope")
+require("plugins.null-ls")
