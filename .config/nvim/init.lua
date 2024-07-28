@@ -33,6 +33,7 @@ Plug('hrsh7th/vim-vsnip')
 
 -- Mason: добавление серверов, форматеров
 Plug('williamboman/mason.nvim')
+Plug('williamboman/mason-lspconfig.nvim')
 
 -- Telescope: поиск
 Plug('nvim-lua/plenary.nvim')
@@ -259,7 +260,8 @@ map("v", "<leader>z", "zf")
 opt.showmatch = true
 
 -- Отключение добавления первого значения при вызове <c-x><c-o>
-opt.completeopt = "longest,menuone"
+--opt.completeopt = "longest,menuone"
+opt.completeopt = {'menu', 'menuone', 'noselect'}
 
 
 ----------------------------------------
