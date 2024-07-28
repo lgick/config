@@ -141,6 +141,9 @@ opt.statusline = "%<%f%h%m%r [%{&fenc}] %=%c|%l/%L %P [%{strftime('%a %d.%m.%Y %
 -- Цвет
 ------------------------------------------
 
+-- 24-битные цвета
+opt.termguicolors = true
+
 -- Цветовая схема
 cmd('silent! colorscheme catppuccin-frappe')
 
