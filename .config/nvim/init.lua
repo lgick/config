@@ -11,7 +11,7 @@ g.mapleader = ","
 vim.call('plug#begin')
 
 -- PaperColor: цветовая схема
-Plug('pappasam/papercolor-theme-slim')
+Plug('NLKNguyen/papercolor-theme')
 
 -- Treesitter: Подсветка синтаксиса
 Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
@@ -148,7 +148,7 @@ opt.termguicolors = true
 opt.background = "light"
 
 -- Цветовая схема
-cmd('silent! colorscheme PaperColorSlim')
+cmd('silent! colorscheme PaperColor')
 
 -- Цвет невидимых символов listchars
 cmd("highlight Whitespace guifg = #af0000 guibg = none")
