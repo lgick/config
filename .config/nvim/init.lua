@@ -1,10 +1,26 @@
+local vim = vim
 local g = vim.g
 local opt = vim.opt
 local wo = vim.wo
 local map = vim.keymap.set
 local cmd = vim.cmd
+local Plug = vim.fn['plug#']
 
 g.mapleader = ","
+
+vim.call('plug#begin')
+
+-- PaperColor: цветовая схема
+Plug('pappasam/papercolor-theme-slim')
+
+-- Treesitter: Подсветка синтаксиса
+Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
+
+-- Nerdtree: навигация по файлам
+Plug('preservim/nerdtree', { ['on'] = 'NERDTreeToggle' })
+g.NERDTreeRespectWildIgnore = 1
+
+vim.call('plug#end')
 
 
 ----------------------------------------
@@ -36,7 +52,7 @@ opt.numberwidth = 4
 opt.title = true
 
 -- Запрет переноса строк
-wo.wrap = false
+opt.wrap = false
 
 -- Отступы сверху и снизу при скролле
 opt.scrolloff = 10
@@ -99,7 +115,7 @@ opt.tabstop = 2
 opt.shiftwidth = 2
 
 -- Настройка сессий
-opt.sessionoptions="buffers,folds,sesdir,tabpages,globals,options,resize,winpos"
+opt.sessionoptions = "buffers,folds,sesdir,tabpages,globals,options,resize,winpos"
 
 
 ------------------------------------------
@@ -118,7 +134,7 @@ map("i", "<BS>", "<nop>")
 -- Дата и время
 ------------------------------------------
 
-opt.statusline="%<%f%h%m%r [%{&fenc}] %=%c|%l/%L %P [%{strftime('%a %d.%m.%Y %H:%M')}]"
+opt.statusline = "%<%f%h%m%r [%{&fenc}] %=%c|%l/%L %P [%{strftime('%a %d.%m.%Y %H:%M')}]"
 
 
 ------------------------------------------
@@ -132,7 +148,7 @@ opt.termguicolors = true
 opt.background = "light"
 
 -- Цветовая схема
-cmd.colorscheme "PaperColor"
+cmd('silent! colorscheme PaperColorSlim')
 
 -- Цвет невидимых символов listchars
 cmd("highlight Whitespace guifg = #af0000 guibg = none")
@@ -176,6 +192,9 @@ opt.ignorecase = true
 
 -- Умный поиск
 opt.smartcase = true
+
+-- Игнорируемые расширения файлов (для nerdtree)
+opt.wildignore:append("*.pyc,*.o,*.obj,*.svn,*.swp,*.class,*.hg,*.DS_Store,*.tmp,*.zip")
 
 
 ----------------------------------------
@@ -244,10 +263,13 @@ map("v", "<leader>c", "\"+y", { silent = true })
 -- , + v: Вставка из системного буфера
 map("n", "<leader>v", "\"+p", { silent = true })
 
+-- , + f: Файловая система
+map("n", "<leader>f", ":NERDTreeToggle<CR>", { silent = true })
+
 -- , + l: Подсветка координат курсора
 map("n", "<leader>l", ":lua ToggleCursorLight()<CR>", { silent = true })
 
-cursorLight = false
+local cursorLight = false
 
 function ToggleCursorLight()
   if cursorLight == true then

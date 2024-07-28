@@ -9,7 +9,7 @@ call plug#begin('~/.vim/plugged')
 
 " Nerdtree: навигация по файлам
 Plug 'preservim/nerdtree'
-set wildignore+=*.pyc,*.o,*.obj,*.svn,*.swp,*.class,*.hg,*.DS_Store
+set wildignore+=*.pyc,*.o,*.obj,*.svn,*.swp,*.class,*.hg,*.DS_Store,*.zip,*.tmp
 let NERDTreeRespectWildIgnore=1
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
