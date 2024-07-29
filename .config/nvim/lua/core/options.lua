@@ -58,7 +58,7 @@ opt.cursorcolumn = false
 ------------------------------------------
 
 -- Установить keymap
-opt.keymap= "russian-jcukenmac"
+opt.keymap = "russian-jcukenmac"
 
 -- По умолчанию - латинская раскладка
 opt.iminsert = 0
@@ -152,9 +152,6 @@ opt.ignorecase = true
 -- Умный поиск
 opt.smartcase = true
 
--- Игнорируемые расширения файлов (для nerdtree)
-opt.wildignore:append("*.pyc,*.o,*.obj,*.svn,*.swp,*.class,*.hg,*.DS_Store,*.tmp,*.zip")
-
 
 ----------------------------------------
 -- Сворачивание блоков кода
@@ -196,6 +193,4 @@ opt.showmatch = true
 
 -- Отключение добавления первого значения при вызове <c-x><c-o>
 --opt.completeopt = "longest,menuone"
-opt.completeopt = {'menu', 'menuone', 'noselect'}
-
-
+opt.completeopt = { 'menu', 'menuone', 'noselect' }

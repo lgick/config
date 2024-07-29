@@ -38,19 +38,32 @@ return {
         },
       },
       filters = {
-        custom = { ".DS_Store" },
+        custom = {
+          ".DS_Store",
+          "*.pyc",
+          "*.o",
+          "*.obj",
+          "*.svn",
+          "*.swp",
+          "*.class",
+          "*.hg",
+          "*.tmp",
+          "*.zip",
+        },
       },
       git = {
         ignore = false,
       },
     })
 
-    -- set keymaps
-    local keymap = vim.keymap -- for conciseness
+    -- collapse - W
+    -- change root - CTRL - ]
+    -- horizontal split - CTRL - x
+    -- vertical split - CTRL - v
 
-    keymap.set("n", "<leader>ee", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer" }) -- toggle file explorer
-    keymap.set("n", "<leader>ef", "<cmd>NvimTreeFindFileToggle<CR>", { desc = "Toggle file explorer on current file" }) -- toggle file explorer on current file
-    keymap.set("n", "<leader>ec", "<cmd>NvimTreeCollapse<CR>", { desc = "Collapse file explorer" }) -- collapse file explorer
-    keymap.set("n", "<leader>er", "<cmd>NvimTreeRefresh<CR>", { desc = "Refresh file explorer" }) -- refresh file explorer
-  end
+    -- set keymaps
+    local keymap = vim.keymap
+
+    keymap.set("n", "<leader>f", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer" })
+  end,
 }

@@ -55,23 +55,3 @@ map("v", "<leader>c", "\"+y", { silent = true })
 
 -- , + v: Вставка из системного буфера
 map("n", "<leader>v", "\"+p", { silent = true })
-
--- , + f: Файловая система
--- map("n", "<leader>f", ":NERDTreeToggle<CR>", { silent = true })
-
--- , + l: Подсветка координат курсора
-map("n", "<leader>l", ":lua ToggleCursorLight()<CR>", { silent = true })
-
-local cursorLight = false
-
-function ToggleCursorLight()
-  if cursorLight == true then
-    opt.cursorline = false
-    opt.cursorcolumn = false
-    cursorLight = false
-  else
-    opt.cursorline = true
-    opt.cursorcolumn = true
-    cursorLight = true
-  end
-end
