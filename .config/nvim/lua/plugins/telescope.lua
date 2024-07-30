@@ -49,6 +49,12 @@ return {
         path_display = { "smart" },
         mappings = {
           i = {
+            ["<C-k>"] = actions.move_selection_previous,
+            ["<C-j>"] = actions.move_selection_next,
+            ["<C-p>"] = actions.preview_scrolling_up,
+            ["<C-n>"] = actions.preview_scrolling_down,
+            ["<C-u>"] = actions.move_to_top,
+            ["<C-d>"] = actions.move_to_bottom,
             ["<C-q>"] = actions.send_selected_to_qflist + custom_actions.open_trouble_qflist,
           },
         },
@@ -56,13 +62,5 @@ return {
     })
 
     telescope.load_extension("fzf")
-
-    -- set keymaps
-    local keymap = vim.keymap -- for conciseness
-    local builtin = require('telescope.builtin')
-    keymap.set('n', '<leader>gf', builtin.find_files, {})
-    keymap.set('n', '<leader>gg', builtin.live_grep, {})
-    keymap.set('n', '<leader>gb', builtin.buffers, {})
-    keymap.set('n', '<leader>gh', builtin.help_tags, {})
   end,
 }

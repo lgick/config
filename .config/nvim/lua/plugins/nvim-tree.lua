@@ -94,15 +94,5 @@ return {
         ignore = false,
       },
     })
-
-    -- collapse - W
-    -- change root - CTRL - ]
-    -- horizontal split - CTRL - x
-    -- vertical split - CTRL - v
-
-    -- set keymaps
-    local keymap = vim.keymap
-
-    keymap.set("n", "<leader>f", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer" })
   end,
 }
