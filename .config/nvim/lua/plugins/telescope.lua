@@ -24,11 +24,31 @@ return {
 
     telescope.setup({
       defaults = {
+        file_ignore_patterns = {
+          "%.svg",
+          "%.gif",
+          "%.jpeg",
+          "%.jpg",
+          "%.png",
+          "%.webp",
+          "%.ico",
+          "%.ttf",
+          "%.json",
+          "README.md",
+        },
+        vimgrep_arguments = {
+          "rg",
+          "--color=never",
+          "--no-heading",
+          "--with-filename",
+          "--line-number",
+          "--column",
+          "--hidden",
+          "--smart-case"
+        },
         path_display = { "smart" },
         mappings = {
           i = {
-            ["<C-k>"] = actions.move_selection_previous, -- move to prev result
-            ["<C-j>"] = actions.move_selection_next,     -- move to next result
             ["<C-q>"] = actions.send_selected_to_qflist + custom_actions.open_trouble_qflist,
             ["<C-t>"] = trouble_telescope.open,
           },
@@ -40,7 +60,10 @@ return {
 
     -- set keymaps
     local keymap = vim.keymap -- for conciseness
-
-    keymap.set("n", "<leader>g", "<cmd>Telescope find_files<cr>", { desc = "Fuzzy find files in cwd" })
+    local builtin = require('telescope.builtin')
+    keymap.set('n', '<leader>gf', builtin.find_files, {})
+    keymap.set('n', '<leader>gg', builtin.live_grep, {})
+    keymap.set('n', '<leader>gb', builtin.buffers, {})
+    keymap.set('n', '<leader>gh', builtin.help_tags, {})
   end,
 }

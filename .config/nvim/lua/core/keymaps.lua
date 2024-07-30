@@ -47,7 +47,7 @@ map("n", "<leader>p", ":bp<CR>", { silent = true })
 -- , + n: Открывает следующий буфер
 map("n", "<leader>n", ":bn<CR>", { silent = true })
 
--- , + d: Bbye - закрывает файл
+-- , + d: Удаление буфера
 map("n", "<leader>d", ":bdel<CR>", { silent = true })
 
 -- , + c: Копирование в системный буфер
