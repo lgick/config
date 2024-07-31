@@ -16,8 +16,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 " UltiSnips: сниппеты
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'mlaursen/vim-react-snippets'
-let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsExpandTrigger="<C-m>"
 let g:UltiSnipsJumpForwardTrigger="<C-n>"
 let g:UltiSnipsJumpBackwardTrigger="<C-p>"
 let g:UltiSnipsEditSplit="vertical"
@@ -51,15 +50,6 @@ call plug#end()
 
 filetype plugin indent on
 
-
-" ----------------------------------------
-"  settings
-" ----------------------------------------
-"
-
-"autocmd FileType javascript,javascriptreact,typescript,typescriptreact
-"  \ UltiSnipsAddFiletypes javascript.javascript_react.typescript.typescript_react
-"
 
 " ----------------------------------------
 " Общие настройки VIM
@@ -141,7 +131,7 @@ set background=light
 colorscheme PaperColor
 
 " Цвет невидимых символов
-highlight SpecialKey ctermbg=none ctermfg=160
+highlight SpecialKey ctermbg=none ctermfg=124
 
 " Стили текста за пределами допустимой области
 highlight OverLength ctermfg=160
@@ -159,6 +149,9 @@ set keymap=russian-jcukenmac
 
 " Переключение языка в режиме ввода
 imap <C-l> <C-^>
+
+" Сброс языка при выходе из Insert mode
+imap <silent> <ESC> <ESC>:set iminsert=0<CR>
 
 " Переключение языка в режиме поиска
 cmap <C-l> <C-^>
@@ -239,15 +232,6 @@ set foldmethod=manual
 
 " Полоса отображения свернутых/развернутых блоков
 set foldcolumn=0
-
-" Уровень сверачивания блоков по умолчанию
-"set foldlevel=0
-
-" Автоматическое открытие сверток при заходе на них
-"set foldopen=all
-
-" Автоматическое закрытие сверток при уходе с них
-"set foldclose=all
 
 
 " ----------------------------------------
