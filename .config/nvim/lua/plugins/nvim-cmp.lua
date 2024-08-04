@@ -71,12 +71,11 @@ return {
         end, { "i", "s" }),
 
         -- remove current snippet from jumplist
-        ["<C-[>"] = cmp.mapping(function(fallback)
+        ["<ESC>"] = cmp.mapping(function(fallback)
           if luasnip.in_snippet() then
             luasnip.unlink_current()
-          else
-            fallback()
           end
+          fallback()
         end, { "i", "s" }),
 
         ['<C-u>'] = cmp.mapping.scroll_docs(-4),
