@@ -69,6 +69,9 @@ opt.imsearch = 0
 -- Невидимый курсор мыши при наборе текста
 opt.mousehide = true
 
+-- Выделение мышкой
+opt.mouse = "r"
+
 -- Кодировка
 opt.fileencodings = "utf8,cp1251"
 opt.encoding = "utf-8"

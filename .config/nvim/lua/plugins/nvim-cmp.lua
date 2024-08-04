@@ -25,7 +25,7 @@ return {
 
     cmp.setup({
       completion = {
-        completeopt = "menu,menuone,preview,noselect",
+        completeopt = "menu,menuone,preview,select",
       },
       snippet = { -- configure how nvim-cmp interacts with snippet engine
         expand = function(args)
@@ -33,17 +33,47 @@ return {
         end,
       },
       mapping = cmp.mapping.preset.insert({
+        ['<CR>'] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            if luasnip.expandable() then
+              luasnip.expand()
+            else
+              cmp.confirm({
+                select = true,
+              })
+            end
+          else
+            fallback()
+          end
+        end),
+
+        ["<C-n>"] = cmp.mapping(function(fallback)
+          if luasnip.locally_jumpable(1) then
+            luasnip.jump(1)
+          elseif cmp.visible() then
+            cmp.select_next_item()
+          else
+            fallback()
+          end
+        end, { "i", "s" }),
+
+        ["<C-p>"] = cmp.mapping(function(fallback)
+          if luasnip.locally_jumpable(-1) then
+            luasnip.jump(-1)
+          elseif cmp.visible() then
+            cmp.select_prev_item()
+          else
+            fallback()
+          end
+        end, { "i", "s" }),
+
         ['<C-u>'] = cmp.mapping.scroll_docs(-4),
         ['<C-d>'] = cmp.mapping.scroll_docs(4),
-        ["<C-p>"] = cmp.mapping.select_prev_item(), -- previous suggestion
-        ["<C-n>"] = cmp.mapping.select_next_item(), -- next suggestion
-        ["<C-i>"] = cmp.mapping.complete(),         -- show completion suggestions
-        ["<CR>"] = cmp.mapping.confirm({ select = false }),
       }),
       -- sources for autocompletion
       sources = cmp.config.sources({
-        { name = "nvim_lsp" },
         { name = "luasnip" }, -- snippets
+        { name = "nvim_lsp" },
         { name = "buffer" },  -- text within current buffer
         { name = "path" },    -- file system paths
       }),
