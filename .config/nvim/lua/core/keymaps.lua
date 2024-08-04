@@ -16,7 +16,7 @@ g.mapleader = ","
 map("i", "<C-l>", "<C-^>")
 
 -- Сброс языка при выходе из Insert mode
-map("i", "<ESC>", "<ESC>:set iminsert=0<CR>", { silent = true })
+map("i", "<ESC>", "<ESC><cmd>set iminsert=0<CR>")
 
 -- Переключение языка в режиме поиска
 map("c", "<C-l>", "<C-^>")
@@ -49,22 +49,22 @@ map("v", "<leader>z", "zf")
 ----------------------------------------
 
 -- , + p: Открывает предыдущий буфер
-map("n", "<leader>p", ":bp<CR>", { silent = true })
+map("n", "<leader>p", "<cmd>bp<CR>")
 
 -- , + n: Открывает следующий буфер
-map("n", "<leader>n", ":bn<CR>", { silent = true })
+map("n", "<leader>n", "<cmd>bn<CR>")
 
 -- , + d: Удаление буфера
-map("n", "<leader>d", ":bdel<CR>", { silent = true })
+map("n", "<leader>d", "<cmd>bdel<CR>")
 
 -- , + c: Копирование в системный буфер
-map("v", "<leader>c", "\"+y", { silent = true })
+map("v", "<leader>c", "\"+y")
 
 -- , + v: Вставка из системного буфера
-map("n", "<leader>v", "\"+p", { silent = true })
+map("n", "<leader>v", "\"+p")
 
 -- , + f: File Explorer
-map("n", "<leader>f", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer" })
+map("n", "<leader>f", "<cmd>NvimTreeToggle<CR>")
 
 
 ----------------------------------------
@@ -72,13 +72,13 @@ map("n", "<leader>f", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer"
 ----------------------------------------
 
 -- поиск файлов
-map('n', '<leader>gf', "<cmd>Telescope find_files<CR>", { silent = true })
+map('n', '<leader>gf', "<cmd>Telescope find_files<CR>")
 
 -- поиск по файлам
-map('n', '<leader>gg', "<cmd>Telescope live_grep<CR>", { silent = true })
+map('n', '<leader>gg', "<cmd>Telescope live_grep<CR>")
 
 -- буфферы
-map('n', '<leader>b', "<cmd>Telescope buffers file_ignore_patterns={}<CR>", { silent = true })
+map('n', '<leader>b', "<cmd>Telescope buffers file_ignore_patterns={}<CR>")
 
 
 ----------------------------------------
@@ -86,19 +86,19 @@ map('n', '<leader>b', "<cmd>Telescope buffers file_ignore_patterns={}<CR>", { si
 ----------------------------------------
 
 -- Изменить название в файле
-map("n", "<leader>r", vim.lsp.buf.rename, { silent = true })
+map("n", "<leader>r", vim.lsp.buf.rename)
 
 -- Jump to definitions
-map("n", "<leader>j", "<cmd>Telescope lsp_definitions<CR>", { silent = true })
+map("n", "<leader>j", "<cmd>Telescope lsp_definitions<CR>")
 
 -- Show LSP references
-map("n", "<leader>a", "<cmd>Telescope lsp_references<CR>", { silent = true })
+map("n", "<leader>a", "<cmd>Telescope lsp_references<CR>")
 
 -- Show buffer diagnostics
-map("n", "<leader>s", "<cmd>Telescope diagnostics bufnr=0<CR>", { silent = true })
+map("n", "<leader>s", "<cmd>Telescope diagnostics bufnr=0<CR>")
 
 -- Show documentation for what is under cursor
-map("n", "<leader>i", vim.lsp.buf.hover, { silent = true })
+map("n", "<leader>i", vim.lsp.buf.hover)
 
 -- Show LSP type definitions
 --map("n", "<leader>", "<cmd>Telescope lsp_type_definitions<CR>", { silent = true })
@@ -113,16 +113,16 @@ map("n", "<leader>i", vim.lsp.buf.hover, { silent = true })
 ----------------------------------------
 
 -- Open trouble workspace diagnostics
-map("n", "<leader>xw", "<cmd>Trouble diagnostics toggle<CR>", { silent = true })
+map("n", "<leader>xw", "<cmd>Trouble diagnostics toggle<CR>")
 
 -- Open trouble document diagnostics
-map("n", "<leader>xd", "<cmd>Trouble diagnostics toggle filter.buf=0<CR>", { silent = true })
+map("n", "<leader>xd", "<cmd>Trouble diagnostics toggle filter.buf=0<CR>")
 
 -- Open trouble quickfix list
-map("n", "<leader>xq", "<cmd>Trouble quickfix toggle<CR>", { silent = true })
+map("n", "<leader>xq", "<cmd>Trouble quickfix toggle<CR>")
 
 -- Open trouble location list
-map("n", "<leader>xl", "<cmd>Trouble loclist toggle<CR>", { silent = true })
+map("n", "<leader>xl", "<cmd>Trouble loclist toggle<CR>")
 
 -- Open todos in trouble
-map("n", "<leader>xt", "<cmd>Trouble todo toggle<CR>", { silent = true })
+map("n", "<leader>xt", "<cmd>Trouble todo toggle<CR>")
