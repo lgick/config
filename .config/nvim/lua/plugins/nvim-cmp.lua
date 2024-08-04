@@ -33,6 +33,7 @@ return {
         end,
       },
       mapping = cmp.mapping.preset.insert({
+        -- snippet expand or cmp confirm
         ['<CR>'] = cmp.mapping(function(fallback)
           if cmp.visible() then
             if luasnip.expandable() then
@@ -47,6 +48,7 @@ return {
           end
         end),
 
+        -- jump forward or next item
         ["<C-n>"] = cmp.mapping(function(fallback)
           if luasnip.locally_jumpable(1) then
             luasnip.jump(1)
@@ -57,11 +59,21 @@ return {
           end
         end, { "i", "s" }),
 
+        -- jump backward or prev item
         ["<C-p>"] = cmp.mapping(function(fallback)
           if luasnip.locally_jumpable(-1) then
             luasnip.jump(-1)
           elseif cmp.visible() then
             cmp.select_prev_item()
+          else
+            fallback()
+          end
+        end, { "i", "s" }),
+
+        -- remove current snippet from jumplist
+        ["<C-[>"] = cmp.mapping(function(fallback)
+          if luasnip.in_snippet() then
+            luasnip.unlink_current()
           else
             fallback()
           end
