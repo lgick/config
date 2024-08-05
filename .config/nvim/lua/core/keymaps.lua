@@ -100,6 +100,11 @@ map("n", "<leader>s", "<cmd>Telescope diagnostics bufnr=0<CR>")
 -- Show documentation for what is under cursor
 map("n", "<leader>i", vim.lsp.buf.hover)
 
+-- Toggle diagnostic
+map('n', '<leader>t', function()
+  vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+end)
+
 -- Show LSP type definitions
 --map("n", "<leader>", "<cmd>Telescope lsp_type_definitions<CR>", { silent = true })
 -- Show LSP implementations
