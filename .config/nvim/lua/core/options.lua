@@ -161,21 +161,21 @@ opt.smartcase = true
 ----------------------------------------
 
 -- Включить сворачивание
-opt.foldenable = true
+opt.foldenable = false
 
 -- Метод определения блоков свертки
 -- indent: отступами
 -- syntax: синтаксический
 -- manual: вручную
-opt.foldmethod = "manual"
---opt.foldmethod = "expr"
---opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+--opt.foldmethod = "manual"
+opt.foldmethod = "expr"
+opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 
 -- Полоса отображения свернутых/развернутых блоков
 opt.foldcolumn = "0"
 
 -- Уровень сверачивания блоков по умолчанию
-opt.foldlevel = 0
+opt.foldlevel = 2
 
 -- Автоматическое открытие сверток при заходе на них
 --opt.foldopen = "all"
