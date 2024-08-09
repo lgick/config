@@ -1336,6 +1336,8 @@
 	<string>8186E25A-7230-4DF4-9863-244BA7A7478C</string>
 	<key>EnterCopyModeAutomatically</key>
 	<true/>
+	<key>HTMLTabTitles</key>
+	<false/>
 	<key>HapticFeedbackForEsc</key>
 	<false/>
 	<key>HideMenuBarInFullscreen</key>
@@ -2916,8 +2918,10 @@
 	<false/>
 	<key>SoundForEsc</key>
 	<false/>
+	<key>StretchTabsToFillBar</key>
+	<false/>
 	<key>TabStyleWithAutomaticOption</key>
-	<integer>6</integer>
+	<integer>4</integer>
 	<key>TabViewType</key>
 	<integer>0</integer>
 	<key>TripleClickSelectsFullWrappedLines</key>
@@ -2938,7 +2942,7 @@
 				<key>Has Toolbelt</key>
 				<false/>
 				<key>Height</key>
-				<real>844</real>
+				<real>945</real>
 				<key>Hide After Opening</key>
 				<false/>
 				<key>Hiding Toolbelt Should Resize Window</key>
@@ -2956,7 +2960,7 @@
 				<key>Old Y Origin</key>
 				<real>108</real>
 				<key>Saved Window Type</key>
-				<integer>13</integer>
+				<integer>0</integer>
 				<key>Screen</key>
 				<integer>0</integer>
 				<key>Scroller Width</key>
@@ -3935,7 +3939,7 @@
 												<real>0.29803921568627451</real>
 											</dict>
 											<key>Guid</key>
-											<string>45161C8C-C1FA-40F0-95B6-89AA05C8EFC4</string>
+											<string>61E9EEB2-4E37-4D7D-9C7F-7DE5958FAEEA</string>
 											<key>Horizontal Spacing</key>
 											<real>1</real>
 											<key>Idle Code</key>
@@ -4505,7 +4509,7 @@
 											<string>~.config/nvim</string>
 										</dict>
 										<key>Columns</key>
-										<integer>167</integer>
+										<integer>187</integer>
 										<key>Commands</key>
 										<array/>
 										<key>Directories</key>
@@ -4519,6 +4523,11 @@
 											<string>/Users/dmitry/Sites/email-editor-ts</string>
 											<string>/Users/dmitry/Sites/email-editor-ts</string>
 											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
 										</array>
 										<key>Environment</key>
 										<dict>
@@ -4529,6 +4538,36 @@
 										<dict/>
 										<key>Hosts</key>
 										<array>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
 											<dict>
 												<key>Host name</key>
 												<string>dmitry.local</string>
@@ -4585,10 +4624,10 @@
 										</dict>
 										<key>Overridden Fields</key>
 										<array>
-											<string>Cursor Color</string>
+											<string>Title Components</string>
 											<string>Original Guid</string>
 											<string>Guid</string>
-											<string>Title Components</string>
+											<string>Cursor Color</string>
 										</array>
 										<key>Program</key>
 										<dict>
@@ -4596,7 +4635,7 @@
 											<string>Shell Launcher</string>
 										</dict>
 										<key>Rows</key>
-										<integer>48</integer>
+										<integer>55</integer>
 										<key>Session GUID</key>
 										<string>93B1D70B-7054-405A-B7D3-4C6AFB839A41</string>
 										<key>Short Lived Single Use</key>
@@ -4620,9 +4659,9 @@
 									<key>frame</key>
 									<dict>
 										<key>height</key>
-										<real>820</real>
+										<real>945</real>
 										<key>width</key>
-										<real>1352</real>
+										<real>1512</real>
 										<key>x</key>
 										<real>0.0</real>
 										<key>y</key>
@@ -4635,9 +4674,9 @@
 							<key>frame</key>
 							<dict>
 								<key>height</key>
-								<real>820</real>
+								<real>945</real>
 								<key>width</key>
-								<real>1352</real>
+								<real>1512</real>
 								<key>x</key>
 								<real>0.0</real>
 								<key>y</key>
@@ -5619,7 +5658,7 @@
 												<real>0.29803921568627451</real>
 											</dict>
 											<key>Guid</key>
-											<string>855853EA-563A-4B1D-B234-4192B7009DB2</string>
+											<string>5A3843C9-D0B3-4254-87B3-96E6B963A3C6</string>
 											<key>Horizontal Spacing</key>
 											<real>1</real>
 											<key>Idle Code</key>
@@ -6189,7 +6228,7 @@
 											<string>~.config/nvim</string>
 										</dict>
 										<key>Columns</key>
-										<integer>167</integer>
+										<integer>187</integer>
 										<key>Commands</key>
 										<array/>
 										<key>Directories</key>
@@ -6197,16 +6236,23 @@
 											<string>/Users/dmitry</string>
 											<string>/Users/dmitry</string>
 											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
 										</array>
 										<key>Environment</key>
 										<dict>
 											<key>PWD</key>
-											<string>/Users/dmitry</string>
+											<string>/Users/dmitry/Sites</string>
 										</dict>
 										<key>Hostname to Shell</key>
 										<dict/>
 										<key>Hosts</key>
 										<array>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
 											<dict>
 												<key>Host name</key>
 												<string>dmitry.local</string>
@@ -6245,13 +6291,11 @@
 										</array>
 										<key>Program</key>
 										<dict>
-											<key>Command</key>
-											<string>login -fp "dmitry"</string>
 											<key>Type</key>
-											<string>Command</string>
+											<string>Shell Launcher</string>
 										</dict>
 										<key>Rows</key>
-										<integer>48</integer>
+										<integer>55</integer>
 										<key>Session GUID</key>
 										<string>F4CE8D18-D1C5-433A-BD61-00F6DF1CF6BF</string>
 										<key>Short Lived Single Use</key>
@@ -6275,9 +6319,9 @@
 									<key>frame</key>
 									<dict>
 										<key>height</key>
-										<real>820</real>
+										<real>945</real>
 										<key>width</key>
-										<real>1352</real>
+										<real>1512</real>
 										<key>x</key>
 										<real>0.0</real>
 										<key>y</key>
@@ -6290,9 +6334,9 @@
 							<key>frame</key>
 							<dict>
 								<key>height</key>
-								<real>820</real>
+								<real>945</real>
 								<key>width</key>
-								<real>1352</real>
+								<real>1512</real>
 								<key>x</key>
 								<real>0.0</real>
 								<key>y</key>
@@ -6335,7 +6379,7 @@
 				<key>Use Transparency</key>
 				<true/>
 				<key>Width</key>
-				<real>1352</real>
+				<real>1512</real>
 				<key>Window Type</key>
 				<integer>4</integer>
 				<key>X Origin</key>

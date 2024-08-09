@@ -48,22 +48,36 @@ return {
           end
         end),
 
-        -- jump forward or next item
-        ["<C-n>"] = cmp.mapping(function(fallback)
+        -- jump forward
+        ["<C-/>"] = cmp.mapping(function(fallback)
           if luasnip.locally_jumpable(1) then
             luasnip.jump(1)
-          elseif cmp.visible() then
+          else
+            fallback()
+          end
+        end, { "i", "s" }),
+
+        -- jump backward
+        ["<C-.>"] = cmp.mapping(function(fallback)
+          if luasnip.locally_jumpable(-1) then
+            luasnip.jump(-1)
+          else
+            fallback()
+          end
+        end, { "i", "s" }),
+
+        -- next item
+        ["<C-n>"] = cmp.mapping(function(fallback)
+          if cmp.visible() then
             cmp.select_next_item()
           else
             fallback()
           end
         end, { "i", "s" }),
 
-        -- jump backward or prev item
+        -- prev item
         ["<C-p>"] = cmp.mapping(function(fallback)
-          if luasnip.locally_jumpable(-1) then
-            luasnip.jump(-1)
-          elseif cmp.visible() then
+          if cmp.visible() then
             cmp.select_prev_item()
           else
             fallback()
