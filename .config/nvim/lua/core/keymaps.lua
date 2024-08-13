@@ -38,10 +38,10 @@ map("i", "<BS>", "<nop>")
 -- Сворачивание блоков кода
 ----------------------------------------
 
-map("i", "<leader>z", "<C-O>za")
-map("n", "<leader>z", "za")
-map("o", "<leader>z", "<C-C>za")
-map("v", "<leader>z", "zf")
+--map("i", "<leader>z", "<C-O>za")
+--map("n", "<leader>z", "za")
+--map("o", "<leader>z", "<C-C>za")
+--map("v", "<leader>z", "zf")
 
 
 ----------------------------------------

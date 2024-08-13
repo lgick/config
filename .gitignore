@@ -6,6 +6,7 @@
 !.gitignore_global
 !.gitconfig
 !.vimrc
+!.prettierrc.mjs
 !.zshrc
 !.plist/
 
