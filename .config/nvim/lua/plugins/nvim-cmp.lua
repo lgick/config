@@ -11,17 +11,17 @@ return {
       -- install jsregexp (optional!).
       build = "make install_jsregexp",
     },
-    "saadparwaiz1/cmp_luasnip",     -- for autocompletion
-    "rafamadriz/friendly-snippets", -- useful snippets
-    "onsails/lspkind.nvim",         -- vs-code like pictograms
+    "saadparwaiz1/cmp_luasnip", -- for autocompletion
+    "honza/vim-snippets",       -- useful snippets
+    "onsails/lspkind.nvim",     -- vs-code like pictograms
   },
   config = function()
     local cmp = require("cmp")
 
     local luasnip = require("luasnip")
 
-    -- loads vscode style snippets from installed plugins (e.g. friendly-snippets)
-    require("luasnip.loaders.from_vscode").lazy_load()
+    -- loads vscode style snippets from installed plugins
+    require("luasnip.loaders.from_snipmate").lazy_load() -- Lazy loading
 
     cmp.setup({
       completion = {
