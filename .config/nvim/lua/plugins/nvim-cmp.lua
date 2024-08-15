@@ -12,7 +12,6 @@ return {
       build = "make install_jsregexp",
     },
     "saadparwaiz1/cmp_luasnip", -- for autocompletion
-    "honza/vim-snippets",       -- useful snippets
     "onsails/lspkind.nvim",     -- vs-code like pictograms
   },
   config = function()
@@ -20,8 +19,7 @@ return {
 
     local luasnip = require("luasnip")
 
-    -- loads vscode style snippets from installed plugins
-    require("luasnip.loaders.from_snipmate").lazy_load() -- Lazy loading
+    require("luasnip.loaders.from_vscode").load({ paths = { "./lua/snippets" } }) -- Load snippets from my-snippets folder
 
     cmp.setup({
       completion = {
