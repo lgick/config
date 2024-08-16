@@ -465,7 +465,7 @@
   },
   "method": {
     "prefix": "m",
-    "body": "${1:method} (${2:arguments}) {\n\t${0}\n}"
+    "body": "${1:method}(${2:arguments}) {\n\t${0}\n}"
   },
   "getter": {
     "prefix": "get",
