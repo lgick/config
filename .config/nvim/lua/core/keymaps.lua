@@ -1,4 +1,5 @@
 local g = vim.g
+local opt = vim.opt
 local map = vim.keymap.set
 
 g.mapleader = ","
@@ -66,6 +67,19 @@ map("n", "<leader>v", "\"+p")
 -- , + f: File Explorer
 map("n", "<leader>f", "<cmd>NvimTreeToggle<CR>")
 
+-- , + l: Подсветка координат курсора
+local cursorLight = false
+map('n', '<leader>l', function()
+  if cursorLight == true then
+    opt.cursorline = false
+    opt.cursorcolumn = false
+    cursorLight = false
+  else
+    opt.cursorline = true
+    opt.cursorcolumn = true
+    cursorLight = true
+  end
+end)
 
 ----------------------------------------
 -- Telescope

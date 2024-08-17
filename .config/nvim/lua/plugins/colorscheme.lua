@@ -58,5 +58,9 @@ return {
 
     -- Цвет невидимых символов listchars
     cmd("highlight Whitespace guifg = #af0000 guibg = none")
+
+    -- Цвет колонки и линии курсора
+    cmd("highlight CursorColumn guifg = none guibg = #3b3f52")
+    --cmd("highlight CursorLine guifg = none guibg = #af0000")
   end,
 }
