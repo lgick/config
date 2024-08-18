@@ -132,16 +132,7 @@ end)
 ----------------------------------------
 
 -- Open trouble workspace diagnostics
-map("n", "<leader>xw", "<cmd>Trouble diagnostics toggle<CR>")
+map("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<CR>")
 
 -- Open trouble document diagnostics
-map("n", "<leader>xd", "<cmd>Trouble diagnostics toggle filter.buf=0<CR>")
-
--- Open trouble quickfix list
-map("n", "<leader>xq", "<cmd>Trouble quickfix toggle<CR>")
-
--- Open trouble location list
-map("n", "<leader>xl", "<cmd>Trouble loclist toggle<CR>")
-
--- Open todos in trouble
-map("n", "<leader>xt", "<cmd>Trouble todo toggle<CR>")
+map("n", "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<CR>")
