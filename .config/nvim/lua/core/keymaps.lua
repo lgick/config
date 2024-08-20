@@ -81,6 +81,7 @@ map('n', '<leader>l', function()
   end
 end)
 
+
 ----------------------------------------
 -- Telescope
 ----------------------------------------
@@ -92,39 +93,13 @@ map('n', '<leader>gf', "<cmd>Telescope find_files<CR>")
 map('n', '<leader>gg', "<cmd>Telescope live_grep<CR>")
 
 -- буфферы
-map('n', '<leader>b', "<cmd>Telescope buffers file_ignore_patterns={}<CR>")
-
-
-----------------------------------------
--- LSP
-----------------------------------------
-
--- Изменить название в файле
-map("n", "<leader>r", vim.lsp.buf.rename)
-
--- Jump to definitions
-map("n", "<leader>j", "<cmd>Telescope lsp_definitions<CR>")
+map('n', '<leader>gb', "<cmd>Telescope buffers file_ignore_patterns={}<CR>")
 
 -- Show LSP references
-map("n", "<leader>a", "<cmd>Telescope lsp_references<CR>")
+map("n", "<leader>gr", "<cmd>Telescope lsp_references<CR>")
 
--- Show buffer diagnostics
-map("n", "<leader>s", "<cmd>Telescope diagnostics bufnr=0<CR>")
-
--- Show documentation for what is under cursor
-map("n", "<leader>i", vim.lsp.buf.hover)
-
--- Toggle diagnostic
-map('n', '<leader>t', function()
-  vim.diagnostic.enable(not vim.diagnostic.is_enabled())
-end)
-
--- Show LSP type definitions
---map("n", "<leader>", "<cmd>Telescope lsp_type_definitions<CR>", { silent = true })
 -- Show LSP implementations
---map("n", "<leader>", "<cmd>Telescope lsp_implementations<CR>", { silent = true })
--- See available code actions
---map({ "n", "v" }, "<leader>", vim.lsp.buf.code_action, { silent = true })
+map("n", "<leader>gt", "<cmd>Telescope lsp_implementations<CR>")
 
 
 ----------------------------------------
@@ -136,3 +111,22 @@ map("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<CR>")
 
 -- Open trouble document diagnostics
 map("n", "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<CR>")
+
+
+----------------------------------------
+-- LSP
+----------------------------------------
+
+-- Toggle diagnostic
+map('n', '<leader>t', function()
+  vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+end)
+
+-- See available code actions
+map({ "n", "v" }, "<leader>m", vim.lsp.buf.code_action)
+
+-- Изменить название в файле
+map("n", "<leader>r", vim.lsp.buf.rename)
+
+-- Show documentation for what is under cursor
+map("n", "<leader>i", vim.lsp.buf.hover)
