@@ -17,7 +17,7 @@ return {
         markdown = { "prettier" },
         graphql = { "prettier" },
         liquid = { "prettier" },
-        --lua = { "stylua" },
+        lua = { "stylua" },
       },
       format_on_save = {
         lsp_fallback = true,
