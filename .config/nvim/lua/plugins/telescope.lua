@@ -33,7 +33,7 @@ return {
           "--line-number",
           "--column",
           "--hidden",
-          "--smart-case"
+          "--smart-case",
         },
         path_display = { "smart" },
         mappings = {

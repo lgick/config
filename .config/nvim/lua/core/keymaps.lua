@@ -4,7 +4,6 @@ local map = vim.keymap.set
 
 g.mapleader = ","
 
-
 ------------------------------------------
 -- Форматирование текста
 ------------------------------------------
@@ -22,7 +21,6 @@ map("i", "<ESC>", "<ESC><cmd>set iminsert=0<CR>")
 -- Переключение языка в режиме поиска
 map("c", "<C-l>", "<C-^>")
 
-
 ------------------------------------------
 -- Hardcore mode
 ------------------------------------------
@@ -34,7 +32,6 @@ map("n", "<Left>", "<nop>")
 map("n", "<Right>", "<nop>")
 map("i", "<BS>", "<nop>")
 
-
 ----------------------------------------
 -- Сворачивание блоков кода
 ----------------------------------------
@@ -43,7 +40,6 @@ map("i", "<BS>", "<nop>")
 --map("n", "<leader>z", "za")
 --map("o", "<leader>z", "<C-C>za")
 --map("v", "<leader>z", "zf")
-
 
 ----------------------------------------
 -- Hotkeys
@@ -59,17 +55,17 @@ map("n", "<leader>n", "<cmd>bn<CR>")
 map("n", "<leader>d", "<cmd>bdel<CR>")
 
 -- , + c: Копирование в системный буфер
-map("v", "<leader>c", "\"+y")
+map("v", "<leader>c", '"+y')
 
 -- , + v: Вставка из системного буфера
-map("n", "<leader>v", "\"+p")
+map("n", "<leader>v", '"+p')
 
 -- , + f: File Explorer
 map("n", "<leader>f", "<cmd>NvimTreeToggle<CR>")
 
 -- , + l: Подсветка координат курсора
 local cursorLight = false
-map('n', '<leader>l', function()
+map("n", "<leader>l", function()
   if cursorLight == true then
     opt.cursorline = false
     opt.cursorcolumn = false
@@ -81,26 +77,24 @@ map('n', '<leader>l', function()
   end
 end)
 
-
 ----------------------------------------
 -- Telescope
 ----------------------------------------
 
 -- поиск файлов
-map('n', '<leader>gf', "<cmd>Telescope find_files<CR>")
+map("n", "<leader>gf", "<cmd>Telescope find_files<CR>")
 
 -- поиск по файлам
-map('n', '<leader>gg', "<cmd>Telescope live_grep<CR>")
+map("n", "<leader>gg", "<cmd>Telescope live_grep<CR>")
 
 -- буфферы
-map('n', '<leader>gb', "<cmd>Telescope buffers file_ignore_patterns={}<CR>")
+map("n", "<leader>gb", "<cmd>Telescope buffers file_ignore_patterns={}<CR>")
 
 -- Show LSP references
 map("n", "<leader>gr", "<cmd>Telescope lsp_references<CR>")
 
 -- Show LSP implementations
 map("n", "<leader>gt", "<cmd>Telescope lsp_implementations<CR>")
-
 
 ----------------------------------------
 -- Trouble
@@ -112,13 +106,12 @@ map("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<CR>")
 -- Open trouble document diagnostics
 map("n", "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<CR>")
 
-
 ----------------------------------------
 -- LSP
 ----------------------------------------
 
 -- Toggle diagnostic
-map('n', '<leader>t', function()
+map("n", "<leader>t", function()
   vim.diagnostic.enable(not vim.diagnostic.is_enabled())
 end)
 

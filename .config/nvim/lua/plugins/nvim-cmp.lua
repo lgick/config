@@ -3,7 +3,7 @@ return {
   event = "InsertEnter",
   dependencies = {
     "hrsh7th/cmp-buffer", -- source for text in buffer
-    "hrsh7th/cmp-path",   -- source for file system paths
+    "hrsh7th/cmp-path", -- source for file system paths
     {
       "L3MON4D3/LuaSnip",
       -- follow latest release.
@@ -12,7 +12,7 @@ return {
       build = "make install_jsregexp",
     },
     "saadparwaiz1/cmp_luasnip", -- for autocompletion
-    "onsails/lspkind.nvim",     -- vs-code like pictograms
+    "onsails/lspkind.nvim", -- vs-code like pictograms
   },
   config = function()
     local cmp = require("cmp")
@@ -32,7 +32,7 @@ return {
       },
       mapping = cmp.mapping.preset.insert({
         -- snippet expand or cmp confirm
-        ['<CR>'] = cmp.mapping(function(fallback)
+        ["<CR>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             if luasnip.expandable() then
               luasnip.expand()
@@ -90,15 +90,15 @@ return {
           fallback()
         end, { "i", "s" }),
 
-        ['<C-u>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-d>'] = cmp.mapping.scroll_docs(4),
+        ["<C-u>"] = cmp.mapping.scroll_docs(-4),
+        ["<C-d>"] = cmp.mapping.scroll_docs(4),
       }),
       -- sources for autocompletion
       sources = cmp.config.sources({
-        { name = "buffer" },  -- text within current buffer
+        { name = "buffer" }, -- text within current buffer
         { name = "luasnip" }, -- snippets
         { name = "nvim_lsp" },
-        { name = "path" },    -- file system paths
+        { name = "path" }, -- file system paths
       }),
     })
   end,
