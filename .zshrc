@@ -101,7 +101,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 export PATH=/usr/local/bin:$PATH
-export EDITOR=vim
+export EDITOR=nvim
 export CLICOLOR=1
 export GREP_OPTIONS='--color=auto'
 
