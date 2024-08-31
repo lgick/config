@@ -1342,6 +1342,8 @@
 	<false/>
 	<key>HideMenuBarInFullscreen</key>
 	<false/>
+	<key>HideScrollbar</key>
+	<true/>
 	<key>HotkeyMigratedFromSingleToMulti</key>
 	<true/>
 	<key>MaxVertically</key>
@@ -2924,6 +2926,10 @@
 	<integer>4</integer>
 	<key>TabViewType</key>
 	<integer>0</integer>
+	<key>TerminalMargin</key>
+	<integer>0</integer>
+	<key>TerminalVMargin</key>
+	<integer>0</integer>
 	<key>TripleClickSelectsFullWrappedLines</key>
 	<true/>
 	<key>UseLionStyleFullscreen</key>
@@ -2942,7 +2948,7 @@
 				<key>Has Toolbelt</key>
 				<false/>
 				<key>Height</key>
-				<real>945</real>
+				<real>820</real>
 				<key>Hide After Opening</key>
 				<false/>
 				<key>Hiding Toolbelt Should Resize Window</key>
@@ -2956,9 +2962,9 @@
 				<key>Old Width</key>
 				<real>400</real>
 				<key>Old X Origin</key>
-				<real>166</real>
+				<real>142</real>
 				<key>Old Y Origin</key>
-				<real>108</real>
+				<real>87</real>
 				<key>Saved Window Type</key>
 				<integer>0</integer>
 				<key>Screen</key>
@@ -3939,7 +3945,7 @@
 												<real>0.29803921568627451</real>
 											</dict>
 											<key>Guid</key>
-											<string>61E9EEB2-4E37-4D7D-9C7F-7DE5958FAEEA</string>
+											<string>F45AA423-3DFE-433C-8501-9C786D38DE32</string>
 											<key>Horizontal Spacing</key>
 											<real>1</real>
 											<key>Idle Code</key>
@@ -4509,7 +4515,7 @@
 											<string>~.config/nvim</string>
 										</dict>
 										<key>Columns</key>
-										<integer>187</integer>
+										<integer>169</integer>
 										<key>Commands</key>
 										<array/>
 										<key>Directories</key>
@@ -4528,6 +4534,71 @@
 											<string>/Users/dmitry</string>
 											<string>/Users/dmitry</string>
 											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
 										</array>
 										<key>Environment</key>
 										<dict>
@@ -4538,6 +4609,390 @@
 										<dict/>
 										<key>Hosts</key>
 										<array>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
 											<dict>
 												<key>Host name</key>
 												<string>dmitry.local</string>
@@ -4635,13 +5090,13 @@
 											<string>Shell Launcher</string>
 										</dict>
 										<key>Rows</key>
-										<integer>55</integer>
+										<integer>48</integer>
 										<key>Session GUID</key>
 										<string>93B1D70B-7054-405A-B7D3-4C6AFB839A41</string>
 										<key>Short Lived Single Use</key>
 										<false/>
 										<key>Should Expect Current Dir Updates</key>
-										<true/>
+										<false/>
 										<key>Should Expect Prompt Marks</key>
 										<true/>
 										<key>Substitutions</key>
@@ -4659,9 +5114,9 @@
 									<key>frame</key>
 									<dict>
 										<key>height</key>
-										<real>945</real>
+										<real>820</real>
 										<key>width</key>
-										<real>1512</real>
+										<real>1352</real>
 										<key>x</key>
 										<real>0.0</real>
 										<key>y</key>
@@ -4674,9 +5129,9 @@
 							<key>frame</key>
 							<dict>
 								<key>height</key>
-								<real>945</real>
+								<real>820</real>
 								<key>width</key>
-								<real>1512</real>
+								<real>1352</real>
 								<key>x</key>
 								<real>0.0</real>
 								<key>y</key>
@@ -5484,15 +5939,15 @@
 											<key>Cursor Color</key>
 											<dict>
 												<key>Alpha Component</key>
-												<integer>1</integer>
+												<real>1</real>
 												<key>Blue Component</key>
-												<real>0.81176470588235294</real>
+												<real>0.81609362363815308</real>
 												<key>Color Space</key>
-												<string>sRGB</string>
+												<string>P3</string>
 												<key>Green Component</key>
-												<real>0.83529411764705885</real>
+												<real>0.83940267562866211</real>
 												<key>Red Component</key>
-												<real>0.94901960784313721</real>
+												<real>0.93015366792678833</real>
 											</dict>
 											<key>Cursor Color (Dark)</key>
 											<dict>
@@ -5658,7 +6113,7 @@
 												<real>0.29803921568627451</real>
 											</dict>
 											<key>Guid</key>
-											<string>5A3843C9-D0B3-4254-87B3-96E6B963A3C6</string>
+											<string>CF72AB16-2A94-4005-A7C3-8B206EF1013E</string>
 											<key>Horizontal Spacing</key>
 											<real>1</real>
 											<key>Idle Code</key>
@@ -6228,14 +6683,110 @@
 											<string>~.config/nvim</string>
 										</dict>
 										<key>Columns</key>
-										<integer>187</integer>
+										<integer>169</integer>
 										<key>Commands</key>
 										<array/>
 										<key>Directories</key>
 										<array>
-											<string>/Users/dmitry</string>
-											<string>/Users/dmitry</string>
 											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites/email-editor-ts</string>
+											<string>/Users/dmitry/Sites/email-editor-ts</string>
+											<string>/Users/dmitry/Sites/email-editor-ts</string>
+											<string>/Users/dmitry/Sites/email-editor-ts</string>
+											<string>/Users/dmitry/Sites/email-editor-ts</string>
+											<string>/Users/dmitry</string>
 											<string>/Users/dmitry/Sites</string>
 										</array>
 										<key>Environment</key>
@@ -6247,6 +6798,282 @@
 										<dict/>
 										<key>Hosts</key>
 										<array>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
 											<dict>
 												<key>Host name</key>
 												<string>dmitry.local</string>
@@ -6285,6 +7112,7 @@
 										</dict>
 										<key>Overridden Fields</key>
 										<array>
+											<string>Cursor Color</string>
 											<string>Original Guid</string>
 											<string>Guid</string>
 											<string>Title Components</string>
@@ -6295,7 +7123,7 @@
 											<string>Shell Launcher</string>
 										</dict>
 										<key>Rows</key>
-										<integer>55</integer>
+										<integer>48</integer>
 										<key>Session GUID</key>
 										<string>F4CE8D18-D1C5-433A-BD61-00F6DF1CF6BF</string>
 										<key>Short Lived Single Use</key>
@@ -6319,9 +7147,9 @@
 									<key>frame</key>
 									<dict>
 										<key>height</key>
-										<real>945</real>
+										<real>820</real>
 										<key>width</key>
-										<real>1512</real>
+										<real>1352</real>
 										<key>x</key>
 										<real>0.0</real>
 										<key>y</key>
@@ -6334,9 +7162,9 @@
 							<key>frame</key>
 							<dict>
 								<key>height</key>
-								<real>945</real>
+								<real>820</real>
 								<key>width</key>
-								<real>1512</real>
+								<real>1352</real>
 								<key>x</key>
 								<real>0.0</real>
 								<key>y</key>
@@ -6379,7 +7207,7 @@
 				<key>Use Transparency</key>
 				<true/>
 				<key>Width</key>
-				<real>1512</real>
+				<real>1352</real>
 				<key>Window Type</key>
 				<integer>4</integer>
 				<key>X Origin</key>
