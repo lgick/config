@@ -28,7 +28,6 @@ return {
       -- list of servers for mason to install
       ensure_installed = {
         "tsserver",
-        "eslint",
         "html",
         "cssls",
         "lua_ls",
@@ -41,7 +40,7 @@ return {
       ensure_installed = {
         "prettier", -- prettier formatter
         "stylua", -- lua formatter
-        --"eslint_d",
+        "eslint_d",
       },
     })
   end,
