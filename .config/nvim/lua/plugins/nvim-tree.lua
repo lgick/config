@@ -13,12 +13,18 @@ return {
       local keymap = vim.keymap
 
       local function opts(desc)
-        return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+        return {
+          desc = "nvim-tree: " .. desc,
+          buffer = bufnr,
+          noremap = true,
+          silent = true,
+          nowait = true,
+        }
       end
 
       -- custom mappings
       keymap.set("n", "o", api.node.open.edit, opts("Open"))
-      keymap.set("n", "<C-m>", api.node.open.edit)
+      keymap.set("n", "<CR>", api.node.open.edit, opts("Open"))
       keymap.set("n", "s", api.node.open.vertical, opts("Open Vertical"))
       keymap.set("n", "i", api.node.open.horizontal, opts("Open Horizontal"))
       keymap.set("n", "t", api.node.open.tab, opts("Open Tab"))
