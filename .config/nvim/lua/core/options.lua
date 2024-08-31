@@ -16,9 +16,11 @@ local opt = vim.opt
 opt.showtabline = 1
 opt.laststatus = 2
 
--- Команданая строка
--- Размер высоты
+-- Размер высоты командной строки
 opt.cmdheight = 1
+
+-- Размер высоты окна с историей (CTRL-F) командной строки
+opt.cmdwinheight = 20
 
 -- Номерация строк
 opt.number = true
