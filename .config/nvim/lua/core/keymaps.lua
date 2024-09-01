@@ -2,15 +2,16 @@ local g = vim.g
 local opt = vim.opt
 local map = vim.keymap.set
 
+-- <C-o> - переход на предыдущую позицию в списке переходов
+-- <C-i> - переход на следующую позицию в списке переходов
+-- :ju - лист переходов
+-- gc - комментарий в visual mode
+
 g.mapleader = ","
 
 ------------------------------------------
 -- Форматирование текста
 ------------------------------------------
-
--- <C-o> - переход на предыдущую позицию в списке переходов
--- <C-i> - переход на следующую позицию в списке переходов
--- :ju - лист переходов
 
 -- Переключение языка в режиме ввода
 map("i", "<C-l>", "<C-^>")
@@ -123,3 +124,39 @@ map("n", "<leader>r", vim.lsp.buf.rename)
 
 -- Show documentation for what is under cursor
 map("n", "<leader>i", vim.lsp.buf.hover)
+
+------------------------------------------
+-- Cmp
+------------------------------------------
+
+-- Показывать доступные fields
+map("i", "<C-n>", function()
+  local cmp = require("cmp")
+
+  if not cmp.visible() then
+    local buf_clients = vim.lsp.get_clients({ bufnr = 0 })
+    local type = ""
+
+    for _, client in pairs(buf_clients) do
+      if client.name == "tsserver" then
+        type = "Field"
+      end
+    end
+
+    cmp.complete({
+      config = {
+        sources = {
+          {
+            name = "nvim_lsp",
+            entry_filter = function(entry)
+              if type ~= "" then
+                return require("cmp.types").lsp.CompletionItemKind[entry:get_kind()] == type
+              end
+              return true
+            end,
+          },
+        },
+      },
+    })
+  end
+end)

@@ -93,11 +93,12 @@ return {
         ["<C-u>"] = cmp.mapping.scroll_docs(-4),
         ["<C-d>"] = cmp.mapping.scroll_docs(4),
       }),
+
       -- sources for autocompletion
       sources = cmp.config.sources({
-        { name = "buffer" }, -- text within current buffer
+        { name = "nvim_lsp" }, -- lsp
         { name = "luasnip" }, -- snippets
-        { name = "nvim_lsp" },
+        { name = "buffer" }, -- text within current buffer
         { name = "path" }, -- file system paths
       }),
     })
