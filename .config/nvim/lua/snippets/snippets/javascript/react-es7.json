@@ -7,50 +7,6 @@
     "prefix": "expint",
     "body": ["export interface ${1:first} {${2:second}}"]
   },
-  "typescriptReactClassComponent": {
-    "prefix": "tsrcc",
-    "description": "Creates a React component class with ES7 module system and TypeScript interfaces",
-    "body": [
-      "import React, { Component } from 'react'",
-      "",
-      "type Props = {}",
-      "",
-      "type State = {}",
-      "",
-      "export default class ${1:${TM_FILENAME_BASE}} extends Component<Props, State> {",
-      "  state = {}",
-      "",
-      "  render() {",
-      "    return (",
-      "      <div>${1:first}</div>",
-      "    )",
-      "  }",
-      "}"
-    ]
-  },
-  "typescriptReactClassExportComponent": {
-    "prefix": "tsrce",
-    "body": [
-      "import React, { Component } from 'react'",
-      "",
-      "type Props = {}",
-      "",
-      "type State = {}",
-      "",
-      "class ${1:${TM_FILENAME_BASE}} extends Component<Props, State> {",
-      "  state = {}",
-      "",
-      "  render() {",
-      "    return (",
-      "      <div>${1:first}</div>",
-      "    )",
-      "  }",
-      "}",
-      "",
-      "export default ${1:${TM_FILENAME_BASE}}"
-    ],
-    "description": "Creates a React component class with ES7 module system and TypeScript interfaces"
-  },
   "typescriptReactFunctionalExportComponent": {
     "prefix": "tsrfce",
     "body": [
@@ -115,70 +71,6 @@
     ],
     "description": "Creates a React Arrow Function Component with ES7 module system and TypeScript interface"
   },
-  "typescriptReactClassPureComponent": {
-    "prefix": "tsrpc",
-    "body": [
-      "import React, { PureComponent } from 'react'",
-      "",
-      "type Props = {}",
-      "",
-      "export default class ${1:${TM_FILENAME_BASE}} extends PureComponent<Props> {",
-      "  render() {",
-      "    return (",
-      "      <div>${1:first}</div>",
-      "    )",
-      "  }",
-      "}"
-    ],
-    "description": "Creates a React pure component class with ES7 module system and TypeScript interface"
-  },
-  "typescriptReactClassExportPureComponent": {
-    "prefix": "tsrpce",
-    "body": [
-      "import React, { PureComponent } from 'react'",
-      "",
-      "type Props = {}",
-      "",
-      "class ${1:${TM_FILENAME_BASE}} extends PureComponent<Props> {",
-      "  render() {",
-      "    return (",
-      "      <div>${1:first}</div>",
-      "    )",
-      "  }",
-      "}",
-      "",
-      "export default ${1:${TM_FILENAME_BASE}}"
-    ],
-    "description": "Creates a React pure component class with ES7 module system and TypeScript interface"
-  },
-  "typescriptReactClassComponentRedux": {
-    "prefix": "tsrcredux",
-    "body": [
-      "import { connect } from 'react-redux'",
-      "import React, { Component } from 'react'",
-      "",
-      "type Props = {}",
-      "",
-      "type State = {}",
-      "",
-      "export class ${1:${TM_FILENAME_BASE}} extends Component<Props, State> {",
-      "  state = {}",
-      "",
-      "  render() {",
-      "    return (",
-      "      <div>${1:first}</div>",
-      "    )",
-      "  }",
-      "}",
-      "",
-      "const mapStateToProps = (state) => ({})",
-      "",
-      "const mapDispatchToProps = {}",
-      "",
-      "export default connect(mapStateToProps, mapDispatchToProps)(${1:${TM_FILENAME_BASE}})"
-    ],
-    "description": "Creates a React component class with connected redux and ES7 module system and TypeScript interfaces"
-  },
   "typescriptReactNativeArrowFunctionComponent": {
     "prefix": "tsrnf",
     "body": [
@@ -235,24 +127,6 @@
     ],
     "description": "Creates a React Arrow Function Component with ES7 module system"
   },
-  "reactArrowFunctionComponentWithPropTypes": {
-    "prefix": "rafcp",
-    "body": [
-      "import React from 'react'",
-      "import PropTypes from 'prop-types'",
-      "",
-      "const ${1:${TM_FILENAME_BASE}} = props => {",
-      "  return (",
-      "    <div>${1:first}</div>",
-      "  )",
-      "}",
-      "",
-      "${1:${TM_FILENAME_BASE}}.propTypes = {}",
-      "",
-      "export default ${1:${TM_FILENAME_BASE}}"
-    ],
-    "description": "Creates a React Arrow Function Component with ES7 module system with PropTypes"
-  },
   "reactArrowFunctionExportComponent": {
     "prefix": "rafce",
     "body": [
@@ -268,179 +142,6 @@
     ],
     "description": "Creates a React Arrow Function Component with ES7 module system"
   },
-  "reactClassComponent": {
-    "prefix": "rcc",
-    "body": [
-      "import React, { Component } from 'react'",
-      "",
-      "export default class ${1:${TM_FILENAME_BASE}} extends Component {",
-      "  render() {",
-      "    return (",
-      "      <div>${1:first}</div>",
-      "    )",
-      "  }",
-      "}",
-      ""
-    ],
-    "description": "Creates a React component class with ES7 module system"
-  },
-  "reactClassComponentPropTypes": {
-    "prefix": "rccp",
-    "body": [
-      "import PropTypes from 'prop-types'",
-      "import React, { Component } from 'react'",
-      "",
-      "export default class ${1:${TM_FILENAME_BASE}} extends Component {",
-      "  static propTypes = {${2:second}: ${3:third}}",
-      "",
-      "  render() {",
-      "    return (",
-      "      <div>${1:first}</div>",
-      "    )",
-      "  }",
-      "}",
-      ""
-    ],
-    "description": "Creates a React component class with PropTypes and ES7 module system"
-  },
-  "reactClassComponentRedux": {
-    "prefix": "rcredux",
-    "body": [
-      "import React, { Component } from 'react'",
-      "import { connect } from 'react-redux'",
-      "",
-      "export class ${1:${TM_FILENAME_BASE}} extends Component {",
-      "  render() {",
-      "    return (",
-      "      <div>${1:first}</div>",
-      "    )",
-      "  }",
-      "}",
-      "",
-      "const mapStateToProps = (state) => ({})",
-      "",
-      "const mapDispatchToProps = {}",
-      "",
-      "export default connect(mapStateToProps, mapDispatchToProps)(${1:${TM_FILENAME_BASE}})"
-    ],
-    "description": "Creates a React component class with connected redux and ES7 module system"
-  },
-  "reactClassComponentReduxPropTypes": {
-    "prefix": "rcreduxp",
-    "body": [
-      "import PropTypes from 'prop-types'",
-      "import React, { Component } from 'react'",
-      "import { connect } from 'react-redux'",
-      "",
-      "export class ${1:${TM_FILENAME_BASE}} extends Component {",
-      "  static propTypes = {",
-      "    ${2:second}: ${3:third}",
-      "  }",
-      "",
-      "  render() {",
-      "    return (",
-      "      <div>${1:first}</div>",
-      "    )",
-      "  }",
-      "}",
-      "",
-      "const mapStateToProps = (state) => ({})",
-      "",
-      "const mapDispatchToProps = {}",
-      "",
-      "export default connect(mapStateToProps, mapDispatchToProps)(${1:${TM_FILENAME_BASE}})"
-    ],
-    "description": "Creates a React component class with PropTypes with connected redux and ES7 module system"
-  },
-  "reactClassExportComponent": {
-    "prefix": "rce",
-    "body": [
-      "import React, { Component } from 'react'",
-      "",
-      "export class ${1:${TM_FILENAME_BASE}} extends Component {",
-      "  render() {",
-      "    return (",
-      "      <div>${1:first}</div>",
-      "    )",
-      "  }",
-      "}",
-      "",
-      "export default ${1:${TM_FILENAME_BASE}}"
-    ],
-    "description": "Creates a React component class with ES7 module system"
-  },
-  "reactClassExportComponentWithPropTypes": {
-    "prefix": "rcep",
-    "body": [
-      "import PropTypes from 'prop-types'",
-      "import React, { Component } from 'react'",
-      "",
-      "export class ${1:${TM_FILENAME_BASE}} extends Component {",
-      "  static propTypes = {}",
-      "",
-      "  render() {",
-      "    return (",
-      "      <div>${1:first}</div>",
-      "    )",
-      "  }",
-      "}",
-      "",
-      "export default ${1:${TM_FILENAME_BASE}}"
-    ],
-    "description": "Creates a React component class with ES7 module system"
-  },
-  "reactClassExportPureComponent": {
-    "prefix": "rpce",
-    "body": [
-      "import React, { PureComponent } from 'react'",
-      "",
-      "export class ${1:${TM_FILENAME_BASE}} extends PureComponent {",
-      "  render() {",
-      "    return (",
-      "      <div>${1:first}</div>",
-      "    )",
-      "  }",
-      "}",
-      "",
-      "export default ${1:${TM_FILENAME_BASE}}"
-    ],
-    "description": "Creates a React pure component class with ES7 module system export"
-  },
-  "reactClassPureComponent": {
-    "prefix": "rpc",
-    "body": [
-      "import React, { PureComponent } from 'react'",
-      "",
-      "export default class ${1:${TM_FILENAME_BASE}} extends PureComponent {",
-      "  render() {",
-      "    return (",
-      "      <div>${1:first}</div>",
-      "    )",
-      "  }",
-      "}",
-      ""
-    ],
-    "description": "Creates a React pure component class with ES7 module system"
-  },
-  "reactClassPureComponentWithPropTypes": {
-    "prefix": "rpcp",
-    "body": [
-      "import PropTypes from 'prop-types'",
-      "import React, { PureComponent } from 'react'",
-      "",
-      "export default class ${1:${TM_FILENAME_BASE}} extends PureComponent {",
-      "  static propTypes = {}",
-      "",
-      "  render() {",
-      "    return (",
-      "      <div>${1:first}</div>",
-      "    )",
-      "  }",
-      "}",
-      ""
-    ],
-    "description": "Creates a React component class with ES7 module system"
-  },
   "reactFunctionMemoComponent": {
     "prefix": "rmc",
     "body": [
@@ -455,24 +156,6 @@
       "export default ${1:${TM_FILENAME_BASE}}"
     ],
     "description": "Creates a React Memo Function Component with ES7 module system"
-  },
-  "reactFunctionMemoComponentWithPropTypes": {
-    "prefix": "rmcp",
-    "body": [
-      "import PropTypes from 'prop-types'",
-      "import React, { memo } from 'react'",
-      "",
-      "const ${1:${TM_FILENAME_BASE}} = memo((props) => {",
-      "  return (",
-      "    <div>${1:first}</div>",
-      "  )",
-      "})",
-      "",
-      "${1:${TM_FILENAME_BASE}}.propTypes = {}",
-      "",
-      "export default ${1:${TM_FILENAME_BASE}}"
-    ],
-    "description": "Creates a React Memo Function Component with ES7 module system with PropTypes"
   },
   "reactFunctionalComponent": {
     "prefix": "rfc",
@@ -519,50 +202,6 @@
       "export default connect(mapStateToProps, mapDispatchToProps)(${1:${TM_FILENAME_BASE}})"
     ],
     "description": "Creates a React functional component with connected redux and ES7 module system"
-  },
-  "reactFunctionalComponentReduxPropTypes": {
-    "prefix": "rfcreduxp",
-    "body": [
-      "import PropTypes from 'prop-types'",
-      "import React from 'react'",
-      "import { connect } from 'react-redux'",
-      "",
-      "export const ${1:${TM_FILENAME_BASE}} = (props) => {",
-      "  return (",
-      "    <div>${1:first}</div>",
-      "  )",
-      "}",
-      "",
-      "${1:${TM_FILENAME_BASE}}.propTypes = {",
-      "  ${2:second}: PropTypes.${3:third}",
-      "}",
-      "",
-      "const mapStateToProps = (state) => ({})",
-      "",
-      "const mapDispatchToProps = {}",
-      "",
-      "export default connect(mapStateToProps, mapDispatchToProps)(${1:${TM_FILENAME_BASE}})"
-    ],
-    "description": "DEPRECATED: Creates a React functional component with PropTypes with connected redux and ES7 module system"
-  },
-  "reactFunctionalComponentWithPropTypes": {
-    "prefix": "rfcp",
-    "body": [
-      "import React from 'react'",
-      "import PropTypes from 'prop-types'",
-      "",
-      "function ${1:${TM_FILENAME_BASE}}(props) {",
-      "  return (",
-      "    <div>${1:first}</div>",
-      "  )",
-      "}",
-      "",
-      "${1:${TM_FILENAME_BASE}}.propTypes = {}",
-      "",
-      "export default ${1:${TM_FILENAME_BASE}}",
-      ""
-    ],
-    "description": "Creates a React Functional Component with ES7 module system with PropTypes"
   },
   "reactFunctionalExportComponent": {
     "prefix": "rfce",
@@ -759,10 +398,6 @@
     "prefix": "imn",
     "body": ["import '${1:first}'"]
   },
-  "importPropTypes": {
-    "prefix": "impt",
-    "body": ["import PropTypes from 'prop-types'"]
-  },
   "importReact": {
     "prefix": "imr",
     "body": ["import React from 'react'"]
@@ -775,37 +410,13 @@
     "prefix": "imrc",
     "body": ["import React, { Component } from 'react'"]
   },
-  "importReactWithComponentAndPropTypes": {
-    "prefix": "imrcp",
-    "body": [
-      "import React, { Component } from 'react'",
-      "import PropTypes from 'prop-types'",
-      ""
-    ]
-  },
   "importReactWithMemo": {
     "prefix": "imrm",
     "body": ["import React, { memo } from 'react'"]
   },
-  "importReactWithMemoAndPropTypes": {
-    "prefix": "imrmp",
-    "body": [
-      "import React, { memo } from 'react'",
-      "import PropTypes from 'prop-types'",
-      ""
-    ]
-  },
   "importReactWithPureComponent": {
     "prefix": "imrpc",
     "body": ["import React, { PureComponent } from 'react'"]
-  },
-  "importReactWithPureComponentAndPropTypes": {
-    "prefix": "imrpcp",
-    "body": [
-      "import React, { PureComponent } from 'react'",
-      "import PropTypes from 'prop-types'",
-      ""
-    ]
   },
   "importRouterLink": {
     "prefix": "imbrl",
@@ -826,216 +437,6 @@
   "import": {
     "prefix": "imp",
     "body": ["import ${2:second} from '${1:first}'"]
-  },
-  "propTypeArray": {
-    "prefix": "pta",
-    "body": ["PropTypes.array"],
-    "description": "Array prop type"
-  },
-  "propTypeArrayRequired": {
-    "prefix": "ptar",
-    "body": ["PropTypes.array.isRequired"],
-    "description": "Array prop type required"
-  },
-  "propTypeBool": {
-    "prefix": "ptb",
-    "body": ["PropTypes.bool"],
-    "description": "Bool prop type"
-  },
-  "propTypeBoolRequired": {
-    "prefix": "ptbr",
-    "body": ["PropTypes.bool.isRequired"],
-    "description": "Bool prop type required"
-  },
-  "propTypeFunc": {
-    "prefix": "ptf",
-    "body": ["PropTypes.func"],
-    "description": "Func prop type"
-  },
-  "propTypeFuncRequired": {
-    "prefix": "ptfr",
-    "body": ["PropTypes.func.isRequired"],
-    "description": "Func prop type required"
-  },
-  "propTypeNumber": {
-    "prefix": "ptn",
-    "body": ["PropTypes.number"],
-    "description": "Number prop type"
-  },
-  "propTypeNumberRequired": {
-    "prefix": "ptnr",
-    "body": ["PropTypes.number.isRequired"],
-    "description": "Number prop type required"
-  },
-  "propTypeObject": {
-    "prefix": "pto",
-    "body": ["PropTypes.object"],
-    "description": "Object prop type"
-  },
-  "propTypeObjectRequired": {
-    "prefix": "ptor",
-    "body": ["PropTypes.object.isRequired"],
-    "description": "Object prop type required"
-  },
-  "propTypeString": {
-    "prefix": "pts",
-    "body": ["PropTypes.string"],
-    "description": "String prop type"
-  },
-  "propTypeStringRequired": {
-    "prefix": "ptsr",
-    "body": ["PropTypes.string.isRequired"],
-    "description": "String prop type required"
-  },
-  "propTypeNode": {
-    "prefix": "ptnd",
-    "body": ["PropTypes.node"],
-    "description": "Anything that can be rendered: numbers, strings, elements or an array"
-  },
-  "propTypeNodeRequired": {
-    "prefix": "ptndr",
-    "body": ["PropTypes.node.isRequired"],
-    "description": "Anything that can be rendered: numbers, strings, elements or an array required"
-  },
-  "propTypeElement": {
-    "prefix": "ptel",
-    "body": ["PropTypes.element"],
-    "description": "React element prop type"
-  },
-  "propTypeElementRequired": {
-    "prefix": "ptelr",
-    "body": ["PropTypes.element.isRequired"],
-    "description": "React element prop type required"
-  },
-  "propTypeInstanceOf": {
-    "prefix": "pti",
-    "body": ["PropTypes.instanceOf($0)"],
-    "description": "Is an instance of a class prop type"
-  },
-  "propTypeInstanceOfRequired": {
-    "prefix": "ptir",
-    "body": ["PropTypes.instanceOf($0).isRequired"],
-    "description": "Is an instance of a class prop type required"
-  },
-  "propTypeEnum": {
-    "prefix": "pte",
-    "body": ["PropTypes.oneOf(['$0'])"],
-    "description": "Prop type limited to specific values by treating it as an enum"
-  },
-  "propTypeEnumRequired": {
-    "prefix": "pter",
-    "body": ["PropTypes.oneOf(['$0']).isRequired"],
-    "description": "Prop type limited to specific values by treating it as an enum required"
-  },
-  "propTypeOneOfType": {
-    "prefix": "ptet",
-    "body": ["PropTypes.oneOfType([", "  $0", "])"],
-    "description": "An object that could be one of many types"
-  },
-  "propTypeOneOfTypeRequired": {
-    "prefix": "ptetr",
-    "body": ["PropTypes.oneOfType([", "  $0", "]).isRequired"],
-    "description": "An object that could be one of many types required"
-  },
-  "propTypeArrayOf": {
-    "prefix": "ptao",
-    "body": ["PropTypes.arrayOf($0)"],
-    "description": "An array of a certain type"
-  },
-  "propTypeArrayOfRequired": {
-    "prefix": "ptaor",
-    "body": ["PropTypes.arrayOf($0).isRequired"],
-    "description": "An array of a certain type required"
-  },
-  "propTypeObjectOf": {
-    "prefix": "ptoo",
-    "body": ["PropTypes.objectOf($0)"],
-    "description": "An object with property values of a certain type"
-  },
-  "propTypeObjectOfRequired": {
-    "prefix": "ptoor",
-    "body": ["PropTypes.objectOf($0).isRequired"],
-    "description": "An object with property values of a certain type required"
-  },
-  "propTypeShape": {
-    "prefix": "ptsh",
-    "body": ["PropTypes.shape({", "  $0", "})"],
-    "description": "An object taking on a particular shape"
-  },
-  "propTypeShapeRequired": {
-    "prefix": "ptshr",
-    "body": ["PropTypes.shape({", "  $0", "}).isRequired"],
-    "description": "An object taking on a particular shape required"
-  },
-  "propTypeExact": {
-    "prefix": "ptex",
-    "body": ["PropTypes.exact({", "  $0", "})"],
-    "description": "An object with warnings on extra properties"
-  },
-  "propTypeExactRequired": {
-    "prefix": "ptexr",
-    "body": ["PropTypes.exact({", "  $0", "}).isRequired"],
-    "description": "An object with warnings on extra properties required"
-  },
-  "propTypeAny": {
-    "prefix": "ptany",
-    "body": ["PropTypes.any"],
-    "description": "Any prop type"
-  },
-  "reactNativeComponent": {
-    "prefix": "rnc",
-    "body": [
-      "import { Text, View } from 'react-native'",
-      "import React, { Component } from 'react'",
-      "",
-      "export default class ${1:${TM_FILENAME_BASE}} extends Component {",
-      "  render() {",
-      "    return (",
-      "      <View>",
-      "        <Text>${1:first}</Text>",
-      "      </View>",
-      "    )",
-      "  }",
-      "}"
-    ]
-  },
-  "reactNativeComponentExport": {
-    "prefix": "rnce",
-    "body": [
-      "import { Text, View } from 'react-native'",
-      "import React, { Component } from 'react'",
-      "",
-      "export class ${1:${TM_FILENAME_BASE}} extends Component {",
-      "  render() {",
-      "    return (",
-      "      <View>",
-      "        <Text>${1:first}</Text>",
-      "      </View>",
-      "    )",
-      "  }",
-      "}",
-      "",
-      "export default ${1:${TM_FILENAME_BASE}}"
-    ]
-  },
-  "reactNativeComponentWithStyles": {
-    "prefix": "rncs",
-    "body": [
-      "import { Text, StyleSheet, View } from 'react-native'",
-      "import React, { Component } from 'react'",
-      "",
-      "export default class ${1:${TM_FILENAME_BASE}} extends Component {",
-      "  render() {",
-      "    return (",
-      "      <View>",
-      "        <Text>${1:first}</Text>",
-      "      </View>",
-      "    )",
-      "  }",
-      "}",
-      "",
-      "const styles = StyleSheet.create({})"
-    ]
   },
   "reactNativeFunctionalComponent": {
     "prefix": "rnf",
@@ -1108,42 +509,6 @@
   "reactNativeImport": {
     "prefix": "imrn",
     "body": ["import { ${1:first} } from 'react-native'"]
-  },
-  "reactNativePureComponent": {
-    "prefix": "rnpc",
-    "body": [
-      "import { Text, View } from 'react-native'",
-      "import React, { PureComponent } from 'react'",
-      "",
-      "export default class ${1:${TM_FILENAME_BASE}} extends PureComponent {",
-      "  render() {",
-      "    return (",
-      "      <View>",
-      "        <Text>${1:first}</Text>",
-      "      </View>",
-      "    )",
-      "  }",
-      "}"
-    ]
-  },
-  "reactNativePureComponentExport": {
-    "prefix": "rnpce",
-    "body": [
-      "import { Text, View } from 'react-native'",
-      "import React, { PureComponent } from 'react'",
-      "",
-      "export class ${1:${TM_FILENAME_BASE}} extends PureComponent {",
-      "  render() {",
-      "    return (",
-      "      <View>",
-      "        <Text>${1:first}</Text>",
-      "      </View>",
-      "    )",
-      "  }",
-      "}",
-      "",
-      "export default ${1:${TM_FILENAME_BASE}}"
-    ]
   },
   "reactNativeStyles": {
     "prefix": "rnstyle",
@@ -1360,21 +725,6 @@
     "body": ["export default function ${1:first}(${2:second}) {${3:third}}"],
     "description": "Export default named function"
   },
-  "method": {
-    "prefix": "met",
-    "body": ["${1:first} = (${2:second}) => {${3:third}}"],
-    "description": "Creates a method inside a class"
-  },
-  "propertyGet": {
-    "prefix": "pge",
-    "body": ["get ${1:first}() {", "  return this.${2:second}", "}"],
-    "description": "Creates a getter property inside a class"
-  },
-  "propertySet": {
-    "prefix": "pse",
-    "body": ["set ${1:first}(${2:second}) {${3:third}}"],
-    "description": "Creates a setter property inside a class"
-  },
   "forEach": {
     "prefix": "fre",
     "body": ["${1:first}.forEach(${2:second} => {${3:third}})"],
@@ -1434,19 +784,6 @@
     "prefix": "cs",
     "body": ["const { ${1:first} } = this.state"],
     "description": "Creates and assigns a local variable using state destructing"
-  },
-  "classConstructor": {
-    "prefix": "rconst",
-    "body": [
-      "constructor(props) {",
-      "  super(props)",
-      "",
-      "  this.state = {",
-      "     ${1:first}",
-      "  }",
-      "}"
-    ],
-    "description": "Adds a default constructor for it('', () => {})the class that contains props as arguments"
   },
   "emptyState": {
     "prefix": "est",
@@ -1528,7 +865,6 @@
     "body": [
       "import React from 'react'",
       "import { connect } from 'react-redux'",
-      "import PropTypes from 'prop-types'",
       "",
       "export const mapStateToProps = state => ({})",
       "",
@@ -1536,8 +872,6 @@
       "",
       "export const ${1:first} = (WrappedComponent) => {",
       "  const hocComponent = ({ ...props }) => <WrappedComponent {...props} />",
-      "",
-      "  hocComponent.propTypes = {}",
       "",
       "  return hocComponent",
       "}",
@@ -1550,12 +884,9 @@
     "prefix": "hoc",
     "body": [
       "import React from 'react'",
-      "import PropTypes from 'prop-types'",
       "",
       "export default (WrappedComponent) => {",
       "  const hocComponent = ({ ...props }) => <WrappedComponent {...props} />",
-      "",
-      "  hocComponent.propTypes = {}",
       "",
       "  return hocComponent",
       "}",

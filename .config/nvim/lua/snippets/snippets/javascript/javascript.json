@@ -381,7 +381,7 @@
   },
   "named function": {
     "prefix": "fn",
-    "body": "function ${1} (${2}) {\n\t${0}\n}"
+    "body": "function ${1}(${2}) {\n\t${0}\n}"
   },
   "async function": {
     "prefix": "asf",
