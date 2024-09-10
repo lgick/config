@@ -12,7 +12,6 @@ return {
       build = "make install_jsregexp",
     },
     "saadparwaiz1/cmp_luasnip", -- for autocompletion
-    "onsails/lspkind.nvim", -- vs-code like pictograms
   },
   config = function()
     local cmp = require("cmp")

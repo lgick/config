@@ -6,6 +6,7 @@ local map = vim.keymap.set
 -- <C-i> - переход на следующую позицию в списке переходов
 -- :ju - лист переходов
 -- gc - комментарий в visual mode
+-- <C-f> - command history window
 
 g.mapleader = ","
 
