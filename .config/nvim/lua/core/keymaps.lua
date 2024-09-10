@@ -52,19 +52,19 @@ map("n", "<leader>p", "<cmd>bp<CR>")
 -- , + n: Открывает следующий буфер
 map("n", "<leader>n", "<cmd>bn<CR>")
 
--- , + d: Удаление буфера
+-- , + d: Удаляет буфер
 map("n", "<leader>d", "<cmd>bdel<CR>")
 
--- , + c: Копирование в системный буфер
+-- , + c: Копирует в системный буфер
 map("v", "<leader>c", '"+y')
 
--- , + v: Вставка из системного буфера
+-- , + v: Вставляет из системного буфера
 map("n", "<leader>v", '"+p')
 
 -- , + f: File Explorer
 map("n", "<leader>f", "<cmd>NvimTreeToggle<CR>")
 
--- , + l: Подсветка координат курсора
+-- , + l: Подсвечивает координаты курсора
 local cursorLight = false
 map("n", "<leader>l", function()
   if cursorLight == true then
@@ -129,7 +129,7 @@ map("n", "<leader>i", vim.lsp.buf.hover)
 -- Cmp
 ------------------------------------------
 
--- Показывать доступные fields
+-- Показывает доступные fields
 map("i", "<C-n>", function()
   local cmp = require("cmp")
 
@@ -160,3 +160,10 @@ map("i", "<C-n>", function()
     })
   end
 end)
+
+------------------------------------------
+-- Codeium
+------------------------------------------
+
+-- Открывает чат
+map("n", "<leader>h", "<cmd>call codeium#Chat()<CR>")
