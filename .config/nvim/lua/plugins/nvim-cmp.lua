@@ -12,11 +12,12 @@ return {
       build = "make install_jsregexp",
     },
     "saadparwaiz1/cmp_luasnip", -- for autocompletion
+    "onsails/lspkind.nvim", -- vs-code like pictograms
   },
   config = function()
     local cmp = require("cmp")
-
     local luasnip = require("luasnip")
+    local lspkind = require("lspkind")
 
     require("luasnip.loaders.from_vscode").load({ paths = { "./lua/snippets" } }) -- Load snippets from my-snippets folder
 
@@ -29,7 +30,7 @@ return {
           luasnip.lsp_expand(args.body)
         end,
       },
-      mapping = cmp.mapping.preset.insert({
+      mapping = {
         -- snippet expand or cmp confirm
         ["<CR>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
@@ -45,19 +46,18 @@ return {
           end
         end),
 
-        -- jump forward
-        ["<C-/>"] = cmp.mapping(function(fallback)
-          if luasnip.locally_jumpable(1) then
-            luasnip.jump(1)
-          else
-            fallback()
+        -- remove current snippet from jumplist
+        ["<ESC>"] = cmp.mapping(function(fallback)
+          if luasnip.in_snippet() then
+            luasnip.unlink_current()
           end
+          fallback()
         end, { "i", "s" }),
 
-        -- jump backward
-        ["<C-.>"] = cmp.mapping(function(fallback)
-          if luasnip.locally_jumpable(-1) then
-            luasnip.jump(-1)
+        -- prev item
+        ["<C-p>"] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.select_prev_item()
           else
             fallback()
           end
@@ -72,26 +72,27 @@ return {
           end
         end, { "i", "s" }),
 
-        -- prev item
-        ["<C-p>"] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-            cmp.select_prev_item()
+        -- jump backward
+        ["<C-.>"] = cmp.mapping(function(fallback)
+          if luasnip.locally_jumpable(-1) then
+            luasnip.jump(-1)
           else
             fallback()
           end
         end, { "i", "s" }),
 
-        -- remove current snippet from jumplist
-        ["<ESC>"] = cmp.mapping(function(fallback)
-          if luasnip.in_snippet() then
-            luasnip.unlink_current()
+        -- jump forward
+        ["<C-/>"] = cmp.mapping(function(fallback)
+          if luasnip.locally_jumpable(1) then
+            luasnip.jump(1)
+          else
+            fallback()
           end
-          fallback()
         end, { "i", "s" }),
 
         ["<C-u>"] = cmp.mapping.scroll_docs(-4),
         ["<C-d>"] = cmp.mapping.scroll_docs(4),
-      }),
+      },
 
       -- sources for autocompletion
       sources = cmp.config.sources({
@@ -100,6 +101,14 @@ return {
         { name = "buffer" }, -- text within current buffer
         { name = "path" }, -- file system paths
       }),
+
+      -- configure lspkind for vs-code like pictograms in completion menu
+      formatting = {
+        format = lspkind.cmp_format({
+          maxwidth = 50,
+          ellipsis_char = "...",
+        }),
+      },
     })
   end,
 }
