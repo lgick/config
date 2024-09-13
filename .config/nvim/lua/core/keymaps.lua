@@ -79,6 +79,55 @@ map("n", "<leader>l", function()
   end
 end)
 
+-- , + z: Сворачивает функциональные блоки в файле
+map("n", "<leader>z", function()
+  local cmd = vim.cmd
+  local api = vim.api
+  local fn = vim.fn
+
+  -- Проверяем, существует ли переменная vim.b.space
+  if fn.exists("b:space") == 0 then
+    api.nvim_buf_set_var(0, "space", 0)
+  end
+
+  -- Сворачиваем все блоки
+  api.nvim_command("normal zE")
+
+  -- Спрашиваем уровень отступа
+  local i = 0
+  local lenline = fn.line("$")
+  local currentline = fn.line(".")
+  cmd("call inputsave()")
+  local space = fn.input("how many space (current value: " .. api.nvim_buf_get_var(0, "space") .. ")? ")
+  cmd("call inputrestore()")
+
+  -- Обновляем значение vim.b.space, если пользователь ввел новое значение
+  local num_space = tonumber(space)
+  if num_space ~= nil then
+    api.nvim_buf_set_var(0, "space", num_space)
+  end
+
+  -- значение умножаем на tabstop
+  local tabstop = tonumber(vim.opt.tabstop:get()) or 2
+  local indent = api.nvim_buf_get_var(0, "space") * tabstop
+
+  -- Сворачиваем блоки с уровнем отступа, равным vim.b.space
+  while i <= lenline do
+    local str = fn.getline(i)
+    if fn.indent(i) == indent then
+      if fn.match(str, "[{(%[]") ~= -1 then
+        api.nvim_win_set_cursor(0, { i, 0 })
+        api.nvim_command("normal $zf%")
+      end
+    end
+    i = i + 1
+  end
+
+  -- Возвращаемся к текущей строке
+  api.nvim_win_set_cursor(0, { currentline, 0 })
+  api.nvim_command("echo ''")
+end)
+
 ----------------------------------------
 -- Telescope
 ----------------------------------------
