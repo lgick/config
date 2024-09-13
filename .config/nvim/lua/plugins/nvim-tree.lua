@@ -26,6 +26,7 @@ return {
 
       -- custom mappings
       keymap.set("n", "o", api.node.open.edit, opts("Open"))
+      keymap.set("n", "O", api.node.run.system, opts("Run System"))
       keymap.set("n", "<CR>", api.node.open.edit, opts("Open"))
       keymap.set("n", "s", api.node.open.vertical, opts("Open Vertical"))
       keymap.set("n", "i", api.node.open.horizontal, opts("Open Horizontal"))
@@ -53,7 +54,7 @@ return {
 
     nvimtree.setup({
       on_attach = custom_attach,
-
+      hijack_cursor = true,
       view = {
         float = {
           enable = true,
@@ -85,14 +86,14 @@ return {
       -- change folder arrow icons
       renderer = {
         highlight_git = "name",
-        indent_markers = {
-          enable = true,
-        },
         icons = {
           glyphs = {
             folder = {
-              arrow_closed = "", -- arrow when folder is closed
-              arrow_open = "", -- arrow when folder is open
+              arrow_closed = "▶", -- arrow when folder is closed
+              arrow_open = "▼", -- arrow when folder is open
+            },
+            git = {
+              ignored = "",
             },
           },
         },
@@ -110,6 +111,7 @@ return {
       filters = {
         dotfiles = true,
         custom = {
+          "^.git$",
           ".DS_Store",
           "*.pyc",
           "*.o",
