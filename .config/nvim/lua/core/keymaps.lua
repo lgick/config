@@ -141,6 +141,8 @@ map("i", "<C-n>", function()
     for _, client in pairs(buf_clients) do
       if client.name == "tsserver" then
         type = "Field"
+        --elseif client.name == "lua_ls" then
+        --  type = "Property"
       end
     end
 
