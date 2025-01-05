@@ -35,15 +35,6 @@ map("n", "<Right>", "<nop>")
 map("i", "<BS>", "<nop>")
 
 ----------------------------------------
--- Сворачивание блоков кода
-----------------------------------------
-
---map("i", "<leader>z", "<C-O>za")
---map("n", "<leader>z", "za")
---map("o", "<leader>z", "<C-C>za")
---map("v", "<leader>z", "zf")
-
-----------------------------------------
 -- Hotkeys
 ----------------------------------------
 
@@ -133,29 +124,29 @@ end)
 ----------------------------------------
 
 -- поиск файлов
-map("n", "<leader>gf", "<cmd>Telescope find_files<CR>")
+map("n", "<leader>s", "<cmd>Telescope find_files<CR>")
 
 -- поиск по файлам
-map("n", "<leader>gg", "<cmd>Telescope live_grep<CR>")
+map("n", "<leader>g", "<cmd>Telescope live_grep<CR>")
 
 -- буфферы
-map("n", "<leader>gb", "<cmd>Telescope buffers file_ignore_patterns={}<CR>")
+map("n", "<leader>b", "<cmd>Telescope buffers<CR>")
 
 -- Show LSP references
-map("n", "<leader>gr", "<cmd>Telescope lsp_references<CR>")
+map("n", "<leader>a", "<cmd>Telescope lsp_references<CR>")
 
 -- Show LSP implementations
-map("n", "<leader>gt", "<cmd>Telescope lsp_implementations<CR>")
+map("n", "<leader>o", "<cmd>Telescope lsp_implementations<CR>")
 
 ----------------------------------------
 -- Trouble
 ----------------------------------------
 
 -- Open trouble workspace diagnostics
-map("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<CR>")
+map("n", "<leader>x", "<cmd>Trouble diagnostics toggle<CR>")
 
 -- Open trouble document diagnostics
-map("n", "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<CR>")
+map("n", "<leader>X", "<cmd>Trouble diagnostics toggle filter.buf=0<CR>")
 
 ----------------------------------------
 -- LSP

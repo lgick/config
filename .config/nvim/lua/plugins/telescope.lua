@@ -12,6 +12,21 @@ return {
     local actions = require("telescope.actions")
 
     telescope.setup({
+      pickers = {
+        buffers = {
+          show_all_buffers = true,
+          sort_lastused = true,
+          file_ignore_patterns = {},
+          ignore_current_buffer = true,
+          theme = "dropdown",
+          previewer = false,
+          mappings = {
+            i = {
+              ["<c-d>"] = actions.delete_buffer + actions.move_to_top,
+            },
+          },
+        },
+      },
       defaults = {
         file_ignore_patterns = {
           "%.svg",
