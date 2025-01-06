@@ -56,6 +56,10 @@ map("n", "<leader>v", '"+p')
 -- , + f: File Explorer
 map("n", "<leader>f", "<cmd>NvimTreeToggle<CR>")
 
+-- , + w: Git blame
+map("n", "<leader>w", "<cmd>GitBlameToggle<CR>")
+map("n", "<leader>W", "<cmd>GitBlameOpenCommitURL<CR>")
+
 -- , + l: Подсвечивает координаты курсора
 local cursorLight = false
 map("n", "<leader>l", function()
