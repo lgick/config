@@ -57,8 +57,7 @@ map("n", "<leader>v", '"+p')
 map("n", "<leader>f", "<cmd>NvimTreeToggle<CR>")
 
 -- , + w: Git blame
-map("n", "<leader>w", "<cmd>GitBlameToggle<CR>")
-map("n", "<leader>W", "<cmd>GitBlameOpenCommitURL<CR>")
+map("n", "<leader>w", "<cmd>BlameToggle<CR>")
 
 -- , + l: Подсвечивает координаты курсора
 local cursorLight = false
