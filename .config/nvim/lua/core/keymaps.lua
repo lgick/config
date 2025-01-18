@@ -139,7 +139,7 @@ map("n", "<leader>b", "<cmd>Telescope buffers<CR>")
 map("n", "<leader>a", "<cmd>Telescope lsp_references<CR>")
 
 -- Show LSP implementations
-map("n", "<leader>o", "<cmd>Telescope lsp_implementations<CR>")
+map("n", "<leader>o", "<cmd>Telescope lsp_implementations jump_type=split<CR>")
 
 ----------------------------------------
 -- Trouble
