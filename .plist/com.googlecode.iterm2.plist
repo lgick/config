@@ -2807,13 +2807,13 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.0</real>
+				<real>0.52549019607843139</real>
 				<key>Color Space</key>
-				<string>Calibrated</string>
+				<string>P3</string>
 				<key>Green Component</key>
-				<real>0.0</real>
+				<real>0.52941176470588236</real>
 				<key>Red Component</key>
-				<real>0.0</real>
+				<real>0.85098039215686272</real>
 			</dict>
 			<key>Tags</key>
 			<array/>
@@ -2852,7 +2852,7 @@
 			<key>Use Separate Colors for Light and Dark Mode</key>
 			<false/>
 			<key>Use Tab Color</key>
-			<false/>
+			<true/>
 			<key>Use Tab Color (Dark)</key>
 			<false/>
 			<key>Use Tab Color (Light)</key>
