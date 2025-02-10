@@ -111,6 +111,8 @@ return {
       filters = {
         dotfiles = true,
         custom = {
+          "package-lock.json",
+          "node_modules",
           "^.git$",
           ".DS_Store",
           "*.pyc",
