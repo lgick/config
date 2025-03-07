@@ -22,12 +22,13 @@ return {
           previewer = false,
           mappings = {
             i = {
-              ["<c-d>"] = actions.delete_buffer + actions.move_to_top,
+              ["<C-d>"] = actions.delete_buffer + actions.move_to_top,
             },
           },
         },
       },
       defaults = {
+        default_mappings = {},
         file_ignore_patterns = {
           "%.svg",
           "%.gif",
@@ -62,6 +63,14 @@ return {
             ["<C-n>"] = actions.preview_scrolling_down,
             ["<C-u>"] = actions.move_to_top,
             ["<C-d>"] = actions.move_to_bottom,
+            ["<C-s>"] = actions.select_vertical,
+            ["<C-i>"] = actions.select_horizontal,
+            ["<C-o>"] = actions.send_to_qflist + actions.open_qflist,
+            ["<ESC>"] = actions.close,
+            ["<CR>"] = actions.select_default,
+          },
+          n = {
+            ["<ESC>"] = actions.close,
           },
         },
       },
