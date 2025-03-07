@@ -37,8 +37,11 @@ return {
           "%.webp",
           "%.ico",
           "%.ttf",
-          "%.json",
-          "README.md",
+          "%.git/",
+          "dist/",
+          "build/",
+          "node_modules/",
+          "package%-lock%.json",
         },
         vimgrep_arguments = {
           "rg",
