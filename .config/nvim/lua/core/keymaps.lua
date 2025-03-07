@@ -1,5 +1,7 @@
 local g = vim.g
 local opt = vim.opt
+local cmd = vim.cmd
+local notify = vim.notify
 local map = vim.keymap.set
 
 -- <C-o> - переход на предыдущую позицию в списке переходов
@@ -58,6 +60,17 @@ map("n", "<leader>f", "<cmd>NvimTreeToggle<CR>")
 
 -- , + w: Git blame
 map("n", "<leader>w", "<cmd>BlameToggle<CR>")
+
+-- , + y: Autoformat toggle
+map("n", "<leader>y", function()
+  if g.disable_autoformat then
+    g.disable_autoformat = false
+    notify("Enabled autoformat")
+  else
+    g.disable_autoformat = true
+    notify("Disabled autoformat")
+  end
+end)
 
 -- , + l: Подсвечивает координаты курсора
 local cursorLight = false

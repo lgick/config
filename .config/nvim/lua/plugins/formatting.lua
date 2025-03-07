@@ -19,19 +19,12 @@ return {
         liquid = { "prettier" },
         lua = { "stylua" },
       },
-      format_on_save = {
-        lsp_fallback = true,
-        async = false,
-        timeout_ms = 1000,
-      },
+      format_on_save = function(bufnr)
+        if vim.g.disable_autoformat then
+          return
+        end
+        return { timeout_ms = 500, lsp_format = "fallback" }
+      end,
     })
-
-    --vim.keymap.set({ "n", "v" }, "<leader>mp", function()
-    --  conform.format({
-    --    lsp_fallback = true,
-    --    async = false,
-    --    timeout_ms = 1000,
-    --  })
-    --end, { desc = "Format file or range (in visual mode)" })
   end,
 }
