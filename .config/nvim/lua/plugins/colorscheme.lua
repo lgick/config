@@ -1,9 +1,38 @@
+-- rosewater = "#f2d5cf",
+-- flamingo = "#eebebe",
+-- pink = "#f4b8e4",
+-- mauve = "#ca9ee6",
+-- red = "#e78284",
+-- maroon = "#ea999c",
+-- peach = "#ef9f76",
+-- yellow = "#e5c890",
+-- green = "#a6d189",
+-- teal = "#81c8be",
+-- sky = "#99d1db",
+-- sapphire = "#85c1dc",
+-- blue = "#8caaee",
+-- lavender = "#babbf1",
+-- text = "#c6d0f5",
+-- subtext1 = "#b5bfe2",
+-- subtext0 = "#a5adce",
+-- overlay2 = "#949cbb",
+-- overlay1 = "#838ba7",
+-- overlay0 = "#737994",
+-- surface2 = "#626880",
+-- surface1 = "#51576d",
+-- surface0 = "#414559",
+-- base = "#303446",
+-- mantle = "#292c3c",
+-- crust = "#232634",
+
 return {
   "catppuccin/nvim",
   name = "catppuccin",
   priority = 1000,
   config = function()
     local cmd = vim.cmd
+    local api = vim.api
+    local fn = vim.fn
 
     require("catppuccin").setup({
       flavour = "frappe", -- latte, frappe, macchiato, mocha, auto
@@ -57,10 +86,13 @@ return {
     cmd("colorscheme catppuccin")
 
     -- Цвет невидимых символов listchars
-    cmd("highlight Whitespace guifg = #af0000 guibg = none")
+    api.nvim_set_hl(0, "Whitespace", { fg = "#AF0000", bg = "NONE" })
 
-    -- Цвет колонки и линии курсора
-    cmd("highlight CursorColumn guifg = none guibg = #3b3f52")
-    --cmd("highlight CursorLine guifg = none guibg = #af0000")
+    -- Цвет колонки
+    api.nvim_set_hl(0, "CursorColumn", { fg = "none", bg = "#3b3f52" })
+
+    -- Правило подсветки для символов после 80 столбца
+    api.nvim_set_hl(0, "OverLength", { fg = "#626880" })
+    fn.matchadd("OverLength", [[\%81v.\+]])
   end,
 }
