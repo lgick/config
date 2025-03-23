@@ -58,6 +58,9 @@ map("n", "<leader>v", '"+p')
 -- , + f: File Explorer
 map("n", "<leader>f", "<cmd>NvimTreeToggle<CR>")
 
+-- , + o: Aerial - code navigation
+map("n", "<leader>o", "<cmd>AerialToggle<CR>")
+
 -- , + w: Git blame
 map("n", "<leader>w", "<cmd>BlameToggle<CR>")
 
