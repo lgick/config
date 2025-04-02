@@ -39,7 +39,7 @@ opt.title = true
 opt.wrap = false
 
 -- Отступы сверху и снизу при скролле
-opt.scrolloff = 10
+opt.scrolloff = 5
 
 -- Вертикальное окно справа
 opt.splitright = true
