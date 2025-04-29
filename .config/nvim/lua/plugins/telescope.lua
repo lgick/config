@@ -11,8 +11,35 @@ return {
     local telescope = require("telescope")
     local actions = require("telescope.actions")
 
+    -- Функция для создания записи, отображающей только путь, без лишней информации
+    local custom_grep_entry_maker = function(entry)
+      local filename, lnum, col, text = entry:match("^(.-):(%d+):(%d+):(.*)$")
+
+      if filename then
+        return {
+          value = filename,
+          display = filename .. ":" .. lnum, -- Формируем строку "путь:строка"
+          ordinal = filename, -- Сортируем по имени файла
+          filename = filename,
+          lnum = tonumber(lnum), -- Преобразуем в число
+          col = tonumber(col), -- Преобразуем в число
+          text = text, -- Сохраняем текст совпадения для превью
+        }
+      else
+        -- Если строка не соответствует формату отображаем ее как есть.
+        return {
+          value = entry,
+          display = entry,
+          ordinal = entry,
+        }
+      end
+    end
+
     telescope.setup({
       pickers = {
+        live_grep = {
+          entry_maker = custom_grep_entry_maker,
+        },
         buffers = {
           show_all_buffers = true,
           sort_lastused = true,
@@ -28,6 +55,21 @@ return {
         },
       },
       defaults = {
+        layout_strategy = "horizontal", -- или 'flex'
+        layout_config = {
+          -- ширина и высота окна Telescope
+          -- Например, 90% ширины экрана
+          width = 0.9,
+          height = 0.9,
+
+          -- ширина предпросмотра
+          -- Можно также указать абсолютное количество колонок (менее гибко):
+          -- preview_width = 100,
+          preview_width = 0.6,
+
+          -- prompt_position = "top", -- Расположение строки ввода
+          -- mirror = false, -- false: предпросмотр справа (по умолчанию), true: слева
+        },
         default_mappings = {},
         file_ignore_patterns = {
           "%.svg",
@@ -54,7 +96,7 @@ return {
           "--hidden",
           "--smart-case",
         },
-        path_display = { "smart" },
+        path_display = { "absolute" },
         mappings = {
           i = {
             ["<C-k>"] = actions.move_selection_previous,
