@@ -6,10 +6,10 @@ return {
       require("blame").setup({
         mappings = {
           commit_info = "i",
-          stack_push = "<C-j>",
-          stack_pop = "<C-k>",
+          stack_push = "<C-/>",
+          stack_pop = "<C-.>",
           show_commit = "<CR>",
-          close = { "<esc>", "q" },
+          close = { "<ESC>", "q" },
         },
       })
     end,
