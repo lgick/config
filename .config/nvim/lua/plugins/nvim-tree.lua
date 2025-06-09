@@ -54,13 +54,13 @@ return {
       on_attach = custom_attach,
       hijack_cursor = true,
       view = {
+        relativenumber = false,
         width = {
           min = 25, -- Минимальная ширина окна
           max = 40, -- Максимальная ширина окна
         },
         adaptive_size = true, -- Автоматическое изменение ширины окна
         side = "left", -- Позиция окна (left/right)
-        relativenumber = false,
       },
 
       -- change folder arrow icons
@@ -86,6 +86,7 @@ return {
           window_picker = {
             enable = false,
           },
+          quit_on_open = true, -- После открытия файла, закроет nvim-tree
         },
       },
       filters = {
