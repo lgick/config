@@ -179,7 +179,7 @@ end)
 -- See available code actions
 map({ "n", "v" }, "<leader>m", vim.lsp.buf.code_action)
 
--- Изменить название в файле
+-- Изменить название в файле (вызвать :wa по завершению)
 map("n", "<leader>r", vim.lsp.buf.rename)
 
 -- Show documentation for what is under cursor

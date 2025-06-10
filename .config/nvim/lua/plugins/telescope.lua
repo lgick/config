@@ -63,12 +63,9 @@ return {
           height = 0.9,
 
           -- ширина предпросмотра
-          -- Можно также указать абсолютное количество колонок (менее гибко):
-          -- preview_width = 100,
-          preview_width = 0.6,
-
-          -- prompt_position = "top", -- Расположение строки ввода
-          -- mirror = false, -- false: предпросмотр справа (по умолчанию), true: слева
+          horizontal = {
+            preview_width = 0.6, -- Ширина предпросмотра для horizontal
+          },
         },
         default_mappings = {},
         file_ignore_patterns = {
