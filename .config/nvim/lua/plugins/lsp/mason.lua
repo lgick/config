@@ -40,7 +40,11 @@ return {
       ensure_installed = {
         "prettier", -- prettier formatter
         "stylua", -- lua formatter
-        "eslint_d",
+        -- eslint_d: версия выше создаёт ошибку:
+        -- Could not parse linter output due to:
+        -- Expected value but found invalid token at character 1  output:
+        -- Error: Could not find config file.
+        { "eslint_d", version = "13.1.2" },
       },
     })
   end,
