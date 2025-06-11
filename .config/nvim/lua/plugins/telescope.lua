@@ -58,9 +58,9 @@ return {
         layout_strategy = "horizontal", -- или 'flex'
         layout_config = {
           -- ширина и высота окна Telescope
-          -- Например, 90% ширины экрана
-          width = 0.9,
-          height = 0.9,
+          -- Например, 99% ширины экрана
+          width = 0.99,
+          height = 0.99,
 
           -- ширина предпросмотра
           horizontal = {

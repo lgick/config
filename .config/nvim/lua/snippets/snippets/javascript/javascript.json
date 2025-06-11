@@ -592,7 +592,7 @@
     "prefix": "forin",
     "body": [
       "for (const ${1} in ${2}) {",
-      "\tif (${2}.hasOwnProperty(${1})) {",
+      "\tif (Object.hasOwn(${2}, ${1})) {",
       "\t\tconst ${3} = ${2}[${1}];",
       "\t\t$0",
       "\t}",
