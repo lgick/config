@@ -26,7 +26,12 @@ return {
         post_jump_cmd = "normal! zt",
         keymaps = {
           ["?"] = "actions.show_help",
-          ["<CR>"] = "actions.jump",
+          ["<CR>"] = function()
+            local actions = require("aerial.actions")
+
+            actions.jump.callback()
+            actions.close.callback()
+          end,
           ["o"] = "actions.scroll",
           ["s"] = "actions.jump_vsplit",
           ["i"] = "actions.jump_split",
