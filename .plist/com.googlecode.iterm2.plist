@@ -2258,7 +2258,7 @@
 			<key>Description</key>
 			<string>Default</string>
 			<key>Disable Window Resizing</key>
-			<true/>
+			<false/>
 			<key>Faint Text Alpha</key>
 			<real>0.5</real>
 			<key>Faint Text Alpha (Dark)</key>
@@ -3771,15 +3771,15 @@
 											<key>Cursor Color</key>
 											<dict>
 												<key>Alpha Component</key>
-												<real>1</real>
+												<integer>1</integer>
 												<key>Blue Component</key>
-												<real>0.81609362363815308</real>
+												<real>0.81176470588235294</real>
 												<key>Color Space</key>
-												<string>P3</string>
+												<string>sRGB</string>
 												<key>Green Component</key>
-												<real>0.83940267562866211</real>
+												<real>0.83529411764705885</real>
 												<key>Red Component</key>
-												<real>0.93015366792678833</real>
+												<real>0.94901960784313721</real>
 											</dict>
 											<key>Cursor Color (Dark)</key>
 											<dict>
@@ -3945,7 +3945,7 @@
 												<real>0.29803921568627451</real>
 											</dict>
 											<key>Guid</key>
-											<string>76BA8692-9AA9-4C25-8654-3A33FFF0C425</string>
+											<string>8186E25A-7230-4DF4-9863-244BA7A7478C</string>
 											<key>Horizontal Spacing</key>
 											<real>1</real>
 											<key>Idle Code</key>
@@ -4338,8 +4338,6 @@
 											<string>DejaVuSansMNF 15</string>
 											<key>Option Key Sends</key>
 											<integer>0</integer>
-											<key>Original Guid</key>
-											<string>8186E25A-7230-4DF4-9863-244BA7A7478C</string>
 											<key>Prompt Before Closing 2</key>
 											<false/>
 											<key>Right Option Key Sends</key>
@@ -4447,20 +4445,18 @@
 												<key>Alpha Component</key>
 												<real>1</real>
 												<key>Blue Component</key>
-												<real>0.0</real>
+												<real>0.52549019607843139</real>
 												<key>Color Space</key>
-												<string>Calibrated</string>
+												<string>P3</string>
 												<key>Green Component</key>
-												<real>0.0</real>
+												<real>0.52941176470588236</real>
 												<key>Red Component</key>
-												<real>0.0</real>
+												<real>0.85098039215686272</real>
 											</dict>
 											<key>Tags</key>
 											<array/>
 											<key>Terminal Type</key>
 											<string>xterm-256color</string>
-											<key>Title Components</key>
-											<integer>2050</integer>
 											<key>Transparency</key>
 											<real>0.0</real>
 											<key>Unicode Version</key>
@@ -4494,7 +4490,7 @@
 											<key>Use Separate Colors for Light and Dark Mode</key>
 											<false/>
 											<key>Use Tab Color</key>
-											<false/>
+											<true/>
 											<key>Use Tab Color (Dark)</key>
 											<false/>
 											<key>Use Tab Color (Light)</key>
@@ -4515,7 +4511,7 @@
 											<string>~.config/nvim</string>
 										</dict>
 										<key>Columns</key>
-										<integer>168</integer>
+										<integer>104</integer>
 										<key>Commands</key>
 										<array/>
 										<key>Directories</key>
@@ -4603,6 +4599,11 @@
 											<string>/Users/dmitry</string>
 											<string>/Users/dmitry</string>
 											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry/Sites/vimp</string>
+											<string>/Users/dmitry/Sites</string>
 										</array>
 										<key>Environment</key>
 										<dict>
@@ -4613,6 +4614,36 @@
 										<dict/>
 										<key>Hosts</key>
 										<array>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
 											<dict>
 												<key>Host name</key>
 												<string>dmitry.local</string>
@@ -5133,7 +5164,7 @@
 											<string>$$</string>
 										</dict>
 										<key>Working Directory</key>
-										<string>/Users/dmitry</string>
+										<string>/Users/dmitry/Sites</string>
 										<key>Working Directory Poller Disabled</key>
 										<true/>
 									</dict>
@@ -5144,7 +5175,7 @@
 										<key>height</key>
 										<real>921</real>
 										<key>width</key>
-										<real>1512</real>
+										<real>940</real>
 										<key>x</key>
 										<real>0.0</real>
 										<key>y</key>
@@ -5159,7 +5190,7 @@
 								<key>height</key>
 								<real>921</real>
 								<key>width</key>
-								<real>1512</real>
+								<real>940</real>
 								<key>x</key>
 								<real>0.0</real>
 								<key>y</key>
@@ -6141,7 +6172,7 @@
 												<real>0.29803921568627451</real>
 											</dict>
 											<key>Guid</key>
-											<string>9B9784EC-8EF4-4FB6-B4F5-9CBA57D032F9</string>
+											<string>BC17EA9F-EEC2-4A90-BAC3-FB16BE249E4A</string>
 											<key>Horizontal Spacing</key>
 											<real>1</real>
 											<key>Idle Code</key>
@@ -6527,11 +6558,11 @@
 											<key>Name</key>
 											<string>Default</string>
 											<key>Non Ascii Font</key>
-											<string>Monaco 12</string>
+											<string>DejaVuSansMNF 13</string>
 											<key>Non-ASCII Anti Aliased</key>
 											<true/>
 											<key>Normal Font</key>
-											<string>DejaVuSansMNF 15</string>
+											<string>DejaVuSansMNF 13</string>
 											<key>Option Key Sends</key>
 											<integer>0</integer>
 											<key>Original Guid</key>
@@ -6643,13 +6674,13 @@
 												<key>Alpha Component</key>
 												<real>1</real>
 												<key>Blue Component</key>
-												<real>0.0</real>
+												<real>0.52549019607843139</real>
 												<key>Color Space</key>
-												<string>Calibrated</string>
+												<string>P3</string>
 												<key>Green Component</key>
-												<real>0.0</real>
+												<real>0.52941176470588236</real>
 												<key>Red Component</key>
-												<real>0.0</real>
+												<real>0.85098039215686272</real>
 											</dict>
 											<key>Tags</key>
 											<array/>
@@ -6690,7 +6721,7 @@
 											<key>Use Separate Colors for Light and Dark Mode</key>
 											<false/>
 											<key>Use Tab Color</key>
-											<false/>
+											<true/>
 											<key>Use Tab Color (Dark)</key>
 											<false/>
 											<key>Use Tab Color (Light)</key>
@@ -6711,16 +6742,11 @@
 											<string>~.config/nvim</string>
 										</dict>
 										<key>Columns</key>
-										<integer>168</integer>
+										<integer>117</integer>
 										<key>Commands</key>
 										<array/>
 										<key>Directories</key>
 										<array>
-											<string>/Users/dmitry/Sites</string>
-											<string>/Users/dmitry/Sites</string>
-											<string>/Users/dmitry/Sites</string>
-											<string>/Users/dmitry/Sites</string>
-											<string>/Users/dmitry/Sites</string>
 											<string>/Users/dmitry/Sites</string>
 											<string>/Users/dmitry/Sites</string>
 											<string>/Users/dmitry/Sites</string>
@@ -6816,6 +6842,11 @@
 											<string>/Users/dmitry/Sites</string>
 											<string>/Users/dmitry/Sites</string>
 											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites</string>
+											<string>/Users/dmitry/Sites/vimp</string>
+											<string>/Users/dmitry/Sites/vimp</string>
+											<string>/Users/dmitry/Sites</string>
 										</array>
 										<key>Environment</key>
 										<dict>
@@ -6826,6 +6857,36 @@
 										<dict/>
 										<key>Hosts</key>
 										<array>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
 											<dict>
 												<key>Host name</key>
 												<string>dmitry.local</string>
@@ -7147,6 +7208,8 @@
 										<key>Overridden Fields</key>
 										<array>
 											<string>Title Components</string>
+											<string>Normal Font</string>
+											<string>Non Ascii Font</string>
 											<string>Original Guid</string>
 											<string>Guid</string>
 											<string>Cursor Color</string>
@@ -7157,13 +7220,13 @@
 											<string>Shell Launcher</string>
 										</dict>
 										<key>Rows</key>
-										<integer>51</integer>
+										<integer>57</integer>
 										<key>Session GUID</key>
 										<string>F4CE8D18-D1C5-433A-BD61-00F6DF1CF6BF</string>
 										<key>Short Lived Single Use</key>
 										<false/>
 										<key>Should Expect Current Dir Updates</key>
-										<false/>
+										<true/>
 										<key>Should Expect Prompt Marks</key>
 										<true/>
 										<key>Substitutions</key>
@@ -7183,7 +7246,7 @@
 										<key>height</key>
 										<real>921</real>
 										<key>width</key>
-										<real>1512</real>
+										<real>940</real>
 										<key>x</key>
 										<real>0.0</real>
 										<key>y</key>
@@ -7198,7 +7261,7 @@
 								<key>height</key>
 								<real>921</real>
 								<key>width</key>
-								<real>1512</real>
+								<real>940</real>
 								<key>x</key>
 								<real>0.0</real>
 								<key>y</key>
@@ -7241,7 +7304,7 @@
 				<key>Use Transparency</key>
 				<true/>
 				<key>Width</key>
-				<real>1512</real>
+				<real>940</real>
 				<key>Window Type</key>
 				<integer>4</integer>
 				<key>X Origin</key>

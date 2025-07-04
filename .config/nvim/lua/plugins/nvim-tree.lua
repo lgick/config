@@ -32,7 +32,7 @@ return {
 
       keymap.set("n", "?", api.tree.toggle_help, opts("Help"))
       keymap.set("n", "C", api.tree.change_root_to_node, opts("Change Root"))
-      keymap.set("n", "I", api.tree.toggle_hidden_filter, opts("Toggle Dotfiles"))
+      keymap.set("n", "I", api.tree.toggle_custom_filter, opts("Toggle Custom Filter"))
       keymap.set("n", "X", api.tree.collapse_all, opts("Collapse All"))
       keymap.set("n", "E", api.tree.expand_all, opts("Expand All"))
       keymap.set("n", "q", api.tree.close, opts("Close"))
@@ -90,8 +90,10 @@ return {
         },
       },
       filters = {
-        dotfiles = true,
         custom = {
+          "^%.",
+          "^_",
+          ".gitignore",
           "package-lock.json",
           "node_modules",
           "^.git$",

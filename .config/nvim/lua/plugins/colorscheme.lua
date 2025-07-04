@@ -92,7 +92,7 @@ return {
     api.nvim_set_hl(0, "CursorColumn", { fg = "none", bg = "#3b3f52" })
 
     -- Правило подсветки для символов после 80 столбца
-    api.nvim_set_hl(0, "OverLength", { fg = "#626880" })
+    api.nvim_set_hl(0, "OverLength", { fg = "#ff0000" })
     fn.matchadd("OverLength", [[\%81v.\+]])
   end,
 }
