@@ -23,3 +23,5 @@
 [pull]
 [oh-my-zsh]
  hide-status = 1
+[credential]
+	helper = osxkeychain
