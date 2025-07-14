@@ -45,9 +45,6 @@ return {
       keymap.set("n", "d", api.fs.remove, opts("Delete"))
       keymap.set("n", "r", api.fs.rename, opts("Rename"))
       keymap.set("n", "u", api.fs.rename_full, opts("Rename Full Path"))
-
-      keymap.set("n", "f", api.live_filter.start, opts("Filter Start"))
-      keymap.set("n", "F", api.live_filter.clear, opts("Filter Clear"))
     end
 
     nvimtree.setup({
