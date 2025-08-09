@@ -28,6 +28,7 @@ return {
         "graphql",
         "emmet_ls",
         "eslint",
+        "nginx_language_server",
       },
     })
 
@@ -35,6 +36,7 @@ return {
       ensure_installed = {
         "prettier",
         "stylua",
+        "nginx-config-formatter",
       },
     })
   end,
