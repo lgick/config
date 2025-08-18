@@ -1,29 +1,30 @@
--- rosewater = "#f2d5cf",
--- flamingo = "#eebebe",
--- pink = "#f4b8e4",
--- mauve = "#ca9ee6",
--- red = "#e78284",
--- maroon = "#ea999c",
--- peach = "#ef9f76",
--- yellow = "#e5c890",
--- green = "#a6d189",
--- teal = "#81c8be",
--- sky = "#99d1db",
--- sapphire = "#85c1dc",
--- blue = "#8caaee",
--- lavender = "#babbf1",
--- text = "#c6d0f5",
--- subtext1 = "#b5bfe2",
--- subtext0 = "#a5adce",
--- overlay2 = "#949cbb",
--- overlay1 = "#838ba7",
--- overlay0 = "#737994",
--- surface2 = "#626880",
--- surface1 = "#51576d",
--- surface0 = "#414559",
--- base = "#303446",
--- mantle = "#292c3c",
--- crust = "#232634",
+-- https://catppuccin.com/palette/
+-- Rosewater   #dc8a78
+-- Flamingo    #dd7878
+-- Pink        #ea76cb
+-- Mauve       #8839ef
+-- Red         #d20f39
+-- Maroon      #e64553
+-- Peach       #fe640b
+-- Yellow      #df8e1d
+-- Green       #40a02b
+-- Teal        #179299
+-- Sky         #04a5e5
+-- Sapphire    #209fb5
+-- Blue        #1e66f5
+-- Lavender    #7287fd
+-- Text        #4c4f69
+-- Subtext 1   #5c5f77
+-- Subtext 0   #6c6f85
+-- Overlay 2   #7c7f93
+-- Overlay 1   #8c8fa1
+-- Overlay 0   #9ca0b0
+-- Surface 2   #acb0be
+-- Surface 1   #bcc0cc
+-- Surface 0   #ccd0da
+-- Base        #eff1f5
+-- Mantle      #e6e9ef
+-- Crust       #dce0e8
 
 return {
   "catppuccin/nvim",
@@ -35,10 +36,10 @@ return {
     local fn = vim.fn
 
     require("catppuccin").setup({
-      flavour = "frappe", -- latte, frappe, macchiato, mocha, auto
+      flavour = "auto", -- latte, frappe, macchiato, mocha
       background = { -- :h background
         light = "latte",
-        dark = "mocha",
+        dark = "frappe",
       },
       transparent_background = false, -- disables setting the background color.
       show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
@@ -86,13 +87,14 @@ return {
     cmd("colorscheme catppuccin")
 
     -- Цвет невидимых символов listchars
-    api.nvim_set_hl(0, "Whitespace", { fg = "#AF0000", bg = "NONE" })
+    api.nvim_set_hl(0, "Whitespace", { fg = "#d20f39", bg = "NONE" })
 
-    -- Цвет колонки
-    api.nvim_set_hl(0, "CursorColumn", { fg = "none", bg = "#3b3f52" })
+    -- Цвет колонки и строки
+    api.nvim_set_hl(0, "CursorColumn", { fg = "none", bg = "#ccd0da" })
+    api.nvim_set_hl(0, "CursorLine", { fg = "none", bg = "#ccd0da" })
 
     -- Правило подсветки для символов после 80 столбца
-    api.nvim_set_hl(0, "OverLength", { fg = "#ff0000" })
+    api.nvim_set_hl(0, "OverLength", { fg = "#d20f39" })
     fn.matchadd("OverLength", [[\%81v.\+]])
   end,
 }

@@ -2,6 +2,13 @@
 " Плагины VIM:
 " ----------------------------------------
 
+" === Автоустановка vim-plug ===
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent execute '!curl -fLo ~/.vim/autoload/plug.vim --create-dirs ' .
+        \ 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 set nocompatible
 filetype off
 
@@ -12,14 +19,6 @@ Plug 'preservim/nerdtree'
 set wildignore+=*.pyc,*.o,*.obj,*.svn,*.swp,*.class,*.hg,*.DS_Store,*.zip,*.tmp
 let NERDTreeRespectWildIgnore=1
 Plug 'Xuyuanp/nerdtree-git-plugin'
-
-" UltiSnips: сниппеты
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-let g:UltiSnipsExpandTrigger="<C-m>"
-let g:UltiSnipsJumpForwardTrigger="<C-n>"
-let g:UltiSnipsJumpBackwardTrigger="<C-p>"
-let g:UltiSnipsEditSplit="vertical"
 
 " Polyglot: поддержка синтаксиса и отступов для разных языков
 Plug 'sheerun/vim-polyglot'
@@ -35,16 +34,8 @@ Plug 'jeetsukumaran/vim-buffergator'
 let g:buffergator_viewport_split_policy = 'B'
 let g:buffergator_suppress_keymaps = 1
 
-" Arsync: asynchronous synchronisation of remote files
-Plug 'kenn7/vim-arsync'
-
 " Git support
 Plug 'tpope/vim-fugitive'
-
-" Easycomplete: автозавершение, lsp, навигация по проекту
-Plug 'ycm-core/YouCompleteMe'
-let g:ycm_key_list_select_completion = ['<C-n>']
-let g:ycm_key_list_previous_completion = ['<C-p>']
 
 call plug#end()
 
@@ -128,16 +119,14 @@ syntax enable
 set background=light
 
 " Цветовая схема
-colorscheme PaperColor
+silent! colorscheme PaperColor
 
 " Цвет невидимых символов
 highlight SpecialKey ctermbg=none ctermfg=124
 
-" Стили текста за пределами допустимой области
-highlight OverLength ctermfg=160
-
-" Допустимая рабочая область
-match OverLength /\%480v.\+/
+" Подсветка символов после 80-го столбца
+highlight OverLength ctermfg=124
+match OverLength /\%81v.\+/
 
 
 " ----------------------------------------
@@ -238,23 +227,48 @@ set foldcolumn=0
 " Автозавершение & Синтаксис
 " ----------------------------------------
 
+" Источники автодополнения:
+" текущий буфер(.), буферы(b), теги(t), include-файлы(i)
+set complete=.,b,t,i
+
+" Параметры меню:
+" menu — показывать меню автодополнения, если есть несколько вариантов
+" menuone — показывать меню даже если вариант всего один
+" noselect — не выбирать автоматически первый вариант в меню
+" noinsert — не вставлять автоматически первый вариант,
+" пока пользователь явно не подтвердит выбор
+set completeopt=menu,noselect,noinsert
+
 " Автозавершение двойных знаков
 imap [ []<left>
 imap ( ()<left>
 imap { {}<left>
 
-" Сигнал ошибке при отсутствии открывающей скобки
-set showmatch
-
-" Отключение добавления первого значения при вызове <c-x><c-o>
-set completeopt=longest,menuone
-
 " Автозавершение синтаксиса
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd BufNewFile,BufRead *.blade.php set filetype=html
+
+" автодополнение по Ctrl+N / Ctrl+P
+function! SmartComplete(direction)
+    " Проверяем, настроена ли функция omnifunc для текущего типа файла
+    if &omnifunc == ''
+        " Если omnifunc не настроена, возвращаем стандартную последовательность
+        " клавиш для обычного дополнения.
+        return a:direction == 'n' ? "\<C-n>" : "\<C-p>"
+    else
+        " Если omnifunc настроена, возвращаем последовательность для "умного"
+        " дополнения (omni-completion).
+        return "\<C-x>\<C-o>"
+    endif
+endfunction
+
+" Динамический маппинг
+" pumvisible() проверяет, видимо ли уже выпадающее меню автодополнения.
+" Если меню уже открыто, то Ctrl+N/Ctrl+P просто перемещают
+" курсор по списку, а не вызывали нашу функцию заново.
+imap <expr> <C-n> pumvisible() ? "\<C-n>" : SmartComplete('n')
+imap <expr> <C-p> pumvisible() ? "\<C-p>" : SmartComplete('p')
 
 " Автообновление данных конфиг файла VIM при сохранении
 autocmd! bufwritepost $MYVIMRC source $MYVIMRC
@@ -278,13 +292,10 @@ set lcs=tab:·\ ,trail:·,extends:>,precedes:<,nbsp:&
 let mapleader = ','
 
 " , + jv: VIM edit
-nmap <leader>jv :vsplit $MYVIMRC<CR>
+nmap <leader>jv :edit $MYVIMRC<CR>
 
 " , + b: Buffergator
 nmap <silent> <leader>b :BuffergatorToggle<CR>
-
-" , + s: Save remote
-nmap <silent> <leader>s :ARsyncUp<CR>
 
 " , + f: Файловая система
 nmap <silent> <leader>f :NERDTreeToggle<CR>
@@ -366,9 +377,9 @@ endfunction
 " , + l: Подсветка координат курсора
 map <silent> <leader>l :call ToggleCursorLight()<CR>
 
-set cursorline
-set cursorcolumn
-let g:cursorLight=1
+set nocursorline
+set nocursorcolumn
+let g:cursorLight=0
 
 function! ToggleCursorLight()
   if(g:cursorLight)

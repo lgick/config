@@ -114,7 +114,7 @@ opt.statusline = "%<%f%h%m%r [%{&fenc}] %=%c|%l/%L %P [%{strftime('%a %d.%m.%Y %
 opt.termguicolors = true
 
 -- темная цветовая схема
-opt.background = "dark"
+opt.background = "light"
 
 ------------------------------------------
 -- Невидимые символы (пробелы, табуляция)
