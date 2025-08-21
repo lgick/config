@@ -34,8 +34,6 @@ local C = {
   incsearch_bg = "#444444",
   linenumber_fg = "#b2b2b2",
   linenumber_bg = "#eeeeee",
-  vertsplit_fg = "#005f87",
-  vertsplit_bg = "#eeeeee",
   statusline_active_fg = "#e4e4e4",
   statusline_active_bg = "#005f87",
   statusline_inactive_fg = "#444444",
@@ -90,7 +88,8 @@ local function set_highlights()
   -- Скрытые символы (например, маркеры в Markdown)
   H("Conceal", { fg = C.linenumber_fg, bg = C.linenumber_bg })
   -- Вертикальный разделитель окон (сплитов)
-  H("VertSplit", { fg = C.vertsplit_fg, bg = C.vertsplit_bg })
+  H("VertSplit", { fg = C.cyan })
+  H("WinSeparator", { link = "VertSplit" })
   -- Колонка для свёрнутого кода (фолдинга)
   H("FoldColumn", { fg = C.folded_fg, bg = C.white })
   -- Курсор
@@ -137,6 +136,10 @@ local function set_highlights()
   H("MoreMsg", { fg = C.olive })
   -- Интерактивные вопросы, требующие ввода
   H("Question", { fg = C.green })
+  -- Цвет для невидимых символов
+  H("Whitespace", { fg = C.dark_red })
+  -- Кастомная группа для подсветки текста длиннее 80 символов
+  H("OverLength", { fg = C.dark_red })
 
   -- =======================
   -- Базовая подсветка (Vim Syntax)
@@ -441,8 +444,8 @@ local function set_highlights()
   --  -- =======================
   H("NvimTreeNormal", { fg = C.dark_grey, bg = C.white })
   H("NvimTreeNormalNC", { link = "NvimTreeNormal" })
-  H("NvimTreeVertSplit", { fg = C.cyan, bg = C.white })
   H("NvimTreeEndOfBuffer", { fg = C.white })
+  H("NvimTreeVertSplit", { link = "VertSplit" })
   H("NvimTreeWinSeparator", { link = "VertSplit" })
   H("NvimTreeCursorLine", { link = "CursorLine" })
   H("NvimTreeCursorColumn", { link = "CursorColumn" })
@@ -516,7 +519,6 @@ end
 
 -- 2. ФУНКЦИЯ-ЗАГРУЗЧИК
 function C.load()
-  -- Сброс
   if vim.api.nvim_command then
     vim.api.nvim_command("hi clear")
   else
@@ -527,7 +529,6 @@ function C.load()
     vim.cmd.syntax("reset")
   end
 
-  vim.o.termguicolors = true
   vim.g.colors_name = "PaperColor"
 
   -- рендерер хайлайтов
