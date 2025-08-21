@@ -2,7 +2,7 @@ local C = {
 
   -- Grayscale (Оттенки серого)
   white = "#eeeeee",
-  light_grey = "#bcbcbc",
+  light_grey = "#d0d0d0",
   medium_grey = "#878787",
   dark_grey = "#444444",
 
@@ -20,49 +20,18 @@ local C = {
   blue = "#005faf",
   purple = "#8700af",
 
-  cursor_fg = "#eeeeee",
-  cursor_bg = "#005f87",
-  cursorline = "#e4e4e4",
-  cursorcolumn = "#e4e4e4",
-  cursorlinenr_fg = "#af5f00",
-  cursorlinenr_bg = "#eeeeee",
-  popupmenu_fg = "#444444",
-  popupmenu_bg = "#d0d0d0",
-  search_fg = "#444444",
-  search_bg = "#ffff5f",
-  incsearch_fg = "#ffff5f",
-  incsearch_bg = "#444444",
-  linenumber_fg = "#b2b2b2",
-  linenumber_bg = "#eeeeee",
-  statusline_active_fg = "#e4e4e4",
-  statusline_active_bg = "#005f87",
-  statusline_inactive_fg = "#444444",
-  statusline_inactive_bg = "#d0d0d0",
-  todo_fg = "#00af5f",
-  todo_bg = "#eeeeee",
-  error_fg = "#af0000",
-  error_bg = "#ffd7ff",
-  matchparen_fg = "#005f87",
-  matchparen_bg = "#c6c6c6",
-  visual_fg = "#eeeeee",
-  visual_bg = "#0087af",
-  folded_fg = "#0087af",
-  folded_bg = "#afd7ff",
-  wildmenu_fg = "#444444",
-  wildmenu_bg = "#ffff00",
-  diffadd_fg = "#008700",
-  diffadd_bg = "#afffaf",
-  diffdelete_fg = "#af0000",
-  diffdelete_bg = "#ffd7ff",
-  difftext_fg = "#0087af",
-  difftext_bg = "#ffffd7",
-  diffchange_fg = "#444444",
-  diffchange_bg = "#ffd787",
-  tabline_bg = "#005f87",
-  tabline_active_fg = "#444444",
-  tabline_active_bg = "#e4e4e4",
-  tabline_inactive_fg = "#eeeeee",
-  tabline_inactive_bg = "#0087af",
+  -- Дополнительные оттенки
+  off_white = "#e4e4e4",
+  concrete = "#c6c6c6",
+  ash = "#b2b2b2",
+  rust = "#af5f00",
+  emerald = "#00af5f",
+  sky = "#afd7ff",
+  yellow = "#ffff5f",
+  light_green = "#afffaf",
+  light_orange = "#ffd787",
+  light_pink = "#ffd7ff",
+  light_yellow = "#ffffd7",
 }
 
 -- 1. ФУНКЦИЯ, СОЗДАЮЩАЯ ХАЙЛАЙТЫ
@@ -80,52 +49,52 @@ local function set_highlights()
   -- Символы, не являющиеся текстом (~ в конце файла, @)
   H("NonText", { fg = C.light_grey, bg = C.white })
   -- Номера строк в боковой колонке
-  H("LineNr", { fg = C.linenumber_fg, bg = C.linenumber_bg })
+  H("LineNr", { fg = C.ash, bg = C.white })
   -- Номер текущей строки, где находится курсор
-  H("CursorLineNr", { fg = C.cursorlinenr_fg, bg = C.cursorlinenr_bg, bold = true })
+  H("CursorLineNr", { fg = C.rust, bg = C.white, bold = true })
   -- Колонка для значков (Git, LSP диагностика)
   H("SignColumn", { fg = C.green, bg = C.white })
   -- Скрытые символы (например, маркеры в Markdown)
-  H("Conceal", { fg = C.linenumber_fg, bg = C.linenumber_bg })
+  H("Conceal", { fg = C.ash, bg = C.white })
   -- Вертикальный разделитель окон (сплитов)
   H("VertSplit", { fg = C.cyan })
   H("WinSeparator", { link = "VertSplit" })
   -- Колонка для свёрнутого кода (фолдинга)
-  H("FoldColumn", { fg = C.folded_fg, bg = C.white })
+  H("FoldColumn", { fg = C.teal, bg = C.white })
   -- Курсор
-  H("Cursor", { fg = C.cursor_fg, bg = C.cursor_bg })
+  H("Cursor", { fg = C.white, bg = C.cyan })
   -- Подсветка строки с курсором
-  H("CursorLine", { bg = C.cursorline })
+  H("CursorLine", { bg = C.off_white })
   -- Подсветка колонки с курсором
-  H("CursorColumn", { bg = C.cursorcolumn })
+  H("CursorColumn", { bg = C.off_white })
   -- "Линейка", колонка-ограничитель (например, на 80 символов)
-  H("ColorColumn", { bg = C.cursorcolumn })
+  H("ColorColumn", { bg = C.off_white })
   -- Найденные при поиске совпадения
-  H("Search", { fg = C.search_fg, bg = C.search_bg })
+  H("Search", { fg = C.dark_grey, bg = C.yellow })
   -- Подсветка совпадений при интерактивном поиске (по мере ввода)
-  H("IncSearch", { fg = C.incsearch_fg, bg = C.incsearch_bg })
+  H("IncSearch", { fg = C.yellow, bg = C.dark_grey })
   -- Статус-бар активного окна
-  H("StatusLine", { fg = C.statusline_active_fg, bg = C.statusline_active_bg })
+  H("StatusLine", { fg = C.off_white, bg = C.cyan })
   -- Статус-бар неактивных окон
-  H("StatusLineNC", { fg = C.statusline_inactive_fg, bg = C.statusline_inactive_bg })
+  H("StatusLineNC", { fg = C.dark_grey, bg = C.light_grey })
   -- Выделенный текст в визуальном режиме
-  H("Visual", { fg = C.visual_fg, bg = C.visual_bg })
+  H("Visual", { fg = C.white, bg = C.teal })
   -- Подсветка парных скобок (), [], {}
-  H("MatchParen", { fg = C.matchparen_fg, bg = C.matchparen_bg, bold = true })
+  H("MatchParen", { fg = C.cyan, bg = C.concrete, bold = true })
   -- Текст, представляющий свёрнутый блок кода
-  H("Folded", { fg = C.folded_fg, bg = C.folded_bg })
+  H("Folded", { fg = C.teal, bg = C.sky })
   -- Меню автодополнения для команд (:... при нажатии Tab)
-  H("WildMenu", { fg = C.wildmenu_fg, bg = C.wildmenu_bg, bold = true })
+  H("WildMenu", { fg = C.dark_grey, bg = C.yellow, bold = true })
   -- Всплывающее меню автодополнения (LSP, cmp)
-  H("Pmenu", { fg = C.popupmenu_fg, bg = C.popupmenu_bg })
+  H("Pmenu", { fg = C.dark_grey, bg = C.light_grey })
   -- Выбранный элемент в меню автодополнения
-  H("PmenuSel", { bg = C.visual_bg, fg = C.visual_fg, bold = true })
+  H("PmenuSel", { bg = C.teal, fg = C.white, bold = true })
   -- Неактивные вкладки в таб-баре
-  H("TabLine", { fg = C.tabline_inactive_fg, bg = C.tabline_inactive_bg })
+  H("TabLine", { fg = C.white, bg = C.teal })
   -- Пустое пространство в таб-баре
-  H("TabLineFill", { fg = C.tabline_bg, bg = C.tabline_bg })
+  H("TabLineFill", { fg = C.cyan, bg = C.cyan })
   -- Активная вкладка
-  H("TabLineSel", { fg = C.tabline_active_fg, bg = C.tabline_active_bg, bold = true })
+  H("TabLineSel", { fg = C.dark_grey, bg = C.off_white, bold = true })
   -- Непечатаемые символы (когда включен `:set list`)
   H("SpecialKey", { fg = C.light_grey })
   -- Имена директорий (в file explorer'ах, :edit .)
@@ -198,9 +167,9 @@ local function set_highlights()
   -- Специальные символы (напр. \n в строках)
   H("Special", { fg = C.dark_grey })
   -- Ошибки синтаксиса
-  H("Error", { fg = C.error_fg, bg = C.error_bg, bold = true })
+  H("Error", { fg = C.dark_red, bg = C.light_pink, bold = true })
   -- Ключевые слова в комментариях (TODO, FIXME)
-  H("Todo", { fg = C.todo_fg, bg = C.todo_bg, bold = true })
+  H("Todo", { fg = C.emerald, bg = C.white, bold = true })
   -- Подчеркнутый текст (например, ссылки в help)
   H("Underlined", { underline = true })
   -- Заголовки (в Markdown, help файлах)
@@ -211,13 +180,13 @@ local function set_highlights()
   -- =======================
 
   -- Добавленные строки (обычно зеленые)
-  H("DiffAdd", { fg = C.diffadd_fg, bg = C.diffadd_bg })
+  H("DiffAdd", { fg = C.green, bg = C.light_green })
   -- Измененные строки (обычно оранжевые/желтые)
-  H("DiffChange", { fg = C.diffchange_fg, bg = C.diffchange_bg })
+  H("DiffChange", { fg = C.dark_grey, bg = C.light_orange })
   -- Удаленные строки (обычно красные)
-  H("DiffDelete", { fg = C.diffdelete_fg, bg = C.diffdelete_bg })
+  H("DiffDelete", { fg = C.dark_red, bg = C.light_pink })
   -- Подсветка конкретного измененного текста внутри измененной строки
-  H("DiffText", { fg = C.difftext_fg, bg = C.difftext_bg, bold = true })
+  H("DiffText", { fg = C.teal, bg = C.light_yellow, bold = true })
 
   -- =======================
   -- Treesitter (полная версия)

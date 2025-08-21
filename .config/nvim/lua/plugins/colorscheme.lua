@@ -1,8 +1,8 @@
 return {
-  "my/papercolor", -- Просто уникальное имя для вашего локального плагина
+  "PaperColor",
   lazy = false,
   priority = 1000,
-  dir = vim.fn.stdpath("config"), -- Указываем, что плагин находится в нашей конфигурации
+  dir = vim.fn.stdpath("config"),
   config = function()
     vim.cmd.colorscheme("PaperColor")
   end,
