@@ -106,9 +106,9 @@ local function set_highlights()
   -- Подсветка совпадений при интерактивном поиске (по мере ввода)
   H("IncSearch", { fg = C.incsearch_fg, bg = C.incsearch_bg })
   -- Статус-бар активного окна
-  H("StatusLine", { fg = C.statusline_active_fg, bg = C.statusline_active_bg, reverse = true }) -- Оригинал инвертирует цвета, делаем так же
+  H("StatusLine", { fg = C.statusline_active_fg, bg = C.statusline_active_bg })
   -- Статус-бар неактивных окон
-  H("StatusLineNC", { fg = C.statusline_inactive_fg, bg = C.statusline_inactive_bg, reverse = true })
+  H("StatusLineNC", { fg = C.statusline_inactive_fg, bg = C.statusline_inactive_bg })
   -- Выделенный текст в визуальном режиме
   H("Visual", { fg = C.visual_fg, bg = C.visual_bg })
   -- Подсветка парных скобок (), [], {}
