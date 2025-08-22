@@ -131,7 +131,7 @@ local function set_highlights()
   -- Имена переменных
   H("Identifier", { fg = C.dark_grey })
   -- Имена функций
-  H("Function", { fg = C.cyan, bold = true })
+  H("Function", { fg = C.cyan })
   -- Ключевые слова-инструкции (return, import)
   H("Statement", { fg = C.purple })
   -- Условные операторы (if, else, switch)
@@ -235,9 +235,9 @@ local function set_highlights()
   -- Переменные
   H("@variable", { fg = C.dark_grey })
   -- Встроенные переменные (`this`, `self`)
-  H("@variable.builtin", { fg = C.pink, italic = true })
+  H("@variable.builtin", { fg = C.pink })
   -- Параметры функций
-  H("@variable.parameter", { fg = C.dark_grey, italic = true })
+  H("@variable.parameter", { fg = C.dark_grey })
   -- Поля/свойства объектов (`obj.field`)
   H("@variable.member", { fg = C.blue })
 
@@ -408,67 +408,116 @@ local function set_highlights()
   H("TroubleNormal", { link = "NormalFloat" })
   H("AerialNormal", { link = "Normal" })
 
-  --  -- =======================
-  --  -- NvimTree
-  --  -- =======================
+  -- =======================
+  -- NvimTree
+  -- =======================
+  -- Основной фон и цвет текста в окне дерева
   H("NvimTreeNormal", { fg = C.dark_grey, bg = C.white })
+  -- Неактивное окно дерева
   H("NvimTreeNormalNC", { link = "NvimTreeNormal" })
+  -- Символы ~ внизу буфера
   H("NvimTreeEndOfBuffer", { fg = C.white })
+  -- Вертикальный разделитель окна
   H("NvimTreeVertSplit", { link = "VertSplit" })
+  -- Альтернативный разделитель окна
   H("NvimTreeWinSeparator", { link = "VertSplit" })
+  -- Подсветка строки под курсором
   H("NvimTreeCursorLine", { link = "CursorLine" })
+  -- Подсветка колонки под курсором
   H("NvimTreeCursorColumn", { link = "CursorColumn" })
 
   -- Текст файлов и папок
+  -- Имя корневой папки
   H("NvimTreeRootFolder", { fg = C.pink, bold = true })
+  -- Имена папок
   H("NvimTreeFolderName", { fg = C.blue })
+  -- Имя открытой папки
   H("NvimTreeOpenedFolderName", { fg = C.blue, italic = true })
+  -- Исполняемые файлы
   H("NvimTreeExecFile", { fg = C.olive, bold = true })
+  -- Специальные файлы (например, README, LICENSE)
   H("NvimTreeSpecialFile", { link = "NvimTreeNormal" })
+  -- Символические ссылки
   H("NvimTreeSymlink", { fg = C.teal, italic = true })
+  -- Файлы изображений
   H("NvimTreeImageFile", { link = "NvimTreeNormal" })
 
   -- Иконки
+  -- Иконка папки
   H("NvimTreeFolderIcon", { fg = C.blue })
+  -- Иконка открытой папки
   H("NvimTreeOpenedFolderIcon", { link = "NvimTreeFolderIcon" })
+  -- Иконка файла
   H("NvimTreeFileIcon", { fg = C.dark_grey })
+  -- Линии-отступы в дереве
   H("NvimTreeIndentMarker", { fg = C.light_grey })
+  -- Стрелка у закрытой папки
   H("NvimTreeFolderArrowClosed", { fg = C.medium_grey })
+  -- Стрелка у открытой папки
   H("NvimTreeFolderArrowOpen", { fg = C.medium_grey })
 
   -- Состояния Git
+  -- Иконка: файл удалён
   H("NvimTreeGitDeletedIcon", { fg = C.dark_red })
+  -- Имя файла: удалён
   H("NvimTreeGitFileDeletedHL", { fg = C.dark_red })
+  -- Иконка: изменён
   H("NvimTreeGitDirtyIcon", { fg = C.orange })
+  -- Имя файла: изменён
   H("NvimTreeGitFileDirtyHL", { fg = C.orange })
+  -- Иконка: игнорируется (.gitignore)
   H("NvimTreeGitIgnoredIcon", { fg = C.medium_grey })
+  -- Имя файла: игнорируется
   H("NvimTreeGitFileIgnoredHL", { fg = C.medium_grey })
+  -- Иконка: конфликт при merge
   H("NvimTreeGitMergeIcon", { fg = C.pink })
+  -- Имя файла: конфликт при merge
   H("NvimTreeGitFileMergeHL", { fg = C.pink })
+  -- Иконка: новый файл (untracked)
   H("NvimTreeGitNewIcon", { fg = C.red })
+  -- Имя файла: новый
   H("NvimTreeGitFileNewHL", { fg = C.red })
-  H("NvimTreeGitRenamedIcon", { fg = C.purple })
-  H("NvimTreeGitFileRenamedHL", { fg = C.purple })
+  -- Иконка: файл переименован
+  H("NvimTreeGitRenamedIcon", { fg = C.green })
+  -- Имя файла: переименован
+  H("NvimTreeGitFileRenamedHL", { fg = C.green })
+  -- Иконка: файл подготовлен (staged)
   H("NvimTreeGitStagedIcon", { fg = C.green })
+  -- Имя файла: staged
   H("NvimTreeGitFileStagedHL", { fg = C.green })
 
   -- Диагностика (ссылаемся на уже определенные цвета LSP для консистентности)
+  -- Иконка ошибки
   H("NvimTreeDiagnosticErrorIcon", { link = "DiagnosticError" })
+  -- Иконка предупреждения
   H("NvimTreeDiagnosticWarnIcon", { link = "DiagnosticWarn" })
+  -- Иконка информации
   H("NvimTreeDiagnosticInfoIcon", { link = "DiagnosticInfo" })
+  -- Иконка подсказки
   H("NvimTreeDiagnosticHintIcon", { link = "DiagnosticHint" })
+  -- Файл с ошибкой
   H("NvimTreeDiagnosticErrorFileHL", { link = "DiagnosticUnderlineError" })
+  -- Файл с предупреждением
   H("NvimTreeDiagnosticWarnFileHL", { link = "DiagnosticUnderlineWarn" })
+  -- Файл с информацией
   H("NvimTreeDiagnosticInfoFileHL", { link = "DiagnosticUnderlineInfo" })
+  -- Файл с подсказкой
   H("NvimTreeDiagnosticHintFileHL", { link = "DiagnosticUnderlineHint" })
 
   -- Буфер обмена, закладки, открытые и измененные файлы
+  -- Подсветка скопированных файлов
   H("NvimTreeCopiedHL", { bg = C.olive, fg = C.white })
+  -- Подсветка вырезанных файлов
   H("NvimTreeCutHL", { bg = C.red, fg = C.white })
+  -- Иконка закладки
   H("NvimTreeBookmarkIcon", { fg = C.pink })
+  -- Файл с закладкой
   H("NvimTreeBookmarkHL", { fg = C.pink })
+  -- Иконка изменённого файла
   H("NvimTreeModifiedIcon", { fg = C.cyan })
+  -- Имя изменённого файла
   H("NvimTreeModifiedFileHL", { fg = C.cyan })
+  -- Подсветка открытых файлов
   H("NvimTreeOpenedHL", { fg = C.dark_grey, italic = true })
 
   -- nvim-cmp
