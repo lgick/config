@@ -25,3 +25,5 @@
  hide-status = 1
 [credential]
 	helper = osxkeychain
+[advice]
+	defaultBranchName = false
