@@ -109,6 +109,8 @@ local function set_highlights()
   H("Whitespace", { fg = C.dark_red })
   -- Кастомная группа для подсветки текста длиннее 80 символов
   H("OverLength", { fg = C.dark_red })
+  -- Подсветка вертикальных линий плагина indent-blankline.nvim
+  H("IblIndent", { fg = C.off_white })
 
   -- =======================
   -- Базовая подсветка (Vim Syntax)
