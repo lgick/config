@@ -19,7 +19,7 @@ return {
         return {
           value = filename,
           display = filename .. ":" .. lnum, -- Формируем строку "путь:строка"
-          ordinal = filename, -- Сортируем по имени файла
+          ordinal = filename .. " " .. text,
           filename = filename,
           lnum = tonumber(lnum), -- Преобразуем в число
           col = tonumber(col), -- Преобразуем в число
