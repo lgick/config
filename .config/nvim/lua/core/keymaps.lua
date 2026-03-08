@@ -2,6 +2,8 @@ local g = vim.g
 local opt = vim.opt
 local notify = vim.notify
 local map = vim.keymap.set
+local fn = vim.fn
+local cmd = vim.cmd
 
 -- <C-o> - переход на предыдущую позицию в списке переходов
 -- <C-i> - переход на следующую позицию в списке переходов
@@ -236,3 +238,31 @@ end)
 
 -- Открывает чат
 map("n", "<leader>h", "<cmd>call codeium#Chat()<CR>")
+
+------------------------------------------
+-- Nvim
+------------------------------------------
+
+-- Проверяет работу плагинов nvim
+map("n", "<leader>1", ":checkhealth<CR>")
+
+-- Определяет синтаксис слова под курсором
+map("n", "<leader>2", ":Inspect<CR>")
+
+-- Отображает сообщения в новом буфере
+map("n", "<leader>3", ":tabnew | put =execute('messages')<CR>")
+
+-- Сбрасывает nvim до заводских настроек
+map("n", "<leader>44", function()
+  local dirs = {
+    fn.stdpath("cache"), -- ~/.cache/nvim
+    fn.stdpath("data"), -- ~/.local/share/nvim
+    fn.stdpath("state"), -- ~/.local/state/nvim
+  }
+
+  for _, dir in ipairs(dirs) do
+    fn.delete(dir, "rf")
+  end
+
+  vim.api.nvim_command("silent! qa!")
+end, { desc = "Nuke and Quit" })
