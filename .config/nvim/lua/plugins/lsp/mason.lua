@@ -19,24 +19,12 @@ return {
       },
     })
 
-    mason_lspconfig.setup({
-      ensure_installed = {
-        "tsserver",
-        "html",
-        "cssls",
-        "lua_ls",
-        "graphql",
-        "emmet_ls",
-        "eslint",
-        "nginx_language_server",
-      },
-    })
-
     mason_tool_installer.setup({
       ensure_installed = {
         "prettier",
         "stylua",
         "nginx-config-formatter",
+        "tree-sitter-cli",
       },
     })
   end,
