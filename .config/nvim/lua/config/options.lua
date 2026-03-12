@@ -120,7 +120,7 @@ opt.statusline = "%<%f%h%m%r [%{&fenc}] %=%c|%l/%L %P [%{strftime('%a %d.%m.%Y %
 ------------------------------------------
 
 -- Цветовая схема
-cmd.colorscheme('habamax')
+cmd.colorscheme("habamax")
 
 -- 24-битные цвета
 opt.termguicolors = true

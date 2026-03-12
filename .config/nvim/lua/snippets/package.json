@@ -1,0 +1,115 @@
+{
+  "name": "friendly-snippets",
+  "engines": {
+    "vscode": "^1.11.0"
+  },
+  "contributes": {
+    "snippets": [
+      {
+        "language": [
+          "plaintext",
+          "markdown",
+          "tex",
+          "html",
+          "global",
+          "all"
+        ],
+        "path": "./snippets/global.json"
+      },
+      {
+        "language": [
+          "license"
+        ],
+        "path": "./snippets/license.json"
+      },
+      {
+        "language": [
+          "gitcommit",
+          "NeogitCommitMessage"
+        ],
+        "path": "./snippets/gitcommit.json"
+      },
+      {
+        "language": "lua",
+        "path": "./snippets/lua/lua.json"
+      },
+      {
+        "language": "luadoc",
+        "path": "./snippets/lua/luadoc.json"
+      },
+      {
+        "language": [
+          "markdown",
+          "rmd"
+        ],
+        "path": "./snippets/markdown.json"
+      },
+      {
+        "language": [
+          "html",
+          "jade",
+          "pug",
+          "javascriptreact",
+          "typescriptreact",
+          "blade"
+        ],
+        "path": "./snippets/html.json"
+      },
+      {
+        "language": [
+          "css",
+          "scss",
+          "sass",
+          "less",
+          "stylus"
+        ],
+        "path": "./snippets/css.json"
+      },
+      {
+        "language": [
+          "javascript",
+          "typescript",
+          "javascriptreact",
+          "typescriptreact",
+          "vue",
+          "svelte"
+        ],
+        "path": "./snippets/javascript/javascript.json"
+      },
+      {
+        "language": "jsdoc",
+        "path": "./snippets/javascript/jsdoc.json"
+      },
+      {
+        "language": "tsdoc",
+        "path": "./snippets/javascript/tsdoc.json"
+      },
+      {
+        "language": [
+          "typescript",
+          "typescriptreact"
+        ],
+        "path": "./snippets/javascript/typescript.json"
+      },
+      {
+        "language": [
+          "typescriptreact",
+          "javascriptreact"
+        ],
+        "path": "./snippets/javascript/react-es7.json"
+      },
+      {
+        "language": "javascriptreact",
+        "path": "./snippets/javascript/next.json"
+      },
+      {
+        "language": "typescriptreact",
+        "path": "./snippets/javascript/next-ts.json"
+      },
+      {
+        "language": "loremipsum",
+        "path": "./snippets/loremipsum.json"
+      }
+    ]
+  }
+}

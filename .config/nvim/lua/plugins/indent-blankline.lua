@@ -1,13 +1,5 @@
-return {
-  "lukas-reineke/indent-blankline.nvim",
-  main = "ibl",
-  ---@module "ibl"
-  ---@type ibl.config
-  opts = {
-    indent = { char = "┊" },
+local ibl = require("ibl")
 
-    scope = {
-      enabled = false, -- отключение рамки и подсветки активного блока
-    },
-  },
-}
+ibl.setup({
+  indent = { char = "┊" },
+})
