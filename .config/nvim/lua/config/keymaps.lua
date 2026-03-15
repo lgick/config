@@ -3,7 +3,6 @@ local opt = vim.opt
 local notify = vim.notify
 local map = vim.keymap.set
 local fn = vim.fn
-local cmd = vim.cmd
 
 -- <C-o> - переход на предыдущую позицию в списке переходов
 -- <C-i> - переход на следующую позицию в списке переходов
@@ -207,7 +206,7 @@ map("i", "<C-n>", function()
     local type = ""
 
     for _, client in pairs(buf_clients) do
-      if client.name == "tsserver" then
+      if client.name == "ts_ls" then
         type = "Field"
         --elseif client.name == "lua_ls" then
         --  type = "Property"
@@ -263,6 +262,4 @@ map("n", "<leader>44", function()
   for _, dir in ipairs(dirs) do
     fn.delete(dir, "rf")
   end
-
-  vim.api.nvim_command("silent! qa!")
-end, { desc = "Nuke and Quit" })
+end, { desc = "Nuke nvim" })

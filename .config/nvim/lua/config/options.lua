@@ -3,6 +3,7 @@
 --opt.clipboard:append("unnamedplus") -- use system clipboard as default register
 
 local vim = vim
+local cmd = vim.cmd
 local opt = vim.opt
 local fn = vim.fn
 
@@ -39,8 +40,9 @@ opt.title = true
 -- Запрет переноса строк
 opt.wrap = false
 
--- Отступы сверху и снизу при скролле
-opt.scrolloff = 5
+-- Отступы сверху и снизу и по бокам при скролле
+opt.scrolloff = 10
+opt.sidescrolloff = 10
 
 -- Вертикальное окно справа
 opt.splitright = true
@@ -92,13 +94,16 @@ opt.backspace = "indent,eol,start"
 -- opt.autoindent = true
 opt.smartindent = true
 
--- Пробельные символы на кнопке <tab>
+-- Преобразование Tab в пробелы
 opt.expandtab = true
 
--- Количество символов за одно нажание на TAB
+-- Визуальная ширина символа \t
 opt.tabstop = 2
 
--- Количиство символов при автоматическом табе
+-- Поведение клавиши Tab в insert mode
+opt.softtabstop = 2
+
+-- Количество символов при автоматическом табе
 opt.shiftwidth = 2
 
 -- Настройка сессий
@@ -114,11 +119,14 @@ opt.statusline = "%<%f%h%m%r [%{&fenc}] %=%c|%l/%L %P [%{strftime('%a %d.%m.%Y %
 -- Цвет
 ------------------------------------------
 
+-- Цветовая схема
+cmd.colorscheme("habamax")
+
 -- 24-битные цвета
 opt.termguicolors = true
 
 -- Тип цветовой схемы
-opt.background = "light"
+opt.background = "dark"
 
 -- Правило подсветки для символов после 80 столбца
 fn.matchadd("OverLength", [[\%81v.\+]])
@@ -184,3 +192,6 @@ opt.showmatch = true
 -- Отключение добавления первого значения при вызове <c-x><c-o>
 --opt.completeopt = "longest,menuone"
 opt.completeopt = { "menu", "menuone", "noselect" }
+
+-- Рамка floating окон
+opt.winborder = "rounded"
