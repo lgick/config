@@ -13,7 +13,6 @@ require("mason-tool-installer").setup({
     "graphql",
     "nginx_language_server",
     "nginx-config-formatter",
-    "copilot",
     "tree-sitter-cli",
   },
   auto_update = false,

@@ -1,59 +1,70 @@
 local parsers_to_install = {
-  "json",
-  "javascript",
-  "typescript",
-  "pug",
-  "tsx",
-  "yaml",
   "html",
   "css",
-  "prisma",
+  "scss",
+  "styled",
+  "javascript",
+  "jsx",
+  "jsdoc",
+  "json",
+  "typescript",
+  "vue",
+  "pug",
   "markdown",
   "markdown_inline",
-  "svelte",
-  "graphql",
   "bash",
   "lua",
+  "luadoc",
   "vim",
+  "vimdoc",
   "dockerfile",
   "gitignore",
-  "query",
-  "vimdoc",
-  "c",
-  "cpp",
-  "rust",
-  "go",
-  "python",
-  "vue",
+  "nginx",
+  "regex",
 }
 
-local retries = 0
+local function install_missing_parsers()
+  -- получение списка того, что уже установлено
+  local installed = require("nvim-treesitter").get_installed()
 
--- ждет, пока Mason установит tree-sitter, и только потом ставит парсеры
-local function ensure_treesitter_and_install()
-  -- проверка, появился ли исполняемый файл tree-sitter в PATH (Mason добавляет его туда)
-  if vim.fn.executable("tree-sitter") == 1 then
-    require("nvim-treesitter").install(parsers_to_install)
-  elseif retries < 30 then
-    -- если еще не установился, ждем 2 секунды и проверяем снова (максимум 1 минута)
-    retries = retries + 1
-    vim.defer_fn(ensure_treesitter_and_install, 2000)
-  else
-    vim.notify(
-      "Ошибка: tree-sitter не установлен через Mason после 60 секунд ожидания",
-      vim.log.levels.WARN
-    )
+  -- список в словарь для быстрого поиска
+  local installed_dict = {}
+  for _, lang in ipairs(installed) do
+    installed_dict[lang] = true
+  end
+
+  local missing = {}
+  for _, lang in ipairs(parsers_to_install) do
+    if not installed_dict[lang] then
+      table.insert(missing, lang)
+    end
+  end
+
+  -- если чего-то не хватает - запуск установки
+  if #missing > 0 then
+    require("nvim-treesitter").install(missing):wait(300000)
   end
 end
 
--- запуск проверку при старте
-ensure_treesitter_and_install()
+-- если tree-sitter установлен
+if vim.fn.executable("tree-sitter") == 1 then
+  install_missing_parsers()
+else
+  vim.api.nvim_create_autocmd("User", {
+    pattern = "MasonToolsUpdateCompleted",
+    once = true,
+    callback = function()
+      if vim.fn.executable("tree-sitter") == 1 then
+        install_missing_parsers()
+      end
+    end,
+  })
+end
 
--- включение подсветки синтаксиса через встроенный функционал Neovim
+-- включение подсветки синтаксиса через API ядра Neovim
 vim.api.nvim_create_autocmd("FileType", {
   group = vim.api.nvim_create_augroup("TreesitterHighlight", { clear = true }),
   callback = function()
-    -- pcall безопасно игнорирует файлы, для которых пока нет парсера
     pcall(vim.treesitter.start)
   end,
 })
