@@ -25,7 +25,6 @@ vim.pack.add({
   { src = "https://github.com/folke/trouble.nvim" },
 })
 
-require("plugins.colorscheme")
 require("plugins.lsp")
 require("plugins.cmp")
 require("plugins.nvim-tree")

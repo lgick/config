@@ -41,7 +41,7 @@ local function set_highlights()
     -- ==========================================
     -- 1. EDITOR INTERFACE (Базовый интерфейс)
     -- ==========================================
-    Normal = { fg = C.black, bg = C.white }, -- Темный текст на светлом фоне
+    Normal = { fg = C.black, bg = C.white },
     NormalNC = { fg = C.black, bg = C.white },
     NormalFloat = { fg = C.black, bg = C.off_white },
     FloatBorder = { fg = C.dark_grey, bg = C.off_white },
@@ -59,7 +59,7 @@ local function set_highlights()
 
     Directory = { fg = C.blue, bold = true },
     EndOfBuffer = { fg = C.concrete },
-    NonText = { fg = C.concrete },
+    NonText = { fg = C.dark_grey },
     Whitespace = { fg = C.concrete },
     SpecialKey = { fg = C.pink },
 
@@ -147,7 +147,7 @@ local function set_highlights()
     Macro = { fg = C.teal },
     PreCondit = { fg = C.teal },
 
-    Type = { fg = C.olive },
+    Type = { fg = C.blue },
     StorageClass = { fg = C.olive },
     Structure = { fg = C.olive },
     Typedef = { fg = C.olive },
@@ -192,7 +192,7 @@ local function set_highlights()
     -- 4. TREESITTER (Деревья синтаксиса)
     -- ==========================================
     ["@variable"] = { fg = C.black },
-    ["@variable.builtin"] = { fg = C.pink, italic = true },
+    ["@variable.builtin"] = { fg = C.dark_red, italic = true },
     ["@variable.parameter"] = { fg = C.teal },
     ["@variable.member"] = { fg = C.cyan },
     ["@constant.builtin"] = { fg = C.orange, bold = true },
@@ -207,8 +207,8 @@ local function set_highlights()
     ["@string.escape"] = { fg = C.emerald },
     ["@string.special.url"] = { fg = C.blue, underline = true },
 
-    ["@type.builtin"] = { fg = C.olive, italic = true },
-    ["@type.definition"] = { fg = C.olive, bold = true },
+    ["@type.builtin"] = { fg = C.blue, italic = true },
+    ["@type.definition"] = { fg = C.blue, bold = true },
 
     ["@attribute"] = { fg = C.pink },
     ["@property"] = { fg = C.teal },
@@ -216,12 +216,13 @@ local function set_highlights()
     ["@function.builtin"] = { fg = C.blue, italic = true },
     ["@function.macro"] = { fg = C.teal },
     ["@function.method"] = { fg = C.blue },
-    ["@constructor"] = { fg = C.olive, bold = true },
+    ["@constructor"] = { fg = C.green, bold = true },
 
+    ["@keyword"] = { fg = C.dark_red, italic = true },
     ["@keyword.coroutine"] = { fg = C.purple, bold = true },
     ["@keyword.operator"] = { fg = C.cyan },
     ["@keyword.import"] = { fg = C.pink },
-    ["@keyword.return"] = { fg = C.pink, italic = true },
+    ["@keyword.return"] = { fg = C.dark_red, italic = true },
     ["@keyword.exception"] = { fg = C.red, bold = true },
     ["@keyword.directive"] = { fg = C.teal },
 

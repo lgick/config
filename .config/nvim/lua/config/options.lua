@@ -119,6 +119,8 @@ opt.statusline = "%<%f%h%m%r [%{&fenc}] %=%c|%l/%L %P [%{strftime('%a %d.%m.%Y %
 -- Цвет
 ------------------------------------------
 
+cmd.colorscheme("papercolor")
+
 -- 24-битные цвета
 opt.termguicolors = true
 
