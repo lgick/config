@@ -119,14 +119,11 @@ opt.statusline = "%<%f%h%m%r [%{&fenc}] %=%c|%l/%L %P [%{strftime('%a %d.%m.%Y %
 -- Цвет
 ------------------------------------------
 
--- Цветовая схема
-cmd.colorscheme("habamax")
-
 -- 24-битные цвета
 opt.termguicolors = true
 
 -- Тип цветовой схемы
-opt.background = "dark"
+opt.background = "light"
 
 -- Правило подсветки для символов после 80 столбца
 fn.matchadd("OverLength", [[\%81v.\+]])
@@ -195,3 +192,6 @@ opt.completeopt = { "menu", "menuone", "noselect" }
 
 -- Рамка floating окон
 opt.winborder = "rounded"
+
+-- ленивая перерисовка интерфейса при выполнении макроса
+opt.lazyredraw = true

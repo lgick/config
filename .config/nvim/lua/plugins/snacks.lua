@@ -1,33 +1,10 @@
--- Show LSP references
--- map("n", "<leader>a", "<cmd>Telescope lsp_references<CR>")
-
--- Show LSP definitions
--- map("n", "<leader>j", "<cmd>Telescope lsp_definitions jump_type=split<CR>")
-
--- Open trouble workspace diagnostics
---map("n", "<leader>x", "<cmd>Trouble diagnostics toggle<CR>")
-
--- Open trouble document diagnostics
---map("n", "<leader>X", "<cmd>Trouble diagnostics toggle filter.buf=0<CR>")
-
--- Toggle diagnostic
---map("n", "<leader>t", function()
---  vim.diagnostic.enable(not vim.diagnostic.is_enabled())
---end)
-
--- See available code actions
---map({ "n", "v" }, "<leader>m", vim.lsp.buf.code_action)
-
--- Изменить название в файле (вызвать :wa по завершению)
---map("n", "<leader>r", vim.lsp.buf.rename)
-
--- Show documentation for what is under cursor
---map("n", "<leader>i", vim.lsp.buf.hover)
-
 local snacks = require("snacks")
 
 snacks.setup({
-  input = { enabled = true },
+  input = {
+    enabled = true,
+  },
+
   picker = {
     enabled = true,
     win = {
@@ -48,6 +25,7 @@ snacks.setup({
       },
     },
   },
+
   dashboard = {
     sections = {
       { icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
@@ -69,22 +47,15 @@ snacks.setup({
   },
 })
 
--- Поиск файлов (<leader>s)
 vim.keymap.set("n", "<leader>s", function()
   Snacks.picker.files()
 end, { desc = "Find Files" })
-
--- Поиск по содержимому файлов - live grep (<leader>g)
 vim.keymap.set("n", "<leader>g", function()
   Snacks.picker.grep()
 end, { desc = "Live Grep" })
-
--- Открытые буферы (<leader>b)
 vim.keymap.set("n", "<leader>b", function()
   Snacks.picker.buffers()
 end, { desc = "Buffers" })
-
--- Дополнительный бонус: поиск по старым (недавним) файлам
 vim.keymap.set("n", "<leader>e", function()
   Snacks.picker.recent()
 end, { desc = "Recent Files" })
