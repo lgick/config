@@ -1,18 +1,15 @@
 local C = {
-  -- Grayscale (Оттенки серого)
+  -- Оттенки серого
   white = "#eeeeee",
-  light_grey = "#d0d0d0",
-  medium_grey = "#bcbcbc",
-  dark_grey = "#878787",
-  black = "#444444",
+  light_grey = "#c7c7c7",
+  dark_grey = "#838383",
+  black = "#464646",
 
-  -- Warm Colors (Тёплые цвета)
+  -- Основные
   red = "#d70000",
   dark_red = "#af0000",
   orange = "#d75f00",
   pink = "#d70087",
-
-  -- Cool Colors (Холодные цвета)
   green = "#008700",
   olive = "#5f8700",
   teal = "#0087af",
@@ -20,14 +17,14 @@ local C = {
   blue = "#005faf",
   purple = "#8700af",
 
-  -- Дополнительные оттенки
+  -- Дополнительные
   off_white = "#e4e4e4",
-  concrete = "#c6c6c6",
   ash = "#b2b2b2",
   rust = "#af5f00",
   emerald = "#00af5f",
   sky = "#afd7ff",
   yellow = "#ffff5f",
+
   light_green = "#afffaf",
   light_orange = "#ffd787",
   light_pink = "#ffd7ff",
@@ -36,7 +33,7 @@ local C = {
 
 -- 1. ФУНКЦИЯ, СОЗДАЮЩАЯ ХАЙЛАЙТЫ
 local function set_highlights()
-  -- Настройка групп подсветки для СВЕТЛОЙ темы
+  -- Настройка групп подсветки для СВЕТЛОЙ темы (в духе PaperColor)
   local highlights = {
     -- ==========================================
     -- 1. EDITOR INTERFACE (Базовый интерфейс)
@@ -44,7 +41,7 @@ local function set_highlights()
     Normal = { fg = C.black, bg = C.white },
     NormalNC = { fg = C.black, bg = C.white },
     NormalFloat = { fg = C.black, bg = C.off_white },
-    FloatBorder = { fg = C.dark_grey, bg = C.off_white },
+    FloatBorder = { fg = C.blue, bg = C.off_white },
     FloatTitle = { fg = C.black, bold = true },
     Title = { fg = C.black, bold = true },
 
@@ -52,71 +49,73 @@ local function set_highlights()
     CursorColumn = { bg = C.off_white },
     CursorLine = { bg = C.off_white },
 
-    Cursor = { fg = C.white, bg = C.black },
+    -- В PaperColor курсор белый на фоне cyan (navy)
+    Cursor = { fg = C.white, bg = C.cyan },
     lCursor = { link = "Cursor" },
     CursorIM = { link = "Cursor" },
-    TermCursor = { fg = C.white, bg = C.green },
+    TermCursor = { fg = C.white, bg = C.cyan },
 
-    Directory = { fg = C.blue, bold = true },
-    EndOfBuffer = { fg = C.concrete },
+    Directory = { fg = C.blue },
+    EndOfBuffer = { fg = C.white },
     NonText = { fg = C.dark_grey },
-    Whitespace = { fg = C.concrete },
-    SpecialKey = { fg = C.pink },
+    Whitespace = { fg = C.light_grey },
+    SpecialKey = { fg = C.light_grey },
 
-    LineNr = { fg = C.dark_grey },
-    LineNrAbove = { fg = C.dark_grey },
-    LineNrBelow = { fg = C.dark_grey },
-    CursorLineNr = { fg = C.blue, bold = true },
+    LineNrAbove = { fg = C.ash },
+    LineNr = { fg = C.ash },
+    LineNrBelow = { fg = C.ash },
+    CursorLineNr = { fg = C.rust, bg = C.off_white },
 
-    SignColumn = { bg = C.white },
-    FoldColumn = { fg = C.dark_grey, bg = C.white },
-    Folded = { fg = C.teal, bg = C.off_white },
+    SignColumn = { fg = C.green },
+    FoldColumn = { fg = C.teal },
+    Folded = { fg = C.teal, bg = C.sky },
 
-    WinSeparator = { fg = C.blue },
+    WinSeparator = { fg = C.cyan }, -- Разделитель окон в PaperColor темно-синий
     VertSplit = { link = "WinSeparator" },
 
-    MatchParen = { bg = C.concrete, bold = true },
+    MatchParen = { fg = C.cyan, bg = C.light_grey },
 
-    -- Search & Selection (Используем светлые фоны из палитры)
+    -- Search & Selection
     Search = { fg = C.black, bg = C.yellow },
-    CurSearch = { fg = C.white, bg = C.orange, bold = true },
-    IncSearch = { fg = C.black, bg = C.light_orange },
+    CurSearch = { fg = C.yellow, bg = C.black, bold = true },
+    IncSearch = { fg = C.yellow, bg = C.black },
     Substitute = { fg = C.white, bg = C.red },
-    Visual = { bg = C.sky },
+    Visual = { fg = C.white, bg = C.teal },
     VisualNOS = { link = "Visual" },
 
     -- Messages
-    ErrorMsg = { fg = C.white, bg = C.red },
-    WarningMsg = { fg = C.orange, bold = true },
-    MoreMsg = { fg = C.emerald, bold = true },
-    ModeMsg = { fg = C.black, bold = true },
-    Question = { fg = C.cyan, bold = true },
-    OkMsg = { fg = C.emerald },
+    ErrorMsg = { fg = C.dark_red },
+    WarningMsg = { fg = C.pink },
+    MoreMsg = { fg = C.olive },
+    ModeMsg = { fg = C.olive },
+    Question = { fg = C.olive },
+    OkMsg = { fg = C.green },
 
     -- Popup Menu
     Pmenu = { fg = C.black, bg = C.off_white },
-    PmenuSel = { fg = C.white, bg = C.blue },
-    PmenuSbar = { bg = C.medium_grey },
+    PmenuSel = { fg = C.white, bg = C.cyan },
     PmenuThumb = { bg = C.dark_grey },
+    WildMenu = { fg = C.black, bg = C.yellow, bold = true },
 
     -- Tabs & StatusLine
-    StatusLine = { fg = C.black, bg = C.medium_grey },
-    StatusLineNC = { fg = C.dark_grey, bg = C.off_white },
-    TabLine = { fg = C.dark_grey, bg = C.off_white },
-    TabLineFill = { bg = C.off_white },
-    TabLineSel = { fg = C.white, bg = C.blue, bold = true },
+    TabLine = { fg = C.black, bg = C.light_grey },
+    TabLineFill = { fg = C.black, bg = C.light_grey },
+    TabLineSel = { fg = C.white, bg = C.cyan, bold = true },
 
-    -- Spell
-    SpellBad = { undercurl = true, sp = C.red },
-    SpellCap = { undercurl = true, sp = C.blue },
-    SpellLocal = { undercurl = true, sp = C.teal },
-    SpellRare = { undercurl = true, sp = C.purple },
+    StatusLine = { fg = C.white, bg = C.cyan, bold = true },
+    StatusLineNC = { fg = C.black, bg = C.light_grey },
 
-    -- Diffs (Тёмный текст на пастельных фонах)
-    DiffAdd = { fg = C.black, bg = C.light_green },
-    DiffChange = { fg = C.black, bg = C.light_yellow },
+    -- Spell (Волнистое подчеркивание заменяет сплошной фон)
+    SpellBad = { undercurl = true, sp = C.dark_red },
+    SpellCap = { undercurl = true, sp = C.purple },
+    SpellLocal = { undercurl = true, sp = C.cyan },
+    SpellRare = { undercurl = true, sp = C.orange },
+
+    -- Diffs
+    DiffAdd = { fg = C.green, bg = C.light_green },
+    DiffChange = { fg = C.black, bg = C.light_orange },
     DiffDelete = { fg = C.dark_red, bg = C.light_pink },
-    DiffText = { fg = C.black, bg = C.light_orange, bold = true },
+    DiffText = { fg = C.teal, bg = C.light_yellow },
 
     -- ==========================================
     -- 2. STANDARD SYNTAX (Стандартный синтаксис)
@@ -124,131 +123,137 @@ local function set_highlights()
     Comment = { fg = C.dark_grey, italic = true },
 
     Constant = { fg = C.orange },
-    String = { fg = C.green },
-    Character = { fg = C.emerald },
-    Number = { fg = C.rust },
-    Boolean = { fg = C.dark_red, bold = true },
-    Float = { fg = C.rust },
+    String = { fg = C.olive },
+    Character = { fg = C.olive },
+    Number = { fg = C.orange },
+    Boolean = { fg = C.green, bold = true },
+    Float = { fg = C.orange },
 
-    Identifier = { fg = C.black },
-    Function = { fg = C.blue },
+    Identifier = { fg = C.cyan },
+    Function = { fg = C.black }, -- Функции в PaperColor - цвета обычного текста
 
-    Statement = { fg = C.purple },
-    Conditional = { fg = C.purple },
-    Repeat = { fg = C.purple },
-    Label = { fg = C.orange },
-    Operator = { fg = C.cyan },
-    Keyword = { fg = C.pink },
+    Statement = { fg = C.pink },
+    Conditional = { fg = C.purple, bold = true },
+    Repeat = { fg = C.purple, bold = true },
+    Label = { fg = C.blue },
+    Operator = { fg = C.teal },
+    Keyword = { fg = C.blue },
     Exception = { fg = C.red },
 
-    PreProc = { fg = C.teal },
-    Include = { fg = C.teal },
-    Define = { fg = C.teal },
-    Macro = { fg = C.teal },
+    PreProc = { fg = C.blue },
+    Include = { fg = C.red },
+    Define = { fg = C.blue },
+    Macro = { fg = C.blue },
     PreCondit = { fg = C.teal },
 
-    Type = { fg = C.blue },
-    StorageClass = { fg = C.olive },
-    Structure = { fg = C.olive },
-    Typedef = { fg = C.olive },
+    Type = { fg = C.pink, bold = true },
+    StorageClass = { fg = C.cyan, bold = true },
+    Structure = { fg = C.blue, bold = true },
+    Typedef = { fg = C.pink, bold = true },
 
-    Special = { fg = C.pink },
-    SpecialChar = { fg = C.pink },
-    Tag = { fg = C.cyan },
-    Delimiter = { fg = C.light_grey },
+    Special = { fg = C.black },
+    SpecialChar = { fg = C.black },
+    Tag = { fg = C.green },
+    Delimiter = { fg = C.teal },
     SpecialComment = { fg = C.black, bold = true },
-    Debug = { fg = C.red },
+    Debug = { fg = C.orange },
 
-    Underlined = { underline = true, fg = C.blue },
+    Underlined = { fg = C.blue, underline = true },
     Ignore = { fg = C.white },
-    Error = { fg = C.red, bold = true },
-    Todo = { fg = C.black, bg = C.yellow, bold = true },
+    Error = { fg = C.dark_red },
+    Todo = { fg = C.emerald, bold = true },
 
     -- ==========================================
     -- 3. DIAGNOSTICS (Диагностика)
     -- ==========================================
-    DiagnosticError = { fg = C.red },
-    DiagnosticWarn = { fg = C.orange },
-    DiagnosticInfo = { fg = C.blue },
-    DiagnosticHint = { fg = C.dark_grey },
-    DiagnosticOk = { fg = C.emerald },
+    DiagnosticError = { fg = C.dark_red, bold = true },
+    DiagnosticWarn = { fg = C.orange, bold = true },
+    DiagnosticInfo = { fg = C.blue, bold = true },
+    DiagnosticHint = { fg = C.emerald, bold = true },
+    DiagnosticOk = { fg = C.green },
 
-    DiagnosticUnderlineError = { undercurl = true, sp = C.red },
+    DiagnosticUnderlineError = { undercurl = true, sp = C.dark_red },
     DiagnosticUnderlineWarn = { undercurl = true, sp = C.orange },
     DiagnosticUnderlineInfo = { undercurl = true, sp = C.blue },
-    DiagnosticUnderlineHint = { undercurl = true, sp = C.dark_grey },
-    DiagnosticUnderlineOk = { undercurl = true, sp = C.emerald },
+    DiagnosticUnderlineHint = { undercurl = true, sp = C.emerald },
+    DiagnosticUnderlineOk = { undercurl = true, sp = C.green },
 
-    DiagnosticVirtualTextError = { fg = C.red, bg = C.light_pink },
-    DiagnosticVirtualTextWarn = { fg = C.orange, bg = C.light_yellow },
-    DiagnosticVirtualTextInfo = { fg = C.blue, bg = C.sky },
-    DiagnosticVirtualTextHint = { fg = C.dark_grey, bg = C.off_white },
-    DiagnosticVirtualTextOk = { fg = C.emerald, bg = C.light_green },
+    DiagnosticVirtualTextError = { fg = C.dark_red },
+    DiagnosticVirtualTextWarn = { fg = C.orange },
+    DiagnosticVirtualTextInfo = { fg = C.blue },
+    DiagnosticVirtualTextHint = { fg = C.emerald },
+    DiagnosticVirtualTextOk = { fg = C.green },
 
-    DiagnosticDeprecated = { strikethrough = true, fg = C.dark_grey },
-    DiagnosticUnnecessary = { fg = C.dark_grey, undercurl = true },
+    DiagnosticDeprecated = { strikethrough = true, fg = C.black },
+    DiagnosticUnnecessary = { fg = C.black, undercurl = true },
 
     -- ==========================================
     -- 4. TREESITTER (Деревья синтаксиса)
     -- ==========================================
-    ["@variable"] = { fg = C.black },
-    ["@variable.builtin"] = { fg = C.dark_red, italic = true },
-    ["@variable.parameter"] = { fg = C.teal },
+    ["@variable"] = { fg = C.cyan },
+    ["@variable.builtin"] = { fg = C.cyan, bold = true },
+    ["@variable.parameter"] = { fg = C.cyan },
     ["@variable.member"] = { fg = C.cyan },
     ["@constant.builtin"] = { fg = C.orange, bold = true },
     ["@constant.macro"] = { fg = C.orange },
 
-    ["@module"] = { fg = C.cyan },
-    ["@module.builtin"] = { fg = C.cyan, italic = true },
-    ["@label"] = { fg = C.orange },
+    ["@module"] = { fg = C.black },
+    ["@module.builtin"] = { fg = C.blue },
 
-    ["@string.documentation"] = { fg = C.dark_grey },
-    ["@string.regexp"] = { fg = C.pink },
-    ["@string.escape"] = { fg = C.emerald },
+    ["@label"] = { fg = C.blue },
+
+    ["@string.documentation"] = { fg = C.black },
+    ["@string.regexp"] = { fg = C.teal },
+    ["@string.escape"] = { fg = C.olive, bold = true },
     ["@string.special.url"] = { fg = C.blue, underline = true },
 
-    ["@type.builtin"] = { fg = C.blue, italic = true },
-    ["@type.definition"] = { fg = C.blue, bold = true },
+    ["@type.builtin"] = { fg = C.pink, bold = true },
+    ["@type.definition"] = { fg = C.pink, bold = true },
 
-    ["@attribute"] = { fg = C.pink },
-    ["@property"] = { fg = C.teal },
+    ["@attribute"] = { fg = C.teal },
+    ["@property"] = { fg = C.cyan },
 
-    ["@function.builtin"] = { fg = C.blue, italic = true },
-    ["@function.macro"] = { fg = C.teal },
-    ["@function.method"] = { fg = C.blue },
-    ["@constructor"] = { fg = C.green, bold = true },
+    ["@function"] = { fg = C.black },
+    ["@function.builtin"] = { fg = C.blue },
+    ["@function.macro"] = { fg = C.blue },
+    ["@function.method"] = { fg = C.black },
+    ["@constructor"] = { fg = C.black, bold = true },
 
-    ["@keyword"] = { fg = C.dark_red, italic = true },
+    ["@keyword"] = { fg = C.blue },
+    ["@keyword.conditional"] = { fg = C.purple, bold = true },
+    ["@keyword.repeat"] = { fg = C.purple, bold = true },
     ["@keyword.coroutine"] = { fg = C.purple, bold = true },
-    ["@keyword.operator"] = { fg = C.cyan },
-    ["@keyword.import"] = { fg = C.pink },
-    ["@keyword.return"] = { fg = C.dark_red, italic = true },
-    ["@keyword.exception"] = { fg = C.red, bold = true },
-    ["@keyword.directive"] = { fg = C.teal },
+    ["@keyword.operator"] = { fg = C.teal },
+    ["@keyword.import"] = { fg = C.pink, bold = true },
+    ["@keyword.return"] = { fg = C.pink },
+    ["@keyword.exception"] = { fg = C.red },
+    ["@keyword.directive"] = { fg = C.blue },
 
-    ["@punctuation.delimiter"] = { fg = C.dark_grey },
-    ["@punctuation.bracket"] = { fg = C.dark_grey },
-    ["@punctuation.special"] = { fg = C.pink },
+    ["@punctuation.delimiter"] = { fg = C.teal },
+    ["@punctuation.bracket"] = { fg = C.teal },
+    ["@punctuation.special"] = { fg = C.teal },
 
-    ["@comment.error"] = { fg = C.white, bg = C.red, bold = true },
+    ["@comment.error"] = { fg = C.white, bg = C.dark_red, bold = true },
     ["@comment.warning"] = { fg = C.white, bg = C.orange, bold = true },
-    ["@comment.todo"] = { fg = C.black, bg = C.yellow, bold = true },
+    ["@comment.todo"] = { fg = C.emerald, bg = C.white, bold = true },
     ["@comment.note"] = { fg = C.black, bg = C.sky, bold = true },
+
     ["@markup.strong"] = { bold = true },
     ["@markup.italic"] = { italic = true },
     ["@markup.strikethrough"] = { strikethrough = true },
     ["@markup.underline"] = { underline = true },
-    ["@markup.heading"] = { fg = C.blue, bold = true },
+    ["@markup.heading"] = { fg = C.pink, bold = true },
     ["@markup.link.url"] = { fg = C.blue, underline = true },
-    ["@markup.raw"] = { fg = C.green, bg = C.off_white },
+    ["@markup.raw"] = { fg = C.olive },
 
     ["@diff.plus"] = { fg = C.green },
     ["@diff.minus"] = { fg = C.red },
     ["@diff.delta"] = { fg = C.orange },
 
-    ["@tag"] = { fg = C.cyan },
-    ["@tag.attribute"] = { fg = C.teal },
-    ["@tag.delimiter"] = { fg = C.dark_grey },
+    ["@tag"] = { fg = C.black },
+    ["@tag.builtin"] = { fg = C.purple },
+    ["@tag.attribute"] = { fg = C.pink },
+    ["@tag.delimiter"] = { fg = C.black },
   }
 
   -- Применение цветов
