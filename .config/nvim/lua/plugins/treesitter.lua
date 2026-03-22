@@ -42,7 +42,7 @@ local function install_missing_parsers()
 
   -- если чего-то не хватает - запуск установки
   if #missing > 0 then
-    require("nvim-treesitter").install(missing):wait(300000)
+    require("nvim-treesitter").install(missing)
   end
 end
 

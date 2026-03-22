@@ -1,7 +1,7 @@
 {
   "plugins": {
     "LuaSnip": {
-      "rev": "dae4f5aaa3574bd0c2b9dd20fb9542a02c10471c",
+      "rev": "642b0c595e11608b4c18219e93b88d7637af27bc",
       "src": "https://github.com/L3MON4D3/LuaSnip"
     },
     "aerial.nvim": {
@@ -13,7 +13,7 @@
       "src": "https://github.com/FabijanZulj/blame.nvim"
     },
     "blink.cmp": {
-      "rev": "612f4bd2bc29d9e7dc7be1dde960908951bedad1",
+      "rev": "62c3d54f7d739ee46f850ea6832383e3b7ca2ee1",
       "src": "https://github.com/Saghen/blink.cmp"
     },
     "conform.nvim": {
@@ -69,7 +69,7 @@
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "snacks.nvim": {
-      "rev": "91d1ff640f536b1870ee897486d821076480c83a",
+      "rev": "ad9ede6a9cddf16cedbd31b8932d6dcdee9b716e",
       "src": "https://github.com/folke/snacks.nvim"
     },
     "trouble.nvim": {

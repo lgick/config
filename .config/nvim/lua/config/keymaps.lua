@@ -227,7 +227,6 @@ map("n", "<leader>7", function()
     fn.stdpath("cache"), -- ~/.cache/nvim
     fn.stdpath("data"), -- ~/.local/share/nvim
     fn.stdpath("state"), -- ~/.local/state/nvim
-    fn.stdpath("config") .. "/nvim-pack-lock.json",
   }
 
   for _, path in ipairs(paths) do
@@ -239,3 +238,16 @@ map("n", "<leader>7", function()
   opt.shada = ""
   os.exit()
 end, { desc = "Nuke nvim" })
+
+-- Обновляет плагины nvim
+map("n", "<leader>8", function()
+  local confirm = fn.input("Обновить плагины Neovim? (y/n): ")
+
+  if confirm:lower() ~= "y" then
+    return
+  end
+
+  vim.pack.update()
+  vim.cmd("MasonToolsUpdate")
+  vim.cmd("TSUpdate")
+end, { desc = "Update nvim plugins" })
