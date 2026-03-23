@@ -31,9 +31,7 @@ local C = {
   light_yellow = "#ffffd7",
 }
 
--- 1. ФУНКЦИЯ, СОЗДАЮЩАЯ ХАЙЛАЙТЫ
 local function set_highlights()
-  -- Настройка групп подсветки для СВЕТЛОЙ темы (в духе PaperColor)
   local highlights = {
     -- ==========================================
     -- 1. EDITOR INTERFACE (Базовый интерфейс)
@@ -41,7 +39,7 @@ local function set_highlights()
     Normal = { fg = C.black, bg = C.white },
     NormalNC = { fg = C.black, bg = C.white },
     NormalFloat = { fg = C.black, bg = C.off_white },
-    FloatBorder = { fg = C.blue, bg = C.off_white },
+    FloatBorder = { fg = C.purple, bg = C.off_white },
     FloatTitle = { fg = C.black, bg = C.off_white, bold = true },
     Title = { fg = C.black },
 
@@ -49,7 +47,6 @@ local function set_highlights()
     CursorColumn = { bg = C.off_white },
     CursorLine = { bg = C.off_white },
 
-    -- В PaperColor курсор белый на фоне cyan (navy)
     Cursor = { fg = C.white, bg = C.cyan },
     lCursor = { link = "Cursor" },
     CursorIM = { link = "Cursor" },
@@ -70,12 +67,11 @@ local function set_highlights()
     FoldColumn = { fg = C.teal },
     Folded = { fg = C.teal, bg = C.sky },
 
-    WinSeparator = { fg = C.cyan }, -- Разделитель окон в PaperColor темно-синий
+    WinSeparator = { fg = C.cyan },
     VertSplit = { link = "WinSeparator" },
 
     MatchParen = { fg = C.cyan, bg = C.light_grey },
 
-    -- Search & Selection
     Search = { fg = C.black, bg = C.yellow },
     CurSearch = { fg = C.yellow, bg = C.black, bold = true },
     IncSearch = { fg = C.yellow, bg = C.black },
@@ -83,7 +79,6 @@ local function set_highlights()
     Visual = { fg = C.white, bg = C.teal },
     VisualNOS = { link = "Visual" },
 
-    -- Messages
     ErrorMsg = { fg = C.dark_red },
     WarningMsg = { fg = C.pink },
     MoreMsg = { fg = C.olive },
@@ -91,13 +86,11 @@ local function set_highlights()
     Question = { fg = C.olive },
     OkMsg = { fg = C.green },
 
-    -- Popup Menu
-    Pmenu = { fg = C.black, bg = C.off_white },
-    PmenuSel = { fg = C.white, bg = C.cyan },
-    PmenuThumb = { bg = C.dark_grey },
+    Pmenu = { fg = C.blue, bg = C.off_white },
+    PmenuSel = { fg = C.white, bg = C.blue },
+    PmenuThumb = { bg = C.cyan },
     WildMenu = { fg = C.black, bg = C.yellow, bold = true },
 
-    -- Tabs & StatusLine
     TabLine = { fg = C.black, bg = C.light_grey },
     TabLineFill = { fg = C.black, bg = C.light_grey },
     TabLineSel = { fg = C.white, bg = C.cyan, bold = true },
@@ -105,13 +98,11 @@ local function set_highlights()
     StatusLine = { fg = C.white, bg = C.cyan, bold = true },
     StatusLineNC = { fg = C.black, bg = C.light_grey },
 
-    -- Spell (Волнистое подчеркивание заменяет сплошной фон)
     SpellBad = { undercurl = true, sp = C.dark_red },
     SpellCap = { undercurl = true, sp = C.purple },
     SpellLocal = { undercurl = true, sp = C.cyan },
     SpellRare = { undercurl = true, sp = C.orange },
 
-    -- Diffs
     DiffAdd = { fg = C.green, bg = C.light_green },
     DiffChange = { fg = C.black, bg = C.light_orange },
     DiffDelete = { fg = C.dark_red, bg = C.light_pink },
@@ -120,7 +111,7 @@ local function set_highlights()
     -- ==========================================
     -- 2. STANDARD SYNTAX (Стандартный синтаксис)
     -- ==========================================
-    Comment = { fg = C.dark_grey, italic = true },
+    Comment = { fg = C.dark_grey, italic = true, bold = false },
 
     Constant = { fg = C.black },
     String = { fg = C.olive },
@@ -130,7 +121,7 @@ local function set_highlights()
     Float = { fg = C.orange },
 
     Identifier = { fg = C.cyan },
-    Function = { fg = C.black }, -- Функции в PaperColor - цвета обычного текста
+    Function = { fg = C.black },
 
     Statement = { fg = C.pink },
     Conditional = { fg = C.purple, bold = true },
@@ -196,6 +187,7 @@ local function set_highlights()
     ["@variable.member"] = { fg = C.cyan },
     ["@constant.builtin"] = { fg = C.green, bold = true },
     ["@constant.macro"] = { fg = C.black },
+    ["@constant.javascript"] = { fg = C.black, nocombine = true },
 
     ["@module"] = { fg = C.black },
     ["@module.builtin"] = { fg = C.blue },
@@ -209,6 +201,9 @@ local function set_highlights()
 
     ["@type.builtin"] = { fg = C.cyan },
     ["@type.definition"] = { fg = C.pink, bold = true },
+    ["@type.javascript"] = { fg = C.cyan, bold = true },
+    ["@type.builtin.javascript"] = { link = "@type.javascript" },
+    ["@type.jsdoc"] = { link = "Comment" },
 
     ["@attribute"] = { fg = C.teal },
     ["@property"] = { fg = C.blue },
@@ -216,22 +211,24 @@ local function set_highlights()
     ["@function"] = { fg = C.cyan, bold = true },
     ["@function.builtin"] = { fg = C.cyan },
     ["@function.macro"] = { fg = C.blue },
-    ["@function.method"] = { fg = C.cyan },
+    ["@function.method"] = { fg = C.cyan, bold = true },
+    ["@function.method.call.javascript"] = { fg = C.cyan, bold = false },
     ["@constructor"] = { fg = C.green, bold = true },
 
     ["@keyword"] = { fg = C.blue },
     ["@keyword.type"] = { fg = C.cyan },
     ["@keyword.conditional"] = { fg = C.purple, bold = true },
     ["@keyword.repeat"] = { fg = C.purple, bold = true },
-    ["@keyword.coroutine"] = { fg = C.purple, bold = true },
+    ["@keyword.coroutine"] = { fg = C.purple },
     ["@keyword.operator"] = { fg = C.teal, bold = true },
-    ["@keyword.import"] = { fg = C.pink, bold = true },
-    ["@keyword.return"] = { fg = C.pink, bold = true },
+    ["@keyword.import"] = { fg = C.pink },
+    ["@keyword.return"] = { fg = C.pink },
     ["@keyword.exception"] = { fg = C.red },
     ["@keyword.directive"] = { fg = C.blue },
 
     ["@punctuation.delimiter"] = { fg = C.black },
     ["@punctuation.bracket"] = { fg = C.blue },
+    ["@punctuation.bracket.jsdoc"] = { link = "Comment" },
     ["@punctuation.special"] = { fg = C.black },
 
     ["@comment.error"] = { fg = C.white, bg = C.dark_red, bold = true },
@@ -255,20 +252,20 @@ local function set_highlights()
     ["@tag.builtin"] = { fg = C.purple },
     ["@tag.attribute"] = { fg = C.pink },
     ["@tag.delimiter"] = { fg = C.black },
+
+    ["@nospell.jsdoc"] = { link = "Comment" },
   }
 
-  -- Применение цветов
   for group, settings in pairs(highlights) do
     vim.api.nvim_set_hl(0, group, settings)
   end
 
-  -- Отключение lsp
+  -- отключение lsp
   for _, group in ipairs(vim.fn.getcompletion("@lsp", "highlight")) do
     vim.api.nvim_set_hl(0, group, {})
   end
 end
 
--- 2. ФУНКЦИЯ-ЗАГРУЗЧИК
 function C.load()
   if vim.api.nvim_command then
     vim.api.nvim_command("hi clear")
@@ -284,7 +281,6 @@ function C.load()
   vim.opt.termguicolors = true
   vim.g.colors_name = "PaperColor"
 
-  -- рендерер хайлайтов
   set_highlights()
 end
 
