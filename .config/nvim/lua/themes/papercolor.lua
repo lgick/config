@@ -12,9 +12,9 @@ local C = {
   pink = "#d70087",
   green = "#008700",
   olive = "#5f8700",
-  teal = "#0087af",
   cyan = "#005f87",
   blue = "#005faf",
+  teal = "#0087af",
   purple = "#8700af",
 
   -- Дополнительные
@@ -42,8 +42,8 @@ local function set_highlights()
     NormalNC = { fg = C.black, bg = C.white },
     NormalFloat = { fg = C.black, bg = C.off_white },
     FloatBorder = { fg = C.blue, bg = C.off_white },
-    FloatTitle = { fg = C.black, bold = true },
-    Title = { fg = C.black, bold = true },
+    FloatTitle = { fg = C.black, bg = C.off_white, bold = true },
+    Title = { fg = C.black },
 
     ColorColumn = { bg = C.off_white },
     CursorColumn = { bg = C.off_white },
@@ -55,7 +55,7 @@ local function set_highlights()
     CursorIM = { link = "Cursor" },
     TermCursor = { fg = C.white, bg = C.cyan },
 
-    Directory = { fg = C.blue },
+    Directory = { fg = C.cyan },
     EndOfBuffer = { fg = C.white },
     NonText = { fg = C.dark_grey },
     Whitespace = { fg = C.light_grey },
@@ -122,7 +122,7 @@ local function set_highlights()
     -- ==========================================
     Comment = { fg = C.dark_grey, italic = true },
 
-    Constant = { fg = C.orange },
+    Constant = { fg = C.black },
     String = { fg = C.olive },
     Character = { fg = C.olive },
     Number = { fg = C.orange },
@@ -137,7 +137,7 @@ local function set_highlights()
     Repeat = { fg = C.purple, bold = true },
     Label = { fg = C.blue },
     Operator = { fg = C.teal },
-    Keyword = { fg = C.blue },
+    Keyword = { fg = C.pink },
     Exception = { fg = C.red },
 
     PreProc = { fg = C.blue },
@@ -146,15 +146,15 @@ local function set_highlights()
     Macro = { fg = C.blue },
     PreCondit = { fg = C.teal },
 
-    Type = { fg = C.pink, bold = true },
-    StorageClass = { fg = C.cyan, bold = true },
+    Type = { fg = C.cyan, bold = true },
+    StorageClass = { fg = C.blue, bold = true },
     Structure = { fg = C.blue, bold = true },
-    Typedef = { fg = C.pink, bold = true },
+    Typedef = { fg = C.black, bold = true },
 
     Special = { fg = C.black },
     SpecialChar = { fg = C.black },
     Tag = { fg = C.green },
-    Delimiter = { fg = C.teal },
+    Delimiter = { fg = C.black },
     SpecialComment = { fg = C.black, bold = true },
     Debug = { fg = C.orange },
 
@@ -185,17 +185,17 @@ local function set_highlights()
     DiagnosticVirtualTextOk = { fg = C.green },
 
     DiagnosticDeprecated = { strikethrough = true, fg = C.black },
-    DiagnosticUnnecessary = { fg = C.black, undercurl = true },
+    DiagnosticUnnecessary = { fg = "None", undercurl = true },
 
     -- ==========================================
     -- 4. TREESITTER (Деревья синтаксиса)
     -- ==========================================
-    ["@variable"] = { fg = C.cyan },
-    ["@variable.builtin"] = { fg = C.cyan, bold = true },
-    ["@variable.parameter"] = { fg = C.cyan },
+    ["@variable"] = { fg = C.black },
+    ["@variable.builtin"] = { fg = C.dark_red },
+    ["@variable.parameter"] = { fg = C.black },
     ["@variable.member"] = { fg = C.cyan },
-    ["@constant.builtin"] = { fg = C.orange, bold = true },
-    ["@constant.macro"] = { fg = C.orange },
+    ["@constant.builtin"] = { fg = C.green, bold = true },
+    ["@constant.macro"] = { fg = C.black },
 
     ["@module"] = { fg = C.black },
     ["@module.builtin"] = { fg = C.blue },
@@ -207,31 +207,32 @@ local function set_highlights()
     ["@string.escape"] = { fg = C.olive, bold = true },
     ["@string.special.url"] = { fg = C.blue, underline = true },
 
-    ["@type.builtin"] = { fg = C.pink, bold = true },
+    ["@type.builtin"] = { fg = C.cyan },
     ["@type.definition"] = { fg = C.pink, bold = true },
 
     ["@attribute"] = { fg = C.teal },
-    ["@property"] = { fg = C.cyan },
+    ["@property"] = { fg = C.blue },
 
-    ["@function"] = { fg = C.black },
-    ["@function.builtin"] = { fg = C.blue },
+    ["@function"] = { fg = C.cyan, bold = true },
+    ["@function.builtin"] = { fg = C.cyan },
     ["@function.macro"] = { fg = C.blue },
-    ["@function.method"] = { fg = C.black },
-    ["@constructor"] = { fg = C.black, bold = true },
+    ["@function.method"] = { fg = C.cyan },
+    ["@constructor"] = { fg = C.green, bold = true },
 
     ["@keyword"] = { fg = C.blue },
+    ["@keyword.type"] = { fg = C.cyan },
     ["@keyword.conditional"] = { fg = C.purple, bold = true },
     ["@keyword.repeat"] = { fg = C.purple, bold = true },
     ["@keyword.coroutine"] = { fg = C.purple, bold = true },
-    ["@keyword.operator"] = { fg = C.teal },
+    ["@keyword.operator"] = { fg = C.teal, bold = true },
     ["@keyword.import"] = { fg = C.pink, bold = true },
-    ["@keyword.return"] = { fg = C.pink },
+    ["@keyword.return"] = { fg = C.pink, bold = true },
     ["@keyword.exception"] = { fg = C.red },
     ["@keyword.directive"] = { fg = C.blue },
 
-    ["@punctuation.delimiter"] = { fg = C.teal },
-    ["@punctuation.bracket"] = { fg = C.teal },
-    ["@punctuation.special"] = { fg = C.teal },
+    ["@punctuation.delimiter"] = { fg = C.black },
+    ["@punctuation.bracket"] = { fg = C.blue },
+    ["@punctuation.special"] = { fg = C.black },
 
     ["@comment.error"] = { fg = C.white, bg = C.dark_red, bold = true },
     ["@comment.warning"] = { fg = C.white, bg = C.orange, bold = true },
