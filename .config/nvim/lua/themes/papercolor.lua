@@ -53,7 +53,7 @@ local function set_highlights()
     TermCursor = { fg = C.white, bg = C.cyan },
 
     Directory = { fg = C.cyan },
-    EndOfBuffer = { fg = C.white },
+    EndOfBuffer = { link = "NonText" },
     NonText = { fg = C.dark_grey },
     Whitespace = { fg = C.light_grey },
     SpecialKey = { fg = C.light_grey },
@@ -87,7 +87,7 @@ local function set_highlights()
     OkMsg = { fg = C.green },
 
     Pmenu = { fg = C.blue, bg = C.off_white },
-    PmenuSel = { fg = C.white, bg = C.blue },
+    PmenuSel = { fg = C.white, bg = C.cyan },
     PmenuThumb = { bg = C.cyan },
     WildMenu = { fg = C.black, bg = C.yellow, bold = true },
 
