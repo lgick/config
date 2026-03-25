@@ -20,10 +20,6 @@
       "rev": "086a40dc7ed8242c03be9f47fbcee68699cc2395",
       "src": "https://github.com/stevearc/conform.nvim"
     },
-    "friendly-snippets": {
-      "rev": "6cd7280adead7f586db6fccbd15d2cac7e2188b9",
-      "src": "https://github.com/rafamadriz/friendly-snippets"
-    },
     "indent-blankline.nvim": {
       "rev": "d28a3f70721c79e3c5f6693057ae929f3d9c0a03",
       "src": "https://github.com/lukas-reineke/indent-blankline.nvim"
@@ -49,15 +45,15 @@
       "src": "https://github.com/windwp/nvim-autopairs"
     },
     "nvim-lspconfig": {
-      "rev": "841c6d4139aedb8a3f2baf30cef5327371385b93",
+      "rev": "46204c8fdaa36a9aa3768780450e4bc7a210025f",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-tree.lua": {
-      "rev": "dfeeb12aaae37f23285101cf875416c29052b22a",
+      "rev": "3d385d3346e4883d60dc37cf642bd47bed78a46e",
       "src": "https://github.com/nvim-tree/nvim-tree.lua"
     },
     "nvim-treesitter": {
-      "rev": "e5f65e31a5ec0e8526b2311ff8c7aaea4a581c82",
+      "rev": "6620ae1c44dfa8623b22d0cbf873a9e8d073b849",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "nvim-ts-autotag": {
