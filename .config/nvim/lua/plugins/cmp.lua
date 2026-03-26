@@ -1,5 +1,7 @@
-require("luasnip.loaders.from_vscode").load()
-require("luasnip.loaders.from_lua").load({ paths = "$MYVIMRC/lua/snippets" })
+require("luasnip.loaders.from_vscode").lazy_load({
+  paths = { vim.fn.stdpath("config") .. "/lua/snippets" },
+})
+
 require("lazydev").setup({
   library = {
     { path = "${3rd}/luv/library", words = { "vim%.uv" } },
