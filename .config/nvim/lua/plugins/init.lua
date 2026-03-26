@@ -1,27 +1,25 @@
 vim.pack.add({
-  { src = "https://github.com/neovim/nvim-lspconfig" },
-  { src = "https://github.com/mason-org/mason.nvim" },
-  { src = "https://github.com/mason-org/mason-lspconfig.nvim" },
-  { src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim" },
-  { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
+  { src = "https://github.com/neovim/nvim-lspconfig" }, -- движок для подключения языковых серверов lsp к Neovim
+  { src = "https://github.com/mason-org/mason.nvim" }, -- менеджер пакетов (устанавливает бинарники серверов, линтеров, отладчиков)
+  { src = "https://github.com/mason-org/mason-lspconfig.nvim" }, -- мост между mason и lspconfig (сопоставляет имена серверов)
+  { src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim" }, -- автоустановка lsp, линтеров, форматтеров.
+  { src = "https://github.com/nvim-treesitter/nvim-treesitter" }, -- парсер кода (дает подсветку, навигацию и понимание структуры)
 
-  { src = "https://github.com/Saghen/blink.cmp", version = vim.version.range("1.*") },
-  { src = "https://github.com/L3MON4D3/LuaSnip" },
-  { src = "https://github.com/folke/lazydev.nvim" },
+  { src = "https://github.com/Saghen/blink.cmp", version = vim.version.range("1.*") }, -- автодополнение
+  { src = "https://github.com/L3MON4D3/LuaSnip" }, -- Движок сниппетов
+  { src = "https://github.com/folke/lazydev.nvim" }, -- умные подсказки для работы с api neovim и lua-плагинов
 
-  { src = "https://github.com/nvim-tree/nvim-tree.lua" },
-  { src = "https://github.com/nvim-tree/nvim-web-devicons" },
+  { src = "https://github.com/nvim-tree/nvim-tree.lua" }, -- сайдбар с файловым деревом
+  { src = "https://github.com/nvim-tree/nvim-web-devicons" }, -- иконки для файлов
 
-  { src = "https://github.com/stevearc/aerial.nvim" },
-  { src = "https://github.com/FabijanZulj/blame.nvim" },
-  { src = "https://github.com/lukas-reineke/indent-blankline.nvim" },
-
-  { src = "https://github.com/stevearc/conform.nvim" },
-  { src = "https://github.com/windwp/nvim-autopairs" },
-  { src = "https://github.com/windwp/nvim-ts-autotag" },
-
-  { src = "https://github.com/folke/snacks.nvim" },
-  { src = "https://github.com/folke/trouble.nvim" },
+  { src = "https://github.com/stevearc/aerial.nvim" }, -- список функций для быстрой навигации по файлу
+  { src = "https://github.com/FabijanZulj/blame.nvim" }, -- git blame
+  { src = "https://github.com/lukas-reineke/indent-blankline.nvim" }, -- линии отступов для блоков кода
+  { src = "https://github.com/stevearc/conform.nvim" }, -- форматирование кода (запускает prettier)
+  { src = "https://github.com/windwp/nvim-autopairs" }, -- автоматическое закрытие скобок
+  { src = "https://github.com/windwp/nvim-ts-autotag" }, -- автозакрытие и переименование тегов
+  { src = "https://github.com/folke/snacks.nvim" }, -- дашборд, окно picker с поиском, буфферами
+  { src = "https://github.com/folke/trouble.nvim" }, -- окно ошибок и предупреждений
 })
 
 require("plugins.lsp")
