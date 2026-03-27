@@ -254,6 +254,36 @@ local function set_highlights()
     ["@tag.delimiter"] = { fg = C.black },
 
     ["@nospell.jsdoc"] = { link = "Comment" },
+
+    BlinkCmpMenuBorder = { link = "FloatBorder" },
+    BlinkCmpDocBorder = { link = "BlinkCmpMenuBorder" },
+    BlinkCmpMenu = { link = "NormalFloat" },
+    BlinkCmpDoc = { link = "BlinkCmpMenu" },
+
+    NvimTreeGitNewIcon = { fg = C.olive },
+    NvimTreeGitStagedIcon = { fg = C.green, bold = true },
+    NvimTreeGitDirtyIcon = { fg = C.orange },
+    NvimTreeGitMergeIcon = { fg = C.orange, bold = true },
+    NvimTreeGitDeletedIcon = { fg = C.dark_red },
+    NvimTreeGitRenamedIcon = { fg = C.dark_red },
+    NvimTreeGitIgnoredIcon = { fg = C.dark_grey, italic = true },
+
+    NvimTreeGitFileNewHL = { link = "NvimTreeGitNewIcon" },
+    NvimTreeGitFileStagedHL = { link = "NvimTreeGitStagedIcon" },
+    NvimTreeGitFileMergeHL = { link = "NvimTreeGitMergeIcon" },
+    NvimTreeGitFileDirtyHL = { link = "NvimTreeGitDirtyIcon" },
+    NvimTreeGitFileDeletedHL = { link = "NvimTreeGitDeletedIcon" },
+    NvimTreeGitFileRenamedHL = { link = "NvimTreeGitRenamedIcon" },
+    NvimTreeGitFileIgnoredHL = { link = "NvimTreeGitIgnoredIcon" },
+
+    -- Подсветка папок (Folder HL)
+    NvimTreeGitFolderNewHL = { link = "NvimTreeGitFileNewHL" },
+    NvimTreeGitFolderStagedHL = { link = "NvimTreeGitFileStagedHL" },
+    NvimTreeGitFolderMergeHL = { link = "NvimTreeGitFileMergeHL" },
+    NvimTreeGitFolderDirtyHL = { link = "NvimTreeGitFileDirtyHL" },
+    NvimTreeGitFolderDeletedHL = { link = "NvimTreeGitFileDeletedHL" },
+    NvimTreeGitFolderRenamedHL = { link = "NvimTreeGitFileRenamedHL" },
+    NvimTreeGitFolderIgnoredHL = { link = "NvimTreeGitFileIgnoredHL" },
   }
 
   for group, settings in pairs(highlights) do
