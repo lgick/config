@@ -56,17 +56,50 @@ require("blink.cmp").setup({
   },
   sources = {
     default = {
-      "lazydev",
       "lsp",
-      "path",
+      "lazydev",
       "snippets",
+      "path",
       "buffer",
     },
     providers = {
+      path = {
+        module = "blink.cmp.sources.path",
+        score_offset = 40,
+        opts = {
+          trailing_slash = true, -- добавлять / после выбора папки
+          label_trailing_slash = true, -- показывать / в списке подсказок
+          show_hidden_files_by_default = true,
+        },
+      },
+      snippets = {
+        score_offset = 30, -- приоритет в выдаче
+        module = "blink.cmp.sources.snippets",
+      },
+
       lazydev = {
-        name = "LazyDev",
+        score_offset = 20,
         module = "lazydev.integrations.blink",
-        score_offset = 100,
+      },
+
+      lsp = {
+        score_offset = 10,
+        module = "blink.cmp.sources.lsp",
+        transform_items = function(_, items)
+          return vim.tbl_filter(function(item)
+            return item.kind ~= require("blink.cmp.types").CompletionItemKind.Keyword
+          end, items)
+        end,
+      },
+
+      -- слова из буфера
+      buffer = {
+        score_offset = 0,
+        transform_items = function(_, items)
+          return vim.tbl_filter(function(item)
+            return item.kind ~= require("blink.cmp.types").CompletionItemKind.Text
+          end, items)
+        end,
       },
     },
   },
