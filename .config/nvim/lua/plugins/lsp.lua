@@ -23,6 +23,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("UserLspConfig", {}),
   callback = function(ev)
     local opts = { buffer = ev.buf }
+    local client = vim.lsp.get_client_by_id(ev.data.client_id)
+
+    -- inlay hints (подсказки типов)
+    if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
+      vim.lsp.inlay_hint.enable(true, { bufnr = ev.buf })
+    end
 
     -- основные LSP горячие клавиши
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
@@ -42,7 +48,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
       if vim.bo.filetype == "typescript" or vim.bo.filetype == "typescriptreact" then
         vim.lsp.buf.code_action({
           apply = true,
-          ---@diagnostic disable-next-line: assign-type-mismatch
           context = { only = { "source.removeUnused.ts" }, diagnostics = {} },
         })
         vim.defer_fn(function()
@@ -59,7 +64,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end, opts)
 
     vim.api.nvim_create_autocmd("LspProgress", {
-      ---@param event {data: {client_id: integer, params: lsp.ProgressParams}}
       callback = function(event)
         local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
         vim.notify(vim.lsp.status(), "info", {
