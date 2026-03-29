@@ -126,6 +126,7 @@ nvimtree.setup({
       ".gitignore",
       "package-lock.json",
       "node_modules",
+      ".certs",
       "^.git$",
       ".DS_Store",
       "*.pyc",
