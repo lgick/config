@@ -268,7 +268,7 @@ local function set_highlights()
     NvimTreeGitDeletedIcon = { fg = C.dark_red }, -- Удаленные файлы (визуализация в дереве перед коммитом)
     NvimTreeGitIgnoredIcon = { fg = C.dark_grey }, -- Файлы, которые игнорируются git (из .gitignore)
 
-    NvimTreeModifiedIcon = { fg = C.orange, nocombine = true },
+    NvimTreeModifiedIcon = { fg = C.black, nocombine = true },
     NvimTreeFolderIcon = { link = "Directory", nocombine = true },
 
     NvimTreeCopiedHL = { bg = C.light_yellow, nocombine = true },

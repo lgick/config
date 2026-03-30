@@ -94,13 +94,15 @@ nvimtree.setup({
   },
 
   renderer = {
-    highlight_git = "all",
-    highlight_modified = "icon",
-    highlight_diagnostics = "name",
+    highlight_git = "name",
+    highlight_modified = "none",
+    highlight_diagnostics = "none",
     indent_markers = {
       enable = true, -- Направляющие линии
     },
     icons = {
+      diagnostics_placement = "before",
+      modified_placement = "after",
       web_devicons = {
         file = {
           enable = false,
@@ -179,10 +181,10 @@ nvimtree.setup({
       max = vim.diagnostic.severity.ERROR, -- Максимальный уровень
     },
     icons = {
-      hint = "󰜴",
-      info = "󰜴",
-      warning = "󰜴",
-      error = "󰜴",
+      hint = "",
+      info = "",
+      warning = "",
+      error = "",
     },
   },
 })
