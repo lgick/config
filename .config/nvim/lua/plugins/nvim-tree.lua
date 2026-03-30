@@ -94,16 +94,30 @@ nvimtree.setup({
   },
 
   renderer = {
-    highlight_git = "name",
+    highlight_git = "all",
+    highlight_modified = "icon",
+    highlight_diagnostics = "all",
+    indent_markers = {
+      enable = true, -- Направляющие линии
+    },
     icons = {
+      web_devicons = {
+        file = {
+          enable = false,
+          color = false,
+        },
+      },
+      show = {
+        folder_arrow = false,
+        file = true,
+        git = false,
+        folder = true,
+        modified = true,
+        diagnostics = true,
+      },
       glyphs = {
-        folder = {
-          arrow_closed = "▶",
-          arrow_open = "▼",
-        },
-        git = {
-          ignored = "",
-        },
+        default = "",
+        modified = "󰙏",
       },
     },
   },
@@ -142,6 +156,33 @@ nvimtree.setup({
   },
 
   git = {
-    ignore = false,
+    enable = true, -- Включить/выключить интеграцию с git
+    ignore = false, -- Скрывать файлы, указанные в .gitignore
+    show_on_dirs = true, -- Показывать иконки статуса git на родительских папках
+    show_on_open_dirs = false, -- Показывать иконки статуса, даже если папка открыта
+    timeout = 400, -- Тайм-аут (в мс) для обновления статусов git
+  },
+
+  modified = {
+    enable = true,
+    show_on_dirs = true,
+    show_on_open_dirs = false,
+  },
+
+  diagnostics = {
+    enable = true,
+    show_on_dirs = true,
+    show_on_open_dirs = false,
+    debounce_delay = 50, -- Задержка обновления в мс
+    severity = {
+      min = vim.diagnostic.severity.HINT, -- Минимальный уровень для отображения
+      max = vim.diagnostic.severity.ERROR, -- Максимальный уровень
+    },
+    icons = {
+      hint = "󰜴",
+      info = "󰜴",
+      warning = "󰜴",
+      error = "󰜴",
+    },
   },
 })

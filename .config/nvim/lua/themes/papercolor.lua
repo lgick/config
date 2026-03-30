@@ -157,23 +157,23 @@ local function set_highlights()
     -- ==========================================
     -- 3. DIAGNOSTICS (Диагностика)
     -- ==========================================
-    DiagnosticError = { fg = C.dark_red, bold = true },
-    DiagnosticWarn = { fg = C.orange, bold = true },
-    DiagnosticInfo = { fg = C.blue, bold = true },
-    DiagnosticHint = { fg = C.emerald, bold = true },
     DiagnosticOk = { fg = C.green },
+    DiagnosticHint = { fg = C.olive },
+    DiagnosticInfo = { fg = C.cyan },
+    DiagnosticWarn = { fg = C.orange },
+    DiagnosticError = { fg = C.dark_red },
 
-    DiagnosticUnderlineError = { undercurl = true, sp = C.dark_red },
-    DiagnosticUnderlineWarn = { undercurl = true, sp = C.orange },
-    DiagnosticUnderlineInfo = { undercurl = true, sp = C.blue },
-    DiagnosticUnderlineHint = { undercurl = true, sp = C.emerald },
     DiagnosticUnderlineOk = { undercurl = true, sp = C.green },
+    DiagnosticUnderlineHint = { undercurl = true, sp = C.olive },
+    DiagnosticUnderlineInfo = { undercurl = true, sp = C.cyan },
+    DiagnosticUnderlineWarn = { undercurl = true, sp = C.orange },
+    DiagnosticUnderlineError = { undercurl = true, sp = C.dark_red },
 
-    DiagnosticVirtualTextError = { fg = C.dark_red },
-    DiagnosticVirtualTextWarn = { fg = C.orange },
-    DiagnosticVirtualTextInfo = { fg = C.blue },
-    DiagnosticVirtualTextHint = { fg = C.emerald },
     DiagnosticVirtualTextOk = { fg = C.green },
+    DiagnosticVirtualTextHint = { fg = C.olive },
+    DiagnosticVirtualTextInfo = { fg = C.cyan },
+    DiagnosticVirtualTextWarn = { fg = C.orange },
+    DiagnosticVirtualTextError = { fg = C.dark_red },
 
     DiagnosticDeprecated = { strikethrough = true, fg = C.black },
     DiagnosticUnnecessary = { fg = "None", undercurl = true },
@@ -260,31 +260,35 @@ local function set_highlights()
     BlinkCmpMenu = { link = "NormalFloat" },
     BlinkCmpDoc = { link = "BlinkCmpMenu" },
 
-    NvimTreeGitNewIcon = { fg = C.olive },
-    NvimTreeGitStagedIcon = { fg = C.green, bold = true },
-    NvimTreeGitDirtyIcon = { fg = C.orange },
-    NvimTreeGitMergeIcon = { fg = C.orange, bold = true },
-    NvimTreeGitDeletedIcon = { fg = C.dark_red },
-    NvimTreeGitRenamedIcon = { fg = C.dark_red },
-    NvimTreeGitIgnoredIcon = { fg = C.dark_grey, italic = true },
+    NvimTreeGitStagedIcon = { fg = C.olive }, -- Файлы, добавленные в индекс (Staged / Ready to commit)
+    NvimTreeGitRenamedIcon = { fg = C.olive }, -- Переименованные файлы
+    NvimTreeGitMergeIcon = { fg = C.purple }, -- Файлы с конфликтами при слиянии (Merge Conflict)
+    NvimTreeGitNewIcon = { fg = C.dark_red }, -- Новые (неотслеживаемые) файлы (Untracked)
+    NvimTreeGitDirtyIcon = { fg = C.dark_red }, -- Измененные файлы, которые еще не в индексе (Modified / Dirty)
+    NvimTreeGitDeletedIcon = { fg = C.dark_red }, -- Удаленные файлы (визуализация в дереве перед коммитом)
+    NvimTreeGitIgnoredIcon = { fg = C.dark_grey }, -- Файлы, которые игнорируются git (из .gitignore)
 
-    NvimTreeGitFileNewHL = { link = "NvimTreeGitNewIcon" },
-    NvimTreeGitFileStagedHL = { link = "NvimTreeGitStagedIcon" },
-    NvimTreeGitFileMergeHL = { link = "NvimTreeGitMergeIcon" },
-    NvimTreeGitFileDirtyHL = { link = "NvimTreeGitDirtyIcon" },
-    NvimTreeGitFileDeletedHL = { link = "NvimTreeGitDeletedIcon" },
-    NvimTreeGitFileRenamedHL = { link = "NvimTreeGitRenamedIcon" },
-    NvimTreeGitFileIgnoredHL = { link = "NvimTreeGitIgnoredIcon" },
+    NvimTreeModifiedIcon = { fg = C.orange, nocombine = true },
+    NvimTreeFolderIcon = { link = "Directory", nocombine = true },
 
-    -- Подсветка папок (Folder HL)
-    NvimTreeGitFolderNewHL = { link = "NvimTreeGitFileNewHL" },
-    NvimTreeGitFolderStagedHL = { link = "NvimTreeGitFileStagedHL" },
-    NvimTreeGitFolderMergeHL = { link = "NvimTreeGitFileMergeHL" },
-    NvimTreeGitFolderDirtyHL = { link = "NvimTreeGitFileDirtyHL" },
-    NvimTreeGitFolderDeletedHL = { link = "NvimTreeGitFileDeletedHL" },
-    NvimTreeGitFolderRenamedHL = { link = "NvimTreeGitFileRenamedHL" },
-    NvimTreeGitFolderIgnoredHL = { link = "NvimTreeGitFileIgnoredHL" },
+    NvimTreeCopiedHL = { bg = C.light_yellow, nocombine = true },
+    NvimTreeCutHL = { bg = C.light_orange, nocombine = true },
+
+    NvimTreeIndentMarker = { fg = C.light_grey, nocombine = true },
   }
+
+  local nvimTreeColors = {
+    "NvimTreeFileIcon",
+    "NvimTreeExecFile",
+    "NvimTreeOpenedFile",
+    "NvimTreeSpecialFile",
+    "NvimTreeImageFile",
+    "NvimTreeMarkdownFile",
+  }
+
+  for _, color in ipairs(nvimTreeColors) do
+    vim.api.nvim_set_hl(0, color, { link = "Title" })
+  end
 
   for group, settings in pairs(highlights) do
     vim.api.nvim_set_hl(0, group, settings)
