@@ -96,7 +96,7 @@ nvimtree.setup({
   renderer = {
     highlight_git = "all",
     highlight_modified = "icon",
-    highlight_diagnostics = "all",
+    highlight_diagnostics = "name",
     indent_markers = {
       enable = true, -- Направляющие линии
     },
