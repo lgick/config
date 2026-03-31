@@ -30,7 +30,7 @@
       "src": "https://github.com/folke/lazydev.nvim"
     },
     "mason-lspconfig.nvim": {
-      "rev": "037398b9ce4a53ba48d5f94765c641a1fd16d906",
+      "rev": "25f609e7fca78af7cede4f9fa3af8a94b1c4950b",
       "src": "https://github.com/mason-org/mason-lspconfig.nvim"
     },
     "mason-tool-installer.nvim": {
@@ -46,11 +46,11 @@
       "src": "https://github.com/windwp/nvim-autopairs"
     },
     "nvim-lspconfig": {
-      "rev": "16812abf0e8d8175155f26143a8504e8253e92b0",
+      "rev": "9d28ece4836e595de523e0bd9758dee1002430c6",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-tree.lua": {
-      "rev": "4cbe79526f8bc0bdb1a500d261dc5cc1be4e77d5",
+      "rev": "3603f069ff783c31986894a56c2a6755331b0802",
       "src": "https://github.com/nvim-tree/nvim-tree.lua"
     },
     "nvim-treesitter": {
@@ -72,6 +72,10 @@
     "trouble.nvim": {
       "rev": "bd67efe408d4816e25e8491cc5ad4088e708a69a",
       "src": "https://github.com/folke/trouble.nvim"
+    },
+    "workspace-diagnostics.nvim": {
+      "rev": "60f9175b2501ae3f8b1aba9719c0df8827610c8e",
+      "src": "https://github.com/artemave/workspace-diagnostics.nvim"
     }
   }
 }
