@@ -154,10 +154,10 @@ end)
 ----------------------------------------
 
 -- Open trouble workspace diagnostics
---map("n", "<leader>x", "<cmd>Trouble diagnostics toggle<CR>")
+map("n", "<leader>x", "<cmd>Trouble diagnostics toggle<CR>")
 
 -- Open trouble document diagnostics
---map("n", "<leader>X", "<cmd>Trouble diagnostics toggle filter.buf=0<CR>")
+map("n", "<leader>X", "<cmd>Trouble diagnostics toggle filter.buf=0<CR>")
 
 ----------------------------------------
 -- LSP
