@@ -46,16 +46,3 @@ snacks.setup({
     },
   },
 })
-
-vim.keymap.set("n", "<leader>s", function()
-  Snacks.picker.files()
-end, { desc = "Find Files" })
-vim.keymap.set("n", "<leader>g", function()
-  Snacks.picker.grep()
-end, { desc = "Live Grep" })
-vim.keymap.set("n", "<leader>b", function()
-  Snacks.picker.buffers()
-end, { desc = "Buffers" })
-vim.keymap.set("n", "<leader>e", function()
-  Snacks.picker.recent()
-end, { desc = "Recent Files" })

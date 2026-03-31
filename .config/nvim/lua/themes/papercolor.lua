@@ -255,6 +255,8 @@ local function set_highlights()
 
     ["@nospell.jsdoc"] = { link = "Comment" },
 
+    SnacksPickerMatch = { bg = C.yellow, nocombine = true },
+
     BlinkCmpMenuBorder = { link = "FloatBorder" },
     BlinkCmpDocBorder = { link = "BlinkCmpMenuBorder" },
     BlinkCmpMenu = { link = "NormalFloat" },

@@ -131,23 +131,56 @@ map("n", "<leader>z", function()
 end)
 
 ----------------------------------------
--- Telescope
+-- Snacks
 ----------------------------------------
 
 -- поиск файлов
--- map("n", "<leader>s", "<cmd>Telescope find_files<CR>")
+map("n", "<leader>s", function()
+  Snacks.picker.files()
+end, { desc = "Find Files" })
 
 -- поиск по файлам
--- map("n", "<leader>g", "<cmd>Telescope live_grep<CR>")
+map("n", "<leader>g", function()
+  Snacks.picker.grep()
+end, { desc = "Live Grep" })
 
 -- буфферы
---map("n", "<leader>b", "<cmd>Telescope buffers<CR>")
+map("n", "<leader>b", function()
+  Snacks.picker.buffers()
+end, { desc = "Buffers" })
+
+-- недавние файлы
+map("n", "<leader>e", function()
+  Snacks.picker.recent()
+end, { desc = "Recent Files" })
+
+map("n", "<leader>r", function()
+  Snacks.rename()
+end)
+
+----------------------------------------
+-- LSP
+----------------------------------------
 
 -- Show LSP references
--- map("n", "<leader>a", "<cmd>Telescope lsp_references<CR>")
+map("n", "<leader>a", vim.lsp.buf.references)
+
+-- Изменить название в файле (вызвать :wa по завершению)
+--map("n", "<leader>r", vim.lsp.buf.rename)
 
 -- Show LSP definitions
 -- map("n", "<leader>j", "<cmd>Telescope lsp_definitions jump_type=split<CR>")
+
+-- Toggle diagnostic
+--map("n", "<leader>t", function()
+--  vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+--end)
+
+-- See available code actions
+--map({ "n", "v" }, "<leader>m", vim.lsp.buf.code_action)
+
+-- Show documentation for what is under cursor
+--map("n", "<leader>i", vim.lsp.buf.hover)
 
 ----------------------------------------
 -- Trouble
@@ -158,24 +191,6 @@ map("n", "<leader>x", "<cmd>Trouble diagnostics toggle<CR>")
 
 -- Open trouble document diagnostics
 map("n", "<leader>X", "<cmd>Trouble diagnostics toggle filter.buf=0<CR>")
-
-----------------------------------------
--- LSP
-----------------------------------------
-
--- Toggle diagnostic
---map("n", "<leader>t", function()
---  vim.diagnostic.enable(not vim.diagnostic.is_enabled())
---end)
-
--- See available code actions
---map({ "n", "v" }, "<leader>m", vim.lsp.buf.code_action)
-
--- Изменить название в файле (вызвать :wa по завершению)
---map("n", "<leader>r", vim.lsp.buf.rename)
-
--- Show documentation for what is under cursor
---map("n", "<leader>i", vim.lsp.buf.hover)
 
 ------------------------------------------
 -- Codeium

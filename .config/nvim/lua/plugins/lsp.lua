@@ -23,20 +23,18 @@ vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("UserLspConfig", {}),
   callback = function(ev)
     local opts = { buffer = ev.buf }
-    local client = vim.lsp.get_client_by_id(ev.data.client_id)
+    --local client = vim.lsp.get_client_by_id(ev.data.client_id)
 
-    -- inlay hints (подсказки типов)
-    if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
-      vim.lsp.inlay_hint.enable(true, { bufnr = ev.buf })
-    end
+    ---- inlay hints (подсказки типов)
+    --if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
+    --  vim.lsp.inlay_hint.enable(true, { bufnr = ev.buf })
+    --end
 
     -- основные LSP горячие клавиши
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
     vim.keymap.set("n", "<leader>i", vim.lsp.buf.hover, opts)
     vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
     vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, opts)
-    vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, opts)
-    vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
 
     vim.keymap.set({ "n", "x" }, "<leader>mm", function()
       -- показываем доступные code actions через snacks
