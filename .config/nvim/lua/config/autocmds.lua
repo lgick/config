@@ -61,7 +61,6 @@ vim.api.nvim_create_autocmd({ "WinLeave", "BufLeave" }, {
 })
 
 -- переименование файла внутри nvim-tree с изменением его во всём проекте
--- TODO проверить
 local prev = { new_name = "", old_name = "" }
 
 vim.api.nvim_create_autocmd("User", {
@@ -75,5 +74,19 @@ vim.api.nvim_create_autocmd("User", {
         Snacks.rename.on_rename_file(data.old_name, data.new_name)
       end
     end)
+  end,
+})
+
+-- статус lsp
+vim.api.nvim_create_autocmd("LspProgress", {
+  callback = function(event)
+    local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
+    vim.notify(vim.lsp.status(), "info", {
+      id = "lsp_progress",
+      opts = function(notif)
+        notif.icon = event.data.params.value.kind == "end" and " "
+          or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
+      end,
+    })
   end,
 })

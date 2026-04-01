@@ -20,6 +20,7 @@ vim.pack.add({
   { src = "https://github.com/windwp/nvim-ts-autotag" }, -- автозакрытие и переименование тегов
   { src = "https://github.com/folke/snacks.nvim" }, -- дашборд, окно picker с поиском, буфферами
   { src = "https://github.com/folke/trouble.nvim" }, -- окно ошибок и предупреждений
+  -- { src = "https://github.com/artemave/workspace-diagnostics.nvim" }, -- диагностика во всём проекте
 })
 
 require("plugins.lsp")
@@ -32,3 +33,4 @@ require("plugins.indent-blankline")
 require("plugins.formatting")
 require("plugins.snacks")
 require("plugins.trouble")
+--require("plugins.workspace-diagnostics")

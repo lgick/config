@@ -154,10 +154,6 @@ map("n", "<leader>e", function()
   Snacks.picker.recent()
 end, { desc = "Recent Files" })
 
-map("n", "<leader>r", function()
-  Snacks.rename()
-end)
-
 ----------------------------------------
 -- LSP
 ----------------------------------------
@@ -166,7 +162,7 @@ end)
 map("n", "<leader>a", vim.lsp.buf.references)
 
 -- Изменить название в файле (вызвать :wa по завершению)
---map("n", "<leader>r", vim.lsp.buf.rename)
+map("n", "<leader>r", vim.lsp.buf.rename)
 
 -- Show LSP definitions
 -- map("n", "<leader>j", "<cmd>Telescope lsp_definitions jump_type=split<CR>")
