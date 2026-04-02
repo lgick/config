@@ -4,6 +4,10 @@
       "rev": "642b0c595e11608b4c18219e93b88d7637af27bc",
       "src": "https://github.com/L3MON4D3/LuaSnip"
     },
+    "SchemaStore.nvim": {
+      "rev": "4f1c58a59d3a4da095743dd6f04b73caa0cefc3d",
+      "src": "https://github.com/b0o/SchemaStore.nvim"
+    },
     "aerial.nvim": {
       "rev": "645d108a5242ec7b378cbe643eb6d04d4223f034",
       "src": "https://github.com/stevearc/aerial.nvim"
