@@ -71,8 +71,11 @@ map("n", "<leader>f", "<cmd>NvimTreeToggle<CR>")
 -- , + o: Aerial - code navigation
 map("n", "<leader>o", "<cmd>AerialToggle<CR>")
 
--- , + w: Git blame
-map("n", "<leader>w", "<cmd>BlameToggle<CR>")
+--- , + w: Git blame
+map("n", "<leader>w", "<cmd>Gitsigns blame<CR>", { desc = "Git Blame" })
+
+--- , + l: Git stage flow
+map("n", "<leader>l", "<cmd>GitStageFlow<CR>", { desc = "Git Stage Flow" })
 
 -- , + y: Autoformat toggle
 map("n", "<leader>y", function()
@@ -140,9 +143,9 @@ map("n", "<leader>s", function()
 end, { desc = "Find Files" })
 
 -- поиск по файлам
-map("n", "<leader>g", function()
-  Snacks.picker.grep()
-end, { desc = "Live Grep" })
+--map("n", "<leader>g", function()
+--  Snacks.picker.grep()
+--end, { desc = "Live Grep" })
 
 -- буфферы
 map("n", "<leader>b", function()
@@ -220,11 +223,11 @@ end, { desc = "Highlights" })
 map("n", "<leader>3", ":Inspect<CR>")
 map("n", "<leader>4", ":InspectTree<CR>")
 
--- Проверяет работу плагинов nvim
-map("n", "<leader>5", ":checkhealth<CR>")
-
 -- Отображает сообщения в новом буфере
-map("n", "<leader>6", ":tabnew | put =execute('messages')<CR>")
+map("n", "<leader>5", ":tabnew | put =execute('messages')<CR>")
+
+-- Проверяет работу плагинов nvim
+map("n", "<leader>6", ":checkhealth<CR>")
 
 -- Сбрасывает nvim до заводских настроек
 map("n", "<leader>7", function()

@@ -5,16 +5,12 @@
       "src": "https://github.com/L3MON4D3/LuaSnip"
     },
     "SchemaStore.nvim": {
-      "rev": "5f3dda4ddc40df27be848beb4cbada90e4de18da",
+      "rev": "6d0329adb9c8cbe51b9a28299890a5eb104db7dc",
       "src": "https://github.com/b0o/SchemaStore.nvim"
     },
     "aerial.nvim": {
       "rev": "645d108a5242ec7b378cbe643eb6d04d4223f034",
       "src": "https://github.com/stevearc/aerial.nvim"
-    },
-    "blame.nvim": {
-      "rev": "179da7aaacce7c52874af636255ede72dd6fe796",
-      "src": "https://github.com/FabijanZulj/blame.nvim"
     },
     "blink.cmp": {
       "rev": "451168851e8e2466bc97ee3e026c3dcb9141ce07",
@@ -24,6 +20,10 @@
     "conform.nvim": {
       "rev": "086a40dc7ed8242c03be9f47fbcee68699cc2395",
       "src": "https://github.com/stevearc/conform.nvim"
+    },
+    "gitsigns.nvim": {
+      "rev": "944ef13cc8d8fe8b846c91f36041c8dfb85ca000",
+      "src": "https://www.github.com/lewis6991/gitsigns.nvim"
     },
     "indent-blankline.nvim": {
       "rev": "d28a3f70721c79e3c5f6693057ae929f3d9c0a03",

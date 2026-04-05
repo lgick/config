@@ -20,6 +20,14 @@ require("mason-tool-installer").setup({
   run_on_start = true,
 })
 
+vim.diagnostic.config({
+  virtual_text = false, -- Отображает текст ошибок в строке
+  signs = false, -- Оставляет значки слева в statuscolumn
+  underline = true, -- Оставляет подчеркивание под проблемным кодом
+  update_in_insert = false, -- Обновляет ошибки во время ввода
+  severity_sort = true, -- Приоритет более важных ошибок
+})
+
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("UserLspConfig", {}),
   callback = function(ev)

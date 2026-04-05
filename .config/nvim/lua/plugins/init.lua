@@ -13,7 +13,6 @@ vim.pack.add({
   { src = "https://github.com/nvim-tree/nvim-web-devicons" }, -- иконки для файлов
 
   { src = "https://github.com/stevearc/aerial.nvim" }, -- список функций для быстрой навигации по файлу
-  { src = "https://github.com/FabijanZulj/blame.nvim" }, -- git blame
   { src = "https://github.com/lukas-reineke/indent-blankline.nvim" }, -- линии отступов для блоков кода
   { src = "https://github.com/stevearc/conform.nvim" }, -- форматирование кода (запускает prettier)
   { src = "https://github.com/windwp/nvim-autopairs" }, -- автоматическое закрытие скобок
@@ -22,6 +21,7 @@ vim.pack.add({
   { src = "https://github.com/folke/trouble.nvim" }, -- окно ошибок и предупреждений
 
   { src = "https://github.com/b0o/SchemaStore.nvim" }, -- каталог для json
+  { src = "https://www.github.com/lewis6991/gitsigns.nvim" },
 })
 
 require("plugins.lsp")
@@ -29,8 +29,8 @@ require("plugins.cmp")
 require("plugins.nvim-tree")
 require("plugins.treesitter")
 require("plugins.aerial") -- TODO можно заменить на snacks?
-require("plugins.blame")
 require("plugins.indent-blankline")
 require("plugins.formatting")
 require("plugins.snacks")
 require("plugins.trouble")
+require("plugins.gitsigns")
