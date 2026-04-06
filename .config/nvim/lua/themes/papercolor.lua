@@ -25,10 +25,11 @@ local C = {
   sky = "#afd7ff",
   yellow = "#ffff5f",
 
-  light_green = "#afffaf",
-  light_orange = "#ffd787",
-  light_pink = "#ffd7ff",
-  light_yellow = "#ffffd7",
+  light_blue = "#cffaff",
+  light_green = "#b9fbc0",
+  light_yellow = "#fdffb6",
+  light_orange = "#ffd6a5",
+  light_red = "#ffd6d6",
 }
 
 local function set_highlights()
@@ -106,8 +107,8 @@ local function set_highlights()
 
     DiffAdd = { fg = C.green, bg = C.light_green },
     DiffChange = { fg = C.black, bg = C.light_orange },
-    DiffDelete = { fg = C.dark_red, bg = C.light_pink },
-    DiffText = { fg = C.teal, bg = C.light_yellow },
+    DiffDelete = { fg = C.dark_red, bg = C.light_red },
+    DiffText = { fg = C.teal, bg = "None" },
 
     -- ==========================================
     -- 2. STANDARD SYNTAX (Стандартный синтаксис)
@@ -291,72 +292,71 @@ local function set_highlights()
     -- ==========================================
     -- 8. GitSigns
     -- ==========================================
-    -- Текст значков (Unstaged)
-    GitSignsAdd = { fg = C.dark_red }, -- Цвет значка для новых строк
-    GitSignsChange = { fg = C.dark_red }, -- Цвет значка для измененных строк
-    GitSignsDelete = { fg = C.dark_red }, -- Цвет значка для удаленных строк
-    GitSignsChangedelete = { fg = C.dark_red }, -- Цвет значка для изменений с удалением под ними
-    GitSignsTopdelete = { fg = C.dark_red }, -- Цвет значка для удалений в самом верху файла
-    GitSignsUntracked = { fg = C.dark_red }, -- Цвет значка для не отслеживаемых файлов
-
-    -- Текст значков (Staged)
-    GitSignsStagedAdd = { fg = C.olive }, -- Текст значка 'add' (Staged)
-    GitSignsStagedChange = { fg = C.olive }, -- Текст значка 'change' (Staged)
-    GitSignsStagedDelete = { fg = C.olive }, -- Текст значка 'delete' (Staged)
-    GitSignsStagedChangedelete = { fg = C.olive }, -- Текст значка 'changedelete' (Staged)
-    GitSignsStagedTopdelete = { fg = C.olive }, -- Текст значка 'topdelete' (Staged)
-    GitSignsStagedUntracked = { fg = C.olive }, -- Текст значка 'untracked' (Staged)
-
-    -- Фон всей строки (Unstaged)
-    GitSignsAddLn = { bg = C.light_yellow }, -- Новая строка
-    GitSignsChangeLn = { bg = C.light_yellow }, -- Измененная строка
-    GitSignsChangedeleteLn = { bg = C.light_yellow }, -- Изменение + удаление под ним
-    GitSignsTopdeleteLn = { bg = C.light_yellow }, -- Удаление в самом верху файла
-    GitSignsUntrackedLn = { bg = C.light_yellow }, -- Строка в новом (untracked) файле
-
-    -- Фон строк в индексе (Staged)
-    GitSignsStagedAddLn = { bg = C.light_green }, -- Новая строка в индексе
-    GitSignsStagedChangeLn = { bg = C.light_orange }, -- Измененная строка в индексе
-    GitSignsStagedChangedeleteLn = { bg = C.light_orange }, -- Изм. + уд. в индексе
-    GitSignsStagedTopdeleteLn = { bg = C.light_orange }, -- Удаление сверху в индексе
-    GitSignsStagedUntrackedLn = { bg = C.light_green }, -- Новый файл в индексе
-
-    -- Режим предпросмотра (Preview / Popups)
-    GitSignsAddPreview = { fg = C.emerald, bg = C.off_white }, -- Текст добавления в превью
-    GitSignsDeletePreview = { fg = C.rust, bg = C.light_pink }, -- Текст удаления в превью
-    GitSignsNoEOLPreview = { fg = C.ash, bg = C.off_white }, -- Символ отсутствия EOL
-
     -- Номера строк (Unstaged)
-    -- GitSignsAddNr                -- Цвет номера новой строки
-    -- GitSignsChangeNr             -- Цвет номера измененной строки
-    -- GitSignsDeleteNr             -- Цвет номера удаленной строки (где был текст)
-    -- GitSignsChangedeleteNr       -- Цвет номера строки с изменением + удалением
-    -- GitSignsTopdeleteNr          -- Цвет номера первой строки (при удалении над ней)
-    -- GitSignsUntrackedNr          -- Цвет номера строки в новом файле
+    GitSignsAddNr = { bg = C.dark_red, fg = C.white }, -- Номер новой строки
+    GitSignsChangeNr = { bg = C.dark_red, fg = C.white }, -- Номер измененной строки
+    GitSignsDeleteNr = { bg = C.dark_red, fg = C.white }, -- Номер удаленной строки (где был текст)
+    GitSignsChangedeleteNr = { bg = C.dark_red, fg = C.white }, -- Номер строки с изменением + удалением
+    GitSignsTopdeleteNr = { bg = C.dark_red, fg = C.white }, -- Номер первой строки (при удалении над ней)
+    GitSignsUntrackedNr = { bg = C.dark_red, fg = C.white }, -- Номер строки в новом файле
 
     -- Номера строк (Staged)
-    -- GitSignsStagedAddNr          -- Номер новой строки (Staged)
-    -- GitSignsStagedChangeNr       -- Номер измененной строки (Staged)
-    -- GitSignsStagedDeleteNr       -- Номер удаленной строки (Staged)
-    -- GitSignsStagedChangedeleteNr -- Номер изм.+уд. (Staged)
-    -- GitSignsStagedTopdeleteNr    -- Номер при удалении сверху (Staged)
-    -- GitSignsStagedUntrackedNr    -- Номер в новом файле (Staged)
+    GitSignsStagedAddNr = { bg = C.olive, fg = C.white }, -- Номер новой строки
+    GitSignsStagedChangeNr = { bg = C.olive, fg = C.white }, -- Номер измененной строки
+    GitSignsStagedDeleteNr = { bg = C.olive, fg = C.white }, -- Номер удаленной строки
+    GitSignsStagedChangedeleteNr = { bg = C.olive, fg = C.white }, -- Номер строки с изменением + удалением
+    GitSignsStagedTopdeleteNr = { bg = C.olive, fg = C.white }, -- Номер при удалении сверху
+    GitSignsStagedUntrackedNr = { bg = C.olive, fg = C.white }, -- Номер в новом файле
 
-    -- Виртуальный текст и удаления (Virt / Blame)
-    -- GitSignsCurrentLineBlame     -- Цвет текста с автором/датой в конце текущей строки
-    -- GitSignsDeleteVirtLn         -- Фон виртуальных строк, показывающих удаленный код
-    -- GitSignsDeleteVirtLnInLine   -- Внутристрочное выделение в виртуальных удаленных строках
-    -- GitSignsVirtLnum             -- Цвет номеров строк для виртуально показанных удалений
+    -- Фон всей строки (Unstaged)
+    GitSignsAddLn = { bg = C.light_red }, -- Новая строка
+    GitSignsChangeLn = { bg = C.light_red }, -- Измененная строка
+    GitSignsChangedeleteLn = { bg = C.light_red }, -- Изменение + удаление под ним
+    GitSignsTopdeleteLn = { bg = C.light_red }, -- Удаление в самом верху файла
+    GitSignsUntrackedLn = { bg = C.light_red }, -- Строка в новом файле
 
-    --Внутристрочное выделение Inline / Word Diff (Текст)
-    -- GitSignsAddInline            -- Цвет добавленных символов внутри строки
-    -- GitSignsChangeInline         -- Цвет измененных символов внутри строки
-    -- GitSignsDeleteInline         -- Цвет удаленных символов (в режиме просмотра сравнения)
+    -- Фон строк в индексе (Staged)
+    GitSignsStagedAddLn = { bg = C.light_green }, -- Новая строка
+    GitSignsStagedChangeLn = { bg = C.light_green }, -- Измененная строка
+    GitSignsStagedChangedeleteLn = { bg = C.light_green }, -- Изменение + удаление под ним
+    GitSignsStagedTopdeleteLn = { bg = C.light_green }, -- Удаление сверху
+    GitSignsStagedUntrackedLn = { bg = C.light_green }, --  Строка в новом файле
 
-    -- Внутристрочное выделение Inline / Word Diff (Фон)
-    -- GitSignsAddLnInline          -- Фон под новыми символами внутри строки
-    -- GitSignsChangeLnInline       -- Фон под измененными символами внутри строки
-    -- GitSignsDeleteLnInline       -- Фон под удаленными символами внутри строки
+    -- Режим предпросмотра (Preview / Popups)
+    GitSignsAddPreview = { fg = "NONE", bg = C.light_green },
+    GitSignsDeletePreview = { fg = "NONE", bg = C.light_yellow },
+    GitSignsNoEOLPreview = { fg = "NONE", bg = "NONE" },
+
+    -- For word diff in previews:
+    GitSignsAddInline = { fg = C.green, bold = true },
+    GitSignsChangeInline = { fg = C.green, bold = true },
+    GitSignsDeleteInline = { fg = C.red, bold = true },
+
+    -- For word diff in buffer
+    GitSignsAddLnInline = { fg = "NONE", bg = "NONE" },
+    GitSignsChangeLnInline = { fg = "NONE", bg = "NONE" },
+    GitSignsDeleteLnInline = { fg = "NONE", bg = "NONE" },
+
+    -- For word diff in virtual lines (e.g. show_deleted):
+    GitSignsAddVirtLnInline = { fg = "NONE", bg = "NONE" },
+    GitSignsChangeVirtLnInline = { fg = "NONE", bg = "NONE" },
+    GitSignsDeleteVirtLnInline = { fg = "NONE", bg = "NONE" },
+
+    -- Текст значков (Unstaged)
+    -- GitSignsAdd = { bg = C.dark_red }, -- Для новых строк
+    -- GitSignsChange = { bg = C.dark_red }, -- Для измененных строк
+    -- GitSignsDelete = { bg = C.dark_red }, -- Для удаленных строк
+    -- GitSignsChangedelete = { bg = C.dark_red }, -- Для изменений с удалением под ними
+    -- GitSignsTopdelete = { bg = C.dark_red }, -- Для удалений в самом верху файла
+    -- GitSignsUntracked = { bg = C.dark_red }, -- Для не отслеживаемых файлов
+
+    -- Текст значков (Staged)
+    -- GitSignsStagedAdd = { bg = C.olive }, -- Для новых строк
+    -- GitSignsStagedChange = { bg = C.olive }, -- Для измененных строк
+    -- GitSignsStagedDelete = { bg = C.olive }, -- Для удаленных строк
+    -- GitSignsStagedChangedelete = { bg = C.olive }, -- Для изменений с удалением под ними
+    -- GitSignsStagedTopdelete = { bg = C.olive }, -- Для удалений в самом верху файла
+    -- GitSignsStagedUntracked = { bg = C.olive }, -- Для не отслеживаемых файлов
   }
 
   local nvimTreeColors = {
