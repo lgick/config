@@ -292,39 +292,43 @@ local function set_highlights()
     -- ==========================================
     -- 8. GitSigns
     -- ==========================================
+    GitSignsNr = { bg = C.orange, fg = C.white }, -- Номера строк (Unstaged)
+    GitSignsStagedNr = { bg = C.olive, fg = C.white }, -- Номера строк (Staged)
+    GitSignsLn = { bg = C.off_white }, -- Фон всей строки
+
     -- Номера строк (Unstaged)
-    GitSignsAddNr = { bg = C.dark_red, fg = C.white }, -- Номер новой строки
-    GitSignsChangeNr = { bg = C.dark_red, fg = C.white }, -- Номер измененной строки
-    GitSignsDeleteNr = { bg = C.dark_red, fg = C.white }, -- Номер удаленной строки (где был текст)
-    GitSignsChangedeleteNr = { bg = C.dark_red, fg = C.white }, -- Номер строки с изменением + удалением
-    GitSignsTopdeleteNr = { bg = C.dark_red, fg = C.white }, -- Номер первой строки (при удалении над ней)
-    GitSignsUntrackedNr = { bg = C.dark_red, fg = C.white }, -- Номер строки в новом файле
+    GitSignsAddNr = { link = "GitSignsNr" },
+    GitSignsChangeNr = { link = "GitSignsNr" },
+    GitSignsDeleteNr = { link = "GitSignsNr" },
+    GitSignsChangedeleteNr = { link = "GitSignsNr" },
+    GitSignsTopdeleteNr = { link = "GitSignsNr" },
+    GitSignsUntrackedNr = { link = "GitSignsNr" },
 
     -- Номера строк (Staged)
-    GitSignsStagedAddNr = { bg = C.olive, fg = C.white }, -- Номер новой строки
-    GitSignsStagedChangeNr = { bg = C.olive, fg = C.white }, -- Номер измененной строки
-    GitSignsStagedDeleteNr = { bg = C.olive, fg = C.white }, -- Номер удаленной строки
-    GitSignsStagedChangedeleteNr = { bg = C.olive, fg = C.white }, -- Номер строки с изменением + удалением
-    GitSignsStagedTopdeleteNr = { bg = C.olive, fg = C.white }, -- Номер при удалении сверху
-    GitSignsStagedUntrackedNr = { bg = C.olive, fg = C.white }, -- Номер в новом файле
+    GitSignsStagedAddNr = { link = "GitSignsStagedNr" },
+    GitSignsStagedChangeNr = { link = "GitSignsStagedNr" },
+    GitSignsStagedDeleteNr = { link = "GitSignsStagedNr" },
+    GitSignsStagedChangedeleteNr = { link = "GitSignsStagedNr" },
+    GitSignsStagedTopdeleteNr = { link = "GitSignsStagedNr" },
+    GitSignsStagedUntrackedNr = { link = "GitSignsStagedNr" },
 
     -- Фон всей строки (Unstaged)
-    GitSignsAddLn = { bg = C.light_red }, -- Новая строка
-    GitSignsChangeLn = { bg = C.light_red }, -- Измененная строка
-    GitSignsChangedeleteLn = { bg = C.light_red }, -- Изменение + удаление под ним
-    GitSignsTopdeleteLn = { bg = C.light_red }, -- Удаление в самом верху файла
-    GitSignsUntrackedLn = { bg = C.light_red }, -- Строка в новом файле
+    GitSignsAddLn = { link = "GitSignsLn" },
+    GitSignsChangeLn = { link = "GitSignsLn" },
+    GitSignsChangedeleteLn = { link = "GitSignsLn" },
+    GitSignsTopdeleteLn = { link = "GitSignsLn" },
+    GitSignsUntrackedLn = { link = "GitSignsLn" },
 
-    -- Фон строк в индексе (Staged)
-    GitSignsStagedAddLn = { bg = C.light_green }, -- Новая строка
-    GitSignsStagedChangeLn = { bg = C.light_green }, -- Измененная строка
-    GitSignsStagedChangedeleteLn = { bg = C.light_green }, -- Изменение + удаление под ним
-    GitSignsStagedTopdeleteLn = { bg = C.light_green }, -- Удаление сверху
-    GitSignsStagedUntrackedLn = { bg = C.light_green }, --  Строка в новом файле
+    -- Фон всей строки (Staged)
+    GitSignsStagedAddLn = { link = "GitSignsLn" },
+    GitSignsStagedChangeLn = { link = "GitSignsLn" },
+    GitSignsStagedChangedeleteLn = { link = "GitSignsLn" },
+    GitSignsStagedTopdeleteLn = { link = "GitSignsLn" },
+    GitSignsStagedUntrackedLn = { link = "GitSignsLn" },
 
     -- Режим предпросмотра (Preview / Popups)
     GitSignsAddPreview = { fg = "NONE", bg = C.light_green },
-    GitSignsDeletePreview = { fg = "NONE", bg = C.light_yellow },
+    GitSignsDeletePreview = { fg = "NONE", bg = C.light_red },
     GitSignsNoEOLPreview = { fg = "NONE", bg = "NONE" },
 
     -- For word diff in previews:
