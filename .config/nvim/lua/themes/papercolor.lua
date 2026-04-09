@@ -159,21 +159,21 @@ local function set_highlights()
     -- ==========================================
     -- 3. DIAGNOSTICS (Диагностика)
     -- ==========================================
-    DiagnosticOk = { fg = C.green },
-    DiagnosticHint = { fg = C.olive },
-    DiagnosticInfo = { fg = C.cyan },
+    DiagnosticOk = { fg = C.olive },
+    DiagnosticHint = { fg = C.teal },
+    DiagnosticInfo = { fg = C.teal },
     DiagnosticWarn = { fg = C.orange },
     DiagnosticError = { fg = C.dark_red },
 
-    DiagnosticUnderlineOk = { undercurl = true, sp = C.green },
-    DiagnosticUnderlineHint = { undercurl = true, sp = C.olive },
-    DiagnosticUnderlineInfo = { undercurl = true, sp = C.cyan },
+    DiagnosticUnderlineOk = { undercurl = true, sp = C.olive },
+    DiagnosticUnderlineHint = { undercurl = true, sp = C.teal },
+    DiagnosticUnderlineInfo = { undercurl = true, sp = C.teal },
     DiagnosticUnderlineWarn = { undercurl = true, sp = C.orange },
     DiagnosticUnderlineError = { undercurl = true, sp = C.dark_red },
 
-    DiagnosticVirtualTextOk = { fg = C.green },
-    DiagnosticVirtualTextHint = { fg = C.olive },
-    DiagnosticVirtualTextInfo = { fg = C.cyan },
+    DiagnosticVirtualTextOk = { fg = C.olive },
+    DiagnosticVirtualTextHint = { fg = C.teal },
+    DiagnosticVirtualTextInfo = { fg = C.teal },
     DiagnosticVirtualTextWarn = { fg = C.orange },
     DiagnosticVirtualTextError = { fg = C.dark_red },
 
@@ -275,10 +275,10 @@ local function set_highlights()
     -- ==========================================
     NvimTreeGitStagedIcon = { fg = C.olive }, -- Файлы, добавленные в индекс (Staged / Ready to commit)
     NvimTreeGitRenamedIcon = { fg = C.olive }, -- Переименованные файлы
-    NvimTreeGitMergeIcon = { fg = C.purple }, -- Файлы с конфликтами при слиянии (Merge Conflict)
-    NvimTreeGitNewIcon = { fg = C.dark_red }, -- Новые (неотслеживаемые) файлы (Untracked)
-    NvimTreeGitDirtyIcon = { fg = C.dark_red }, -- Измененные файлы, которые еще не в индексе (Modified / Dirty)
-    NvimTreeGitDeletedIcon = { fg = C.dark_red }, -- Удаленные файлы (визуализация в дереве перед коммитом)
+    NvimTreeGitMergeIcon = { fg = C.dark_red }, -- Файлы с конфликтами при слиянии (Merge Conflict)
+    NvimTreeGitNewIcon = { fg = C.orange }, -- Новые (неотслеживаемые) файлы (Untracked)
+    NvimTreeGitDirtyIcon = { fg = C.orange }, -- Измененные файлы, которые еще не в индексе (Modified / Dirty)
+    NvimTreeGitDeletedIcon = { fg = C.orange }, -- Удаленные файлы (визуализация в дереве перед коммитом)
     NvimTreeGitIgnoredIcon = { fg = C.dark_grey }, -- Файлы, которые игнорируются git (из .gitignore)
 
     NvimTreeModifiedIcon = { fg = C.black, nocombine = true },
@@ -332,9 +332,9 @@ local function set_highlights()
     GitSignsNoEOLPreview = { fg = "NONE", bg = "NONE" },
 
     -- For word diff in previews:
-    GitSignsAddInline = { fg = C.green, bold = true },
-    GitSignsChangeInline = { fg = C.green, bold = true },
-    GitSignsDeleteInline = { fg = C.red, bold = true },
+    GitSignsAddInline = { nocombine = true },
+    GitSignsChangeInline = { nocombine = true },
+    GitSignsDeleteInline = { nocombine = true },
 
     -- For word diff in buffer
     GitSignsAddLnInline = { fg = "NONE", bg = "NONE" },
@@ -378,11 +378,6 @@ local function set_highlights()
 
   for group, settings in pairs(highlights) do
     vim.api.nvim_set_hl(0, group, settings)
-  end
-
-  -- отключение lsp
-  for _, group in ipairs(vim.fn.getcompletion("@lsp", "highlight")) do
-    vim.api.nvim_set_hl(0, group, {})
   end
 end
 

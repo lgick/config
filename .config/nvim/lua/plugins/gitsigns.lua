@@ -25,7 +25,6 @@ gs.setup({
   current_line_blame_formatter = "<author>, <author_time:%R> - <summary>", -- Формат строки blame
   sign_priority = 6, -- Приоритет значков (если есть другие плагины в gutter)
   update_debounce = 100, -- Частота обновления значков при вводе текста
-  --status_formatter = nil, -- Функция для форматирования строки статуса (lualine и т.д.)
   max_file_length = 40000, -- Отключать плагин, если в файле больше строк, чем указано
 })
 
@@ -81,6 +80,9 @@ local function set_git_mappings(bnr)
   -- Превью старого кода
   vim.keymap.set("n", "i", gs.preview_hunk, opts)
 
+  -- Blame line
+  vim.keymap.set("n", "b", gs.blame_line, opts)
+
   -- Навигация
   vim.keymap.set("n", "n", function()
     ---@diagnostic disable-next-line: missing-fields
@@ -106,7 +108,7 @@ local function set_git_mappings(bnr)
 end
 
 local function remove_git_mappings(bnr)
-  local keys = { "s", "S", "U", "u", "r", "R", "i", "n", "p", "N", "P", "q" }
+  local keys = { "s", "S", "U", "u", "r", "R", "i", "b", "n", "p", "N", "P", "q" }
   for _, key in ipairs(keys) do
     pcall(vim.keymap.del, "n", key, { buffer = bnr })
   end

@@ -142,10 +142,18 @@ map("n", "<leader>s", function()
   Snacks.picker.files()
 end, { desc = "Find Files" })
 
--- поиск по файлам
---map("n", "<leader>g", function()
---  Snacks.picker.grep()
---end, { desc = "Live Grep" })
+-- поиск по файлам проекта
+map("n", "<leader>g", function()
+  Snacks.picker.grep()
+end, { desc = "Live Grep" })
+
+-- поиск по всем файлам
+map("n", "<leader>G", function()
+  Snacks.picker.grep({
+    hidden = true,
+    ignored = true,
+  })
+end, { desc = "Live Grep (All Files)" })
 
 -- буфферы
 map("n", "<leader>b", function()
