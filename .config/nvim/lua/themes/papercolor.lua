@@ -60,9 +60,9 @@ local function set_highlights()
     Whitespace = { fg = C.light_grey },
     SpecialKey = { fg = C.light_grey },
 
-    LineNrAbove = { fg = C.ash },
-    LineNr = { fg = C.ash },
-    LineNrBelow = { fg = C.ash },
+    LineNr = { fg = C.dark_grey },
+    LineNrAbove = { link = "LineNr" },
+    LineNrBelow = { link = "LineNr" },
     CursorLineNr = { fg = C.rust, bg = C.off_white },
 
     SignColumn = { fg = C.green },
@@ -106,7 +106,7 @@ local function set_highlights()
     SpellRare = { undercurl = true, sp = C.orange },
 
     DiffAdd = { fg = C.green, bg = C.light_green },
-    DiffChange = { fg = C.black, bg = C.light_orange },
+    DiffChange = { fg = C.black, bg = C.off_white },
     DiffDelete = { fg = C.dark_red, bg = C.light_red },
     DiffText = { fg = C.teal, bg = "None" },
 
@@ -294,7 +294,8 @@ local function set_highlights()
     -- ==========================================
     GitSignsNr = { bg = C.orange, fg = C.white }, -- Номера строк (Unstaged)
     GitSignsStagedNr = { bg = C.olive, fg = C.white }, -- Номера строк (Staged)
-    GitSignsLn = { bg = C.off_white }, -- Фон всей строки
+    GitSignsLn = { bg = C.off_white }, -- Фон всей строки (Unstaged)
+    GitSignsStagedLn = { link = "GitSignsLn" }, -- Фон всей строки (Staged)
 
     -- Номера строк (Unstaged)
     GitSignsAddNr = { link = "GitSignsNr" },
@@ -320,31 +321,32 @@ local function set_highlights()
     GitSignsUntrackedLn = { link = "GitSignsLn" },
 
     -- Фон всей строки (Staged)
-    GitSignsStagedAddLn = { link = "GitSignsLn" },
-    GitSignsStagedChangeLn = { link = "GitSignsLn" },
-    GitSignsStagedChangedeleteLn = { link = "GitSignsLn" },
-    GitSignsStagedTopdeleteLn = { link = "GitSignsLn" },
-    GitSignsStagedUntrackedLn = { link = "GitSignsLn" },
+    GitSignsStagedAddLn = { link = "GitSignsStagedLn" },
+    GitSignsStagedChangeLn = { link = "GitSignsStagedLn" },
+    GitSignsStagedChangedeleteLn = { link = "GitSignsStagedLn" },
+    GitSignsStagedTopdeleteLn = { link = "GitSignsStagedLn" },
+    GitSignsStagedUntrackedLn = { link = "GitSignsStagedLn" },
 
-    -- Режим предпросмотра (Preview / Popups)
-    GitSignsAddPreview = { fg = "NONE", bg = C.light_green },
-    GitSignsDeletePreview = { fg = "NONE", bg = C.light_red },
-    GitSignsNoEOLPreview = { fg = "NONE", bg = "NONE" },
+    -- Измененные слова в буфере
+    GitSignsAddLnInline = { fg = "NONE", bg = "NONE", nocombine = true },
+    GitSignsDeleteLnInline = { fg = "NONE", bg = "NONE", nocombine = true },
+    GitSignsChangeLnInline = { fg = "NONE", bg = "NONE", nocombine = true },
 
-    -- For word diff in previews:
-    GitSignsAddInline = { nocombine = true },
-    GitSignsChangeInline = { nocombine = true },
-    GitSignsDeleteInline = { nocombine = true },
+    -- Режим предпросмотра (preview)
+    GitSignsAddPreview = { fg = C.olive, bg = "NONE", nocombine = true },
+    GitSignsDeletePreview = { fg = C.dark_red, bg = "NONE", nocombine = true },
 
-    -- For word diff in buffer
-    GitSignsAddLnInline = { fg = "NONE", bg = "NONE" },
-    GitSignsChangeLnInline = { fg = "NONE", bg = "NONE" },
-    GitSignsDeleteLnInline = { fg = "NONE", bg = "NONE" },
+    -- Измененные слова в режиме предпросмотра (preview)
+    --GitSignsAddInline = { nocombine = true },
+    GitSignsDeleteInline = { strikethrough = true, nocombine = true },
+    GitSignsChangeInline = { fg = C.green, bold = true, nocombine = true },
+
+    -- GitSignsNoEOLPreview = { fg = "NONE", bg = "NONE" },
 
     -- For word diff in virtual lines (e.g. show_deleted):
-    GitSignsAddVirtLnInline = { fg = "NONE", bg = "NONE" },
-    GitSignsChangeVirtLnInline = { fg = "NONE", bg = "NONE" },
-    GitSignsDeleteVirtLnInline = { fg = "NONE", bg = "NONE" },
+    -- GitSignsAddVirtLnInline = { fg = "NONE", bg = "NONE" },
+    -- GitSignsChangeVirtLnInline = { fg = "NONE", bg = "NONE" },
+    -- GitSignsDeleteVirtLnInline = { fg = "NONE", bg = "NONE" },
 
     -- Текст значков (Unstaged)
     -- GitSignsAdd = { bg = C.dark_red }, -- Для новых строк
