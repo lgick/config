@@ -210,35 +210,38 @@ map("n", "<leader>h", "<cmd>call codeium#Chat()<CR>")
 -- Nvim
 ------------------------------------------
 
-function _G.ReloadConfig()
-  for name in pairs(package.loaded) do
-    if name:match("^plugins") or name:match("^snacks") or name:match("^themes") or name:match("^config") then
-      package.loaded[name] = nil
-    end
-  end
+-- Рестарт nvim
+map("n", "<leader>1", "<cmd>mksession! Session.vim | restart source Session.vim | call delete('Session.vim')<CR>")
 
-  dofile(vim.env.MYVIMRC)
-  notify("Конфигурация перезагружена!", vim.log.levels.INFO)
-end
+-- Определяет синтаксис слова под курсором
+map("n", "<leader>2", "<cmd>Inspect<CR>")
 
-map("n", "<leader>1", "<cmd>lua ReloadConfig()<CR>", { desc = "Reload config" })
-
-map("n", "<leader>2", function()
+-- Группы подсветки
+map("n", "<leader>3", function()
   Snacks.picker.highlights({ pattern = "hl_group:" })
 end, { desc = "Highlights" })
 
--- Определяет синтаксис слова под курсором
-map("n", "<leader>3", ":Inspect<CR>")
-map("n", "<leader>4", ":InspectTree<CR>")
-
 -- Отображает сообщения в новом буфере
-map("n", "<leader>5", ":tabnew | put =execute('messages')<CR>")
+map("n", "<leader>5", "<cmd>new | put =execute('messages')<CR>")
 
 -- Проверяет работу плагинов nvim
-map("n", "<leader>6", ":checkhealth<CR>")
+map("n", "<leader>7", "<cmd>checkhealth<CR>")
+
+-- Обновляет плагины nvim
+map("n", "<leader>8", function()
+  local confirm = fn.input("Обновить плагины Neovim? (y/n): ")
+
+  if confirm:lower() ~= "y" then
+    return
+  end
+
+  vim.pack.update()
+  vim.cmd("MasonToolsUpdate")
+  vim.cmd("TSUpdate")
+end, { desc = "Update nvim plugins" })
 
 -- Сбрасывает nvim до заводских настроек
-map("n", "<leader>7", function()
+map("n", "<leader>9", function()
   local confirm = fn.input("ПОЛНОСТЬЮ сбросить Neovim? (y/n): ")
 
   if confirm:lower() ~= "y" then
@@ -260,16 +263,3 @@ map("n", "<leader>7", function()
   opt.shada = ""
   os.exit()
 end, { desc = "Nuke nvim" })
-
--- Обновляет плагины nvim
-map("n", "<leader>8", function()
-  local confirm = fn.input("Обновить плагины Neovim? (y/n): ")
-
-  if confirm:lower() ~= "y" then
-    return
-  end
-
-  vim.pack.update()
-  vim.cmd("MasonToolsUpdate")
-  vim.cmd("TSUpdate")
-end, { desc = "Update nvim plugins" })

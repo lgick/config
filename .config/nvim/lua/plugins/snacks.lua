@@ -1,9 +1,7 @@
 local snacks = require("snacks")
 
 snacks.setup({
-  input = {
-    enabled = true,
-  },
+  input = { enabled = true },
 
   picker = {
     enabled = true,
