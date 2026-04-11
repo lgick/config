@@ -13,18 +13,47 @@ require("blink.cmp").setup({
   snippets = {
     preset = "luasnip",
   },
+  cmdline = {
+    keymap = {
+      preset = "none",
+      ["<CR>"] = { "accept", "fallback" },
+      ["<C-n>"] = { "show", "insert_next", "fallback" },
+      ["<C-p>"] = { "insert_prev", "fallback" },
+    },
+    completion = {
+      list = {
+        selection = {
+          preselect = true, -- выбор первого элемента при открытии меню
+        },
+      },
+      menu = {
+        auto_show = function(ctx)
+          local before = ctx.line:sub(1, ctx.cursor[2])
+
+          -- показывать только если последний символ точка или пробел
+          return before:sub(-1) == "." or before:sub(-1) == " "
+        end,
+      },
+    },
+  },
   keymap = {
     preset = "none",
-    ["<CR>"] = { "select_and_accept", "fallback" },
-    ["<ESC>"] = { "fallback", "hide" },
-    ["<C-n>"] = { "show", "select_next", "fallback" },
-    ["<C-p>"] = { "select_prev", "fallback" },
+    ["<CR>"] = { "accept", "fallback" },
+    ["<ESC>"] = { "fallback", "hide" }, -- выходит из insert и скрывает меню
+    ["<C-n>"] = { "insert_next", "fallback" },
+    ["<C-p>"] = { "insert_prev", "fallback" },
     ["<C-/>"] = { "snippet_forward", "fallback" },
     ["<C-.>"] = { "snippet_backward", "fallback" },
     ["<C-u>"] = { "scroll_documentation_up", "fallback" },
     ["<C-d>"] = { "scroll_documentation_down", "fallback" },
+    ["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
   },
   completion = {
+    list = {
+      selection = {
+        preselect = true, -- выбор первого элемента при открытии меню
+      },
+    },
     -- призрачный текст
     ghost_text = {
       enabled = true,

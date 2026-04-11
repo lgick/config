@@ -21,11 +21,14 @@ vim.pack.add({
   { src = "https://github.com/folke/trouble.nvim" }, -- окно ошибок и предупреждений
 
   { src = "https://github.com/b0o/SchemaStore.nvim" }, -- каталог для json
+
   { src = "https://www.github.com/lewis6991/gitsigns.nvim" },
+  --{ src = "https://github.com/nvim-lua/plenary.nvim" },
+  --{ src = "https://github.com/neogitorg/neogit" },
 })
 
 require("plugins.lsp")
-require("plugins.cmp")
+require("plugins.blink-cmp")
 require("plugins.nvim-tree")
 require("plugins.treesitter")
 require("plugins.aerial") -- TODO можно заменить на snacks?
@@ -34,3 +37,4 @@ require("plugins.formatting")
 require("plugins.snacks")
 require("plugins.trouble")
 require("plugins.gitsigns")
+--require("plugins.neogit")
