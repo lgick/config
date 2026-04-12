@@ -184,7 +184,7 @@ map("n", "<leader>r", vim.lsp.buf.rename)
 --end)
 
 -- See available code actions
---map({ "n", "v" }, "<leader>m", vim.lsp.buf.code_action)
+map({ "n", "v" }, "<leader>m", vim.lsp.buf.code_action)
 
 -- Show documentation for what is under cursor
 --map("n", "<leader>i", vim.lsp.buf.hover)

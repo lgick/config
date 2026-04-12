@@ -116,7 +116,7 @@ opt.sessionoptions = "buffers,folds,sesdir,tabpages,globals,options,resize,winpo
 -- Дата и время
 ------------------------------------------
 
-opt.statusline = "%<%f%h%m%r [%{&fenc}] %=%c|%l/%L %P [%{strftime('%a %d.%m.%Y %H:%M')}]"
+opt.statusline = "%<%f%h%m%r [%{&fenc}] %=%v-%l/%L %P [%{strftime('%a %d.%m.%Y %H:%M')}]"
 
 ------------------------------------------
 -- Цвет
