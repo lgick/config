@@ -56,7 +56,7 @@ require("blink.cmp").setup({
     },
     -- призрачный текст
     ghost_text = {
-      enabled = true,
+      enabled = false,
     },
     menu = {
       auto_show = true,
