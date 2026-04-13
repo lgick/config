@@ -78,7 +78,7 @@ local function set_git_mappings(bnr)
   vim.keymap.set("n", "R", do_with_modify(bnr, gs.reset_buffer), opts) -- откат всех правок файла
 
   -- Превью старого кода
-  vim.keymap.set("n", "i", gs.preview_hunk, opts)
+  vim.keymap.set("n", "K", gs.preview_hunk, opts)
 
   -- Blame line
   vim.keymap.set("n", "b", gs.blame_line, opts)
@@ -108,7 +108,7 @@ local function set_git_mappings(bnr)
 end
 
 local function remove_git_mappings(bnr)
-  local keys = { "s", "S", "U", "u", "r", "R", "i", "b", "n", "p", "N", "P", "q" }
+  local keys = { "s", "S", "U", "u", "r", "R", "K", "b", "n", "p", "N", "P", "q" }
   for _, key in ipairs(keys) do
     pcall(vim.keymap.del, "n", key, { buffer = bnr })
   end

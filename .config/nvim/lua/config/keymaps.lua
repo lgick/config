@@ -11,6 +11,7 @@ local fn = vim.fn
 -- :ju - лист переходов
 -- gc - комментарий в visual mode
 -- <C-f> - command history window
+-- K - documentation
 
 g.mapleader = ","
 
@@ -176,18 +177,15 @@ map("n", "<leader>a", vim.lsp.buf.references)
 map("n", "<leader>r", vim.lsp.buf.rename)
 
 -- Show LSP definitions
--- map("n", "<leader>j", "<cmd>Telescope lsp_definitions jump_type=split<CR>")
-
--- Toggle diagnostic
---map("n", "<leader>t", function()
---  vim.diagnostic.enable(not vim.diagnostic.is_enabled())
---end)
+map("n", "<leader>j", vim.lsp.buf.definition)
 
 -- See available code actions
 map({ "n", "v" }, "<leader>m", vim.lsp.buf.code_action)
 
--- Show documentation for what is under cursor
---map("n", "<leader>i", vim.lsp.buf.hover)
+-- Toggle diagnostic
+map("n", "<leader>t", function()
+  vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+end)
 
 ----------------------------------------
 -- Trouble

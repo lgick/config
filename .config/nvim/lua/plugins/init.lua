@@ -32,6 +32,8 @@ require("plugins.treesitter")
 require("plugins.aerial") -- TODO можно заменить на snacks?
 require("plugins.indent-blankline")
 require("plugins.formatting")
+require("nvim-autopairs").setup()
+require("nvim-ts-autotag").setup()
 require("plugins.snacks")
 require("plugins.trouble")
 require("plugins.gitsigns")

@@ -32,6 +32,3 @@ require("conform").setup({
     return { timeout_ms = 500, lsp_format = "fallback" }
   end,
 })
-
-require("nvim-autopairs").setup()
-require("nvim-ts-autotag").setup()

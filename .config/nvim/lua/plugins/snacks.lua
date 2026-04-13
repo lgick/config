@@ -24,23 +24,21 @@ snacks.setup({
     },
   },
 
-  dashboard = {
-    sections = {
-      { icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
-      { icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
-      {
-        icon = " ",
-        title = "Git Status",
-        section = "terminal",
-        enabled = function()
-          return Snacks.git.get_root() ~= nil
-        end,
-        cmd = "git status --short --branch --renames",
-        height = 10,
-        ttl = 5 * 60,
-        indent = 2,
-        padding = 1,
+  notifier = {
+    enabled = true,
+    timeout = 1000,
+  },
+  styles = {
+    notification = {
+      border = true,
+      zindex = 100,
+      wo = {
+        winblend = 5,
+        wrap = true,
+        conceallevel = 2,
+        colorcolumn = "",
       },
+      bo = { filetype = "snacks_notif" },
     },
   },
 })

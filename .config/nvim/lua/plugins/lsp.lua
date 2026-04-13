@@ -77,21 +77,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end
 
     -- твои стандартные горячие клавиши
-    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-    vim.keymap.set("n", "<leader>i", vim.lsp.buf.hover, opts)
-    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
     vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, opts)
-
-    vim.keymap.set({ "n", "x" }, "<leader>mm", function()
-      require("snacks").picker.code_actions()
-    end, { noremap = true, silent = true })
-
-    vim.keymap.set("n", "<leader>ml", function()
-      vim.lsp.buf.format({ timeout_ms = 10000 })
-    end)
-
-    vim.keymap.set("n", "<leader>mt", function()
-      require("trouble").open("diagnostics", { fold_open = "", fold_closed = "" })
-    end, opts)
   end,
 })
