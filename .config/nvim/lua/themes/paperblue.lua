@@ -1,9 +1,13 @@
 local C = {
   -- Оттенки серого
-  white = "#eeeeee",
-  light_grey = "#c7c7c7",
-  dark_grey = "#838383",
-  black = "#464646",
+  --white = "#eeeeee",
+  --light_grey = "#c7c7c7",
+  --dark_grey = "#838383",
+  --black = "#464646",
+  white = "#E4DFE1",
+  light_grey = "#BEB8BA",
+  dark_grey = "#7F797B",
+  black = "#444041",
 
   -- Основные
   red = "#d70000",
@@ -18,8 +22,10 @@ local C = {
   purple = "#8700af",
 
   -- Дополнительные
-  off_white = "#e4e4e4",
-  ash = "#b2b2b2",
+  --off_white = "#e4e4e4",
+  --ash = "#b2b2b2",
+  off_white = "#D8D2D4",
+  ash = "#A9A3A5",
   rust = "#af5f00",
   emerald = "#00af5f",
   sky = "#afd7ff",
@@ -396,7 +402,7 @@ function C.load()
 
   vim.o.background = "light"
   vim.opt.termguicolors = true
-  vim.g.colors_name = "PaperColor"
+  vim.g.colors_name = "paperblue"
 
   set_highlights()
 end
