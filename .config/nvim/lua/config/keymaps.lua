@@ -143,6 +143,14 @@ map("n", "<leader>s", function()
   Snacks.picker.files()
 end, { desc = "Find Files" })
 
+-- поиск файлов по всем файлам
+map("n", "<leader>S", function()
+  Snacks.picker.files({
+    hidden = true,
+    ignored = true,
+  })
+end, { desc = "Find Files (All Files)" })
+
 -- поиск по файлам проекта
 map("n", "<leader>g", function()
   Snacks.picker.grep()
@@ -191,11 +199,11 @@ end)
 -- Trouble
 ----------------------------------------
 
--- Open trouble workspace diagnostics
-map("n", "<leader>x", "<cmd>Trouble diagnostics toggle<CR>")
-
 -- Open trouble document diagnostics
-map("n", "<leader>X", "<cmd>Trouble diagnostics toggle filter.buf=0<CR>")
+map("n", "<leader>x", "<cmd>Trouble diagnostics toggle filter.buf=0<CR>")
+
+-- Open trouble workspace diagnostics
+map("n", "<leader>X", "<cmd>Trouble diagnostics fold_close_all=1<CR>")
 
 ------------------------------------------
 -- Codeium
