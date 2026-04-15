@@ -125,6 +125,9 @@ local function set_highlights()
     Identifier = { fg = C.cyan },
     Function = { fg = C.black },
 
+    Added = { fg = C.olive },
+    Removed = { fg = C.dark_red },
+
     Statement = { fg = C.pink },
     Conditional = { fg = C.purple, bold = true },
     Repeat = { fg = C.purple, bold = true },

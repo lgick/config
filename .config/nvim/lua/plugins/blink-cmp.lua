@@ -23,7 +23,7 @@ require("blink.cmp").setup({
     completion = {
       list = {
         selection = {
-          preselect = true, -- выбор первого элемента при открытии меню
+          preselect = false, -- выбор первого элемента при открытии меню
         },
       },
       menu = {
@@ -51,7 +51,7 @@ require("blink.cmp").setup({
   completion = {
     list = {
       selection = {
-        preselect = true, -- выбор первого элемента при открытии меню
+        preselect = false, -- выбор первого элемента при открытии меню
       },
     },
     -- призрачный текст

@@ -22,7 +22,7 @@ vim.pack.add({
 
   { src = "https://github.com/b0o/SchemaStore.nvim" }, -- каталог для json
 
-  { src = "https://www.github.com/lewis6991/gitsigns.nvim" },
+  { src = "https://www.github.com/lewis6991/gitsigns.nvim" }, -- git
 })
 
 require("plugins.lsp")
