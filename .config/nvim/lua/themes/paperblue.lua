@@ -1,13 +1,9 @@
 local C = {
   -- Оттенки серого
-  --white = "#eeeeee",
-  --light_grey = "#c7c7c7",
-  --dark_grey = "#838383",
-  --black = "#464646",
-  white = "#E4DFE1",
-  light_grey = "#BEB8BA",
-  dark_grey = "#7F797B",
-  black = "#444041",
+  white = "#eeeeee",
+  light_grey = "#c7c7c7",
+  dark_grey = "#838383",
+  black = "#464646",
 
   -- Основные
   red = "#d70000",
@@ -22,10 +18,8 @@ local C = {
   purple = "#8700af",
 
   -- Дополнительные
-  --off_white = "#e4e4e4",
-  --ash = "#b2b2b2",
-  off_white = "#D8D2D4",
-  ash = "#A9A3A5",
+  off_white = "#e4e4e4",
+  ash = "#b2b2b2",
   rust = "#af5f00",
   emerald = "#00af5f",
   sky = "#afd7ff",
@@ -406,5 +400,23 @@ function C.load()
 
   set_highlights()
 end
+
+-- отключение подсветки lsp
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if not client then
+      return
+    end
+
+    -- 1. Отключение семантической подсветки (Semantic Tokens)
+    client.server_capabilities.semanticTokensProvider = nil
+
+    -- 2. Отключение подсветки цветов в текущем буфере
+    if vim.lsp.document_color then
+      vim.lsp.document_color.enable(false, { bufnr = args.buf })
+    end
+  end,
+})
 
 return C

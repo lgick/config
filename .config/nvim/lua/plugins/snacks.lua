@@ -5,6 +5,9 @@ snacks.setup({
 
   picker = {
     enabled = true,
+    layout = {
+      fullscreen = true,
+    },
     win = {
       input = {
         keys = {
