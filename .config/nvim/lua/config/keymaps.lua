@@ -1,15 +1,17 @@
 local g = vim.g
+local cmd = vim.cmd
+local api = vim.api
 local opt = vim.opt
 local notify = vim.notify
 local map = vim.keymap.set
 local fn = vim.fn
-local cmd = vim.cmd
 
 -- <C-o> - переход на предыдущую позицию в списке переходов
 -- <C-i> - переход на следующую позицию в списке переходов
 -- :ju - лист переходов
 -- gc - комментарий в visual mode
 -- <C-f> - command history window
+-- K - documentation
 
 g.mapleader = ","
 
@@ -70,8 +72,11 @@ map("n", "<leader>f", "<cmd>NvimTreeToggle<CR>")
 -- , + o: Aerial - code navigation
 map("n", "<leader>o", "<cmd>AerialToggle<CR>")
 
--- , + w: Git blame
-map("n", "<leader>w", "<cmd>BlameToggle<CR>")
+--- , + w: Git blame
+map("n", "<leader>w", "<cmd>Gitsigns blame<CR>", { desc = "Git Blame" })
+
+--- , + l: Git stage flow
+map("n", "<leader>l", "<cmd>GitStageFlow<CR>", { desc = "Git Stage Flow" })
 
 -- , + y: Autoformat toggle
 map("n", "<leader>y", function()
@@ -84,26 +89,8 @@ map("n", "<leader>y", function()
   end
 end)
 
--- , + l: Подсвечивает координаты курсора
-local cursorLight = false
-map("n", "<leader>l", function()
-  if cursorLight == true then
-    opt.cursorline = false
-    opt.cursorcolumn = false
-    cursorLight = false
-  else
-    opt.cursorline = true
-    opt.cursorcolumn = true
-    cursorLight = true
-  end
-end)
-
 -- , + z: Сворачивает функциональные блоки в файле
 map("n", "<leader>z", function()
-  local cmd = vim.cmd
-  local api = vim.api
-  local fn = vim.fn
-
   -- Проверяем, существует ли переменная vim.b.space
   if fn.exists("b:space") == 0 then
     api.nvim_buf_set_var(0, "space", 0)
@@ -148,89 +135,75 @@ map("n", "<leader>z", function()
 end)
 
 ----------------------------------------
--- Telescope
+-- Snacks
 ----------------------------------------
 
 -- поиск файлов
-map("n", "<leader>s", "<cmd>Telescope find_files<CR>")
+map("n", "<leader>s", function()
+  Snacks.picker.files()
+end, { desc = "Find Files" })
 
--- поиск по файлам
-map("n", "<leader>g", "<cmd>Telescope live_grep<CR>")
+-- поиск файлов по всем файлам
+map("n", "<leader>S", function()
+  Snacks.picker.files({
+    hidden = true,
+    ignored = true,
+  })
+end, { desc = "Find Files (All Files)" })
+
+-- поиск по файлам проекта
+map("n", "<leader>g", function()
+  Snacks.picker.grep()
+end, { desc = "Live Grep" })
+
+-- поиск по всем файлам
+map("n", "<leader>G", function()
+  Snacks.picker.grep({
+    hidden = true,
+    ignored = true,
+  })
+end, { desc = "Live Grep (All Files)" })
 
 -- буфферы
-map("n", "<leader>b", "<cmd>Telescope buffers<CR>")
+map("n", "<leader>b", function()
+  Snacks.picker.buffers()
+end, { desc = "Buffers" })
 
--- Show LSP references
-map("n", "<leader>a", "<cmd>Telescope lsp_references<CR>")
-
--- Show LSP definitions
-map("n", "<leader>j", "<cmd>Telescope lsp_definitions jump_type=split<CR>")
-
-----------------------------------------
--- Trouble
-----------------------------------------
-
--- Open trouble workspace diagnostics
-map("n", "<leader>x", "<cmd>Trouble diagnostics toggle<CR>")
-
--- Open trouble document diagnostics
-map("n", "<leader>X", "<cmd>Trouble diagnostics toggle filter.buf=0<CR>")
+-- недавние файлы
+map("n", "<leader>e", function()
+  Snacks.picker.recent()
+end, { desc = "Recent Files" })
 
 ----------------------------------------
 -- LSP
 ----------------------------------------
+
+-- Show LSP references
+map("n", "<leader>a", vim.lsp.buf.references)
+
+-- Изменить название в файле (вызвать :wa по завершению)
+map("n", "<leader>r", vim.lsp.buf.rename)
+
+-- Show LSP definitions
+map("n", "<leader>j", vim.lsp.buf.definition)
+
+-- See available code actions
+map({ "n", "v" }, "<leader>m", vim.lsp.buf.code_action)
 
 -- Toggle diagnostic
 map("n", "<leader>t", function()
   vim.diagnostic.enable(not vim.diagnostic.is_enabled())
 end)
 
--- See available code actions
-map({ "n", "v" }, "<leader>m", vim.lsp.buf.code_action)
+----------------------------------------
+-- Trouble
+----------------------------------------
 
--- Изменить название в файле (вызвать :wa по завершению)
-map("n", "<leader>r", vim.lsp.buf.rename)
+-- Open trouble document diagnostics
+map("n", "<leader>x", "<cmd>Trouble diagnostics toggle filter.buf=0<CR>")
 
--- Show documentation for what is under cursor
-map("n", "<leader>i", vim.lsp.buf.hover)
-
-------------------------------------------
--- Cmp
-------------------------------------------
-
--- Показывает доступные fields
-map("i", "<C-n>", function()
-  local cmp = require("cmp")
-
-  if not cmp.visible() then
-    local buf_clients = vim.lsp.get_clients({ bufnr = 0 })
-    local type = ""
-
-    for _, client in pairs(buf_clients) do
-      if client.name == "tsserver" then
-        type = "Field"
-        --elseif client.name == "lua_ls" then
-        --  type = "Property"
-      end
-    end
-
-    cmp.complete({
-      config = {
-        sources = {
-          {
-            name = "nvim_lsp",
-            entry_filter = function(entry)
-              if type ~= "" then
-                return require("cmp.types").lsp.CompletionItemKind[entry:get_kind()] == type
-              end
-              return true
-            end,
-          },
-        },
-      },
-    })
-  end
-end)
+-- Open trouble workspace diagnostics
+map("n", "<leader>X", "<cmd>Trouble diagnostics fold_close_all=1<CR>")
 
 ------------------------------------------
 -- Codeium
@@ -243,26 +216,56 @@ map("n", "<leader>h", "<cmd>call codeium#Chat()<CR>")
 -- Nvim
 ------------------------------------------
 
--- Проверяет работу плагинов nvim
-map("n", "<leader>1", ":checkhealth<CR>")
+-- Рестарт nvim
+map("n", "<leader>1", "<cmd>mksession! Session.vim | restart source Session.vim | call delete('Session.vim')<CR>")
 
 -- Определяет синтаксис слова под курсором
-map("n", "<leader>2", ":Inspect<CR>")
+map("n", "<leader>2", "<cmd>Inspect<CR>")
+
+-- Группы подсветки
+map("n", "<leader>3", function()
+  Snacks.picker.highlights({ pattern = "hl_group:" })
+end, { desc = "Highlights" })
 
 -- Отображает сообщения в новом буфере
-map("n", "<leader>3", ":tabnew | put =execute('messages')<CR>")
+map("n", "<leader>5", "<cmd>new | put =execute('messages')<CR>")
+
+-- Проверяет работу плагинов nvim
+map("n", "<leader>7", "<cmd>checkhealth<CR>")
+
+-- Обновляет плагины nvim
+map("n", "<leader>8", function()
+  local confirm = fn.input("Обновить плагины Neovim? (y/n): ")
+
+  if confirm:lower() ~= "y" then
+    return
+  end
+
+  vim.pack.update()
+  vim.cmd("MasonToolsUpdate")
+  vim.cmd("TSUpdate")
+end, { desc = "Update nvim plugins" })
 
 -- Сбрасывает nvim до заводских настроек
-map("n", "<leader>44", function()
-  local dirs = {
+map("n", "<leader>9", function()
+  local confirm = fn.input("ПОЛНОСТЬЮ сбросить Neovim? (y/n): ")
+
+  if confirm:lower() ~= "y" then
+    return
+  end
+
+  local paths = {
     fn.stdpath("cache"), -- ~/.cache/nvim
     fn.stdpath("data"), -- ~/.local/share/nvim
     fn.stdpath("state"), -- ~/.local/state/nvim
   }
 
-  for _, dir in ipairs(dirs) do
-    fn.delete(dir, "rf")
+  for _, path in ipairs(paths) do
+    if fn.empty(fn.glob(path)) == 0 then
+      fn.delete(path, "rf")
+    end
   end
 
-  vim.api.nvim_command("silent! qa!")
-end, { desc = "Nuke and Quit" })
+  opt.shada = ""
+  os.exit()
+end, { desc = "Nuke nvim" })

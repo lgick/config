@@ -3,6 +3,7 @@
 --opt.clipboard:append("unnamedplus") -- use system clipboard as default register
 
 local vim = vim
+local cmd = vim.cmd
 local opt = vim.opt
 local fn = vim.fn
 
@@ -24,14 +25,13 @@ opt.cmdheight = 1
 opt.cmdwinheight = 20
 
 -- Номерация строк
-opt.number = true
+opt.number = false
 opt.relativenumber = true
+opt.numberwidth = 1
+opt.statuscolumn = " %l "
 
--- Скрыть вывод информации в нумерации
-opt.signcolumn = "no"
-
--- Количество символов в номерации строк
-opt.numberwidth = 4
+-- Вывод информации в нумерации
+opt.signcolumn = "number"
 
 -- Отображение имени буфера в заголовке терминала
 opt.title = true
@@ -39,8 +39,9 @@ opt.title = true
 -- Запрет переноса строк
 opt.wrap = false
 
--- Отступы сверху и снизу при скролле
-opt.scrolloff = 5
+-- Отступы сверху и снизу и по бокам при скролле
+opt.scrolloff = 10
+opt.sidescrolloff = 10
 
 -- Вертикальное окно справа
 opt.splitright = true
@@ -54,8 +55,12 @@ opt.cursorline = false
 -- Вертикальная линия курсора
 opt.cursorcolumn = false
 
--- Вид вертикального разделителя
-opt.fillchars:append({ vert = "|" })
+-- Символ разделителя:
+-- между окнами
+-- вначале пустых строк
+-- строки свернутых функций
+-- командной строки
+opt.fillchars:append({ vert = "|", eob = " ", fold = " ", msgsep = " " })
 
 ------------------------------------------
 -- Форматирование текста
@@ -92,13 +97,16 @@ opt.backspace = "indent,eol,start"
 -- opt.autoindent = true
 opt.smartindent = true
 
--- Пробельные символы на кнопке <tab>
+-- Преобразование Tab в пробелы
 opt.expandtab = true
 
--- Количество символов за одно нажание на TAB
+-- Визуальная ширина символа \t
 opt.tabstop = 2
 
--- Количиство символов при автоматическом табе
+-- Поведение клавиши Tab в insert mode
+opt.softtabstop = 2
+
+-- Количество символов при автоматическом табе
 opt.shiftwidth = 2
 
 -- Настройка сессий
@@ -108,11 +116,13 @@ opt.sessionoptions = "buffers,folds,sesdir,tabpages,globals,options,resize,winpo
 -- Дата и время
 ------------------------------------------
 
-opt.statusline = "%<%f%h%m%r [%{&fenc}] %=%c|%l/%L %P [%{strftime('%a %d.%m.%Y %H:%M')}]"
+opt.statusline = "%<%f%h%m%r [%{&fenc}] %=%v-%l/%L %P [%{strftime('%a %d.%m.%Y %H:%M')}]"
 
 ------------------------------------------
 -- Цвет
 ------------------------------------------
+
+cmd.colorscheme("paperblue")
 
 -- 24-битные цвета
 opt.termguicolors = true
@@ -184,3 +194,9 @@ opt.showmatch = true
 -- Отключение добавления первого значения при вызове <c-x><c-o>
 --opt.completeopt = "longest,menuone"
 opt.completeopt = { "menu", "menuone", "noselect" }
+
+-- Рамка floating окон
+opt.winborder = "rounded"
+
+-- ленивая перерисовка интерфейса при выполнении макроса
+opt.lazyredraw = true
