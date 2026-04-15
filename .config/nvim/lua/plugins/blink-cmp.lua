@@ -1,18 +1,4 @@
-require("luasnip.loaders.from_vscode").lazy_load({
-  paths = { vim.fn.stdpath("config") .. "/snippets" },
-})
-
-require("lazydev").setup({
-  library = {
-    { path = "${3rd}/luv/library", words = { "vim%.uv" } },
-    { path = "snacks.nvim", words = { "Snacks" } },
-  },
-})
-
 require("blink.cmp").setup({
-  snippets = {
-    preset = "luasnip",
-  },
   cmdline = {
     keymap = {
       preset = "none",
@@ -48,10 +34,16 @@ require("blink.cmp").setup({
     ["<C-d>"] = { "scroll_documentation_down", "fallback" },
     ["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
   },
+  appearance = {
+    kind_icons = {
+      Folder = "󰉋",
+      File = "",
+    },
+  },
   completion = {
     list = {
       selection = {
-        preselect = false, -- выбор первого элемента при открытии меню
+        preselect = true, -- выбор первого элемента при открытии меню
       },
     },
     -- призрачный текст
@@ -95,13 +87,16 @@ require("blink.cmp").setup({
       path = {
         module = "blink.cmp.sources.path",
         opts = {
-          trailing_slash = true, -- добавлять / после выбора папки
-          label_trailing_slash = true, -- показывать / в списке подсказок
+          trailing_slash = false, -- добавлять / после выбора папки
+          label_trailing_slash = false, -- показывать / в списке подсказок
           show_hidden_files_by_default = true,
         },
       },
       snippets = {
         module = "blink.cmp.sources.snippets",
+        opts = {
+          friendly_snippets = false,
+        },
       },
 
       lazydev = {
