@@ -14,7 +14,7 @@ aerial.setup({
 
   close_on_select = false,
 
-  post_parse_symbol = function(bufnr, item, ctx)
+  post_parse_symbol = function(_, item, _)
     return not item.parent
   end,
 
