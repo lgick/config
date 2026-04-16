@@ -80,6 +80,8 @@ local function set_highlights()
     Substitute = { fg = C.white, bg = C.red },
     Visual = { fg = C.white, bg = C.teal },
     VisualNOS = { link = "Visual" },
+    SnippetTabstop = { bg = "NONE" },
+    SnippetTabstopActive = { bg = "NONE" },
 
     ErrorMsg = { fg = C.dark_red },
     WarningMsg = { fg = C.pink },
@@ -99,6 +101,8 @@ local function set_highlights()
 
     StatusLine = { fg = C.white, bg = C.cyan, bold = true },
     StatusLineNC = { fg = C.black, bg = C.light_grey },
+
+    QuickFixLine = { fg = C.red },
 
     SpellBad = { undercurl = true, sp = C.dark_red },
     SpellCap = { undercurl = true, sp = C.purple },
@@ -412,13 +416,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
       return
     end
 
-    -- 1. Отключение семантической подсветки (Semantic Tokens)
+    -- Отключение семантической подсветки (Semantic Tokens)
     client.server_capabilities.semanticTokensProvider = nil
-
-    -- 2. Отключение подсветки цветов в текущем буфере
-    if vim.lsp.document_color then
-      vim.lsp.document_color.enable(false, { bufnr = args.buf })
-    end
   end,
 })
 
