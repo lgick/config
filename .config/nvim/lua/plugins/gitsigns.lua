@@ -131,6 +131,7 @@ local function turn_off_git_mode()
     -- Если это обычный файл с кодом (buftype == "")
     if vim.bo[bnr].buftype == "" then
       vim.bo[bnr].modifiable = true
+      vim.wo.winhighlight = ""
     else
       -- Если это был какой-то спец. буфер, возвращаем как было
       vim.bo[bnr].modifiable = git_flow_state.orig_modifiable
@@ -159,6 +160,8 @@ local function turn_on_git_mode()
   git_flow_state.active = true
   git_flow_state.bufnr = bnr
   git_flow_state.orig_modifiable = vim.bo[bnr].modifiable
+
+  vim.wo.winhighlight = "StatusLine:GitSignsStatusLine"
 
   -- Блокировка любых ручных изменений в файле (Read-Only)
   vim.bo[bnr].modifiable = false

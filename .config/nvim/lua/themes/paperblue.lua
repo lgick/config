@@ -301,6 +301,7 @@ local function set_highlights()
     GitSignsStagedNr = { bg = C.olive, fg = C.white }, -- Номера строк (Staged)
     GitSignsLn = { bg = C.off_white }, -- Фон всей строки (Unstaged)
     GitSignsStagedLn = { link = "GitSignsLn" }, -- Фон всей строки (Staged)
+    GitSignsStatusLine = { link = "GitSignsNr" }, -- Стили строки статуса
 
     -- Номера строк (Unstaged)
     GitSignsAddNr = { link = "GitSignsNr" },
