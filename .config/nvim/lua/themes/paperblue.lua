@@ -102,6 +102,8 @@ local function set_highlights()
     StatusLine = { fg = C.white, bg = C.cyan, bold = true },
     StatusLineNC = { fg = C.black, bg = C.light_grey },
 
+    QuickFixLine = { fg = C.red },
+
     SpellBad = { undercurl = true, sp = C.dark_red },
     SpellCap = { undercurl = true, sp = C.purple },
     SpellLocal = { undercurl = true, sp = C.cyan },
@@ -202,7 +204,7 @@ local function set_highlights()
     ["@label"] = { fg = C.blue },
 
     ["@string.documentation"] = { fg = C.black },
-    ["@string.regexp"] = { fg = C.teal },
+    ["@string.regexp"] = { fg = C.olive },
     ["@string.escape"] = { fg = C.olive, bold = true },
     ["@string.special.url"] = { fg = C.blue, underline = true },
 
