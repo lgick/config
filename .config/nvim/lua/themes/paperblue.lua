@@ -262,7 +262,7 @@ local function set_highlights()
     ["@tag.attribute"] = { fg = C.pink },
     ["@tag.delimiter"] = { fg = C.black },
 
-    ["@nospell.jsdoc"] = { link = "Comment" },
+    ["@nospell"] = { link = "Comment" },
 
     -- ==========================================
     -- 5. Snack
@@ -301,9 +301,9 @@ local function set_highlights()
     -- ==========================================
     GitSignsNr = { bg = C.orange, fg = C.white }, -- Номера строк (Unstaged)
     GitSignsStagedNr = { bg = C.olive, fg = C.white }, -- Номера строк (Staged)
+    GitSignsStatusLine = { link = "GitSignsStagedNr" }, -- Стили строки статуса
     GitSignsLn = { bg = C.off_white }, -- Фон всей строки (Unstaged)
     GitSignsStagedLn = { link = "GitSignsLn" }, -- Фон всей строки (Staged)
-    GitSignsStatusLine = { link = "GitSignsNr" }, -- Стили строки статуса
 
     -- Номера строк (Unstaged)
     GitSignsAddNr = { link = "GitSignsNr" },
