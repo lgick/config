@@ -1,5 +1,6 @@
 local gs = require("gitsigns")
 local git_flow_active = false
+local managed_buffers = {} -- Реестр буферов, в которых включен режим
 
 local function turn_on_git_mode()
   git_flow_active = true
@@ -10,31 +11,39 @@ local function turn_on_git_mode()
 end
 
 local function turn_off_git_mode()
-  local windows = vim.api.nvim_list_wins() -- список существующих окон
   local keys = { "s", "S", "U", "u", "r", "R", "K", "b", "n", "p", "N", "P", "q" }
 
   git_flow_active = false
   gs.detach_all()
 
+  -- Очистка всех затронутых буферов
+  for bnr, _ in pairs(managed_buffers) do
+    if vim.api.nvim_buf_is_valid(bnr) then
+      -- Восстановление оригинального состояния modifiable
+      if vim.b[bnr].original_modifiable ~= nil then
+        vim.bo[bnr].modifiable = vim.b[bnr].original_modifiable
+        vim.b[bnr].original_modifiable = nil -- очистка переменной
+      else
+        vim.bo[bnr].modifiable = true -- фоллбэк
+      end
+
+      -- Удаление биндов
+      for _, key in ipairs(keys) do
+        pcall(vim.keymap.del, "n", key, { buffer = bnr })
+      end
+    end
+  end
+
+  managed_buffers = {} -- Очистка реестра
+
+  -- Очистка подсветки
+  local windows = vim.api.nvim_list_wins() -- список существующих окон
+
   for _, win in ipairs(windows) do
-    -- Если окно валидно
     if vim.api.nvim_win_is_valid(win) then
       local winhl = vim.wo[win].winhighlight
 
-      -- Если есть нужная подсветка
       if winhl:match("StatusLine:GitSignsStatusLine") then
-        -- Буфер текущего окна
-        local bnr = vim.api.nvim_win_get_buf(win)
-
-        if vim.api.nvim_buf_is_valid(bnr) then
-          vim.bo[bnr].modifiable = true
-
-          for _, key in ipairs(keys) do
-            pcall(vim.keymap.del, "n", key, { buffer = bnr })
-          end
-        end
-
-        -- Удаление подсветки, сохраняя остальные правила
         local parts = vim.split(winhl, ",")
         local new_parts = {}
 
@@ -44,8 +53,7 @@ local function turn_off_git_mode()
           end
         end
 
-        local new_winhl = table.concat(new_parts, ",")
-        vim.wo[win].winhighlight = new_winhl
+        vim.wo[win].winhighlight = table.concat(new_parts, ",")
       end
     end
   end
@@ -56,12 +64,24 @@ end
 -- Временная разблокировка для редактирования
 local function do_with_modify(bnr, action)
   return function()
-    vim.bo[bnr].modifiable = true
-    action()
+    -- Если буфера нет
+    if not vim.api.nvim_buf_is_valid(bnr) then
+      return
+    end
 
-    vim.defer_fn(function()
-      vim.bo[bnr].modifiable = false
-    end, 200)
+    vim.bo[bnr].modifiable = true
+
+    -- Функция, которая заблокирует буфер обратно
+    local done = function()
+      vim.schedule(function()
+        if vim.api.nvim_buf_is_valid(bnr) then
+          vim.bo[bnr].modifiable = false
+        end
+      end)
+    end
+
+    -- Выполнение действия, передавая ему функцию завершения
+    action(done)
   end
 end
 
@@ -94,8 +114,11 @@ gs.setup({
   on_attach = function(bufnr)
     local opts = { nowait = true, silent = true, buffer = bufnr }
 
+    managed_buffers[bufnr] = true
+
     -- Подсветка во всех окнах с текущим файлом
     local windows = vim.api.nvim_list_wins() -- Все окна
+
     for _, win in ipairs(windows) do
       if vim.api.nvim_win_is_valid(win) then
         -- Если окно отображает именно этот буфер, применяем подсветку
@@ -107,27 +130,54 @@ gs.setup({
 
     local win = vim.api.nvim_get_current_win() -- Текущее окно
     vim.wo[win].winhighlight = "StatusLine:GitSignsStatusLine"
-    vim.bo[bufnr].modifiable = false
+
+    -- Сохранение изначального состояния modifiable в локальную переменную буфера
+    if vim.b[bufnr].original_modifiable == nil then
+      vim.b[bufnr].original_modifiable = vim.bo[bufnr].modifiable
+    end
+
+    vim.bo[bufnr].modifiable = false -- Блокировка буфера
 
     -- KEYMAPS
     -- УПРАВЛЕНИЕ ИНДЕКСОМ (STAGE) --
     vim.keymap.set("n", "s", gs.stage_hunk, opts) -- фрагмент в/из индекса
-    vim.keymap.set("n", "S", gs.stage_buffer, opts) -- файл в индекс
-    vim.keymap.set("n", "U", gs.reset_buffer_index, opts) -- файл из индекса
+    vim.keymap.set("n", "S", gs.stage_buffer, opts) -- добавляется все правки в индекс
+    vim.keymap.set("n", "U", gs.reset_buffer_index, opts) -- удаляет все правки файла из индекса
 
     -- ОТМЕНА ДЕЙСТВИЙ (UNDO) --
     vim.keymap.set(
       "n",
       "u",
-      do_with_modify(bufnr, function()
+      do_with_modify(bufnr, function(done)
         vim.cmd("undo")
+        done() -- Команда undo синхронна, вызов done() сразу после нее
       end),
       opts
     )
 
     -- СБРОС ИЗМЕНЕНИЙ (RESET) --
-    vim.keymap.set("n", "r", do_with_modify(bufnr, gs.reset_hunk), opts) -- откат правок из текущего фрагмента
-    vim.keymap.set("n", "R", do_with_modify(bufnr, gs.reset_buffer), opts) -- откат всех правок файла
+    -- откат правок из текущего фрагмента
+    vim.keymap.set(
+      "n",
+      "r",
+      do_with_modify(bufnr, function(done)
+        -- reset_hunk асинхронна. Передача done третьим аргументом (callback)
+        -- Первые два аргумента (range и opts) nil, чтобы использовать дефолтные
+        gs.reset_hunk(nil, nil, done)
+      end),
+      opts
+    )
+
+    -- откат всех правок файла
+    vim.keymap.set(
+      "n",
+      "R",
+      do_with_modify(bufnr, function(done)
+        gs.reset_buffer()
+        done() -- reset_buffer async, вызываем сразу
+      end),
+      opts
+    )
 
     -- Превью старого кода
     vim.keymap.set("n", "K", gs.preview_hunk, opts)
