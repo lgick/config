@@ -16,8 +16,8 @@ require("blink.cmp").setup({
         auto_show = function(ctx)
           local before = ctx.line:sub(1, ctx.cursor[2])
 
-          -- показывать только если последний символ точка или пробел
-          return before:sub(-1) == "." or before:sub(-1) == " "
+          -- показывать только если последний символ точка или пробел или косая черта
+          return before:sub(-1) == "." or before:sub(-1) == " " or before:sub(-1) == "/"
         end,
       },
     },
