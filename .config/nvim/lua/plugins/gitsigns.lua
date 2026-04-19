@@ -84,11 +84,10 @@ local function turn_on_git_mode()
   vim.cmd.noh() -- Скрыть подсветку поиска (если была)
   gs.detach_all()
   gs.attach()
-  print("Git Stage Flow: ON")
 end
 
 local function turn_off_git_mode()
-  local keys = { "s", "S", "U", "u", "<C-r>", "r", "R", "K", "b", "n", "p", "N", "P", "q" }
+  local keys = { "s", "S", "U", "u", "<C-r>", "r", "R", "K", "n", "p", "N", "P", "q" }
 
   git_flow_active = false
   gs.detach_all()
@@ -112,12 +111,10 @@ local function turn_off_git_mode()
 
   managed_buffers = {} -- Очистка реестра
 
-  -- Очистка подсветки в списке существующих окон
+  -- Очистка подсветки
   for _, win in ipairs(vim.api.nvim_list_wins()) do
     set_winhl(win, nil)
   end
-
-  print("Git Stage Flow: OFF")
 end
 
 -- Временная разблокировка для редактирования
@@ -248,9 +245,6 @@ gs.setup({
     -- Превью старого кода
     vim.keymap.set("n", "K", gs.preview_hunk, opts)
 
-    -- Blame line
-    vim.keymap.set("n", "b", gs.blame_line, opts)
-
     -- Навигация
     vim.keymap.set("n", "n", function()
       ---@diagnostic disable-next-line: missing-fields
@@ -280,15 +274,6 @@ gs.setup({
   end,
 })
 
--- Команда переключения gitsigns
-vim.api.nvim_create_user_command("GitStageFlow", function()
-  if git_flow_active then
-    turn_off_git_mode()
-  else
-    turn_on_git_mode()
-  end
-end, { desc = "Toggle Git Stage Flow" })
-
 vim.api.nvim_create_autocmd("User", {
   pattern = "GitSignsUpdate",
   group = augroup,
@@ -299,12 +284,43 @@ vim.api.nvim_create_autocmd("User", {
   end,
 })
 
--- Смена буфера (отключение gitsigns)
-vim.api.nvim_create_autocmd("BufLeave", {
+-- Обновление или сброс цвета окна при переключении между файлами/сплитами
+vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
   group = augroup,
   callback = function()
-    if git_flow_active then
-      turn_off_git_mode()
+    if not git_flow_active then
+      return
+    end
+
+    local win = vim.api.nvim_get_current_win()
+    local buf = vim.api.nvim_get_current_buf()
+
+    if managed_buffers[buf] then
+      -- Если буфер в реестре, обновляем его цвета
+      update_statusline_color(buf)
+    else
+      -- Если мы переключились на буфер вне реестра,
+      -- очищаем подсветку статус-лайна для текущего окна
+      set_winhl(win, nil)
     end
   end,
 })
+
+-- Команда управления gitsigns
+vim.api.nvim_create_user_command("GitStageFlow", function()
+  local current_buf = vim.api.nvim_get_current_buf()
+
+  if git_flow_active then
+    if managed_buffers[current_buf] then
+      turn_off_git_mode()
+      print("Git Stage Flow: OFF")
+    else
+      turn_off_git_mode()
+      turn_on_git_mode()
+      print("Git Stage Flow: ON")
+    end
+  else
+    turn_on_git_mode()
+    print("Git Stage Flow: ON")
+  end
+end, { desc = "Toggle Git Stage Flow" })
