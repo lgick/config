@@ -88,7 +88,7 @@ local function turn_on_git_mode()
 end
 
 local function turn_off_git_mode()
-  local keys = { "s", "S", "U", "u", "r", "R", "K", "b", "n", "p", "N", "P", "q" }
+  local keys = { "s", "S", "U", "u", "<C-r>", "r", "R", "K", "b", "n", "p", "N", "P", "q" }
 
   git_flow_active = false
   gs.detach_all()
@@ -207,6 +207,17 @@ gs.setup({
       do_with_modify(bufnr, function(done)
         vim.cmd("undo")
         done() -- Команда undo синхронна, вызов done() сразу после нее
+      end),
+      opts
+    )
+
+    -- ВОЗВРАТ ОТМЕНЁННЫХ ДЕЙСТВИЙ (REDO) --
+    vim.keymap.set(
+      "n",
+      "<C-r>",
+      do_with_modify(bufnr, function(done)
+        vim.cmd("redo")
+        done() -- Команда redo синхронна
       end),
       opts
     )

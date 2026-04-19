@@ -66,6 +66,17 @@ map("v", "<leader>c", '"+y')
 -- , + v: Вставляет из системного буфера
 map("n", "<leader>v", '"+p')
 
+-- , + u: Undotree
+map("n", "<leader>u", function()
+  require("undotree").open({
+    title = function(bufnr)
+      local file_name = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":t")
+      return file_name
+    end,
+    command = "50vnew",
+  })
+end, { desc = "Undotree" })
+
 -- , + f: File Explorer
 map("n", "<leader>f", "<cmd>NvimTreeToggle<CR>")
 
