@@ -90,3 +90,20 @@ vim.api.nvim_create_autocmd("LspProgress", {
     })
   end,
 })
+
+-- закрытие undotree при уходе с окна
+vim.api.nvim_create_autocmd("WinLeave", {
+  callback = function()
+    if vim.bo.filetype == "nvim-undotree" then
+      require("undotree").open()
+    end
+  end,
+})
+
+-- statusline undotree
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "nvim-undotree",
+  callback = function()
+    vim.opt_local.statusline = "UndoTree: %f %= %l/%L"
+  end,
+})

@@ -1,6 +1,83 @@
 local gs = require("gitsigns")
 local git_flow_active = false
 local managed_buffers = {} -- Реестр буферов, в которых включен режим
+local augroup = vim.api.nvim_create_augroup("GitStageFlowAuCmds", { clear = true })
+
+-- Изменение winhighlight
+local function set_winhl(win, new_rule)
+  if not vim.api.nvim_win_is_valid(win) then
+    return
+  end
+
+  local current = vim.wo[win].winhighlight or ""
+  local new_parts = {}
+
+  if current ~= "" then
+    for _, part in ipairs(vim.split(current, ",")) do
+      -- Отсеять пустые строки и старые правила Gitsigns
+      if part ~= "" and not part:match("^StatusLine:GitSignsStatusLine") then
+        table.insert(new_parts, part)
+      end
+    end
+  end
+
+  -- Если передано новое правило
+  if new_rule then
+    table.insert(new_parts, new_rule)
+  end
+
+  vim.wo[win].winhighlight = table.concat(new_parts, ",")
+end
+
+-- Проверка Staged-меток
+local function has_staged_signs(bnr)
+  local namespaces = vim.api.nvim_get_namespaces()
+
+  for name, ns_id in pairs(namespaces) do
+    if name:match("gitsigns") then
+      local extmarks = vim.api.nvim_buf_get_extmarks(bnr, ns_id, 0, -1, { details = true })
+
+      for _, mark in ipairs(extmarks) do
+        local details = mark[4]
+
+        if type(details) == "table" then
+          for _, v in pairs(details) do
+            if type(v) == "string" and v:match("^GitSignsStaged") then
+              return true
+            end
+          end
+        end
+      end
+    end
+  end
+
+  return false
+end
+
+-- Обновление цвета
+local function update_statusline_color(bnr)
+  if not git_flow_active or not vim.api.nvim_buf_is_valid(bnr) then
+    return
+  end
+
+  local status = vim.b[bnr].gitsigns_status_dict or {}
+  local has_unstaged = ((status.added or 0) + (status.changed or 0) + (status.removed or 0)) > 0
+  local target_hl_group = "GitSignsStatusLine"
+
+  if has_unstaged then
+    target_hl_group = "GitSignsStatusLineUnstaged"
+  elseif has_staged_signs(bnr) then
+    target_hl_group = "GitSignsStatusLineStaged"
+  end
+
+  local target_hl_rule = "StatusLine:" .. target_hl_group
+
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    if vim.api.nvim_win_is_valid(win) and vim.api.nvim_win_get_buf(win) == bnr then
+      set_winhl(win, target_hl_rule)
+    end
+  end
+end
 
 local function turn_on_git_mode()
   git_flow_active = true
@@ -11,7 +88,7 @@ local function turn_on_git_mode()
 end
 
 local function turn_off_git_mode()
-  local keys = { "s", "S", "U", "u", "r", "R", "K", "b", "n", "p", "N", "P", "q" }
+  local keys = { "s", "S", "U", "u", "<C-r>", "r", "R", "K", "b", "n", "p", "N", "P", "q" }
 
   git_flow_active = false
   gs.detach_all()
@@ -19,7 +96,6 @@ local function turn_off_git_mode()
   -- Очистка всех затронутых буферов
   for bnr, _ in pairs(managed_buffers) do
     if vim.api.nvim_buf_is_valid(bnr) then
-      -- Восстановление оригинального состояния modifiable
       if vim.b[bnr].original_modifiable ~= nil then
         vim.bo[bnr].modifiable = vim.b[bnr].original_modifiable
         vim.b[bnr].original_modifiable = nil -- очистка переменной
@@ -36,26 +112,9 @@ local function turn_off_git_mode()
 
   managed_buffers = {} -- Очистка реестра
 
-  -- Очистка подсветки
-  local windows = vim.api.nvim_list_wins() -- список существующих окон
-
-  for _, win in ipairs(windows) do
-    if vim.api.nvim_win_is_valid(win) then
-      local winhl = vim.wo[win].winhighlight
-
-      if winhl:match("StatusLine:GitSignsStatusLine") then
-        local parts = vim.split(winhl, ",")
-        local new_parts = {}
-
-        for _, part in ipairs(parts) do
-          if part ~= "StatusLine:GitSignsStatusLine" then
-            table.insert(new_parts, part)
-          end
-        end
-
-        vim.wo[win].winhighlight = table.concat(new_parts, ",")
-      end
-    end
+  -- Очистка подсветки в списке существующих окон
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    set_winhl(win, nil)
   end
 
   print("Git Stage Flow: OFF")
@@ -64,7 +123,6 @@ end
 -- Временная разблокировка для редактирования
 local function do_with_modify(bnr, action)
   return function()
-    -- Если буфера нет
     if not vim.api.nvim_buf_is_valid(bnr) then
       return
     end
@@ -74,9 +132,17 @@ local function do_with_modify(bnr, action)
     -- Функция, которая заблокирует буфер обратно
     local done = function()
       vim.schedule(function()
-        if vim.api.nvim_buf_is_valid(bnr) then
-          vim.bo[bnr].modifiable = false
+        if not vim.api.nvim_buf_is_valid(bnr) then
+          return
         end
+
+        -- Сохранение, если буфер изменён
+        if vim.bo[bnr].modified then
+          vim.cmd("silent! noautocmd update")
+        end
+
+        -- Блокировка
+        vim.bo[bnr].modifiable = false
       end)
     end
 
@@ -114,22 +180,11 @@ gs.setup({
   on_attach = function(bufnr)
     local opts = { nowait = true, silent = true, buffer = bufnr }
 
-    managed_buffers[bufnr] = true
-
-    -- Подсветка во всех окнах с текущим файлом
-    local windows = vim.api.nvim_list_wins() -- Все окна
-
-    for _, win in ipairs(windows) do
-      if vim.api.nvim_win_is_valid(win) then
-        -- Если окно отображает именно этот буфер, применяем подсветку
-        if vim.api.nvim_win_get_buf(win) == bufnr then
-          vim.wo[win].winhighlight = "StatusLine:GitSignsStatusLine"
-        end
-      end
+    if vim.bo[bufnr].modified then
+      vim.cmd("silent update")
     end
 
-    local win = vim.api.nvim_get_current_win() -- Текущее окно
-    vim.wo[win].winhighlight = "StatusLine:GitSignsStatusLine"
+    managed_buffers[bufnr] = true
 
     -- Сохранение изначального состояния modifiable в локальную переменную буфера
     if vim.b[bufnr].original_modifiable == nil then
@@ -151,6 +206,17 @@ gs.setup({
       do_with_modify(bufnr, function(done)
         vim.cmd("undo")
         done() -- Команда undo синхронна, вызов done() сразу после нее
+      end),
+      opts
+    )
+
+    -- ВОЗВРАТ ОТМЕНЁННЫХ ДЕЙСТВИЙ (REDO) --
+    vim.keymap.set(
+      "n",
+      "<C-r>",
+      do_with_modify(bufnr, function(done)
+        vim.cmd("redo")
+        done() -- Команда redo синхронна
       end),
       opts
     )
@@ -207,6 +273,10 @@ gs.setup({
     vim.keymap.set("n", "q", function()
       vim.cmd("GitStageFlow")
     end, opts)
+
+    vim.defer_fn(function()
+      update_statusline_color(bufnr)
+    end, 10)
   end,
 })
 
@@ -219,9 +289,19 @@ vim.api.nvim_create_user_command("GitStageFlow", function()
   end
 end, { desc = "Toggle Git Stage Flow" })
 
+vim.api.nvim_create_autocmd("User", {
+  pattern = "GitSignsUpdate",
+  group = augroup,
+  callback = function(args)
+    if args.data and args.data.buffer then
+      update_statusline_color(args.data.buffer)
+    end
+  end,
+})
+
 -- Смена буфера (отключение gitsigns)
 vim.api.nvim_create_autocmd("BufLeave", {
-  group = vim.api.nvim_create_augroup("GitStageFlowCleanup", { clear = true }),
+  group = augroup,
   callback = function()
     if git_flow_active then
       turn_off_git_mode()
