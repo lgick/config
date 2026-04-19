@@ -65,7 +65,7 @@ local function update_statusline_color(bnr)
   local target_hl_group = "GitSignsStatusLine"
 
   if has_unstaged then
-    target_hl_group = "GitSignsStatusLine"
+    target_hl_group = "GitSignsStatusLineUnstaged"
   elseif has_staged_signs(bnr) then
     target_hl_group = "GitSignsStatusLineStaged"
   end
@@ -133,9 +133,17 @@ local function do_with_modify(bnr, action)
     -- Функция, которая заблокирует буфер обратно
     local done = function()
       vim.schedule(function()
-        if vim.api.nvim_buf_is_valid(bnr) then
-          vim.bo[bnr].modifiable = false
+        if not vim.api.nvim_buf_is_valid(bnr) then
+          return
         end
+
+        -- Сохранение, если буфер изменён
+        if vim.bo[bnr].modified then
+          vim.cmd("silent update")
+        end
+
+        -- Блокировка
+        vim.bo[bnr].modifiable = false
       end)
     end
 
@@ -172,6 +180,10 @@ gs.setup({
   max_file_length = 40000, -- Отключать плагин, если в файле больше строк, чем указано
   on_attach = function(bufnr)
     local opts = { nowait = true, silent = true, buffer = bufnr }
+
+    if vim.bo[bufnr].modified then
+      vim.cmd("silent update")
+    end
 
     managed_buffers[bufnr] = true
 
