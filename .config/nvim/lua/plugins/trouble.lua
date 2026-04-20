@@ -1,4 +1,4 @@
-require("trouble").setup({
+require('trouble').setup({
   auto_refresh = true,
   auto_preview = true,
   restore_window = true, -- Возвращать фокус на предыдущее окно после закрытия
@@ -8,28 +8,28 @@ require("trouble").setup({
   multiline = true, -- Показывать длинные сообщения об ошибках целиком
 
   keys = {
-    ["?"] = "help",
-    r = "refresh",
-    ["<esc>"] = "close",
-    ["<cr>"] = "jump_close",
-    s = "jump_vsplit",
-    i = "jump_split",
-    o = "fold_toggle",
-    I = "inspect",
-    dd = "delete",
-    d = { action = "delete", mode = "v" },
-    X = "fold_close_all",
-    E = "fold_open_all",
+    ['?'] = 'help',
+    r = 'refresh',
+    ['<esc>'] = 'close',
+    ['<cr>'] = 'jump_close',
+    s = 'jump_vsplit',
+    i = 'jump_split',
+    o = 'fold_toggle',
+    I = 'inspect',
+    dd = 'delete',
+    d = { action = 'delete', mode = 'v' },
+    X = 'fold_close_all',
+    E = 'fold_open_all',
 
     R = false,
     q = false,
-    ["<2-leftmouse>"] = false,
-    ["<c-s>"] = false,
-    ["<c-v>"] = false,
-    ["}"] = false,
-    ["]]"] = false,
-    ["{"] = false,
-    ["[["] = false,
+    ['<2-leftmouse>'] = false,
+    ['<c-s>'] = false,
+    ['<c-v>'] = false,
+    ['}'] = false,
+    [']]'] = false,
+    ['{'] = false,
+    ['[['] = false,
     p = false,
     P = false,
     zo = false,
@@ -52,6 +52,6 @@ require("trouble").setup({
 
   -- Группировка (по умолчанию по файлам)
   groups = {
-    { "filename", format = "{file} {git_status} {count}" },
+    { 'filename', format = '{file} {git_status} {count}' },
   },
 })

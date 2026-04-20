@@ -1,31 +1,31 @@
 local parsers_to_install = {
-  "html",
-  "css",
-  "scss",
-  "styled",
-  "javascript",
-  "jsx",
-  "jsdoc",
-  "json",
-  "typescript",
-  "vue",
-  "pug",
-  "markdown",
-  "markdown_inline",
-  "bash",
-  "lua",
-  "luadoc",
-  "vim",
-  "vimdoc",
-  "dockerfile",
-  "gitignore",
-  "nginx",
-  "regex",
+  'html',
+  'css',
+  'scss',
+  'styled',
+  'javascript',
+  'jsx',
+  'jsdoc',
+  'json',
+  'typescript',
+  'vue',
+  'pug',
+  'markdown',
+  'markdown_inline',
+  'bash',
+  'lua',
+  'luadoc',
+  'vim',
+  'vimdoc',
+  'dockerfile',
+  'gitignore',
+  'nginx',
+  'regex',
 }
 
 local function install_missing_parsers()
   -- получение списка того, что уже установлено
-  local installed = require("nvim-treesitter").get_installed()
+  local installed = require('nvim-treesitter').get_installed()
 
   -- список в словарь для быстрого поиска
   local installed_dict = {}
@@ -42,19 +42,19 @@ local function install_missing_parsers()
 
   -- если чего-то не хватает - запуск установки
   if #missing > 0 then
-    require("nvim-treesitter").install(missing)
+    require('nvim-treesitter').install(missing)
   end
 end
 
 -- если tree-sitter установлен
-if vim.fn.executable("tree-sitter") == 1 then
+if vim.fn.executable('tree-sitter') == 1 then
   install_missing_parsers()
 else
-  vim.api.nvim_create_autocmd("User", {
-    pattern = "MasonToolsUpdateCompleted",
+  vim.api.nvim_create_autocmd('User', {
+    pattern = 'MasonToolsUpdateCompleted',
     once = true,
     callback = function()
-      if vim.fn.executable("tree-sitter") == 1 then
+      if vim.fn.executable('tree-sitter') == 1 then
         install_missing_parsers()
       end
     end,
@@ -62,8 +62,8 @@ else
 end
 
 -- включение подсветки синтаксиса через API ядра Neovim
-vim.api.nvim_create_autocmd("FileType", {
-  group = vim.api.nvim_create_augroup("TreesitterHighlight", { clear = true }),
+vim.api.nvim_create_autocmd('FileType', {
+  group = vim.api.nvim_create_augroup('TreesitterHighlight', { clear = true }),
   callback = function()
     pcall(vim.treesitter.start)
   end,

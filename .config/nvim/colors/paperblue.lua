@@ -1,1 +1,1 @@
-require("themes.paperblue").load()
+require('themes.paperblue').load()

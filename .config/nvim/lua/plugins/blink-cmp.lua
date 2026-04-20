@@ -1,10 +1,10 @@
-require("blink.cmp").setup({
+require('blink.cmp').setup({
   cmdline = {
     keymap = {
-      preset = "none",
-      ["<CR>"] = { "accept", "fallback" },
-      ["<C-n>"] = { "show", "insert_next", "fallback" },
-      ["<C-p>"] = { "insert_prev", "fallback" },
+      preset = 'none',
+      ['<CR>'] = { 'accept', 'fallback' },
+      ['<C-n>'] = { 'show', 'insert_next', 'fallback' },
+      ['<C-p>'] = { 'insert_prev', 'fallback' },
     },
     completion = {
       list = {
@@ -17,27 +17,27 @@ require("blink.cmp").setup({
           local before = ctx.line:sub(1, ctx.cursor[2])
 
           -- показывать только если последний символ точка или пробел или косая черта
-          return before:sub(-1) == "." or before:sub(-1) == " " or before:sub(-1) == "/"
+          return before:sub(-1) == '.' or before:sub(-1) == ' ' or before:sub(-1) == '/'
         end,
       },
     },
   },
   keymap = {
-    preset = "none",
-    ["<CR>"] = { "accept", "fallback" },
-    ["<ESC>"] = { "fallback", "hide" }, -- выходит из insert и скрывает меню
-    ["<C-n>"] = { "insert_next", "fallback" },
-    ["<C-p>"] = { "insert_prev", "fallback" },
-    ["<C-/>"] = { "snippet_forward", "fallback" },
-    ["<C-.>"] = { "snippet_backward", "fallback" },
-    ["<C-u>"] = { "scroll_documentation_up", "fallback" },
-    ["<C-d>"] = { "scroll_documentation_down", "fallback" },
-    ["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
+    preset = 'none',
+    ['<CR>'] = { 'accept', 'fallback' },
+    ['<ESC>'] = { 'fallback', 'hide' }, -- выходит из insert и скрывает меню
+    ['<C-n>'] = { 'insert_next', 'fallback' },
+    ['<C-p>'] = { 'insert_prev', 'fallback' },
+    ['<C-/>'] = { 'snippet_forward', 'fallback' },
+    ['<C-.>'] = { 'snippet_backward', 'fallback' },
+    ['<C-u>'] = { 'scroll_documentation_up', 'fallback' },
+    ['<C-d>'] = { 'scroll_documentation_down', 'fallback' },
+    ['<C-k>'] = { 'show_signature', 'hide_signature', 'fallback' },
   },
   appearance = {
     kind_icons = {
-      Folder = "󰉋",
-      File = "",
+      Folder = '󰉋',
+      File = '',
     },
   },
   completion = {
@@ -55,7 +55,7 @@ require("blink.cmp").setup({
 
       draw = {
         -- вид выпадающего списка
-        columns = { { "kind_icon", "label", "label_description", gap = 1 }, { "kind" } },
+        columns = { { 'kind_icon', 'label', 'label_description', gap = 1 }, { 'kind' } },
       },
     },
     documentation = {
@@ -64,28 +64,28 @@ require("blink.cmp").setup({
   },
   signature = { enabled = true },
   fuzzy = {
-    implementation = "prefer_rust_with_warning",
+    implementation = 'prefer_rust_with_warning',
     sorts = {
-      "score", -- Primary sort: by fuzzy matching score
-      "sort_text", -- Secondary sort: by sortText field if scores are equal
-      "label", -- Tertiary sort: by label if still tied
+      'score', -- Primary sort: by fuzzy matching score
+      'sort_text', -- Secondary sort: by sortText field if scores are equal
+      'label', -- Tertiary sort: by label if still tied
     },
     prebuilt_binaries = {
       download = true,
-      force_version = "v1.*",
+      force_version = 'v1.*',
     },
   },
   sources = {
     default = {
-      "lsp",
-      "lazydev",
-      "snippets",
-      "path",
-      "buffer",
+      'lsp',
+      'lazydev',
+      'snippets',
+      'path',
+      'buffer',
     },
     providers = {
       path = {
-        module = "blink.cmp.sources.path",
+        module = 'blink.cmp.sources.path',
         opts = {
           trailing_slash = false, -- добавлять / после выбора папки
           label_trailing_slash = false, -- показывать / в списке подсказок
@@ -93,21 +93,21 @@ require("blink.cmp").setup({
         },
       },
       snippets = {
-        module = "blink.cmp.sources.snippets",
+        module = 'blink.cmp.sources.snippets',
         opts = {
           friendly_snippets = false,
         },
       },
 
       lazydev = {
-        module = "lazydev.integrations.blink",
+        module = 'lazydev.integrations.blink',
       },
 
       lsp = {
-        module = "blink.cmp.sources.lsp",
+        module = 'blink.cmp.sources.lsp',
         transform_items = function(_, items)
           return vim.tbl_filter(function(item)
-            return item.kind ~= require("blink.cmp.types").CompletionItemKind.Keyword
+            return item.kind ~= require('blink.cmp.types').CompletionItemKind.Keyword
           end, items)
         end,
       },
@@ -116,7 +116,7 @@ require("blink.cmp").setup({
       buffer = {
         transform_items = function(_, items)
           return vim.tbl_filter(function(item)
-            return item.kind ~= require("blink.cmp.types").CompletionItemKind.Text
+            return item.kind ~= require('blink.cmp.types').CompletionItemKind.Text
           end, items)
         end,
       },

@@ -28,10 +28,10 @@ opt.cmdwinheight = 20
 opt.number = false
 opt.relativenumber = true
 opt.numberwidth = 1
-opt.statuscolumn = " %l "
+opt.statuscolumn = ' %l '
 
 -- Вывод информации в нумерации
-opt.signcolumn = "number"
+opt.signcolumn = 'number'
 
 -- Отображение имени буфера в заголовке терминала
 opt.title = true
@@ -60,14 +60,14 @@ opt.cursorcolumn = false
 -- вначале пустых строк
 -- строки свернутых функций
 -- командной строки
-opt.fillchars:append({ vert = "|", eob = " ", fold = " ", msgsep = " " })
+opt.fillchars:append({ vert = '|', eob = ' ', fold = ' ', msgsep = ' ' })
 
 ------------------------------------------
 -- Форматирование текста
 ------------------------------------------
 
 -- Установить keymap
-opt.keymap = "russian-jcukenmac"
+opt.keymap = 'russian-jcukenmac'
 
 -- По умолчанию - латинская раскладка
 opt.iminsert = 0
@@ -79,18 +79,18 @@ opt.imsearch = 0
 opt.mousehide = true
 
 -- Выделение мышкой
-opt.mouse = "r"
+opt.mouse = 'r'
 
 -- Кодировка
-opt.fileencodings = "utf8,cp1251"
-opt.encoding = "utf-8"
+opt.fileencodings = 'utf8,cp1251'
+opt.encoding = 'utf-8'
 
 -- Отключение .swp и резервных файлов
 opt.backup = false
 opt.swapfile = false
 
 -- Опции при удалении в режиме ввода
-opt.backspace = "indent,eol,start"
+opt.backspace = 'indent,eol,start'
 
 -- Умные отступы
 --opt.cin
@@ -110,10 +110,10 @@ opt.softtabstop = 2
 opt.shiftwidth = 2
 
 -- Настройка сессий
-opt.sessionoptions = "buffers,folds,sesdir,tabpages,globals,options,resize,winpos"
+opt.sessionoptions = 'buffers,folds,sesdir,tabpages,globals,options,resize,winpos'
 
 -- Undotree
-cmd("packadd nvim.undotree")
+cmd('packadd nvim.undotree')
 opt.undofile = true
 opt.undolevels = 5000
 
@@ -127,16 +127,16 @@ opt.statusline = "%<%f%h%m%r [%{&fenc}] %=%v-%l/%L %P [%{strftime('%a %d.%m.%Y %
 -- Цвет
 ------------------------------------------
 
-cmd.colorscheme("paperblue")
+cmd.colorscheme('paperblue')
 
 -- 24-битные цвета
 opt.termguicolors = true
 
 -- Тип цветовой схемы
-opt.background = "light"
+opt.background = 'light'
 
 -- Правило подсветки для символов после 80 столбца
-fn.matchadd("OverLength", [[\%81v.\+]])
+fn.matchadd('OverLength', [[\%81v.\+]])
 
 ------------------------------------------
 -- Невидимые символы (пробелы, табуляция)
@@ -147,11 +147,11 @@ opt.list = true
 
 -- Вид табуляции и пробела
 opt.listchars = {
-  tab = "· ",
-  trail = "·",
-  extends = ">",
-  precedes = "<",
-  nbsp = "&",
+  tab = '· ',
+  trail = '·',
+  extends = '>',
+  precedes = '<',
+  nbsp = '&',
 }
 
 ------------------------------------------
@@ -162,7 +162,7 @@ opt.listchars = {
 opt.hlsearch = true
 
 -- Выделение слова с знаком '-'
-opt.iskeyword:append("-")
+opt.iskeyword:append('-')
 
 -- Быстрый переход к искомому значению
 opt.incsearch = true
@@ -184,10 +184,10 @@ opt.foldenable = true
 -- indent: отступами
 -- syntax: синтаксический
 -- manual: вручную
-opt.foldmethod = "manual"
+opt.foldmethod = 'manual'
 
 -- Полоса отображения свернутых/развернутых блоков
-opt.foldcolumn = "0"
+opt.foldcolumn = '0'
 
 ----------------------------------------
 -- Автозавершение & Синтаксис
@@ -198,10 +198,10 @@ opt.showmatch = true
 
 -- Отключение добавления первого значения при вызове <c-x><c-o>
 --opt.completeopt = "longest,menuone"
-opt.completeopt = { "menu", "menuone", "noselect" }
+opt.completeopt = { 'menu', 'menuone', 'noselect' }
 
 -- Рамка floating окон
-opt.winborder = "rounded"
+opt.winborder = 'rounded'
 
 -- ленивая перерисовка интерфейса при выполнении макроса
 opt.lazyredraw = true

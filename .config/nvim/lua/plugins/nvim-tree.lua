@@ -2,15 +2,15 @@
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
-local nvimtree = require("nvim-tree")
+local nvimtree = require('nvim-tree')
 
 local function custom_attach(bufnr)
-  local api = require("nvim-tree.api")
+  local api = require('nvim-tree.api')
   local keymap = vim.keymap
 
   local function opts(desc)
     return {
-      desc = "nvim-tree: " .. desc,
+      desc = 'nvim-tree: ' .. desc,
       buffer = bufnr,
       noremap = true,
       silent = true,
@@ -47,7 +47,7 @@ local function custom_attach(bufnr)
       action()
 
       -- Проверка условия для закрытия
-      if node and node.type ~= "directory" and content_width < 85 then
+      if node and node.type ~= 'directory' and content_width < 85 then
         api.tree.close()
       end
     end
@@ -55,28 +55,28 @@ local function custom_attach(bufnr)
 
   -- custom mappings
   -- Действия открытия файлов с проверкой и возможным закрытием плагина
-  keymap.set("n", "o", open_with_window_check(api.node.open.edit), opts("Open"))
-  keymap.set("n", "<CR>", open_with_window_check(api.node.open.edit), opts("Open"))
-  keymap.set("n", "s", open_with_window_check(api.node.open.vertical), opts("Open Vertical"))
-  keymap.set("n", "i", open_with_window_check(api.node.open.horizontal), opts("Open Horizontal"))
-  keymap.set("n", "t", open_with_window_check(api.node.open.tab), opts("Open Tab"))
+  keymap.set('n', 'o', open_with_window_check(api.node.open.edit), opts('Open'))
+  keymap.set('n', '<CR>', open_with_window_check(api.node.open.edit), opts('Open'))
+  keymap.set('n', 's', open_with_window_check(api.node.open.vertical), opts('Open Vertical'))
+  keymap.set('n', 'i', open_with_window_check(api.node.open.horizontal), opts('Open Horizontal'))
+  keymap.set('n', 't', open_with_window_check(api.node.open.tab), opts('Open Tab'))
 
-  keymap.set("n", "O", api.node.run.system, opts("Run System"))
-  keymap.set("n", "?", api.tree.toggle_help, opts("Help"))
-  keymap.set("n", "C", api.tree.change_root_to_node, opts("Change Root"))
-  keymap.set("n", "I", api.filter.custom.toggle, opts("Toggle Custom Filter"))
-  keymap.set("n", "X", api.tree.collapse_all, opts("Collapse All"))
-  keymap.set("n", "E", api.tree.expand_all, opts("Expand All"))
-  keymap.set("n", "q", api.tree.close, opts("Close"))
-  keymap.set("n", "R", api.tree.reload, opts("Refresh"))
+  keymap.set('n', 'O', api.node.run.system, opts('Run System'))
+  keymap.set('n', '?', api.tree.toggle_help, opts('Help'))
+  keymap.set('n', 'C', api.tree.change_root_to_node, opts('Change Root'))
+  keymap.set('n', 'I', api.filter.custom.toggle, opts('Toggle Custom Filter'))
+  keymap.set('n', 'X', api.tree.collapse_all, opts('Collapse All'))
+  keymap.set('n', 'E', api.tree.expand_all, opts('Expand All'))
+  keymap.set('n', 'q', api.tree.close, opts('Close'))
+  keymap.set('n', 'R', api.tree.reload, opts('Refresh'))
 
-  keymap.set("n", "a", api.fs.create, opts("Create File"))
-  keymap.set("n", "c", api.fs.copy.node, opts("Copy"))
-  keymap.set("n", "x", api.fs.cut, opts("Cut"))
-  keymap.set("n", "p", api.fs.paste, opts("Paste"))
-  keymap.set("n", "d", api.fs.remove, opts("Delete"))
-  keymap.set("n", "r", api.fs.rename, opts("Rename"))
-  keymap.set("n", "u", api.fs.rename_full, opts("Rename Full Path"))
+  keymap.set('n', 'a', api.fs.create, opts('Create File'))
+  keymap.set('n', 'c', api.fs.copy.node, opts('Copy'))
+  keymap.set('n', 'x', api.fs.cut, opts('Cut'))
+  keymap.set('n', 'p', api.fs.paste, opts('Paste'))
+  keymap.set('n', 'd', api.fs.remove, opts('Delete'))
+  keymap.set('n', 'r', api.fs.rename, opts('Rename'))
+  keymap.set('n', 'u', api.fs.rename_full, opts('Rename Full Path'))
 end
 
 nvimtree.setup({
@@ -90,19 +90,19 @@ nvimtree.setup({
       max = 40, -- Максимальная ширина окна
     },
     adaptive_size = true, -- Автоматическое изменение ширины окна
-    side = "left", -- Позиция окна (left/right)
+    side = 'left', -- Позиция окна (left/right)
   },
 
   renderer = {
-    highlight_git = "name",
-    highlight_modified = "none",
-    highlight_diagnostics = "none",
+    highlight_git = 'name',
+    highlight_modified = 'none',
+    highlight_diagnostics = 'none',
     indent_markers = {
       enable = true, -- Направляющие линии
     },
     icons = {
-      diagnostics_placement = "before",
-      modified_placement = "after",
+      diagnostics_placement = 'before',
+      modified_placement = 'after',
       web_devicons = {
         file = {
           enable = false,
@@ -118,8 +118,8 @@ nvimtree.setup({
         diagnostics = true,
       },
       glyphs = {
-        default = "",
-        modified = "󰙏",
+        default = '',
+        modified = '󰙏',
       },
     },
   },
@@ -138,22 +138,22 @@ nvimtree.setup({
 
   filters = {
     custom = {
-      "^%.",
-      ".gitignore",
-      "package-lock.json",
-      "node_modules",
-      ".certs",
-      "^.git$",
-      ".DS_Store",
-      "*.pyc",
-      "*.o",
-      "*.obj",
-      "*.svn",
-      "*.swp",
-      "*.class",
-      "*.hg",
-      "*.tmp",
-      "*.zip",
+      '^%.',
+      '.gitignore',
+      'package-lock.json',
+      'node_modules',
+      '.certs',
+      '^.git$',
+      '.DS_Store',
+      '*.pyc',
+      '*.o',
+      '*.obj',
+      '*.svn',
+      '*.swp',
+      '*.class',
+      '*.hg',
+      '*.tmp',
+      '*.zip',
     },
   },
 
@@ -181,10 +181,10 @@ nvimtree.setup({
       max = vim.diagnostic.severity.ERROR, -- Максимальный уровень
     },
     icons = {
-      hint = "",
-      info = "",
-      warning = "",
-      error = "",
+      hint = '',
+      info = '',
+      warning = '',
+      error = '',
     },
   },
 })

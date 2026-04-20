@@ -1,5 +1,5 @@
 local ts_inlay_hints = {
-  includeInlayParameterNameHints = "all",
+  includeInlayParameterNameHints = 'all',
   includeInlayParameterNameHintsWhenArgumentMatchesName = false,
   includeInlayFunctionParameterTypeHints = true,
   includeInlayVariableTypeHints = true,

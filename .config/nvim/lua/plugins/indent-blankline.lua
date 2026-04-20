@@ -1,7 +1,7 @@
-local ibl = require("ibl")
+local ibl = require('ibl')
 
 ibl.setup({
-  indent = { char = "┊" },
+  indent = { char = '┊' },
 
   scope = {
     enabled = false, -- отключение рамки и подсветки активного блока
