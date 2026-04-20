@@ -21,6 +21,7 @@ local parsers_to_install = {
   'gitignore',
   'nginx',
   'regex',
+  'yaml',
 }
 
 local function install_missing_parsers()
