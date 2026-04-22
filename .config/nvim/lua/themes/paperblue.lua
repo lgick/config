@@ -167,20 +167,20 @@ local function set_highlights()
     -- 3. DIAGNOSTICS (Диагностика)
     -- ==========================================
     DiagnosticOk = { fg = C.olive },
-    DiagnosticHint = { fg = C.teal },
-    DiagnosticInfo = { fg = C.teal },
+    DiagnosticHint = { fg = C.blue },
+    DiagnosticInfo = { fg = C.blue },
     DiagnosticWarn = { fg = C.orange },
     DiagnosticError = { fg = C.dark_red },
 
     DiagnosticUnderlineOk = { undercurl = true, sp = C.olive },
-    DiagnosticUnderlineHint = { undercurl = true, sp = C.teal },
-    DiagnosticUnderlineInfo = { undercurl = true, sp = C.teal },
+    DiagnosticUnderlineHint = { undercurl = true, sp = C.blue },
+    DiagnosticUnderlineInfo = { undercurl = true, sp = C.blue },
     DiagnosticUnderlineWarn = { undercurl = true, sp = C.orange },
     DiagnosticUnderlineError = { undercurl = true, sp = C.dark_red },
 
     DiagnosticVirtualTextOk = { fg = C.olive },
-    DiagnosticVirtualTextHint = { fg = C.teal },
-    DiagnosticVirtualTextInfo = { fg = C.teal },
+    DiagnosticVirtualTextHint = { fg = C.blue },
+    DiagnosticVirtualTextInfo = { fg = C.blue },
     DiagnosticVirtualTextWarn = { fg = C.orange },
     DiagnosticVirtualTextError = { fg = C.dark_red },
 
