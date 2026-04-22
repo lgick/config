@@ -26,6 +26,7 @@ vim.pack.add({
   { src = 'https://github.com/folke/trouble.nvim' }, -- окно ошибок и предупреждений
 
   { src = 'https://www.github.com/lewis6991/gitsigns.nvim' }, -- git
+  { src = 'https://github.com/lgick/gitstager.nvim' }, -- gitstager
 })
 
 require('plugins.mason')
@@ -45,4 +46,4 @@ require('nvim-autopairs').setup()
 require('nvim-ts-autotag').setup()
 require('plugins.snacks')
 require('plugins.trouble')
-require('plugins.gitsigns')
+require('gitstager').setup()

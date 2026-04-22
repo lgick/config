@@ -29,7 +29,7 @@ snacks.setup({
 
   notifier = {
     enabled = true,
-    timeout = 1000,
+    timeout = 5000,
   },
   styles = {
     notification = {
