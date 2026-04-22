@@ -23,7 +23,7 @@ g.mapleader = ','
 map('i', '<C-l>', '<C-^>')
 
 -- Сброс языка при выходе из Insert mode
-map('i', '<ESC>', '<ESC><cmd>set iminsert=0<CR>')
+map('i', '<ESC>', '<ESC><cmd>set iminsert=0<CR>', { silent = true })
 
 ------------------------------------------
 -- Поиск
@@ -41,11 +41,12 @@ map('c', '<C-l>', '<C-^>')
 ------------------------------------------
 
 -- Отключение стрелочек
-map('n', '<Up>', '<nop>')
-map('n', '<Down>', '<nop>')
-map('n', '<Left>', '<nop>')
-map('n', '<Right>', '<nop>')
-map('i', '<BS>', '<nop>')
+map('n', '<Up>', '<nop>', { silent = true })
+map('n', '<Down>', '<nop>', { silent = true })
+map('n', '<Left>', '<nop>', { silent = true })
+map('n', '<Right>', '<nop>', { silent = true })
+map('i', '<BS>', '<nop>', { silent = true })
+map('c', '<Tab>', '<nop>', { silent = true })
 
 ----------------------------------------
 -- Hotkeys

@@ -171,7 +171,7 @@ gs.setup({
   },
 
   current_line_blame_formatter = '<author>, <author_time:%R> - <summary>', -- Формат строки blame
-  sign_priority = 6, -- Приоритет значков (если есть другие плагины в gutter)
+  sign_priority = 6, -- Приоритет значков (если есть другие плагины)
   update_debounce = 100, -- Частота обновления значков при вводе текста
   max_file_length = 40000, -- Отключать плагин, если в файле больше строк, чем указано
   on_attach = function(bufnr)
