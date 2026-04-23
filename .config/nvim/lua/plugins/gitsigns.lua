@@ -248,19 +248,19 @@ gs.setup({
     -- Навигация
     vim.keymap.set('n', 'n', function()
       ---@diagnostic disable-next-line: missing-fields
-      gs.nav_hunk('next', { target = 'all' })
+      gs.nav_hunk('next')
     end, opts)
     vim.keymap.set('n', 'N', function()
       ---@diagnostic disable-next-line: missing-fields
-      gs.nav_hunk('next')
+      gs.nav_hunk('next', { target = 'all' })
     end, opts)
     vim.keymap.set('n', 'p', function()
       ---@diagnostic disable-next-line: missing-fields
-      gs.nav_hunk('prev', { target = 'all' })
+      gs.nav_hunk('prev')
     end, opts)
     vim.keymap.set('n', 'P', function()
       ---@diagnostic disable-next-line: missing-fields
-      gs.nav_hunk('prev')
+      gs.nav_hunk('prev', { target = 'all' })
     end, opts)
 
     -- Выход из режима
