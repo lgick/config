@@ -299,7 +299,7 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'WinEnter' }, {
     local win = vim.api.nvim_get_current_win()
     local buf = vim.api.nvim_get_current_buf()
 
-    if not vim.b[buf].gitsigns_status_dict then
+    if vim.b[buf].gitsigns_status_dict then
       -- Если буфер в реестре, обновляем его цвета
       update_statusline_color(buf)
     else
