@@ -87,8 +87,8 @@ map('n', '<leader>o', '<cmd>AerialToggle<CR>')
 --- , + w: Git blame
 map('n', '<leader>w', '<cmd>Gitsigns blame<CR>', { desc = 'Git Blame' })
 
---- , + l: Git stage flow
-map('n', '<leader>l', '<cmd>GitStageFlow<CR>', { desc = 'Git Stage Flow' })
+--- , + k: Git stage flow
+map('n', '<leader>k', '<cmd>GitStageFlow<CR>', { desc = 'Git Stage Flow' })
 
 -- , + y: Autoformat toggle
 map('n', '<leader>y', function()
@@ -207,6 +207,9 @@ map({ 'n', 'v' }, '<leader>m', vim.lsp.buf.code_action)
 map('n', '<leader>t', function()
   vim.diagnostic.enable(not vim.diagnostic.is_enabled())
 end)
+
+-- Принудительная загрузка ts-файлов проекта
+map('n', '<leader>l', '<cmd>TsLsForceLoad<CR>')
 
 ----------------------------------------
 -- Trouble

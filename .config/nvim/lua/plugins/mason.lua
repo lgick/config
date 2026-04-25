@@ -28,59 +28,62 @@ vim.diagnostic.config({
   severity_sort = true, -- Приоритет более важных ошибок
 })
 
-vim.api.nvim_create_autocmd('LspAttach', {
-  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-  callback = function(ev)
-    local opts = { buffer = ev.buf }
-    local client = vim.lsp.get_client_by_id(ev.data.client_id)
+local function force_load_ts_ls()
+  local clients = vim.lsp.get_clients({ name = 'ts_ls' })
+  if #clients == 0 then
+    print('❌ Ошибка: ts_ls не запущен в данном буфере!')
+    return
+  end
 
-    ---- === ПРЯМАЯ И ГАРАНТИРОВАННАЯ ОТПРАВКА ФАЙЛОВ В TS_LS ===
-    if client and client.name == 'ts_ls' then
-      -- Даем серверу 2 секунды на чтение jsconfig.json
-      vim.defer_fn(function()
-        local gitPath = vim.fn.systemlist('git rev-parse --show-toplevel')[1]
-        if not gitPath or gitPath == '' or gitPath:match('fatal') then
-          return
-        end
+  local client = clients[1]
+  print('⏳ Начинаю загрузку файлов проекта в ts_ls...')
 
-        -- Получаем список файлов (только JS, исключая node_modules)
-        local cmd = string.format(
-          "git -C %s ls-files | grep -E '\\.(js|jsx|ts|tsx)$' | grep -v 'node_modules' | grep -v 'dist'",
-          gitPath
-        )
-        local files = vim.fn.systemlist(cmd)
-        local count = 0
+  local gitPath = vim.fn.systemlist('git rev-parse --show-toplevel')[1]
+  if not gitPath or gitPath == '' or gitPath:match('fatal') then
+    print(
+      '❌ Ошибка: Не удалось найти корень git-репозитория'
+    )
+    return
+  end
 
-        for _, file in ipairs(files) do
-          local abs_path = gitPath .. '/' .. file
+  local cmd = string.format(
+    "git -C %s ls-files | grep -E '\\.(js|jsx|ts|tsx)$' | grep -v 'node_modules' | grep -v 'dist'",
+    gitPath
+  )
+  local files = vim.fn.systemlist(cmd)
+  local count = 0
 
-          -- Проверяем, существует ли файл и можно ли его прочитать
-          if vim.fn.filereadable(abs_path) == 1 then
-            local uri = vim.uri_from_fname(abs_path)
-            local lines = vim.fn.readfile(abs_path)
-            local text = table.concat(lines, '\n')
+  for _, file in ipairs(files) do
+    local abs_path = gitPath .. '/' .. file
 
-            -- Имитируем для ts_ls открытие файла (именно так работают IDE)
-            client.rpc.notify('textDocument/didOpen', {
-              textDocument = {
-                uri = uri,
-                languageId = 'javascript',
-                version = 0,
-                text = text,
-              },
-            })
-            count = count + 1
-          end
-        end
-        print(
-          '✅ УСПЕХ: В ts_ls принудительно загружено '
-            .. count
-            .. ' файлов!'
-        )
-      end, 2000)
+    if vim.fn.filereadable(abs_path) == 1 then
+      local uri = vim.uri_from_fname(abs_path)
+      local lines = vim.fn.readfile(abs_path)
+      local text = table.concat(lines, '\n')
+
+      local langId = 'javascript'
+      if file:match('%.ts$') then
+        langId = 'typescript'
+      elseif file:match('%.tsx$') then
+        langId = 'typescriptreact'
+      elseif file:match('%.jsx$') then
+        langId = 'javascriptreact'
+      end
+
+      client.rpc.notify('textDocument/didOpen', {
+        textDocument = { uri = uri, languageId = langId, version = 0, text = text },
+      })
+      count = count + 1
     end
+  end
+  print(
+    '✅ УСПЕХ: В ts_ls принудительно загружено '
+      .. count
+      .. ' файлов!'
+  )
+end
 
-    -- твои стандартные горячие клавиши
-    vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, opts)
-  end,
+-- Создаем команду, которую будет видно во всем Neovim
+vim.api.nvim_create_user_command('TsLsForceLoad', force_load_ts_ls, {
+  desc = 'Принудительно загрузить все файлы проекта в ts_ls',
 })
