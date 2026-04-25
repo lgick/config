@@ -275,6 +275,7 @@ map('n', '<leader>9', function()
     fn.stdpath('cache'), -- ~/.cache/nvim
     fn.stdpath('data'), -- ~/.local/share/nvim
     fn.stdpath('state'), -- ~/.local/state/nvim
+    fn.stdpath('config') .. '/nvim-pack-lock.json',
   }
 
   for _, path in ipairs(paths) do
