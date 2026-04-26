@@ -24,14 +24,14 @@ local C = {
   emerald = '#00af5f',
   yellow = '#ffff5f',
 
-  slate = '#627282',
+  carbon = '#636363',
   sky = '#afd7ff',
 
-  light_blue = '#cffaff',
-  light_green = '#b9fbc0',
-  light_yellow = '#fdffb6',
-  light_orange = '#ffd6a5',
-  light_red = '#ffd6d6',
+  light_blue = '#b3d9ff',
+  light_green = '#c4f0c5',
+  light_yellow = '#fdfeb8',
+  light_orange = '#ffcc99',
+  light_red = '#ffc8c8',
 }
 
 local function set_highlights()
@@ -50,6 +50,7 @@ local function set_highlights()
     ColorColumn = { bg = C.off_white },
     CursorColumn = { bg = C.off_white },
     CursorLine = { bg = C.off_white },
+    CursorLineNr = { fg = C.rust, bg = C.off_white },
 
     Cursor = { fg = C.white, bg = C.cyan },
     lCursor = { link = 'Cursor' },
@@ -65,20 +66,20 @@ local function set_highlights()
     LineNr = { fg = C.dark_grey },
     LineNrAbove = { link = 'LineNr' },
     LineNrBelow = { link = 'LineNr' },
-    CursorLineNr = { fg = C.rust, bg = C.off_white },
 
     SignColumn = { fg = C.dark_grey },
     FoldColumn = { fg = C.dark_grey },
-    Folded = { fg = C.slate, bg = C.sky },
+    Folded = { fg = C.slate, bg = C.light_blue },
 
     WinSeparator = { fg = C.cyan },
     VertSplit = { link = 'WinSeparator' },
 
     MatchParen = { fg = C.cyan, bg = C.light_grey },
 
-    Search = { fg = C.black, bg = C.yellow },
-    CurSearch = { fg = C.yellow, bg = C.black, bold = true },
-    IncSearch = { fg = C.yellow, bg = C.black },
+    Search = { fg = C.black, bg = C.yellow, bold = false }, -- Обычные совпадения поиска
+    CurSearch = { fg = C.black, bg = C.yellow, bold = true }, -- Текущее совпадение
+    IncSearch = { link = 'CurSearch' }, -- Предварительный просмотр при наборе
+
     Substitute = { fg = C.white, bg = C.red },
     Visual = { fg = C.white, bg = C.teal },
     VisualNOS = { link = 'Visual' },
@@ -111,10 +112,10 @@ local function set_highlights()
     SpellLocal = { undercurl = true, sp = C.cyan },
     SpellRare = { undercurl = true, sp = C.orange },
 
-    DiffAdd = { fg = C.green, bg = C.light_green },
-    DiffChange = { fg = C.black, bg = C.off_white },
-    DiffDelete = { fg = C.dark_red, bg = C.light_red },
-    DiffText = { fg = C.teal, bg = 'None' },
+    DiffAdd = { fg = 'NONE', bg = C.light_green },
+    DiffDelete = { fg = 'NONE', bg = C.light_red },
+    DiffChange = { fg = 'NONE', bg = C.light_grey },
+    DiffText = { fg = 'NONE', bg = C.light_yellow },
 
     -- ==========================================
     -- 2. STANDARD SYNTAX (Стандартный синтаксис)
@@ -264,8 +265,6 @@ local function set_highlights()
     ['@tag.attribute'] = { fg = C.pink },
     ['@tag.delimiter'] = { fg = C.black },
 
-    ['@nospell'] = { link = 'Comment' },
-
     -- ==========================================
     -- 5. Snack
     -- ==========================================
@@ -293,8 +292,8 @@ local function set_highlights()
     NvimTreeModifiedIcon = { fg = C.black, nocombine = true },
     NvimTreeFolderIcon = { link = 'Directory', nocombine = true },
 
-    NvimTreeCopiedHL = { bg = C.light_yellow, nocombine = true },
-    NvimTreeCutHL = { bg = C.light_orange, nocombine = true },
+    NvimTreeCopiedHL = { bg = C.light_yellow, fg = C.slate, nocombine = true },
+    NvimTreeCutHL = { bg = C.light_orange, fg = C.slate, nocombine = true },
 
     NvimTreeIndentMarker = { fg = C.light_grey, nocombine = true },
 
@@ -376,6 +375,69 @@ local function set_highlights()
     -- GitSignsStagedChangedelete = { bg = C.olive }, -- Для изменений с удалением под ними
     -- GitSignsStagedTopdelete = { bg = C.olive }, -- Для удалений в самом верху файла
     -- GitSignsStagedUntracked = { bg = C.olive }, -- Для не отслеживаемых файлов
+
+    -- ==========================================
+    -- 9. Diffview
+    -- ==========================================
+
+    -- Общие UI / базовые группы
+    -- DiffviewNormal -- основной фон/текст окна diffview
+    -- DiffviewCursorLine -- строка под курсором
+    -- DiffviewEndOfBuffer -- пустые строки после конца файла (~)
+    -- DiffviewWinSeparator -- разделители между окнами
+    -- DiffviewSignColumn -- колонка со знаками (гит-иконки и т.п.)
+    -- DiffviewStatusLine -- активный statusline
+    -- DiffviewStatusLineNC -- неактивный statusline
+
+    -- Цветовые роли / абстрактные уровни
+    -- Используются как вспомогательные цвета внутри темы.
+    -- DiffviewPrimary -- основной акцентный цвет
+    -- DiffviewSecondary -- вторичный акцент
+    -- DiffviewDim1 -- приглушённый/неактивный текст
+
+    -- Навигационная панель
+    -- DiffviewFilePanelTitle -- заголовок панели
+    -- DiffviewFilePanelCounter -- счётчик файлов
+    -- DiffviewFilePanelFileName -- имя файла
+    -- DiffviewFilePanelPath -- путь к файлу
+    -- DiffviewFilePanelRootPath -- корневой путь репозитория
+    DiffviewFilePanelSelected = { bg = C.emerald, fg = C.white, bold = true }, -- выделенный файл
+    -- DiffviewFilePanelInsertions -- количество добавлений
+    -- DiffviewFilePanelDeletions -- количество удалений
+    -- DiffviewFilePanelConflicts -- файлы с конфликтами
+
+    -- Папки / структура
+    -- DiffviewFolderName -- имя папки
+    -- DiffviewFolderSign -- значок/иконка папки
+
+    -- Diff (изменения в файлах)
+    -- DiffviewDiffAdd -- добавленные строки
+    -- DiffviewDiffDelete -- удалённые строки
+    -- DiffviewDiffChange -- изменённые строки
+    -- DiffviewDiffText -- подсветка внутри строки (inline diff)
+    DiffviewDiffDeleteDim = { bg = C.off_white, fg = C.off_white }, -- приглушённые удалённые строки
+    -- DiffviewDiffAddAsDelete -- добавление, отображаемое как удаление (например, при rename/replace)
+
+    -- Git-статусы файлов. Это цвета для букв/иконок рядом с файлами.
+    -- DiffviewStatusAdded -- добавлен
+    -- DiffviewStatusModified -- изменён
+    -- DiffviewStatusDeleted -- удалён
+    -- DiffviewStatusRenamed -- переименован
+    -- DiffviewStatusCopied -- скопирован
+    -- DiffviewStatusUntracked -- не отслеживается
+    -- DiffviewStatusUnmerged -- конфликт (merge)
+    -- DiffviewStatusTypeChange -- изменён тип (например, файл → symlink)
+    -- DiffviewStatusBroken -- повреждён/некорректный
+    -- DiffviewStatusUnknown -- неизвестный статус
+    -- DiffviewStatusIgnored -- игнорируется (.gitignore)
+
+    -- Референсы / commit / reflog (история git)
+    -- DiffviewReference -- ссылки (ветки, HEAD, теги)
+    -- DiffviewHash -- хэш коммита
+    -- DiffviewReflogSelector -- селектор reflog
+
+    -- Прочее / специальные элементы
+    -- DiffviewNonText -- символы вроде ^M, табы, невидимые символы
   }
 
   local nvimTreeColors = {

@@ -57,7 +57,7 @@ opt.cursorcolumn = false
 -- вначале пустых строк
 -- строки свернутых функций
 -- командной строки
-opt.fillchars:append({ vert = '|', eob = ' ', fold = ' ', msgsep = ' ' })
+opt.fillchars:append({ diff = ' ', vert = '|', eob = ' ', fold = ' ', msgsep = ' ' })
 
 ------------------------------------------
 -- Форматирование текста
