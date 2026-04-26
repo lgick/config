@@ -22,8 +22,10 @@ local C = {
   ash = '#b2b2b2',
   rust = '#af5f00',
   emerald = '#00af5f',
-  sky = '#afd7ff',
   yellow = '#ffff5f',
+
+  slate = '#627282',
+  sky = '#afd7ff',
 
   light_blue = '#cffaff',
   light_green = '#b9fbc0',
@@ -65,9 +67,9 @@ local function set_highlights()
     LineNrBelow = { link = 'LineNr' },
     CursorLineNr = { fg = C.rust, bg = C.off_white },
 
-    SignColumn = { fg = C.green },
-    FoldColumn = { fg = C.teal },
-    Folded = { fg = C.teal, bg = C.sky },
+    SignColumn = { fg = C.dark_grey },
+    FoldColumn = { fg = C.dark_grey },
+    Folded = { fg = C.slate, bg = C.sky },
 
     WinSeparator = { fg = C.cyan },
     VertSplit = { link = 'WinSeparator' },
