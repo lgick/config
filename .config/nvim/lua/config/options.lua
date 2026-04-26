@@ -25,13 +25,10 @@ opt.cmdheight = 1
 opt.cmdwinheight = 20
 
 -- Номерация строк
-opt.number = false
+opt.number = true
 opt.relativenumber = true
 opt.numberwidth = 1
-opt.statuscolumn = ' %l '
-
--- Вывод информации в нумерации
-opt.signcolumn = 'number'
+opt.statuscolumn = '%l '
 
 -- Отображение имени буфера в заголовке терминала
 opt.title = true

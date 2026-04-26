@@ -1,3 +1,26 @@
+local actions = require('diffview.actions')
+
+require('diffview').setup({
+  keymaps = {
+    view = {
+      -- Закрывать Diffview по нажатию 'q' в окнах с кодом
+      ['q'] = '<Cmd>DiffviewClose<CR>',
+      -- Находясь в окне с кодом, жмем ]c для перехода к следующему (старому) коммиту
+      [']c'] = actions.select_next_commit,
+      -- Жмем [c для перехода к предыдущему (новому) коммиту
+      ['[c'] = actions.select_prev_commit,
+    },
+    file_panel = {
+      -- Закрывать Diffview по нажатию 'q' в панели файлов
+      ['q'] = '<Cmd>DiffviewClose<CR>',
+    },
+    file_history_panel = {
+      -- Закрывать Diffview по нажатию 'q' в панели истории коммитов
+      ['q'] = '<Cmd>DiffviewClose<CR>',
+    },
+  },
+})
+
 local gs = require('gitsigns')
 local git_flow_active = false
 local managed_buffers = {} -- Реестр буферов, в которых включен режим
@@ -265,6 +288,28 @@ gs.setup({
 
     vim.keymap.set('n', 'w', function()
       gs.blame_line({ full = true })
+    end, opts)
+
+    vim.keymap.set({ 'n', 'x' }, 'd', function()
+      -- Получаем текущий режим
+      local mode = vim.fn.mode()
+
+      -- Если мы в визуальном режиме (обычный 'v', построчный 'V' или блочный Ctrl+V '\22')
+      if mode == 'v' or mode == 'V' or mode == '\22' then
+        -- 1. Принудительно выходим из визуального режима (эквивалент нажатия Esc).
+        -- Это зафиксирует границы выделения в маркеры '< и '>
+        vim.cmd('normal! \27')
+
+        -- 2. Закрываем GitStageFlow
+        vim.cmd('GitStageFlow')
+
+        -- 3. Открываем историю только для выделенных строк
+        vim.cmd("'<,'>DiffviewFileHistory")
+      else
+        -- Поведение для обычного режима (Normal mode)
+        vim.cmd('GitStageFlow')
+        vim.cmd('DiffviewFileHistory %')
+      end
     end, opts)
 
     vim.keymap.set('n', 'q', function()
