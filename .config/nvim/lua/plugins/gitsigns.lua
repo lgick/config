@@ -87,7 +87,7 @@ local function turn_on_git_mode()
 end
 
 local function turn_off_git_mode()
-  local keys = { 's', 'S', 'U', 'u', '<C-r>', 'r', 'R', 'K', 'n', 'p', 'N', 'P', 'q' }
+  local keys = { 's', 'S', 'U', 'u', '<C-r>', 'r', 'R', 'K', 'n', 'p', 'N', 'P', 'w', 'q' }
 
   git_flow_active = false
   gs.detach_all()
@@ -263,14 +263,15 @@ gs.setup({
       gs.nav_hunk('prev', { target = 'all' })
     end, opts)
 
-    -- Выход из режима
-    vim.keymap.set('n', 'q', function()
-      vim.cmd('GitStageFlow')
+    vim.keymap.set('n', 'w', function()
+      gs.blame_line({ full = true })
     end, opts)
 
-    vim.defer_fn(function()
-      update_statusline_color(bufnr)
-    end, 10)
+    vim.keymap.set('n', 'q', function()
+      gs.setqflist('all')
+    end, opts)
+
+    update_statusline_color(bufnr)
   end,
 })
 

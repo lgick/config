@@ -84,11 +84,8 @@ map('n', '<leader>f', '<cmd>NvimTreeToggle<CR>')
 -- , + o: Aerial - code navigation
 map('n', '<leader>o', '<cmd>AerialToggle<CR>')
 
---- , + w: Git blame
-map('n', '<leader>w', '<cmd>Gitsigns blame<CR>', { desc = 'Git Blame' })
-
---- , + k: Git stage flow
-map('n', '<leader>k', '<cmd>GitStageFlow<CR>', { desc = 'Git Stage Flow' })
+--- , + w: Git stage flow
+map('n', '<leader>w', '<cmd>GitStageFlow<CR>', { desc = 'Git Stage Flow' })
 
 -- , + y: Autoformat toggle
 map('n', '<leader>y', function()
