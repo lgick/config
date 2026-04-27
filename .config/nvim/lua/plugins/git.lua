@@ -1,14 +1,16 @@
-local actions = require('diffview.actions')
-
 require('diffview').setup({
+  enhanced_diff_hl = true, -- Улучшенная подсветка диффов
+  view = {
+    -- Настройки по умолчанию для всех окон с кодом
+    default = {
+      disable_diagnostics = true, -- Отключение ошибок LSP в диффах
+      winbar_info = true, -- Плашки "a/файл" и "b/файл" сверху
+    },
+  },
   keymaps = {
     view = {
       -- Закрывать Diffview по нажатию 'q' в окнах с кодом
       ['q'] = '<Cmd>DiffviewClose<CR>',
-      -- Находясь в окне с кодом, жмем ]c для перехода к следующему (старому) коммиту
-      [']c'] = actions.select_next_commit,
-      -- Жмем [c для перехода к предыдущему (новому) коммиту
-      ['[c'] = actions.select_prev_commit,
     },
     file_panel = {
       -- Закрывать Diffview по нажатию 'q' в панели файлов
@@ -22,9 +24,67 @@ require('diffview').setup({
 })
 
 local gs = require('gitsigns')
-local git_flow_active = false
-local managed_buffers = {} -- Реестр буферов, в которых включен режим
+local active_buf = nil
 local augroup = vim.api.nvim_create_augroup('GitStageFlowAuCmds', { clear = true })
+
+gs.setup({
+  signs_staged_enable = true, -- Включить отображение знаков для индексированных изменений
+  auto_attach = false, -- Автоматически подключаться к открытым буферам
+  signcolumn = false, -- Показывать значки на боковой панели (gutter)
+  numhl = true, -- Подсвечивать номера строк
+  linehl = true, -- Подсвечивать всю строку целиком
+  word_diff = true, -- Подсвечивать внутристрочные изменения
+  watch_gitdir = {
+    follow_files = true, -- Следить за изменениями в .git директории
+  },
+
+  attach_to_untracked = false, -- Показывать значки для файлов вне индекса Git
+  current_line_blame = false, -- Показывать автора и дату правки в текущей строке
+  current_line_blame_opts = {
+    virt_text = true, -- Использовать виртуальный текст для inline-blame
+    virt_text_pos = 'eol', -- Позиция текста: в конце строки (eol), поверх или справа
+    delay = 1000, -- Задержка перед появлением текста (в мс)
+    ignore_whitespace = false, -- Игнорировать пробелы при определении автора
+    virt_text_priority = 100, -- Приоритет отображения виртуального текста
+    use_focus = true, -- Показывать blame только когда окно в фокусе
+  },
+
+  current_line_blame_formatter = '<author>, <author_time:%R> - <summary>', -- Формат строки blame
+  sign_priority = 6, -- Приоритет значков (если есть другие плагины)
+  update_debounce = 100, -- Частота обновления значков при вводе текста
+  max_file_length = 40000, -- Отключать плагин, если в файле больше строк, чем указано
+})
+
+-- Временная разблокировка для редактирования
+local function do_with_modify(buf, action)
+  return function()
+    if not vim.api.nvim_buf_is_valid(buf) then
+      return
+    end
+
+    vim.bo[buf].modifiable = true
+
+    -- Функция, которая заблокирует буфер обратно
+    local done = function()
+      vim.schedule(function()
+        if not vim.api.nvim_buf_is_valid(buf) then
+          return
+        end
+
+        -- Сохранение, если буфер изменён
+        if vim.bo[buf].modified then
+          vim.cmd('silent! noautocmd update')
+        end
+
+        -- Блокировка
+        vim.bo[buf].modifiable = false
+      end)
+    end
+
+    -- Выполнение действия, передавая ему функцию завершения
+    action(done)
+  end
+end
 
 -- Изменение winhighlight
 local function set_winhl(win, new_rule)
@@ -78,152 +138,66 @@ local function has_staged_signs(bnr)
 end
 
 -- Обновление цвета
-local function update_statusline_color(bnr)
-  if not git_flow_active or not vim.api.nvim_buf_is_valid(bnr) then
+local function update_statusline_color(buf)
+  if not active_buf or active_buf ~= buf then
     return
   end
 
-  local status = vim.b[bnr].gitsigns_status_dict or {}
+  local status = vim.b[buf].gitsigns_status_dict or {}
   local has_unstaged = ((status.added or 0) + (status.changed or 0) + (status.removed or 0)) > 0
   local target_hl_group = 'GitSignsStatusLine'
 
   if has_unstaged then
     target_hl_group = 'GitSignsStatusLineUnstaged'
-  elseif has_staged_signs(bnr) then
+  elseif has_staged_signs(buf) then
     target_hl_group = 'GitSignsStatusLineStaged'
   end
 
   local target_hl_rule = 'StatusLine:' .. target_hl_group
+  local win = vim.fn.bufwinid(buf)
 
-  for _, win in ipairs(vim.api.nvim_list_wins()) do
-    if vim.api.nvim_win_is_valid(win) and vim.api.nvim_win_get_buf(win) == bnr then
-      set_winhl(win, target_hl_rule)
-    end
+  if win ~= -1 then
+    set_winhl(win, target_hl_rule)
   end
 end
 
-local function turn_on_git_mode()
-  git_flow_active = true
-  vim.cmd.noh() -- Скрыть подсветку поиска (если была)
-  gs.detach_all()
-  gs.attach()
-end
+local function turn_on_git_mode(callback)
+  local buf = vim.api.nvim_get_current_buf()
 
-local function turn_off_git_mode()
-  local keys = { 's', 'S', 'U', 'u', '<C-r>', 'r', 'R', 'K', 'n', 'p', 'N', 'P', 'w', 'q' }
-
-  git_flow_active = false
   gs.detach_all()
 
-  -- Очистка всех затронутых буферов
-  for bnr, _ in pairs(managed_buffers) do
-    if vim.api.nvim_buf_is_valid(bnr) then
-      if vim.b[bnr].original_modifiable ~= nil then
-        vim.bo[bnr].modifiable = vim.b[bnr].original_modifiable
-        vim.b[bnr].original_modifiable = nil -- очистка переменной
-      else
-        vim.bo[bnr].modifiable = true -- фоллбэк
-      end
-
-      -- Удаление биндов
-      for _, key in ipairs(keys) do
-        pcall(vim.keymap.del, 'n', key, { buffer = bnr })
-      end
-    end
-  end
-
-  managed_buffers = {} -- Очистка реестра
-
-  -- Очистка подсветки
-  for _, win in ipairs(vim.api.nvim_list_wins()) do
-    set_winhl(win, nil)
-  end
-end
-
--- Временная разблокировка для редактирования
-local function do_with_modify(bnr, action)
-  return function()
-    if not vim.api.nvim_buf_is_valid(bnr) then
+  -- Подключение gitsigns к текущему буферу
+  gs.attach({ bufnr = buf }, function(err)
+    if err or vim.b.gitsigns_head == nil then
+      vim.notify('Gitstager: file is not tracked by Git', vim.log.levels.WARN)
       return
     end
 
-    vim.bo[bnr].modifiable = true
+    active_buf = buf
 
-    -- Функция, которая заблокирует буфер обратно
-    local done = function()
-      vim.schedule(function()
-        if not vim.api.nvim_buf_is_valid(bnr) then
-          return
-        end
+    vim.cmd.noh() -- Скрыть подсветку поиска (если была)
 
-        -- Сохранение, если буфер изменён
-        if vim.bo[bnr].modified then
-          vim.cmd('silent! noautocmd update')
-        end
-
-        -- Блокировка
-        vim.bo[bnr].modifiable = false
-      end)
+    if vim.bo[buf].modified then
+      vim.cmd('silent! noautocmd update')
     end
 
-    -- Выполнение действия, передавая ему функцию завершения
-    action(done)
-  end
-end
+    -- Сохранение изначального состояния modifiable
+    vim.b[buf].original_modifiable = vim.bo[buf].modifiable
+    vim.bo[buf].modifiable = false -- Блокировка буфера
 
-gs.setup({
-  signs_staged_enable = true, -- Включить отображение знаков для индексированных изменений
-  auto_attach = false, -- Автоматически подключаться к открытым буферам
-  signcolumn = false, -- Показывать значки на боковой панели (gutter)
-  numhl = true, -- Подсвечивать номера строк
-  linehl = true, -- Подсвечивать всю строку целиком
-  word_diff = true, -- Подсвечивать внутристрочные изменения
-  watch_gitdir = {
-    follow_files = true, -- Следить за изменениями в .git директории
-  },
-
-  attach_to_untracked = false, -- Показывать значки для файлов вне индекса Git
-  current_line_blame = false, -- Показывать автора и дату правки в текущей строке
-  current_line_blame_opts = {
-    virt_text = true, -- Использовать виртуальный текст для inline-blame
-    virt_text_pos = 'eol', -- Позиция текста: в конце строки (eol), поверх или справа
-    delay = 1000, -- Задержка перед появлением текста (в мс)
-    ignore_whitespace = false, -- Игнорировать пробелы при определении автора
-    virt_text_priority = 100, -- Приоритет отображения виртуального текста
-    use_focus = true, -- Показывать blame только когда окно в фокусе
-  },
-
-  current_line_blame_formatter = '<author>, <author_time:%R> - <summary>', -- Формат строки blame
-  sign_priority = 6, -- Приоритет значков (если есть другие плагины)
-  update_debounce = 100, -- Частота обновления значков при вводе текста
-  max_file_length = 40000, -- Отключать плагин, если в файле больше строк, чем указано
-  on_attach = function(bufnr)
-    local opts = { nowait = true, silent = true, buffer = bufnr }
-
-    if vim.bo[bufnr].modified then
-      vim.cmd('silent update')
-    end
-
-    managed_buffers[bufnr] = true
-
-    -- Сохранение изначального состояния modifiable в локальную переменную буфера
-    if vim.b[bufnr].original_modifiable == nil then
-      vim.b[bufnr].original_modifiable = vim.bo[bufnr].modifiable
-    end
-
-    vim.bo[bufnr].modifiable = false -- Блокировка буфера
+    local opts = { nowait = true, silent = true, buffer = buf }
 
     -- KEYMAPS
     -- УПРАВЛЕНИЕ ИНДЕКСОМ (STAGE) --
     vim.keymap.set('n', 's', gs.stage_hunk, opts) -- фрагмент в/из индекса
-    vim.keymap.set('n', 'S', gs.stage_buffer, opts) -- добавляется все правки в индекс
-    vim.keymap.set('n', 'U', gs.reset_buffer_index, opts) -- удаляет все правки файла из индекса
+    vim.keymap.set('n', 'S', gs.stage_buffer, opts) -- добавляется все изменения в индекс
+    vim.keymap.set('n', 'U', gs.reset_buffer_index, opts) -- удаляет все изменения файла из индекса
 
     -- ОТМЕНА ДЕЙСТВИЙ (UNDO) --
     vim.keymap.set(
       'n',
       'u',
-      do_with_modify(bufnr, function(done)
+      do_with_modify(buf, function(done)
         vim.cmd('undo')
         done() -- Команда undo синхронна, вызов done() сразу после нее
       end),
@@ -234,7 +208,7 @@ gs.setup({
     vim.keymap.set(
       'n',
       '<C-r>',
-      do_with_modify(bufnr, function(done)
+      do_with_modify(buf, function(done)
         vim.cmd('redo')
         done() -- Команда redo синхронна
       end),
@@ -246,8 +220,8 @@ gs.setup({
     vim.keymap.set(
       'n',
       'r',
-      do_with_modify(bufnr, function(done)
-        -- reset_hunk асинхронна. Передача done третьим аргументом (callback)
+      do_with_modify(buf, function(done)
+        -- reset_hunk асинхронна. Передача done третьим аргументом (done)
         -- Первые два аргумента (range и opts) nil, чтобы использовать дефолтные
         gs.reset_hunk(nil, nil, done)
       end),
@@ -258,7 +232,7 @@ gs.setup({
     vim.keymap.set(
       'n',
       'R',
-      do_with_modify(bufnr, function(done)
+      do_with_modify(buf, function(done)
         gs.reset_buffer()
         done() -- reset_buffer async, вызываем сразу
       end),
@@ -316,16 +290,43 @@ gs.setup({
       gs.setqflist('all')
     end, opts)
 
-    update_statusline_color(bufnr)
-  end,
-})
+    update_statusline_color(buf)
+    callback()
+  end)
+end
+
+local function turn_off_git_mode(callback)
+  local keys = { 's', 'S', 'U', 'u', '<C-r>', 'r', 'R', 'K', 'n', 'p', 'N', 'P', 'w', 'q' }
+
+  gs.detach_all()
+
+  -- Если есть буфер и он валиден
+  if active_buf and vim.api.nvim_buf_is_valid(active_buf) then
+    if vim.b[active_buf].original_modifiable ~= nil then
+      vim.bo[active_buf].modifiable = vim.b[active_buf].original_modifiable
+      vim.b[active_buf].original_modifiable = nil
+
+      -- Удаление биндов
+      for _, key in ipairs(keys) do
+        pcall(vim.keymap.del, 'n', key, { buffer = active_buf })
+      end
+
+      -- Очистка подсветки
+      local win = vim.fn.bufwinid(active_buf)
+      set_winhl(win, nil)
+
+      active_buf = nil
+      callback()
+    end
+  end
+end
 
 vim.api.nvim_create_autocmd('User', {
   pattern = 'GitSignsUpdate',
   group = augroup,
   callback = function(args)
-    if args.data and args.data.buffer then
-      update_statusline_color(args.data.buffer)
+    if args.data and args.data.buffer == active_buf then
+      update_statusline_color(active_buf)
     end
   end,
 })
@@ -334,14 +335,14 @@ vim.api.nvim_create_autocmd('User', {
 vim.api.nvim_create_autocmd({ 'BufEnter', 'WinEnter' }, {
   group = augroup,
   callback = function()
-    if not git_flow_active then
+    if not active_buf then
       return
     end
 
     local win = vim.api.nvim_get_current_win()
     local buf = vim.api.nvim_get_current_buf()
 
-    if managed_buffers[buf] then
+    if active_buf == buf then
       -- Если буфер в реестре, обновляем его цвета
       update_statusline_color(buf)
     else
@@ -354,19 +355,23 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'WinEnter' }, {
 
 -- Команда управления gitsigns
 vim.api.nvim_create_user_command('GitStageFlow', function()
-  local current_buf = vim.api.nvim_get_current_buf()
+  local buf = vim.api.nvim_get_current_buf()
 
-  if git_flow_active then
-    if managed_buffers[current_buf] then
-      turn_off_git_mode()
-      print('Git Stage Flow: OFF')
+  if active_buf then
+    if active_buf == buf then
+      turn_off_git_mode(function()
+        print('Git Stage Flow: OFF')
+      end)
     else
-      turn_off_git_mode()
-      turn_on_git_mode()
-      print('Git Stage Flow: ON')
+      turn_off_git_mode(function()
+        turn_on_git_mode(function()
+          print('Git Stage Flow: ON')
+        end)
+      end)
     end
   else
-    turn_on_git_mode()
-    print('Git Stage Flow: ON')
+    turn_on_git_mode(function()
+      print('Git Stage Flow: ON')
+    end)
   end
 end, { desc = 'Toggle Git Stage Flow' })
