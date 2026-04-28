@@ -9,9 +9,19 @@ local fn = vim.fn
 -- <C-o> - переход на предыдущую позицию в списке переходов
 -- <C-i> - переход на следующую позицию в списке переходов
 -- :ju - лист переходов
+
 -- gc - комментарий в visual mode
 -- <C-f> - command history window
--- K - documentation
+-- K - documentation (vim.lsp.buf.hover())
+
+-- "gra" (Normal and Visual mode) is mapped to |vim.lsp.buf.code_action()|
+-- "gri" is mapped to |vim.lsp.buf.implementation()|
+-- "grn" is mapped to |vim.lsp.buf.rename()|
+-- "grr" is mapped to |vim.lsp.buf.references()|
+-- "grt" is mapped to |vim.lsp.buf.type_definition()|
+-- "grx" is mapped to |vim.lsp.codelens.run()|
+-- "gO" is mapped to |vim.lsp.buf.document_symbol()|
+-- CTRL-S (Insert mode) is mapped to |vim.lsp.buf.signature_help()|
 
 g.mapleader = ','
 
@@ -20,7 +30,7 @@ g.mapleader = ','
 ------------------------------------------
 
 -- Переключение языка в режиме ввода и поиска
-map({ 'c', 'i' }, '<C-l>', '<C-^>', { desc = 'Switching languages' })
+map({ 'c', 'i' }, '<C-l>', '<C-^>', { desc = 'Toggle language' })
 
 -- Сброс языка при выходе из Insert mode
 map('i', '<ESC>', '<ESC><cmd>set iminsert=0<CR>', { silent = true, desc = 'Language Reset' })
@@ -64,36 +74,17 @@ map('v', '<leader>c', '"+y', { desc = 'Copy' })
 -- , + v: Вставляет из системного буфера
 map('n', '<leader>v', '"+p', { desc = 'Paste' })
 
--- , + u: Undotree
-map('n', '<leader>u', function()
-  require('undotree').open({
-    title = function(bufnr)
-      local file_name = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ':t')
-      return file_name
-    end,
-    command = '50vnew',
-  })
-end, { desc = 'Undotree' })
-
--- , + f: File Explorer
+-- , + e: File Explorer
 map('n', '<leader>e', '<cmd>NvimTreeToggle<CR>', { desc = 'Nvim Tree' })
 
 -- , + o: Aerial - code navigation
 map('n', '<leader>o', '<cmd>AerialToggle<CR>', { desc = 'Code Navigation' })
 
---- , + w: Git stage flow
-map('n', '<leader>w', '<cmd>GitStageFlow<CR>', { desc = 'Git Stage Flow' })
+-- , + g: Git stage flow
+map('n', '<leader>g', '<cmd>GitStageFlow<CR>', { desc = 'Git Stage Flow' })
 
--- , + y: Autoformat toggle
-map('n', '<leader>y', function()
-  if g.disable_autoformat then
-    g.disable_autoformat = false
-    notify('Enabled autoformat')
-  else
-    g.disable_autoformat = true
-    notify('Disabled autoformat')
-  end
-end, { desc = 'Switching Autoformat' })
+-- , + l: Принудительная загрузка ts-файлов проекта
+map('n', '<leader>l', '<cmd>TsLsForceLoad<CR>', { desc = 'TS Force Load' })
 
 -- , + z: Сворачивает функциональные блоки в файле
 map('n', '<leader>z', function()
@@ -142,81 +133,94 @@ map('n', '<leader>z', function()
 end, { desc = 'Folding' })
 
 ----------------------------------------
+-- Utility
+----------------------------------------
+
+-- , + uc: Подсвечивает координаты курсора
+map('n', '<leader>uc', function()
+  local is_on = vim.opt.cursorline:get()
+
+  vim.opt.cursorline = not is_on
+  vim.opt.cursorcolumn = not is_on
+  notify(not is_on and 'Crosshair On' or 'Crosshair Off')
+end, { desc = 'Toggle Cursor Crosshair' })
+
+-- , + uf: Autoformat toggle
+map('n', '<leader>uf', function()
+  if g.disable_autoformat then
+    g.disable_autoformat = false
+    notify('Enabled autoformat')
+  else
+    g.disable_autoformat = true
+    notify('Disabled autoformat')
+  end
+end, { desc = 'Toggle Autoformat' })
+
+-- , + ud: Toggle diagnostic
+map('n', '<leader>ud', function()
+  local is_enabled = not vim.diagnostic.is_enabled()
+
+  vim.diagnostic.enable(is_enabled)
+  notify(is_enabled and 'Diagnostics On' or 'Diagnostics Off')
+end, { desc = 'Toggle Diagnostic' })
+
+----------------------------------------
 -- Snacks
 ----------------------------------------
 
 -- поиск файлов
-map('n', '<leader>ff', function()
+map('n', '<leader>sff', function()
   Snacks.picker.files({ hidden = true })
-end, { desc = 'Snacks Find Files' })
+end, { desc = 'Find Files' })
 
--- поиск файлов по всем файлам
-map('n', '<leader>fi', function()
+-- поиск файлов везде
+map('n', '<leader>sfi', function()
   Snacks.picker.files({
     hidden = true,
     ignored = true,
   })
-end, { desc = 'Snacks Files (All Files)' })
+end, { desc = 'Find Files (All)' })
+
+-- буфферы
+map('n', '<leader>sfb', function()
+  Snacks.picker.buffers()
+end, { desc = 'Buffer Files' })
+
+-- недавно открытые файлы
+map('n', '<leader>sfr', function()
+  Snacks.picker.recent({ filter = { cwd = true } })
+end, { desc = 'Recent Files' })
 
 -- конфиг nvim
-map('n', '<leader>fc', function()
+map('n', '<leader>sfc', function()
   Snacks.picker.files({ cwd = vim.fn.stdpath('config') })
-end, { desc = 'Snacks Config Files' })
+end, { desc = 'Config Files' })
 
--- поиск по файлам проекта
-map('n', '<leader>g', function()
+-- поиск в файлах
+map('n', '<leader>sgg', function()
   Snacks.picker.grep({ hidden = true })
-end, { desc = 'Snacks Live Grep' })
+end, { desc = 'Live Grep' })
 
--- поиск по всем файлам
-map('n', '<leader>G', function()
+-- поиск во всех файлах
+map('n', '<leader>sgi', function()
   Snacks.picker.grep({
     hidden = true,
     ignored = true,
   })
-end, { desc = 'Snacks Live Grep (All Files)' })
+end, { desc = 'Live Grep (All Files)' })
 
-map('n', '<leader>GW', function()
+-- поиск конкретного слова в файлах
+map({ 'n', 'v' }, '<leader>sgw', function()
   Snacks.picker.grep_word({
     hidden = true,
     ignored = true,
   })
-end, { desc = 'Snacks Grep Word (All Files)' })
-
--- буфферы
-map('n', '<leader>b', function()
-  Snacks.picker.buffers()
-end, { desc = 'Snacks Buffers' })
-
-----------------------------------------
--- LSP
-----------------------------------------
-
--- Show LSP references
-map('n', '<leader>a', vim.lsp.buf.references, { desc = 'LSP References' })
-
--- Изменить название в файле (вызвать :wa по завершению)
-map('n', '<leader>r', vim.lsp.buf.rename, { desc = 'LSP Rename' })
-
--- Show LSP definitions
-map('n', '<leader>j', vim.lsp.buf.definition, { desc = 'LSP Definition' })
-
--- See available code actions
-map({ 'n', 'v' }, '<leader>m', vim.lsp.buf.code_action, { desc = 'Code Action' })
-
--- Switching diagnostic
-map('n', '<leader>t', function()
-  vim.diagnostic.enable(not vim.diagnostic.is_enabled())
-end, { desc = 'Switching Diagnostic' })
-
--- Принудительная загрузка ts-файлов проекта
-map('n', '<leader>l', '<cmd>TsLsForceLoad<CR>', { desc = 'TS Force Load' })
+end, { desc = 'Live Grep Word (All Files)' })
 
 ----------------------------------------
 -- Trouble
 ----------------------------------------
 
--- Open trouble document diagnostics
 map(
   'n',
   '<leader>x',
@@ -224,7 +228,6 @@ map(
   { desc = 'Trouble Diagnostics (Buffer)' }
 )
 
--- Open trouble workspace diagnostics
 map(
   'n',
   '<leader>X',
@@ -240,7 +243,7 @@ map(
 map('n', '<leader>h', '<cmd>call codeium#Chat()<CR>', { desc = 'AI' })
 
 ------------------------------------------
--- Nvim
+-- System
 ------------------------------------------
 
 -- Рестарт nvim

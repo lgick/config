@@ -109,11 +109,6 @@ opt.shiftwidth = 2
 -- Настройка сессий
 opt.sessionoptions = 'buffers,folds,sesdir,tabpages,globals,options,resize,winpos'
 
--- Undotree
-cmd('packadd nvim.undotree')
-opt.undofile = true
-opt.undolevels = 5000
-
 ------------------------------------------
 -- Дата и время
 ------------------------------------------
