@@ -5,6 +5,15 @@ snacks.setup({
 
   picker = {
     enabled = true,
+    sources = {
+      keymaps = {
+        layout = { preset = 'vscode' },
+      },
+      grep = {
+        limit = 50,
+        limit_live = 50,
+      },
+    },
     layout = {
       fullscreen = true,
     },
@@ -27,10 +36,6 @@ snacks.setup({
     },
   },
 
-  notifier = {
-    enabled = true,
-    timeout = 5000,
-  },
   styles = {
     notification = {
       border = true,

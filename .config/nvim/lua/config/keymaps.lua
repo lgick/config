@@ -244,6 +244,11 @@ map('n', '<leader>3', function()
   Snacks.picker.highlights({ pattern = 'hl_group:' })
 end, { desc = 'Highlights' })
 
+-- Keymaps
+map('n', '<leader>4', function()
+  Snacks.picker.keymaps()
+end, { desc = 'Keymaps' })
+
 -- Отображает сообщения в новом буфере
 map('n', '<leader>5', "<cmd>new | put =execute('messages')<CR>")
 
