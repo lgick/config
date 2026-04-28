@@ -32,7 +32,6 @@ require('blink.cmp').setup({
     ['<C-.>'] = { 'snippet_backward', 'fallback' },
     ['<C-u>'] = { 'scroll_documentation_up', 'fallback' },
     ['<C-d>'] = { 'scroll_documentation_down', 'fallback' },
-    ['<C-k>'] = { 'show_signature', 'hide_signature', 'fallback' },
   },
   appearance = {
     kind_icons = {
