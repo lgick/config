@@ -13,6 +13,10 @@ snacks.setup({
         limit = 50,
         limit_live = 50,
       },
+      files = {
+        limit = 100,
+        limit_live = 100,
+      },
     },
     layout = {
       fullscreen = true,

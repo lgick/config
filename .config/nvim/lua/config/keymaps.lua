@@ -19,22 +19,19 @@ g.mapleader = ','
 -- Форматирование текста
 ------------------------------------------
 
--- Переключение языка в режиме ввода
-map('i', '<C-l>', '<C-^>')
+-- Переключение языка в режиме ввода и поиска
+map({ 'c', 'i' }, '<C-l>', '<C-^>', { desc = 'Switching languages' })
 
 -- Сброс языка при выходе из Insert mode
-map('i', '<ESC>', '<ESC><cmd>set iminsert=0<CR>', { silent = true })
+map('i', '<ESC>', '<ESC><cmd>set iminsert=0<CR>', { silent = true, desc = 'Language Reset' })
 
 ------------------------------------------
 -- Поиск
 ------------------------------------------
 
 -- Значение поиска по центру экрана
-map('n', 'n', 'nzzzv')
-map('n', 'N', 'Nzzzv')
-
--- Переключение языка в режиме поиска
-map('c', '<C-l>', '<C-^>')
+map('n', 'n', 'nzzzv', { desc = 'Search In The Center' })
+map('n', 'N', 'Nzzzv', { desc = 'Search In The Center' })
 
 ------------------------------------------
 -- Hardcore mode
@@ -53,19 +50,19 @@ map('c', '<Tab>', '<nop>', { silent = true })
 ----------------------------------------
 
 -- , + p: Открывает предыдущий буфер
-map('n', '<leader>p', '<cmd>bp<CR>')
+map('n', '<leader>p', '<cmd>bp<CR>', { desc = 'Prev Buffer' })
 
 -- , + n: Открывает следующий буфер
-map('n', '<leader>n', '<cmd>bn<CR>')
+map('n', '<leader>n', '<cmd>bn<CR>', { desc = 'Next Buffer' })
 
 -- , + d: Удаляет буфер
-map('n', '<leader>d', '<cmd>bdel<CR>')
+map('n', '<leader>d', '<cmd>bdel<CR>', { desc = 'Delete Buffer' })
 
 -- , + c: Копирует в системный буфер
-map('v', '<leader>c', '"+y')
+map('v', '<leader>c', '"+y', { desc = 'Copy' })
 
 -- , + v: Вставляет из системного буфера
-map('n', '<leader>v', '"+p')
+map('n', '<leader>v', '"+p', { desc = 'Paste' })
 
 -- , + u: Undotree
 map('n', '<leader>u', function()
@@ -79,10 +76,10 @@ map('n', '<leader>u', function()
 end, { desc = 'Undotree' })
 
 -- , + f: File Explorer
-map('n', '<leader>f', '<cmd>NvimTreeToggle<CR>')
+map('n', '<leader>e', '<cmd>NvimTreeToggle<CR>', { desc = 'Nvim Tree' })
 
 -- , + o: Aerial - code navigation
-map('n', '<leader>o', '<cmd>AerialToggle<CR>')
+map('n', '<leader>o', '<cmd>AerialToggle<CR>', { desc = 'Code Navigation' })
 
 --- , + w: Git stage flow
 map('n', '<leader>w', '<cmd>GitStageFlow<CR>', { desc = 'Git Stage Flow' })
@@ -96,7 +93,7 @@ map('n', '<leader>y', function()
     g.disable_autoformat = true
     notify('Disabled autoformat')
   end
-end)
+end, { desc = 'Switching Autoformat' })
 
 -- , + z: Сворачивает функциональные блоки в файле
 map('n', '<leader>z', function()
@@ -142,29 +139,34 @@ map('n', '<leader>z', function()
   -- Возвращаемся к текущей строке
   api.nvim_win_set_cursor(0, { currentline, 0 })
   api.nvim_command("echo ''")
-end)
+end, { desc = 'Folding' })
 
 ----------------------------------------
 -- Snacks
 ----------------------------------------
 
 -- поиск файлов
-map('n', '<leader>s', function()
+map('n', '<leader>ff', function()
   Snacks.picker.files({ hidden = true })
-end, { desc = 'Find Files' })
+end, { desc = 'Snacks Find Files' })
 
 -- поиск файлов по всем файлам
-map('n', '<leader>S', function()
+map('n', '<leader>fi', function()
   Snacks.picker.files({
     hidden = true,
     ignored = true,
   })
-end, { desc = 'Find Files (All Files)' })
+end, { desc = 'Snacks Files (All Files)' })
+
+-- конфиг nvim
+map('n', '<leader>fc', function()
+  Snacks.picker.files({ cwd = vim.fn.stdpath('config') })
+end, { desc = 'Snacks Config Files' })
 
 -- поиск по файлам проекта
 map('n', '<leader>g', function()
   Snacks.picker.grep({ hidden = true })
-end, { desc = 'Live Grep' })
+end, { desc = 'Snacks Live Grep' })
 
 -- поиск по всем файлам
 map('n', '<leader>G', function()
@@ -172,58 +174,70 @@ map('n', '<leader>G', function()
     hidden = true,
     ignored = true,
   })
-end, { desc = 'Live Grep (All Files)' })
+end, { desc = 'Snacks Live Grep (All Files)' })
+
+map('n', '<leader>GW', function()
+  Snacks.picker.grep_word({
+    hidden = true,
+    ignored = true,
+  })
+end, { desc = 'Snacks Grep Word (All Files)' })
 
 -- буфферы
 map('n', '<leader>b', function()
   Snacks.picker.buffers()
-end, { desc = 'Buffers' })
-
--- недавние файлы
-map('n', '<leader>e', function()
-  Snacks.picker.recent()
-end, { desc = 'Recent Files' })
+end, { desc = 'Snacks Buffers' })
 
 ----------------------------------------
 -- LSP
 ----------------------------------------
 
 -- Show LSP references
-map('n', '<leader>a', vim.lsp.buf.references)
+map('n', '<leader>a', vim.lsp.buf.references, { desc = 'LSP References' })
 
 -- Изменить название в файле (вызвать :wa по завершению)
-map('n', '<leader>r', vim.lsp.buf.rename)
+map('n', '<leader>r', vim.lsp.buf.rename, { desc = 'LSP Rename' })
 
 -- Show LSP definitions
-map('n', '<leader>j', vim.lsp.buf.definition)
+map('n', '<leader>j', vim.lsp.buf.definition, { desc = 'LSP Definition' })
 
 -- See available code actions
-map({ 'n', 'v' }, '<leader>m', vim.lsp.buf.code_action)
+map({ 'n', 'v' }, '<leader>m', vim.lsp.buf.code_action, { desc = 'Code Action' })
 
--- Toggle diagnostic
+-- Switching diagnostic
 map('n', '<leader>t', function()
   vim.diagnostic.enable(not vim.diagnostic.is_enabled())
-end)
+end, { desc = 'Switching Diagnostic' })
 
 -- Принудительная загрузка ts-файлов проекта
-map('n', '<leader>l', '<cmd>TsLsForceLoad<CR>')
+map('n', '<leader>l', '<cmd>TsLsForceLoad<CR>', { desc = 'TS Force Load' })
 
 ----------------------------------------
 -- Trouble
 ----------------------------------------
 
 -- Open trouble document diagnostics
-map('n', '<leader>x', '<cmd>Trouble diagnostics toggle filter.buf=0<CR>')
+map(
+  'n',
+  '<leader>x',
+  '<cmd>Trouble diagnostics toggle filter.buf=0<CR>',
+  { desc = 'Trouble Diagnostics (Buffer)' }
+)
 
 -- Open trouble workspace diagnostics
-map('n', '<leader>X', '<cmd>Trouble diagnostics fold_close_all=1<CR>')
+map(
+  'n',
+  '<leader>X',
+  '<cmd>Trouble diagnostics fold_close_all=1<CR>',
+  { desc = 'Trouble Diagnostics (All)' }
+)
 
 ------------------------------------------
 -- Codeium
 ------------------------------------------
 
 -- Открывает чат
-map('n', '<leader>h', '<cmd>call codeium#Chat()<CR>')
+map('n', '<leader>h', '<cmd>call codeium#Chat()<CR>', { desc = 'AI' })
 
 ------------------------------------------
 -- Nvim
@@ -233,27 +247,28 @@ map('n', '<leader>h', '<cmd>call codeium#Chat()<CR>')
 map(
   'n',
   '<leader>1',
-  "<cmd>mksession! Session.vim | restart source Session.vim | call delete('Session.vim')<CR>"
+  "<cmd>mksession! Session.vim | restart source Session.vim | call delete('Session.vim')<CR>",
+  { desc = 'Restart Nvim' }
 )
 
 -- Определяет синтаксис слова под курсором
-map('n', '<leader>2', '<cmd>Inspect<CR>')
+map('n', '<leader>2', '<cmd>Inspect<CR>', { desc = 'Inspect Nvim' })
 
 -- Группы подсветки
 map('n', '<leader>3', function()
   Snacks.picker.highlights({ pattern = 'hl_group:' })
-end, { desc = 'Highlights' })
+end, { desc = 'Snacks Highlights' })
 
 -- Keymaps
 map('n', '<leader>4', function()
   Snacks.picker.keymaps()
-end, { desc = 'Keymaps' })
+end, { desc = 'Snacks Keymaps' })
 
 -- Отображает сообщения в новом буфере
-map('n', '<leader>5', "<cmd>new | put =execute('messages')<CR>")
+map('n', '<leader>5', "<cmd>new | put =execute('messages')<CR>", { desc = 'Messages Nvim' })
 
 -- Проверяет работу плагинов nvim
-map('n', '<leader>7', '<cmd>checkhealth<CR>')
+map('n', '<leader>7', '<cmd>checkhealth<CR>', { desc = 'Checkhealth Nvim' })
 
 -- Обновляет плагины nvim
 map('n', '<leader>8', function()
@@ -266,7 +281,7 @@ map('n', '<leader>8', function()
   vim.pack.update()
   vim.cmd('MasonToolsUpdate')
   vim.cmd('TSUpdate')
-end, { desc = 'Update nvim plugins' })
+end, { desc = 'Update Nvim Plugins' })
 
 -- Сбрасывает nvim до заводских настроек
 map('n', '<leader>9', function()
@@ -291,4 +306,4 @@ map('n', '<leader>9', function()
 
   opt.shada = ''
   os.exit()
-end, { desc = 'Nuke nvim' })
+end, { desc = 'Reset Nvim' })
