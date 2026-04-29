@@ -150,3 +150,20 @@ api.nvim_create_user_command('Fold', function()
 end, {
   desc = 'Folding',
 })
+
+api.nvim_create_user_command('Bufdelete', function()
+  local curr_buf = vim.api.nvim_get_current_buf()
+  local bufs = vim.fn.getbufinfo({ buflisted = 1 })
+
+  if #bufs <= 1 then
+    -- Если это последний буфер, создать новый пустой и удалить текущий
+    cmd('enew')
+    api.nvim_buf_delete(curr_buf, { force = false })
+  else
+    -- Если буферов много, переход на следующий и удалить текущий
+    cmd('bn')
+    api.nvim_buf_delete(curr_buf, { force = false })
+  end
+end, {
+  desc = 'Delete Buffer And Switch',
+})

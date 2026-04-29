@@ -63,7 +63,7 @@ map('n', '<leader>p', '<cmd>bp<CR>', { desc = 'Prev Buffer' })
 map('n', '<leader>n', '<cmd>bn<CR>', { desc = 'Next Buffer' })
 
 -- , + d: Удаляет буфер
-map('n', '<leader>d', '<cmd>bdel<CR>', { desc = 'Delete Buffer' })
+map('n', '<leader>d', '<cmd>Bufdelete<CR>', { desc = 'Delete Buffer And Switch' })
 
 -- , + c: Копирует в системный буфер
 map('v', '<leader>c', '"+y', { desc = 'Copy' })
