@@ -74,14 +74,17 @@ map('v', '<leader>c', '"+y', { desc = 'Copy' })
 -- , + v: Вставляет из системного буфера
 map('n', '<leader>v', '"+p', { desc = 'Paste' })
 
--- , + e: File Explorer
-map('n', '<leader>e', '<cmd>NvimTreeToggle<CR>', { desc = 'Nvim Tree' })
+-- , + f: File Explorer
+map('n', '<leader>f', '<cmd>NvimTreeToggle<CR>', { desc = 'Nvim Tree' })
 
 -- , + o: Aerial - code navigation
 map('n', '<leader>o', '<cmd>AerialToggle<CR>', { desc = 'Code Navigation' })
 
 -- , + l: Принудительная загрузка ts-файлов проекта
 map('n', '<leader>l', '<cmd>TsLsForceLoad<CR>', { desc = 'TS Force Load' })
+
+-- , + i: Открывает чат
+map('n', '<leader>i', '<cmd>call codeium#Chat()<CR>', { desc = 'AI' })
 
 -- , + z: Сворачивает функциональные блоки в файле
 map('n', '<leader>z', function()
@@ -135,10 +138,10 @@ end, { desc = 'Folding' })
 
 -- , + uc: Подсвечивает координаты курсора
 map('n', '<leader>uc', function()
-  local is_on = vim.opt.cursorline:get()
+  local is_on = opt.cursorline:get()
 
-  vim.opt.cursorline = not is_on
-  vim.opt.cursorcolumn = not is_on
+  opt.cursorline = not is_on
+  opt.cursorcolumn = not is_on
   notify(not is_on and 'Crosshair On' or 'Crosshair Off')
 end, { desc = 'Toggle Cursor Crosshair' })
 
@@ -257,13 +260,6 @@ map(
 )
 
 ------------------------------------------
--- Codeium
-------------------------------------------
-
--- Открывает чат
-map('n', '<leader>h', '<cmd>call codeium#Chat()<CR>', { desc = 'AI' })
-
-------------------------------------------
 -- System
 ------------------------------------------
 
@@ -295,39 +291,7 @@ map('n', '<leader>5', "<cmd>new | put =execute('messages')<CR>", { desc = 'Messa
 map('n', '<leader>7', '<cmd>checkhealth<CR>', { desc = 'Checkhealth Nvim' })
 
 -- Обновляет плагины nvim
-map('n', '<leader>8', function()
-  local confirm = fn.input('Обновить плагины Neovim? (y/n): ')
-
-  if confirm:lower() ~= 'y' then
-    return
-  end
-
-  vim.pack.update()
-  vim.cmd('MasonToolsUpdate')
-  vim.cmd('TSUpdate')
-end, { desc = 'Update Nvim Plugins' })
+map('n', '<leader>8', '<cmd>UpdateNvimPlugins<CR>', { desc = 'Update Nvim Plugins' })
 
 -- Сбрасывает nvim до заводских настроек
-map('n', '<leader>9', function()
-  local confirm = fn.input('ПОЛНОСТЬЮ сбросить Neovim? (y/n): ')
-
-  if confirm:lower() ~= 'y' then
-    return
-  end
-
-  local paths = {
-    fn.stdpath('cache'), -- ~/.cache/nvim
-    fn.stdpath('data'), -- ~/.local/share/nvim
-    fn.stdpath('state'), -- ~/.local/state/nvim
-    fn.stdpath('config') .. '/nvim-pack-lock.json',
-  }
-
-  for _, path in ipairs(paths) do
-    if fn.empty(fn.glob(path)) == 0 then
-      fn.delete(path, 'rf')
-    end
-  end
-
-  opt.shada = ''
-  os.exit()
-end, { desc = 'Reset Nvim' })
+map('n', '<leader>9', '<cmd>ResetNvim<CR>', { desc = 'Reset Nvim' })
