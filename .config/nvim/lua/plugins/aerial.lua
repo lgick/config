@@ -39,7 +39,7 @@ aerial.setup({
     ['h'] = 'actions.tree_close',
     ['l'] = 'actions.tree_open',
 
-    ['q'] = 'actions.close',
+    ['<ESC>'] = 'actions.close',
 
     ['g?'] = false,
     ['<2-LeftMouse>'] = false,
@@ -65,5 +65,6 @@ aerial.setup({
     ['zM'] = false,
     ['zx'] = false,
     ['zX'] = false,
+    ['q'] = false,
   },
 })

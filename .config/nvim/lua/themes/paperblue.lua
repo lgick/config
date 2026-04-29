@@ -20,12 +20,10 @@ local C = {
   -- Дополнительные
   off_white = '#e4e4e4',
   ash = '#b2b2b2',
+  carbon = '#636363',
   rust = '#af5f00',
   emerald = '#00af5f',
   yellow = '#ffff5f',
-
-  carbon = '#636363',
-  sky = '#afd7ff',
 
   light_blue = '#b3d9ff',
   light_green = '#c4f0c5',
@@ -69,7 +67,7 @@ local function set_highlights()
 
     SignColumn = { fg = C.dark_grey },
     FoldColumn = { fg = C.dark_grey },
-    Folded = { fg = C.slate, bg = C.light_blue },
+    Folded = { fg = C.carbon, bg = C.light_blue },
 
     WinSeparator = { fg = C.cyan },
     VertSplit = { link = 'WinSeparator' },
@@ -246,7 +244,7 @@ local function set_highlights()
     ['@comment.error'] = { fg = C.white, bg = C.dark_red, bold = true },
     ['@comment.warning'] = { fg = C.white, bg = C.orange, bold = true },
     ['@comment.todo'] = { fg = C.emerald, bg = C.white, bold = true },
-    ['@comment.note'] = { fg = C.black, bg = C.sky, bold = true },
+    ['@comment.note'] = { fg = C.carbon, bg = C.light_blue, bold = true },
 
     ['@markup.strong'] = { bold = true },
     ['@markup.italic'] = { italic = true },
@@ -292,8 +290,8 @@ local function set_highlights()
     NvimTreeModifiedIcon = { fg = C.black, nocombine = true },
     NvimTreeFolderIcon = { link = 'Directory', nocombine = true },
 
-    NvimTreeCopiedHL = { bg = C.light_yellow, fg = C.slate, nocombine = true },
-    NvimTreeCutHL = { bg = C.light_orange, fg = C.slate, nocombine = true },
+    NvimTreeCopiedHL = { bg = C.light_yellow, fg = C.carbon, nocombine = true },
+    NvimTreeCutHL = { bg = C.light_orange, fg = C.carbon, nocombine = true },
 
     NvimTreeIndentMarker = { fg = C.light_grey, nocombine = true },
 
