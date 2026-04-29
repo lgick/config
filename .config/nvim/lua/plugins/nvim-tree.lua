@@ -67,7 +67,7 @@ local function custom_attach(bufnr)
   keymap.set('n', 'I', api.filter.custom.toggle, opts('Toggle Custom Filter'))
   keymap.set('n', 'X', api.tree.collapse_all, opts('Collapse All'))
   keymap.set('n', 'E', api.tree.expand_all, opts('Expand All'))
-  keymap.set('n', '<ESC>', api.tree.close, opts('Close'))
+  keymap.set('n', 'q', api.tree.close, opts('Close'))
   keymap.set('n', 'R', api.tree.reload, opts('Refresh'))
 
   keymap.set('n', 'a', api.fs.create, opts('Create File'))
