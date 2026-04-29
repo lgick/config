@@ -77,9 +77,6 @@ map('n', '<leader>f', '<cmd>NvimTreeToggle<CR>', { desc = 'Nvim Tree' })
 -- , + o: Aerial - code navigation
 map('n', '<leader>o', '<cmd>AerialToggle<CR>', { desc = 'Code Navigation' })
 
--- , + l: Принудительная загрузка ts-файлов проекта
-map('n', '<leader>l', '<cmd>TsLsForceLoad<CR>', { desc = 'TS Force Load' })
-
 -- , + i: Открывает чат
 map('n', '<leader>i', '<cmd>call codeium#Chat()<CR>', { desc = 'AI' })
 
@@ -242,7 +239,10 @@ end, { desc = 'Snacks Keymaps' })
 map('n', '<leader>5', "<cmd>new | put =execute('messages')<CR>", { desc = 'Messages Nvim' })
 
 -- Проверяет работу плагинов nvim
-map('n', '<leader>7', '<cmd>checkhealth<CR>', { desc = 'Checkhealth Nvim' })
+map('n', '<leader>6', '<cmd>checkhealth<CR>', { desc = 'Checkhealth Nvim' })
+
+-- Принудительная загрузка ts-файлов проекта
+map('n', '<leader>7', '<cmd>TsLsForceLoad<CR>', { desc = 'TS Force Load' })
 
 -- Обновляет плагины nvim
 map('n', '<leader>8', '<cmd>UpdateNvimPlugins<CR>', { desc = 'Update Nvim Plugins' })

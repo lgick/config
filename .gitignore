@@ -9,6 +9,7 @@
 !.prettierrc.mjs
 !.zshrc
 !.plist/
+!.github/
 
 !.config/
 .config/*
