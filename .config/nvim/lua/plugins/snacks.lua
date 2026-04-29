@@ -8,6 +8,9 @@ snacks.setup({
     sources = {
       keymaps = {
         layout = { preset = 'vscode' },
+        sort = {
+          fields = { 'lhs:asc', 'score:desc', 'idx' },
+        },
       },
       grep = {
         limit = 50,

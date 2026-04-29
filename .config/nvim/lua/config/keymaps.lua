@@ -80,9 +80,6 @@ map('n', '<leader>e', '<cmd>NvimTreeToggle<CR>', { desc = 'Nvim Tree' })
 -- , + o: Aerial - code navigation
 map('n', '<leader>o', '<cmd>AerialToggle<CR>', { desc = 'Code Navigation' })
 
--- , + g: Git stage flow
-map('n', '<leader>g', '<cmd>GitStageFlow<CR>', { desc = 'Git Stage Flow' })
-
 -- , + l: Принудительная загрузка ts-файлов проекта
 map('n', '<leader>l', '<cmd>TsLsForceLoad<CR>', { desc = 'TS Force Load' })
 
@@ -216,6 +213,30 @@ map({ 'n', 'v' }, '<leader>sgw', function()
     ignored = true,
   })
 end, { desc = 'Live Grep Word (All Files)' })
+
+----------------------------------------
+-- Git
+----------------------------------------
+
+-- , + gs: Git stage
+map('n', '<leader>gs', '<cmd>GitStageFlow<CR>', { desc = 'Git Stage Flow' })
+
+-- , + gh: Git history
+map({ 'n', 'x' }, '<leader>gh', function()
+  local mode = vim.fn.mode()
+
+  if mode == 'v' or mode == 'V' or mode == '\22' then
+    -- Поведение Visual mode
+    vim.cmd('normal! \27')
+    vim.cmd("'<,'>DiffviewFileHistory")
+  else
+    -- Поведение Normal mode
+    vim.cmd('DiffviewFileHistory %')
+  end
+end, { desc = 'Git File History' })
+
+-- , + gd: Git diff
+map('n', '<leader>gd', '<cmd>DiffviewOpen<CR>', { desc = 'Git Diff Open' })
 
 ----------------------------------------
 -- Trouble

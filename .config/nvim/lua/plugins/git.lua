@@ -1,24 +1,29 @@
 require('diffview').setup({
   enhanced_diff_hl = true, -- Улучшенная подсветка диффов
   view = {
-    -- Настройки по умолчанию для всех окон с кодом
     default = {
       disable_diagnostics = true, -- Отключение ошибок LSP в диффах
       winbar_info = true, -- Плашки "a/файл" и "b/файл" сверху
     },
   },
+  hooks = {
+    view_closed = function()
+      -- Обновление дерева nvim-tree (статусы git)
+      local success, api = pcall(require, 'nvim-tree.api')
+      if success then
+        api.tree.reload()
+      end
+    end,
+  },
   keymaps = {
     view = {
-      -- Закрывать Diffview по нажатию 'q' в окнах с кодом
-      ['q'] = '<Cmd>DiffviewClose<CR>',
+      ['<ESC>'] = '<Cmd>DiffviewClose<CR>',
     },
     file_panel = {
-      -- Закрывать Diffview по нажатию 'q' в панели файлов
-      ['q'] = '<Cmd>DiffviewClose<CR>',
+      ['<ESC>'] = '<Cmd>DiffviewClose<CR>',
     },
     file_history_panel = {
-      -- Закрывать Diffview по нажатию 'q' в панели истории коммитов
-      ['q'] = '<Cmd>DiffviewClose<CR>',
+      ['<ESC>'] = '<Cmd>DiffviewClose<CR>',
     },
   },
 })
@@ -264,30 +269,12 @@ local function turn_on_git_mode(callback)
       gs.blame_line({ full = true })
     end, opts)
 
-    vim.keymap.set({ 'n', 'x' }, 'd', function()
-      -- Получаем текущий режим
-      local mode = vim.fn.mode()
-
-      -- Если мы в визуальном режиме (обычный 'v', построчный 'V' или блочный Ctrl+V '\22')
-      if mode == 'v' or mode == 'V' or mode == '\22' then
-        -- 1. Принудительно выходим из визуального режима (эквивалент нажатия Esc).
-        -- Это зафиксирует границы выделения в маркеры '< и '>
-        vim.cmd('normal! \27')
-
-        -- 2. Закрываем GitStageFlow
-        vim.cmd('GitStageFlow')
-
-        -- 3. Открываем историю только для выделенных строк
-        vim.cmd("'<,'>DiffviewFileHistory")
-      else
-        -- Поведение для обычного режима (Normal mode)
-        vim.cmd('GitStageFlow')
-        vim.cmd('DiffviewFileHistory %')
-      end
-    end, opts)
-
     vim.keymap.set('n', 'q', function()
       gs.setqflist('all')
+    end, opts)
+
+    vim.keymap.set('n', '<ESC>', function()
+      vim.cmd('GitStageFlow')
     end, opts)
 
     update_statusline_color(buf)
@@ -296,7 +283,7 @@ local function turn_on_git_mode(callback)
 end
 
 local function turn_off_git_mode(callback)
-  local keys = { 's', 'S', 'U', 'u', '<C-r>', 'r', 'R', 'K', 'n', 'p', 'N', 'P', 'w', 'd', 'q' }
+  local keys = { 's', 'S', 'U', 'u', '<C-r>', 'r', 'R', 'K', 'n', 'p', 'N', 'P', 'w', 'q', '<ESC>' }
 
   gs.detach_all()
 
