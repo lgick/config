@@ -87,15 +87,6 @@ map('n', '<leader>z', '<cmd>Fold<CR>', { desc = 'Folding' })
 -- Utility
 ----------------------------------------
 
--- , + uc: Подсвечивает координаты курсора
-map('n', '<leader>uc', function()
-  local is_on = opt.cursorline:get()
-
-  opt.cursorline = not is_on
-  opt.cursorcolumn = not is_on
-  notify(not is_on and 'Crosshair On' or 'Crosshair Off')
-end, { desc = 'Toggle Cursor Crosshair' })
-
 -- , + uf: Autoformat toggle
 map('n', '<leader>uf', function()
   if g.disable_autoformat then
