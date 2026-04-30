@@ -1,7 +1,7 @@
 {
   "plugins": {
     "SchemaStore.nvim": {
-      "rev": "20d4e9970798123e6197acb1c85c4b1e897efd29",
+      "rev": "8092a4212b66b4ff2c392080ff4186ff0b7d4945",
       "src": "https://github.com/b0o/SchemaStore.nvim"
     },
     "aerial.nvim": {
@@ -50,7 +50,7 @@
       "src": "https://github.com/windwp/nvim-autopairs"
     },
     "nvim-lspconfig": {
-      "rev": "b66a8ce16b141cd26576267e2d1f371d658b7bb7",
+      "rev": "f7e89f3d19fb436e1fbeff3bf4291eef35da94e3",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-tree.lua": {
@@ -68,6 +68,10 @@
     "nvim-web-devicons": {
       "rev": "4fc505ac7bd7692824a142e96e5f529c133862f8",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
+    },
+    "paperblue.nvim": {
+      "rev": "aadf79a89abaf6f9f989fdfb53e5da0c0c4f8110",
+      "src": "https://github.com/lgick/paperblue.nvim"
     },
     "snacks.nvim": {
       "rev": "ad9ede6a9cddf16cedbd31b8932d6dcdee9b716e",

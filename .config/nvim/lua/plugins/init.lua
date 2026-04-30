@@ -1,4 +1,5 @@
 vim.pack.add({
+  { src = 'https://github.com/lgick/paperblue.nvim' }, -- paperblue
   { src = 'https://github.com/neovim/nvim-lspconfig' }, -- движок для подключения языковых серверов lsp к Neovim
   { src = 'https://github.com/mason-org/mason.nvim' }, -- менеджер пакетов (устанавливает бинарники серверов, линтеров, отладчиков)
   { src = 'https://github.com/mason-org/mason-lspconfig.nvim' }, -- мост между mason и lspconfig (сопоставляет имена серверов)
@@ -28,6 +29,9 @@ vim.pack.add({
   { src = 'https://www.github.com/lewis6991/gitsigns.nvim' }, -- git stager
   { src = 'https://github.com/sindrets/diffview.nvim' }, -- git diff
 })
+
+
+vim.cmd([[colorscheme paperblue]])
 
 require('plugins.mason')
 require('lazydev').setup({
