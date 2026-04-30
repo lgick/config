@@ -13,8 +13,8 @@ snacks.setup({
         },
       },
       grep = {
-        limit = 50,
-        limit_live = 50,
+        limit = 300,
+        limit_live = 300,
       },
       files = {
         limit = 100,

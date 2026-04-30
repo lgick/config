@@ -89,7 +89,7 @@ nvimtree.setup({
   view = {
     relativenumber = false,
     width = {
-      min = 35, -- Минимальная ширина окна
+      min = 20, -- Минимальная ширина окна
       max = 40, -- Максимальная ширина окна
     },
     adaptive_size = true, -- Автоматическое изменение ширины окна
