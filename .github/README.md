@@ -7,26 +7,26 @@
 | `grr`     |   n    | Show references                         |
 | `grt`     |   n    | Go to type definition                   |
 | `grn`     |   n    | Rename                                  |
-| `gra`     |  n,v   | Code Action                             |
-| `K`       |   n    | Documentation (Hover)                   |
+| `gra`     |  n,v   | Code action                             |
+| `K`       |   n    | Documentation (hover)                   |
 | `<C-s>`   |   i    | Signature help                          |
 | --------- | ------ | --------------------------------------- |
-| `,sff`    |   n    | Find Files                              |
-| `,sfi`    |   n    | Find Files (All)                        |
-| `,sfb`    |   n    | Buffer Files                            |
-| `,sfr`    |   n    | Recent Files                            |
-| `,sfc`    |   n    | Config Files                            |
+| `,sff`    |   n    | Find files                              |
+| `,sfi`    |   n    | Find files (all)                        |
+| `,sfb`    |   n    | Buffer files                            |
+| `,sfr`    |   n    | Recent files                            |
+| `,sfc`    |   n    | Config files                            |
 | --------- | ------ | --------------------------------------- |
-| `,sgg`    |   n    | Live Grep                               |
-| `,sgi`    |   n    | Live Grep (All Files)                   |
-| `,sgw`    |  n,v   | Live Grep Word (All Files)              |
+| `,sgg`    |   n    | Live grep                               |
+| `,sgi`    |   n    | Live grep (all files)                   |
+| `,sgw`    |  n,v   | Live grep word (all files)              |
 | --------- | ------ | --------------------------------------- |
-| `,ud`     |   n    | Toggle Diagnostic                       |
-| `,uf`     |   n    | Toggle Autoformat                       |
+| `,ud`     |   n    | Toggle diagnostic                       |
+| `,uf`     |   n    | Toggle autoformat                       |
 | --------- | ------ | --------------------------------------- |
-| `,gs`     |   n    | Git Stage Flow                          |
-| `,gh`     |  n,v   | Git File History                        |
-| `,gd`     |   n    | Git Diff Open                           |
+| `,gs`     |   n    | Git stage flow (gitsigns.nvim)          |
+| `,gh`     |  n,v   | Git file history (diffview.nvim)        |
+| `,gd`     |   n    | Git status (snacks.nvim)                |
 | --------- | ------ | --------------------------------------- |
 | `:ju`     |   c    | Show jump list                          |
 | `<C-o>`   |   n    | Jump to previous position in jumplist   |

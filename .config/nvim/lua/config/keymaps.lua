@@ -180,7 +180,9 @@ map({ 'n', 'x' }, '<leader>gh', function()
 end, { desc = 'Git File History' })
 
 -- , + gd: Git diff
-map('n', '<leader>gd', '<cmd>DiffviewOpen<CR>', { desc = 'Git Diff Open' })
+map('n', '<leader>gd', function()
+  Snacks.picker.git_status()
+end, { desc = 'Git diff (Snacks Git Status)' })
 
 ----------------------------------------
 -- Trouble
