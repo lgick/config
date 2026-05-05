@@ -1,5 +1,4 @@
 local g = vim.g
-local opt = vim.opt
 local notify = vim.notify
 local map = vim.keymap.set
 
