@@ -16,14 +16,15 @@ require('diffview').setup({
     end,
   },
   keymaps = {
+    disable_defaults = true,
     view = {
-      ['<ESC>'] = '<Cmd>DiffviewClose<CR>',
+      ['q'] = '<cmd>DiffviewClose<CR>',
     },
     file_panel = {
-      ['<ESC>'] = '<Cmd>DiffviewClose<CR>',
+      ['q'] = '<cmd>DiffviewClose<CR>',
     },
     file_history_panel = {
-      ['<ESC>'] = '<Cmd>DiffviewClose<CR>',
+      ['q'] = '<cmd>DiffviewClose<CR>',
     },
   },
 })
@@ -270,10 +271,6 @@ local function turn_on_git_mode(callback)
     end, opts)
 
     vim.keymap.set('n', 'q', function()
-      gs.setqflist('all')
-    end, opts)
-
-    vim.keymap.set('n', '<ESC>', function()
       vim.cmd('GitStageFlow')
     end, opts)
 
@@ -283,7 +280,7 @@ local function turn_on_git_mode(callback)
 end
 
 local function turn_off_git_mode(callback)
-  local keys = { 's', 'S', 'U', 'u', '<C-r>', 'r', 'R', 'K', 'n', 'p', 'N', 'P', 'w', 'q', '<ESC>' }
+  local keys = { 's', 'S', 'U', 'u', '<C-r>', 'r', 'R', 'K', 'n', 'N', 'p', 'P', 'w', 'q' }
 
   gs.detach_all()
 
