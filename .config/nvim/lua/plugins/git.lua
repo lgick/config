@@ -1,5 +1,15 @@
+local actions = require('diffview.config').actions
+
 require('diffview').setup({
-  enhanced_diff_hl = true, -- Улучшенная подсветка диффов
+  enhanced_diff_hl = true,
+  file_panel = {
+    listing_style = 'list',
+
+    win_config = {
+      position = 'bottom',
+      height = 15,
+    },
+  },
   view = {
     default = {
       disable_diagnostics = true, -- Отключение ошибок LSP в диффах
@@ -16,15 +26,149 @@ require('diffview').setup({
     end,
   },
   keymaps = {
-    disable_defaults = true,
+    disable_defaults = true, -- Disable the default keymaps
     view = {
-      ['q'] = '<cmd>DiffviewClose<CR>',
+      { 'n', 'q', '<cmd>DiffviewClose<CR>', { desc = 'Close Diffview' } },
+      { 'n', '?', actions.help({ 'view' }), { desc = 'Open the help panel' } },
     },
     file_panel = {
-      ['q'] = '<cmd>DiffviewClose<CR>',
+      { 'n', 'q', '<cmd>DiffviewClose<CR>', { desc = 'Close Diffview' } },
+      {
+        'n',
+        's',
+        actions.toggle_stage_entry,
+        { desc = 'Stage / unstage the selected entry' },
+      },
+      {
+        'n',
+        'S',
+        actions.stage_all,
+        { desc = 'Stage all entries' },
+      },
+      {
+        'n',
+        'U',
+        actions.unstage_all,
+        { desc = 'Unstage all entries' },
+      },
+      {
+        'n',
+        'K',
+        actions.open_commit_log,
+        { desc = 'Open the commit log panel' },
+      },
+      {
+        'n',
+        'o',
+        actions.select_entry,
+        { desc = 'Open the diff for the selected entry' },
+      },
+      {
+        'n',
+        '<c-u>',
+        actions.scroll_view(-0.25),
+        { desc = 'Scroll the view up' },
+      },
+      {
+        'n',
+        '<c-d>',
+        actions.scroll_view(0.25),
+        { desc = 'Scroll the view down' },
+      },
+      {
+        'n',
+        'R',
+        actions.refresh_files,
+        { desc = 'Update stats and entries in the file list' },
+      },
+      {
+        'n',
+        '?',
+        actions.help('file_panel'),
+        { desc = 'Open the help panel' },
+      },
+      {
+        'n',
+        'j',
+        actions.next_entry,
+        { desc = 'diffview_ignore' },
+      },
+      {
+        'n',
+        'k',
+        actions.prev_entry,
+        { desc = 'diffview_ignore' },
+      },
     },
     file_history_panel = {
-      ['q'] = '<cmd>DiffviewClose<CR>',
+      { 'n', 'q', '<Cmd>DiffviewClose<CR>', { desc = 'Close Diffview' } },
+      {
+        'n',
+        'o',
+        actions.select_entry,
+        { desc = 'Open the diff for the selected entry' },
+      },
+      {
+        'n',
+        'g!',
+        actions.options,
+        { desc = 'Open the option panel' },
+      },
+      {
+        'n',
+        '<C-A-d>',
+        actions.open_in_diffview,
+        { desc = 'Open the entry under the cursor in a diffview' },
+      },
+      {
+        'n',
+        'y',
+        actions.copy_hash,
+        { desc = 'Copy the commit hash of the entry under the cursor' },
+      },
+      {
+        'n',
+        'K',
+        actions.open_commit_log,
+        { desc = 'Show commit details' },
+      },
+      {
+        'n',
+        '<c-u>',
+        actions.scroll_view(-0.25),
+        { desc = 'Scroll the view up' },
+      },
+      {
+        'n',
+        '<c-d>',
+        actions.scroll_view(0.25),
+        { desc = 'Scroll the view down' },
+      },
+      {
+        'n',
+        '?',
+        actions.help('file_history_panel'),
+        { desc = 'Open the help panel' },
+      },
+      {
+        'n',
+        'j',
+        actions.next_entry,
+        { desc = 'diffview_ignore' },
+      },
+      {
+        'n',
+        'k',
+        actions.prev_entry,
+        { desc = 'diffview_ignore' },
+      },
+    },
+    option_panel = {
+      { 'n', '?', actions.help('option_panel'), { desc = 'Open the help panel' } },
+      { 'n', 'q', actions.close, { desc = 'Close the panel' } },
+    },
+    help_panel = {
+      { 'n', 'q', actions.close, { desc = 'Close help menu' } },
     },
   },
 })
