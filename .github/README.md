@@ -23,8 +23,8 @@
 | --------- | ------ | --------------------------------------- |
 | `,gs`     |   n    | Git stage flow (gitsigns.nvim)          |
 | `,gd`     |   n    | Git diff (diffview.nvim)                |
-| `,gfh`    |  n,v   | Git file history (diffview.nvim)        |
-| `,gph`    |   n    | Git project history (diffview.nvim)     |
+| `,gf`     |  n,v   | Git file history (diffview.nvim)        |
+| `,gp`     |   n    | Git project history (diffview.nvim)     |
 | --------- | ------ | --------------------------------------- |
 | `,ud`     |   n    | Toggle diagnostic                       |
 | `,uf`     |   n    | Toggle autoformat                       |

@@ -168,8 +168,8 @@ map('n', '<leader>gs', '<cmd>GitStageFlow<CR>', { desc = 'Git Stage Flow' })
 -- , + gd: Git diff
 map('n', '<leader>gd', '<cmd>DiffviewOpen<CR>', { desc = 'Git Diff Open' })
 
--- , + gfh: Git file history
-map({ 'n', 'x' }, '<leader>gfh', function()
+-- , + gf: Git file history
+map({ 'n', 'x' }, '<leader>gf', function()
   local mode = vim.fn.mode()
 
   if mode == 'v' or mode == 'V' or mode == '\22' then
@@ -182,8 +182,8 @@ map({ 'n', 'x' }, '<leader>gfh', function()
   end
 end, { desc = 'Git File History' })
 
--- , + gph: Git project history
-map({ 'n' }, '<leader>gph', function()
+-- , + gp: Git project history
+map({ 'n' }, '<leader>gp', function()
   vim.cmd('DiffviewFileHistory')
 end, { desc = 'Git Project History' })
 
