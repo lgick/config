@@ -1,7 +1,9 @@
 local snacks = require('snacks')
 
 snacks.setup({
-  input = { enabled = true },
+  input = {
+    enabled = true,
+  },
 
   picker = {
     enabled = true,
@@ -50,20 +52,6 @@ snacks.setup({
           ['<CR>'] = { 'confirm', mode = { 'n', 'i' } },
         },
       },
-    },
-  },
-
-  styles = {
-    notification = {
-      border = true,
-      zindex = 100,
-      wo = {
-        winblend = 5,
-        wrap = true,
-        conceallevel = 2,
-        colorcolumn = '',
-      },
-      bo = { filetype = 'snacks_notif' },
     },
   },
 })
