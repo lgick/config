@@ -25,6 +25,10 @@ local function custom_attach(bufnr)
     return function()
       local node = api.tree.get_node_under_cursor()
 
+      if not node or node.type ~= 'file' then
+        return
+      end
+
       -- Текущая ширина окна nvim-tree
       local tree_win = vim.api.nvim_get_current_win()
       local tree_width = vim.api.nvim_win_get_width(tree_win)
@@ -44,22 +48,32 @@ local function custom_attach(bufnr)
       local content_width = total_width - width_to_subtract
 
       -- Выполнение основного действия (открытие файла)
-      action()
+      action(node)
 
       -- Проверка условия для закрытия
-      if node and node.type ~= 'directory' and content_width < 85 then
+      if content_width < 85 then
         api.tree.close()
       end
     end
   end
 
+  -- открывает/закрывает директорию
+  local function toggle_directory()
+    local node = api.tree.get_node_under_cursor()
+
+    if node and node.type == 'directory' then
+      api.node.open.edit(node)
+    end
+  end
+
   -- custom mappings
   -- Действия открытия файлов с проверкой и возможным закрытием плагина
-  keymap.set('n', 'o', open_with_window_check(api.node.open.edit), opts('Open'))
+  keymap.set('n', '<CR>', open_with_window_check(api.node.open.edit), opts('Open'))
   keymap.set('n', 's', open_with_window_check(api.node.open.vertical), opts('Open Vertical'))
   keymap.set('n', 'i', open_with_window_check(api.node.open.horizontal), opts('Open Horizontal'))
   keymap.set('n', 't', open_with_window_check(api.node.open.tab), opts('Open Tab'))
 
+  keymap.set('n', 'o', toggle_directory, opts('Toggle Directory'))
   keymap.set('n', 'O', api.node.run.system, opts('Run System'))
   keymap.set('n', '?', api.tree.toggle_help, opts('Help'))
   keymap.set('n', 'C', api.tree.change_root_to_node, opts('Change Root'))
