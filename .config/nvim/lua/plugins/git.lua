@@ -1,4 +1,4 @@
-local actions = require('diffview.config').actions
+local A = require('diffview.config').actions
 
 require('diffview').setup({
   enhanced_diff_hl = true,
@@ -13,7 +13,7 @@ require('diffview').setup({
   view = {
     default = {
       disable_diagnostics = true, -- Отключение ошибок LSP в диффах
-      winbar_info = true, -- Плашки "a/файл" и "b/файл" сверху
+      winbar_info = false, -- Плашки "a/файл" и "b/файл" сверху
     },
   },
   hooks = {
@@ -29,74 +29,74 @@ require('diffview').setup({
     disable_defaults = true, -- Disable the default keymaps
     view = {
       { 'n', 'q', '<cmd>DiffviewClose<CR>', { desc = 'Close Diffview' } },
-      { 'n', '?', actions.help({ 'view' }), { desc = 'Open the help panel' } },
+      { 'n', '?', A.help({ 'view' }), { desc = 'Open the help panel' } },
     },
     file_panel = {
       { 'n', 'q', '<cmd>DiffviewClose<CR>', { desc = 'Close Diffview' } },
       {
         'n',
         's',
-        actions.toggle_stage_entry,
-        { desc = 'Stage / unstage the selected entry' },
+        A.toggle_stage_entry,
+        { desc = 'Stage/unstage the selected entry' },
       },
       {
         'n',
         'S',
-        actions.stage_all,
+        A.stage_all,
         { desc = 'Stage all entries' },
       },
       {
         'n',
         'U',
-        actions.unstage_all,
+        A.unstage_all,
         { desc = 'Unstage all entries' },
       },
       {
         'n',
         'K',
-        actions.open_commit_log,
+        A.open_commit_log,
         { desc = 'Open the commit log panel' },
       },
       {
         'n',
         'o',
-        actions.select_entry,
+        A.select_entry,
         { desc = 'Open the diff for the selected entry' },
       },
       {
         'n',
         '<c-u>',
-        actions.scroll_view(-0.25),
+        A.scroll_view(-0.25),
         { desc = 'Scroll the view up' },
       },
       {
         'n',
         '<c-d>',
-        actions.scroll_view(0.25),
+        A.scroll_view(0.25),
         { desc = 'Scroll the view down' },
       },
       {
         'n',
         'R',
-        actions.refresh_files,
+        A.refresh_files,
         { desc = 'Update stats and entries in the file list' },
       },
       {
         'n',
         '?',
-        actions.help('file_panel'),
+        A.help('file_panel'),
         { desc = 'Open the help panel' },
       },
       {
         'n',
         'j',
-        actions.next_entry,
+        A.next_entry,
         { desc = 'diffview_ignore' },
       },
       {
         'n',
         'k',
-        actions.prev_entry,
+        A.prev_entry,
         { desc = 'diffview_ignore' },
       },
     },
@@ -105,70 +105,70 @@ require('diffview').setup({
       {
         'n',
         'o',
-        actions.select_entry,
+        A.select_entry,
         { desc = 'Open the diff for the selected entry' },
       },
       {
         'n',
         'g!',
-        actions.options,
+        A.options,
         { desc = 'Open the option panel' },
       },
       {
         'n',
         '<C-A-d>',
-        actions.open_in_diffview,
+        A.open_in_diffview,
         { desc = 'Open the entry under the cursor in a diffview' },
       },
       {
         'n',
         'y',
-        actions.copy_hash,
+        A.copy_hash,
         { desc = 'Copy the commit hash of the entry under the cursor' },
       },
       {
         'n',
         'K',
-        actions.open_commit_log,
+        A.open_commit_log,
         { desc = 'Show commit details' },
       },
       {
         'n',
         '<c-u>',
-        actions.scroll_view(-0.25),
+        A.scroll_view(-0.25),
         { desc = 'Scroll the view up' },
       },
       {
         'n',
         '<c-d>',
-        actions.scroll_view(0.25),
+        A.scroll_view(0.25),
         { desc = 'Scroll the view down' },
       },
       {
         'n',
         '?',
-        actions.help('file_history_panel'),
+        A.help('file_history_panel'),
         { desc = 'Open the help panel' },
       },
       {
         'n',
         'j',
-        actions.next_entry,
+        A.next_entry,
         { desc = 'diffview_ignore' },
       },
       {
         'n',
         'k',
-        actions.prev_entry,
+        A.prev_entry,
         { desc = 'diffview_ignore' },
       },
     },
     option_panel = {
-      { 'n', '?', actions.help('option_panel'), { desc = 'Open the help panel' } },
-      { 'n', 'q', actions.close, { desc = 'Close the panel' } },
+      { 'n', '?', A.help('option_panel'), { desc = 'Open the help panel' } },
+      { 'n', 'q', A.close, { desc = 'Close the panel' } },
     },
     help_panel = {
-      { 'n', 'q', actions.close, { desc = 'Close help menu' } },
+      { 'n', 'q', A.close, { desc = 'Close help menu' } },
     },
   },
 })
