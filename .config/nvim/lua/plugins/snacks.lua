@@ -22,16 +22,6 @@ snacks.setup({
         limit = 100,
         limit_live = 100,
       },
-      git_status = {
-        win = {
-          input = {
-            keys = {
-              ['<C-s>'] = { 'git_stage', mode = { 'n', 'i' } },
-              ['<C-r>'] = { 'git_restore', mode = { 'n', 'i' }, nowait = true },
-            },
-          },
-        },
-      },
     },
     layout = {
       fullscreen = true,
