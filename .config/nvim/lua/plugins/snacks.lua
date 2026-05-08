@@ -1,7 +1,9 @@
 local snacks = require('snacks')
 
 snacks.setup({
-  input = { enabled = true },
+  input = {
+    enabled = true,
+  },
 
   picker = {
     enabled = true,
@@ -10,24 +12,6 @@ snacks.setup({
         layout = { preset = 'vscode' },
         sort = {
           fields = { 'lhs:asc', 'score:desc', 'idx' },
-        },
-      },
-      grep = {
-        limit = 300,
-        limit_live = 300,
-      },
-      files = {
-        limit = 100,
-        limit_live = 100,
-      },
-      git_status = {
-        win = {
-          input = {
-            keys = {
-              ['<C-s>'] = { 'git_stage', mode = { 'n', 'i' } },
-              ['<C-r>'] = { 'git_restore', mode = { 'n', 'i' }, nowait = true },
-            },
-          },
         },
       },
     },
@@ -50,20 +34,6 @@ snacks.setup({
           ['<CR>'] = { 'confirm', mode = { 'n', 'i' } },
         },
       },
-    },
-  },
-
-  styles = {
-    notification = {
-      border = true,
-      zindex = 100,
-      wo = {
-        winblend = 5,
-        wrap = true,
-        conceallevel = 2,
-        colorcolumn = '',
-      },
-      bo = { filetype = 'snacks_notif' },
     },
   },
 })

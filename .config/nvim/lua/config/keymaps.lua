@@ -165,24 +165,27 @@ end, { desc = 'Live Grep Word (All Files)' })
 -- , + gs: Git stage
 map('n', '<leader>gs', '<cmd>GitStageFlow<CR>', { desc = 'Git Stage Flow' })
 
--- , + gh: Git history
-map({ 'n', 'x' }, '<leader>gh', function()
+-- , + gd: Git diff
+map('n', '<leader>gd', '<cmd>DiffviewOpen<CR>', { desc = 'Git Diff Open' })
+
+-- , + gf: Git file history
+map({ 'n', 'x' }, '<leader>gf', function()
   local mode = vim.fn.mode()
 
   if mode == 'v' or mode == 'V' or mode == '\22' then
-    -- Поведение Visual mode
+    -- Visual mode
     vim.cmd('normal! \27')
     vim.cmd("'<,'>DiffviewFileHistory")
   else
-    -- Поведение Normal mode
+    -- Normal mode
     vim.cmd('DiffviewFileHistory %')
   end
 end, { desc = 'Git File History' })
 
--- , + gd: Git diff
-map('n', '<leader>gd', function()
-  Snacks.picker.git_status()
-end, { desc = 'Git diff (Snacks Git Status)' })
+-- , + gp: Git project history
+map('n', '<leader>gp', function()
+  vim.cmd('DiffviewFileHistory')
+end, { desc = 'Git Project History' })
 
 ----------------------------------------
 -- Trouble

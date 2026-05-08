@@ -21,12 +21,13 @@
 | `,sgi`    |   n    | Live grep (all files)                   |
 | `,sgw`    |  n,v   | Live grep word (all files)              |
 | --------- | ------ | --------------------------------------- |
+| `,gs`     |   n    | Git stage flow (gitsigns.nvim)          |
+| `,gd`     |   n    | Git diff (diffview.nvim)                |
+| `,gf`     |  n,v   | Git file history (diffview.nvim)        |
+| `,gp`     |   n    | Git project history (diffview.nvim)     |
+| --------- | ------ | --------------------------------------- |
 | `,ud`     |   n    | Toggle diagnostic                       |
 | `,uf`     |   n    | Toggle autoformat                       |
-| --------- | ------ | --------------------------------------- |
-| `,gs`     |   n    | Git stage flow (gitsigns.nvim)          |
-| `,gh`     |  n,v   | Git file history (diffview.nvim)        |
-| `,gd`     |   n    | Git status (snacks.nvim)                |
 | --------- | ------ | --------------------------------------- |
 | `:ju`     |   c    | Show jump list                          |
 | `<C-o>`   |   n    | Jump to previous position in jumplist   |
