@@ -110,53 +110,36 @@ end, { desc = 'Toggle Diagnostic' })
 ----------------------------------------
 
 -- поиск файлов
-map('n', '<leader>sff', function()
+map('n', '<leader>sf', function()
   Snacks.picker.files({ hidden = true })
 end, { desc = 'Find Files' })
 
--- поиск файлов везде
-map('n', '<leader>sfi', function()
-  Snacks.picker.files({
-    hidden = true,
-    ignored = true,
-  })
-end, { desc = 'Find Files (All)' })
-
 -- буфферы
-map('n', '<leader>sfb', function()
+map('n', '<leader>sb', function()
   Snacks.picker.buffers()
 end, { desc = 'Buffer Files' })
 
 -- недавно открытые файлы
-map('n', '<leader>sfr', function()
+map('n', '<leader>sr', function()
   Snacks.picker.recent({ filter = { cwd = true } })
 end, { desc = 'Recent Files' })
 
 -- конфиг nvim
-map('n', '<leader>sfc', function()
-  Snacks.picker.files({ cwd = vim.fn.stdpath('config') })
+map('n', '<leader>sc', function()
+  Snacks.picker.files({ cwd = vim.fn.stdpath('config'), title = 'Config Files' })
 end, { desc = 'Config Files' })
 
 -- поиск в файлах
-map('n', '<leader>sgg', function()
+map('n', '<leader>sg', function()
   Snacks.picker.grep({ hidden = true })
 end, { desc = 'Live Grep' })
 
--- поиск во всех файлах
-map('n', '<leader>sgi', function()
-  Snacks.picker.grep({
-    hidden = true,
-    ignored = true,
-  })
-end, { desc = 'Live Grep (All Files)' })
-
 -- поиск конкретного слова в файлах
-map({ 'n', 'v' }, '<leader>sgw', function()
+map('v', '<leader>sg', function()
   Snacks.picker.grep_word({
     hidden = true,
-    ignored = true,
   })
-end, { desc = 'Live Grep Word (All Files)' })
+end, { desc = 'Live Grep Word' })
 
 ----------------------------------------
 -- Git

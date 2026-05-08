@@ -11,15 +11,13 @@
 | `K`       |   n    | Documentation (hover)                   |
 | `<C-s>`   |   i    | Signature help                          |
 | --------- | ------ | --------------------------------------- |
-| `,sff`    |   n    | Find files                              |
-| `,sfi`    |   n    | Find files (all)                        |
-| `,sfb`    |   n    | Buffer files                            |
-| `,sfr`    |   n    | Recent files                            |
-| `,sfc`    |   n    | Config files                            |
+| `,sf`     |   n    | Find files                              |
+| `,sb`     |   n    | Buffer files                            |
+| `,sr`     |   n    | Recent files                            |
+| `,sc`     |   n    | Config files                            |
 | --------- | ------ | --------------------------------------- |
-| `,sgg`    |   n    | Live grep                               |
-| `,sgi`    |   n    | Live grep (all files)                   |
-| `,sgw`    |  n,v   | Live grep word (all files)              |
+| `,sg`     |   n    | Live grep                               |
+| `,sw`     |   v    | Live grep word                          |
 | --------- | ------ | --------------------------------------- |
 | `,gs`     |   n    | Git stage flow (gitsigns.nvim)          |
 | `,gd`     |   n    | Git diff (diffview.nvim)                |
