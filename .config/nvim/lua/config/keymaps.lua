@@ -183,7 +183,7 @@ map({ 'n', 'x' }, '<leader>gf', function()
 end, { desc = 'Git File History' })
 
 -- , + gp: Git project history
-map({ 'n' }, '<leader>gp', function()
+map('n', '<leader>gp', function()
   vim.cmd('DiffviewFileHistory')
 end, { desc = 'Git Project History' })
 

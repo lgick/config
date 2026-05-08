@@ -1,4 +1,20 @@
-local A = require('diffview.config').actions
+local actions = require('diffview.config').actions
+
+local function open_file()
+  local view = require('diffview.lib').get_current_view()
+
+  if not view or not view.panel:is_focused() then
+    return
+  end
+
+  local item = view.panel:get_item_at_cursor()
+
+  if not item or item.files then
+    return
+  end
+
+  actions.select_entry()
+end
 
 require('diffview').setup({
   enhanced_diff_hl = true,
@@ -7,7 +23,12 @@ require('diffview').setup({
 
     win_config = {
       position = 'bottom',
-      height = 15,
+      height = 20,
+    },
+  },
+  file_history_panel = {
+    win_config = {
+      height = 20,
     },
   },
   view = {
@@ -29,39 +50,47 @@ require('diffview').setup({
     disable_defaults = true, -- Disable the default keymaps
     view = {
       { 'n', 'q', '<cmd>DiffviewClose<CR>', { desc = 'Close Diffview' } },
-      { 'n', '?', A.help({ 'view' }), { desc = 'Open the help panel' } },
+      { 'n', '?', actions.help({ 'view' }), { desc = 'Open the help panel' } },
+      { 'n', 'f', actions.toggle_files, { desc = 'Toggle file panel' } },
     },
     file_panel = {
       { 'n', 'q', '<cmd>DiffviewClose<CR>', { desc = 'Close Diffview' } },
-      { 'n', 's', A.toggle_stage_entry, { desc = 'Stage/unstage the selected entry' } },
-      { 'n', 'S', A.stage_all, { desc = 'Stage all entries' } },
-      { 'n', 'U', A.unstage_all, { desc = 'Unstage all entries' } },
-      { 'n', 'o', A.select_entry, { desc = 'Open the diff for the selected entry' } },
-      { 'n', '<C-u>', A.scroll_view(-0.25), { desc = 'Scroll the view up' } },
-      { 'n', '<C-d>', A.scroll_view(0.25), { desc = 'Scroll the view down' } },
-      { 'n', 'R', A.refresh_files, { desc = 'Update stats and entries in the file list' } },
-      { 'n', '?', A.help('file_panel'), { desc = 'Open the help panel' } },
-      { 'n', 'j', A.next_entry, { desc = 'diffview_ignore' } },
-      { 'n', 'k', A.prev_entry, { desc = 'diffview_ignore' } },
+      { 'n', '<CR>', open_file, { desc = 'Open file' } },
+      { 'n', 'f', actions.toggle_files, { desc = 'Toggle file panel' } },
+      { 'n', 'o', actions.toggle_fold, { desc = 'Toggle directory' } },
+      { 'n', '<C-u>', actions.scroll_view(-0.25), { desc = 'Scroll the view up' } },
+      { 'n', '<C-d>', actions.scroll_view(0.25), { desc = 'Scroll the view down' } },
+      { 'n', 'j', actions.next_entry, { desc = 'diffview_ignore' } },
+      { 'n', 'k', actions.prev_entry, { desc = 'diffview_ignore' } },
+
+      { 'n', 's', actions.toggle_stage_entry, { desc = 'Stage/unstage the selected entry' } },
+      { 'n', 'S', actions.stage_all, { desc = 'Stage all entries' } },
+      { 'n', 'U', actions.unstage_all, { desc = 'Unstage all entries' } },
+      { 'n', 'R', actions.refresh_files, { desc = 'Update stats and entries in the file list' } },
+      { 'n', '?', actions.help('file_panel'), { desc = 'Open the help panel' } },
     },
     file_history_panel = {
       { 'n', 'q', '<Cmd>DiffviewClose<CR>', { desc = 'Close Diffview' } },
-      { 'n', 'o', A.select_entry, { desc = 'Open the diff for the selected entry' } },
-      { 'n', 'K', A.open_commit_log, { desc = 'Show commit details' } },
-      { 'n', '<C-u>', A.scroll_view(-0.25), { desc = 'Scroll the view up' } },
-      { 'n', '<C-d>', A.scroll_view(0.25), { desc = 'Scroll the view down' } },
-      { 'n', '!', A.options, { desc = 'Open the option panel' } },
-      { 'n', '?', A.help('file_history_panel'), { desc = 'Open the help panel' } },
-      { 'n', 'j', A.next_entry, { desc = 'diffview_ignore' } },
-      { 'n', 'k', A.prev_entry, { desc = 'diffview_ignore' } },
+      { 'n', '<CR>', open_file, { desc = 'Open file' } },
+      { 'n', 'f', actions.toggle_files, { desc = 'Toggle file panel' } },
+      { 'n', 'o', actions.toggle_fold, { desc = 'Toggle directory' } },
+      { 'n', '<C-u>', actions.scroll_view(-0.25), { desc = 'Scroll the view up' } },
+      { 'n', '<C-d>', actions.scroll_view(0.25), { desc = 'Scroll the view down' } },
+      { 'n', 'j', actions.next_entry, { desc = 'diffview_ignore' } },
+      { 'n', 'k', actions.prev_entry, { desc = 'diffview_ignore' } },
+
+      { 'n', 'X', actions.restore_entry, { desc = 'Restore file to state from selected entry' } },
+      { 'n', 'K', actions.open_commit_log, { desc = 'Show commit details' } },
+      { 'n', '?', actions.help('file_history_panel'), { desc = 'Open the help panel' } },
+      { 'n', '!', actions.options, { desc = 'Open the option panel' } },
     },
     option_panel = {
-      { 'n', '?', A.help('option_panel'), { desc = 'Open the help panel' } },
-      { 'n', 'q', A.close, { desc = 'Close the panel' } },
-      { 'n', '<CR>', A.select_entry, { desc = 'Change the current option' } },
+      { 'n', 'q', actions.close, { desc = 'Close the panel' } },
+      { 'n', '?', actions.help('option_panel'), { desc = 'Open the help panel' } },
+      { 'n', '<CR>', actions.select_entry, { desc = 'Change the current option' } },
     },
     help_panel = {
-      { 'n', 'q', A.close, { desc = 'Close help menu' } },
+      { 'n', 'q', actions.close, { desc = 'Close help menu' } },
     },
   },
 })
