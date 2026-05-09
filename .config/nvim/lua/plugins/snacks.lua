@@ -1,12 +1,20 @@
 local snacks = require('snacks')
+local backdrop = 70
 
 snacks.setup({
   input = {
     enabled = true,
+    icon = '> ',
+    win = {
+      backdrop = backdrop,
+      width = 100,
+      row = 10,
+    },
   },
 
   picker = {
     enabled = true,
+    ui_select = true,
     sources = {
       keymaps = {
         layout = { preset = 'vscode' },
@@ -15,23 +23,161 @@ snacks.setup({
         },
       },
     },
-    layout = {
-      fullscreen = true,
+    layouts = {
+      default = {
+        fullscreen = true,
+        layout = {
+          backdrop = false,
+        },
+      },
+      vertical = {
+        fullscreen = true,
+        layout = {
+          backdrop = false,
+        },
+      },
+      vscode = {
+        fullscreen = true,
+        layout = {
+          backdrop = false,
+        },
+      },
+      select = {
+        layout = {
+          backdrop = backdrop,
+          max_width = 200,
+        },
+      },
     },
+    prompt = '> ',
     win = {
       input = {
         keys = {
-          ['<ESC>'] = { 'close', mode = { 'i', 'n' } },
-          ['<C-j>'] = { 'list_down', mode = { 'i', 'n' } },
-          ['<C-k>'] = { 'list_up', mode = { 'i', 'n' } },
-          ['<C-n>'] = { 'preview_scroll_down', mode = { 'i', 'n' } },
-          ['<C-p>'] = { 'preview_scroll_up', mode = { 'i', 'n' } },
-          ['<C-d>'] = { 'list_bottom', mode = { 'i', 'n' } },
-          ['<C-u>'] = { 'list_top', mode = { 'i', 'n' } },
-          ['<C-o>'] = { 'qflist', mode = { 'i', 'n' } },
-          ['<C-s>'] = { 'edit_split', mode = { 'i', 'n' } },
-          ['<C-i>'] = { 'edit_vsplit', mode = { 'i', 'n' } },
-          ['<CR>'] = { 'confirm', mode = { 'n', 'i' } },
+          ['q'] = 'close',
+
+          ['i'] = 'focus_input',
+          ['/'] = 'focus_input',
+
+          ['<c-g>'] = { 'toggle_live', mode = { 'i', 'n' } },
+
+          ['<c-j>'] = { 'list_down', mode = { 'i', 'n' } },
+          ['<c-k>'] = { 'list_up', mode = { 'i', 'n' } },
+          ['<c-u>'] = { 'preview_scroll_up', mode = { 'i', 'n' } },
+          ['<c-d>'] = { 'preview_scroll_down', mode = { 'i', 'n' } },
+
+          ['<CR>'] = { 'focus_list', mode = { 'n', 'i' } },
+          ['<c-s>'] = { 'edit_split', mode = { 'i', 'n' } },
+          ['<c-i>'] = { 'edit_vsplit', mode = { 'i', 'n' } },
+          ['<c-o>'] = { 'qflist', mode = { 'i', 'n' } },
+
+          ['?'] = 'toggle_help_list',
+
+          ['<Esc>'] = false,
+          ['<C-Down>'] = false,
+          ['<C-Up>'] = false,
+          ['<C-c>'] = false,
+          ['<C-w>'] = false,
+          ['<Down>'] = false,
+          ['<S-CR>'] = false,
+          ['<S-Tab>'] = false,
+          ['<Tab>'] = false,
+          ['<Up>'] = false,
+          ['<a-d>'] = false,
+          ['<a-f>'] = false,
+          ['<a-h>'] = false,
+          ['<a-i>'] = false,
+          ['<a-r>'] = false,
+          ['<a-m>'] = false,
+          ['<a-p>'] = false,
+          ['<a-w>'] = false,
+          ['<c-a>'] = false,
+          ['<c-b>'] = false,
+          ['<c-v>'] = false,
+          ['<c-f>'] = false,
+          ['<c-n>'] = false,
+          ['<c-p>'] = false,
+          ['<c-q>'] = false,
+          ['<c-t>'] = false,
+          ['<c-r>#'] = false,
+          ['<c-r>%'] = false,
+          ['<c-r><c-a>'] = false,
+          ['<c-r><c-f>'] = false,
+          ['<c-r><c-l>'] = false,
+          ['<c-r><c-p>'] = false,
+          ['<c-r><c-w>'] = false,
+          ['<c-w>H'] = false,
+          ['<c-w>J'] = false,
+          ['<c-w>K'] = false,
+          ['<c-w>L'] = false,
+          ['G'] = false,
+          ['gg'] = false,
+          ['j'] = false,
+          ['k'] = false,
+        },
+      },
+      list = {
+        keys = {
+          ['q'] = 'close',
+
+          ['<Esc>'] = 'focus_input',
+          ['/'] = 'focus_input',
+          ['<Tab>'] = 'focus_preview',
+
+          ['<CR>'] = 'confirm',
+          ['s'] = 'edit_split',
+          ['i'] = 'edit_vsplit',
+          ['o'] = 'qflist',
+
+          ['<c-j>'] = 'list_down',
+          ['<c-k>'] = 'list_up',
+          ['<c-u>'] = 'preview_scroll_up',
+          ['<c-d>'] = 'preview_scroll_down',
+
+          ['tf'] = 'toggle_follow',
+          ['th'] = 'toggle_hidden',
+          ['ti'] = 'toggle_ignored',
+
+          ['?'] = 'toggle_help_list',
+
+          ['<2-LeftMouse>'] = false,
+          ['<Down>'] = false,
+          ['<S-CR>'] = false,
+          ['<S-Tab>'] = false,
+          ['<Up>'] = false,
+          ['<a-d>'] = false,
+          ['<a-f>'] = false,
+          ['<a-h>'] = false,
+          ['<a-i>'] = false,
+          ['<a-m>'] = false,
+          ['<a-p>'] = false,
+          ['<a-w>'] = false,
+          ['<c-a>'] = false,
+          ['<c-b>'] = false,
+          ['<c-f>'] = false,
+          ['<c-n>'] = false,
+          ['<c-p>'] = false,
+          ['<c-q>'] = false,
+          ['<c-g>'] = false,
+          ['<c-s>'] = false,
+          ['<c-t>'] = false,
+          ['<c-v>'] = false,
+          ['<c-w>H'] = false,
+          ['<c-w>J'] = false,
+          ['<c-w>K'] = false,
+          ['<c-w>L'] = false,
+        },
+      },
+      preview = {
+        keys = {
+          ['q'] = 'close',
+
+          ['<Esc>'] = 'focus_input',
+          ['<Tab>'] = 'focus_list',
+
+          ['<CR>'] = 'confirm',
+          ['s'] = 'edit_split',
+          ['i'] = 'edit_vsplit',
+          ['o'] = 'qflist',
         },
       },
     },

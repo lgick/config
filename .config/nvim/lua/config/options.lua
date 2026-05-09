@@ -3,7 +3,6 @@
 --opt.clipboard:append("unnamedplus") -- use system clipboard as default register
 
 local vim = vim
-local cmd = vim.cmd
 local opt = vim.opt
 local fn = vim.fn
 
