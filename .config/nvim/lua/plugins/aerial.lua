@@ -30,8 +30,8 @@ aerial.setup({
     end,
 
     ['o'] = 'actions.scroll',
-    ['s'] = 'actions.jump_vsplit',
-    ['i'] = 'actions.jump_split',
+    ['s'] = 'actions.jump_split',
+    ['v'] = 'actions.jump_vsplit',
 
     ['<C-j>'] = 'actions.down_and_scroll',
     ['<C-k>'] = 'actions.up_and_scroll',

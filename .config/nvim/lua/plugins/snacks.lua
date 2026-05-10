@@ -56,7 +56,6 @@ snacks.setup({
           ['q'] = 'close',
 
           ['i'] = 'focus_input',
-          ['/'] = 'focus_input',
 
           ['<c-g>'] = { 'toggle_live', mode = { 'i', 'n' } },
 
@@ -67,12 +66,13 @@ snacks.setup({
 
           ['<CR>'] = { 'focus_list', mode = { 'n', 'i' } },
           ['<c-s>'] = { 'edit_split', mode = { 'i', 'n' } },
-          ['<c-i>'] = { 'edit_vsplit', mode = { 'i', 'n' } },
+          ['<c-v>'] = { 'edit_vsplit', mode = { 'i', 'n' } },
           ['<c-o>'] = { 'qflist', mode = { 'i', 'n' } },
 
           ['?'] = 'toggle_help_list',
 
           ['<Esc>'] = false,
+          ['/'] = false,
           ['<C-Down>'] = false,
           ['<C-Up>'] = false,
           ['<C-c>'] = false,
@@ -92,7 +92,7 @@ snacks.setup({
           ['<a-w>'] = false,
           ['<c-a>'] = false,
           ['<c-b>'] = false,
-          ['<c-v>'] = false,
+          ['<c-i>'] = false,
           ['<c-f>'] = false,
           ['<c-n>'] = false,
           ['<c-p>'] = false,
@@ -119,13 +119,12 @@ snacks.setup({
         keys = {
           ['q'] = 'close',
 
-          ['<Esc>'] = 'focus_input',
-          ['/'] = 'focus_input',
+          ['i'] = 'focus_input',
           ['<Tab>'] = 'focus_preview',
 
           ['<CR>'] = 'confirm',
           ['s'] = 'edit_split',
-          ['i'] = 'edit_vsplit',
+          ['v'] = 'edit_vsplit',
           ['o'] = 'qflist',
 
           ['<c-j>'] = 'list_down',
@@ -139,6 +138,8 @@ snacks.setup({
 
           ['?'] = 'toggle_help_list',
 
+          ['<Esc>'] = false,
+          ['/'] = false,
           ['<2-LeftMouse>'] = false,
           ['<Down>'] = false,
           ['<S-CR>'] = false,
@@ -171,13 +172,15 @@ snacks.setup({
         keys = {
           ['q'] = 'close',
 
-          ['<Esc>'] = 'focus_input',
+          ['i'] = 'focus_input',
           ['<Tab>'] = 'focus_list',
 
           ['<CR>'] = 'confirm',
           ['s'] = 'edit_split',
-          ['i'] = 'edit_vsplit',
+          ['v'] = 'edit_vsplit',
           ['o'] = 'qflist',
+
+          ['<Esc>'] = false,
         },
       },
     },

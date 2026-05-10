@@ -69,8 +69,8 @@ local function custom_attach(bufnr)
   -- custom mappings
   -- Действия открытия файлов с проверкой и возможным закрытием плагина
   keymap.set('n', '<CR>', open_with_window_check(api.node.open.edit), opts('Open'))
-  keymap.set('n', 's', open_with_window_check(api.node.open.vertical), opts('Open Vertical'))
-  keymap.set('n', 'i', open_with_window_check(api.node.open.horizontal), opts('Open Horizontal'))
+  keymap.set('n', 's', open_with_window_check(api.node.open.horizontal), opts('Open Split'))
+  keymap.set('n', 'v', open_with_window_check(api.node.open.vertical), opts('Open VSplit'))
   keymap.set('n', 't', open_with_window_check(api.node.open.tab), opts('Open Tab'))
 
   keymap.set('n', 'o', toggle_directory, opts('Toggle Directory'))
