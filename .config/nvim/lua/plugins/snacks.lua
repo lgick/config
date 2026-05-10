@@ -22,6 +22,16 @@ snacks.setup({
           fields = { 'lhs:asc', 'score:desc', 'idx' },
         },
       },
+      select = {
+        win = {
+          input = {
+            keys = {
+              ['<Esc>'] = { 'close', mode = { 'n', 'i' } },
+              ['<CR>'] = { 'confirm', mode = { 'n', 'i' } },
+            },
+          },
+        },
+      },
     },
     layouts = {
       default = {
@@ -45,7 +55,7 @@ snacks.setup({
       select = {
         layout = {
           backdrop = backdrop,
-          max_width = 200,
+          max_width = 100,
         },
       },
     },

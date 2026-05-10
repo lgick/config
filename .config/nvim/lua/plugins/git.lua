@@ -17,13 +17,16 @@ local function open_file()
 end
 
 local function restore_with_confirm()
-  vim.ui.select({ 'No', 'Yes' }, {
-    prompt = 'Restore this file?',
-  }, function(choice)
-    if choice == 'Yes' then
+  local answer = vim.fn.input('Restore this file? (y/n): ')
+
+  vim.cmd('redraw!')
+  vim.api.nvim_echo({}, false, {})
+
+  if answer:lower() == 'y' then
+    vim.schedule(function()
       actions.restore_entry()
-    end
-  end)
+    end)
+  end
 end
 
 require('diffview').setup({
