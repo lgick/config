@@ -18,6 +18,9 @@ call plug#begin('~/.vim/plugged')
 Plug 'preservim/nerdtree'
 set wildignore+=*.pyc,*.o,*.obj,*.svn,*.swp,*.class,*.hg,*.DS_Store,*.zip,*.tmp
 let NERDTreeRespectWildIgnore=1
+let g:NERDTreeMapOpenSplit = 's' 
+let g:NERDTreeMapOpenVSplit = 'v'
+
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " Polyglot: поддержка синтаксиса и отступов для разных языков
