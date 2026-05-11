@@ -70,7 +70,7 @@
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "paperblue.nvim": {
-      "rev": "eeea5a9fb61930b96779d752ff94687316cbc29b",
+      "rev": "0264c394aabd0da72635c09c11bfbd09be49bd39",
       "src": "https://github.com/lgick/paperblue.nvim"
     },
     "snacks.nvim": {
