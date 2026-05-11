@@ -100,48 +100,50 @@ utils.create_confirm_command({
 })
 
 api.nvim_create_user_command('Fold', function()
-  -- Проверяем, существует ли переменная vim.b.space
-  if fn.exists('b:space') == 0 then
-    api.nvim_buf_set_var(0, 'space', 0)
-  end
+  vim.b.space = vim.b.space or 0
 
-  -- Сворачиваем все блоки
-  api.nvim_command('normal zE')
+  local prompt_str = string.format('how many space (current value: %d)? ', vim.b.space)
 
-  -- Спрашиваем уровень отступа
-  local i = 0
-  local lenline = fn.line('$')
-  local currentline = fn.line('.')
-  cmd('call inputsave()')
-  local space =
-    fn.input('how many space (current value: ' .. api.nvim_buf_get_var(0, 'space') .. ')? ')
-  cmd('call inputrestore()')
+  vim.ui.input({ prompt = prompt_str }, function(input)
+    cmd('redraw!')
+    api.nvim_echo({}, false, {})
 
-  -- Обновляем значение vim.b.space, если пользователь ввел новое значение
-  local num_space = tonumber(space)
-  if num_space ~= nil then
-    api.nvim_buf_set_var(0, 'space', num_space)
-  end
-
-  -- значение умножаем на tabstop
-  local tabstop = tonumber(vim.opt.tabstop:get()) or 2
-  local indent = api.nvim_buf_get_var(0, 'space') * tabstop
-
-  -- Сворачиваем блоки с уровнем отступа, равным vim.b.space
-  while i <= lenline do
-    local str = fn.getline(i)
-    if fn.indent(i) == indent then
-      if fn.match(str, '[{(%[]') ~= -1 then
-        api.nvim_win_set_cursor(0, { i, 0 })
-        api.nvim_command('normal $zf%')
-      end
+    -- Если отмена ввода (Esc)
+    if input == nil then
+      return
     end
-    i = i + 1
-  end
 
-  -- Возвращаемся к текущей строке
-  api.nvim_win_set_cursor(0, { currentline, 0 })
-  api.nvim_command("echo ''")
+    local num_space = tonumber(input)
+    -- Если ввели число, обновление значения
+    -- Если пустой Enter ("") или буквы ("abc"),
+    -- num_space будет nil, значение не обновляется.
+    if num_space ~= nil then
+      vim.b.space = num_space
+    end
+
+    cmd('normal! zE')
+
+    local lenline = fn.line('$')
+    local currentline = fn.line('.')
+    local tabstop = tonumber(vim.opt.tabstop:get()) or 2
+    local indent = vim.b.space * tabstop
+
+    local i = 0
+
+    while i <= lenline do
+      local str = fn.getline(i)
+      if fn.indent(i) == indent then
+        if fn.match(str, '[{(%[]') ~= -1 then
+          api.nvim_win_set_cursor(0, { i, 0 })
+          cmd('normal! $zf%')
+        end
+      end
+      i = i + 1
+    end
+
+    -- Возврат к текущей строке
+    api.nvim_win_set_cursor(0, { currentline, 0 })
+  end)
 end, {
   desc = 'Folding',
 })
