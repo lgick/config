@@ -7,7 +7,7 @@ snacks.setup({
     icon = '> ',
     win = {
       backdrop = backdrop,
-      width = 100,
+      width = 80,
       row = 10,
     },
   },
