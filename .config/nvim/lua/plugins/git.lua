@@ -7,13 +7,17 @@ local function open_file()
     return
   end
 
-  local item = view.panel:get_item_at_cursor()
+  if view.panel.single_file == true then
+    actions.select_entry()
+  else
+    local item = view.panel:get_item_at_cursor()
 
-  if not item or item.files then
-    return
+    if not item or item.files then
+      return
+    end
+
+    actions.select_entry()
   end
-
-  actions.select_entry()
 end
 
 local function restore_with_confirm()
@@ -68,9 +72,8 @@ require('diffview').setup({
     },
     file_panel = {
       { 'n', '<Esc>', '<cmd>DiffviewClose<CR>', { desc = 'Close Diffview' } },
-      { 'n', '<CR>', open_file, { desc = 'Open file' } },
+      { 'n', '<CR>', actions.select_entry, { desc = 'Open file' } },
       { 'n', 'f', actions.toggle_files, { desc = 'Toggle file panel' } },
-      { 'n', 'o', actions.toggle_fold, { desc = 'Toggle directory' } },
       { 'n', 'R', restore_with_confirm, { desc = 'Restore file to state from selected entry' } },
       { 'n', '<C-u>', actions.scroll_view(-0.25), { desc = 'Scroll the view up' } },
       { 'n', '<C-d>', actions.scroll_view(0.25), { desc = 'Scroll the view down' } },
