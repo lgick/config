@@ -1,3 +1,4 @@
+local utils = require('utils')
 local fn = vim.fn
 local opt = vim.opt
 local api = vim.api
@@ -64,50 +65,38 @@ end, {
   desc = 'Принудительно загрузить все файлы проекта в ts_ls',
 })
 
-api.nvim_create_user_command('UpdateNvimPlugins', function()
-  local answer = fn.input('Обновить плагины Neovim? (y/n): ')
-
-  cmd('redraw!')
-  api.nvim_echo({}, false, {})
-
-  if answer:lower() == 'y' then
-    vim.schedule(function()
-      vim.pack.update()
-      cmd('MasonToolsUpdate')
-      cmd('TSUpdate')
-    end)
-  end
-end, {
+utils.create_confirm_command({
+  name = 'UpdateNvimPlugins',
+  prompt = 'Обновить плагины Neovim? (y/n): ',
   desc = 'Update Nvim Plugins',
+  action = function()
+    vim.pack.update()
+    cmd('MasonToolsUpdate')
+    cmd('TSUpdate')
+  end,
 })
 
-api.nvim_create_user_command('ResetNvim', function()
-  local answer = fn.input('ПОЛНОСТЬЮ сбросить Neovim? (y/n): ')
-
-  cmd('redraw!')
-  api.nvim_echo({}, false, {})
-
-  if answer:lower() == 'y' then
-    vim.schedule(function()
-      local paths = {
-        fn.stdpath('cache'), -- ~/.cache/nvim
-        fn.stdpath('data'), -- ~/.local/share/nvim
-        fn.stdpath('state'), -- ~/.local/state/nvim
-        fn.stdpath('config') .. '/nvim-pack-lock.json',
-      }
-
-      for _, path in ipairs(paths) do
-        if fn.empty(fn.glob(path)) == 0 then
-          fn.delete(path, 'rf')
-        end
-      end
-
-      opt.shada = ''
-      os.exit()
-    end)
-  end
-end, {
+utils.create_confirm_command({
+  name = 'ResetNvim',
+  prompt = 'ПОЛНОСТЬЮ сбросить Neovim? (y/n): ',
   desc = 'Reset Nvim',
+  action = function()
+    local paths = {
+      fn.stdpath('cache'), -- ~/.cache/nvim
+      fn.stdpath('data'), -- ~/.local/share/nvim
+      fn.stdpath('state'), -- ~/.local/state/nvim
+      fn.stdpath('config') .. '/nvim-pack-lock.json',
+    }
+
+    for _, path in ipairs(paths) do
+      if fn.empty(fn.glob(path)) == 0 then
+        fn.delete(path, 'rf')
+      end
+    end
+
+    opt.shada = ''
+    os.exit()
+  end,
 })
 
 api.nvim_create_user_command('Fold', function()
