@@ -11,7 +11,7 @@ require('trouble').setup({
   keys = {
     ['?'] = 'help',
     r = 'refresh',
-    ['<esc>'] = 'close',
+    q = 'close',
     ['<cr>'] = 'jump_close',
     s = 'jump_split',
     v = 'jump_vsplit',
@@ -22,8 +22,8 @@ require('trouble').setup({
     X = 'fold_close_all',
     E = 'fold_open_all',
 
+    ['<esc>'] = false,
     R = false,
-    q = false,
     ['<2-leftmouse>'] = false,
     ['<c-s>'] = false,
     ['<c-v>'] = false,

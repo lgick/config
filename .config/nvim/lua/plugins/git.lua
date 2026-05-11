@@ -66,12 +66,12 @@ require('diffview').setup({
   keymaps = {
     disable_defaults = true, -- Disable the default keymaps
     view = {
-      { 'n', '<Esc>', '<cmd>DiffviewClose<CR>', { desc = 'Close Diffview' } },
+      { 'n', 'q', '<cmd>DiffviewClose<CR>', { desc = 'Close Diffview' } },
       { 'n', '?', actions.help({ 'view' }), { desc = 'Open the help panel' } },
       { 'n', 'f', actions.toggle_files, { desc = 'Toggle file panel' } },
     },
     file_panel = {
-      { 'n', '<Esc>', '<cmd>DiffviewClose<CR>', { desc = 'Close Diffview' } },
+      { 'n', 'q', '<cmd>DiffviewClose<CR>', { desc = 'Close Diffview' } },
       { 'n', '<CR>', actions.select_entry, { desc = 'Open file' } },
       { 'n', 'f', actions.toggle_files, { desc = 'Toggle file panel' } },
       { 'n', 'R', restore_with_confirm, { desc = 'Restore file to state from selected entry' } },
@@ -86,7 +86,7 @@ require('diffview').setup({
       { 'n', '?', actions.help('file_panel'), { desc = 'Open the help panel' } },
     },
     file_history_panel = {
-      { 'n', '<Esc>', '<Cmd>DiffviewClose<CR>', { desc = 'Close Diffview' } },
+      { 'n', 'q', '<Cmd>DiffviewClose<CR>', { desc = 'Close Diffview' } },
       { 'n', '<CR>', open_file, { desc = 'Open file' } },
       { 'n', 'f', actions.toggle_files, { desc = 'Toggle file panel' } },
       { 'n', 'o', actions.toggle_fold, { desc = 'Toggle directory' } },
@@ -101,12 +101,12 @@ require('diffview').setup({
       { 'n', '!', actions.options, { desc = 'Open the option panel' } },
     },
     option_panel = {
-      { 'n', '<Esc>', actions.close, { desc = 'Close the panel' } },
+      { 'n', 'q', actions.close, { desc = 'Close the panel' } },
       { 'n', '?', actions.help('option_panel'), { desc = 'Open the help panel' } },
       { 'n', '<CR>', actions.select_entry, { desc = 'Change the current option' } },
     },
     help_panel = {
-      { 'n', '<Esc>', actions.close, { desc = 'Close help menu' } },
+      { 'n', 'q', actions.close, { desc = 'Close help menu' } },
     },
   },
 })
@@ -352,7 +352,7 @@ local function turn_on_git_mode(callback)
       gs.blame_line({ full = true })
     end, opts)
 
-    vim.keymap.set('n', '<Esc>', function()
+    vim.keymap.set('n', 'q', function()
       vim.cmd('GitStageFlow')
     end, opts)
 
@@ -362,7 +362,7 @@ local function turn_on_git_mode(callback)
 end
 
 local function turn_off_git_mode(callback)
-  local keys = { 's', 'S', 'U', 'u', '<C-r>', 'r', 'R', 'K', 'n', 'N', 'p', 'P', 'w', '<Esc>' }
+  local keys = { 's', 'S', 'U', 'u', '<C-r>', 'r', 'R', 'K', 'n', 'N', 'p', 'P', 'w', 'q' }
 
   gs.detach_all()
 

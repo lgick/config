@@ -23,6 +23,8 @@ aerial.setup({
   keymaps = {
     ['?'] = 'actions.show_help',
 
+    ['q'] = 'actions.close',
+
     ['<CR>'] = function()
       local actions = require('aerial.actions')
       actions.jump.callback()
@@ -38,8 +40,6 @@ aerial.setup({
 
     ['h'] = 'actions.tree_close',
     ['l'] = 'actions.tree_open',
-
-    ['<ESC>'] = 'actions.close',
 
     ['g?'] = false,
     ['<2-LeftMouse>'] = false,
@@ -65,6 +65,5 @@ aerial.setup({
     ['zM'] = false,
     ['zx'] = false,
     ['zX'] = false,
-    ['q'] = false,
   },
 })
