@@ -9,6 +9,9 @@ snacks.setup({
       backdrop = backdrop,
       width = 80,
       row = 10,
+      keys = {
+        i_esc = { '<esc>', { 'cmp_close', 'cancel' }, mode = 'i', expr = true },
+      },
     },
   },
 
@@ -63,7 +66,7 @@ snacks.setup({
     win = {
       input = {
         keys = {
-          ['q'] = 'close',
+          ['<Esc>'] = { 'close', mode = { 'i', 'n' } },
 
           ['i'] = 'focus_input',
 
@@ -81,7 +84,7 @@ snacks.setup({
 
           ['?'] = 'toggle_help_list',
 
-          ['<Esc>'] = false,
+          ['q'] = false,
           ['/'] = false,
           ['<C-Down>'] = false,
           ['<C-Up>'] = false,
@@ -127,7 +130,7 @@ snacks.setup({
       },
       list = {
         keys = {
-          ['q'] = 'close',
+          ['<Esc>'] = 'close',
 
           ['i'] = 'focus_input',
           ['<Tab>'] = 'focus_preview',
@@ -148,7 +151,7 @@ snacks.setup({
 
           ['?'] = 'toggle_help_list',
 
-          ['<Esc>'] = false,
+          ['q'] = false,
           ['/'] = false,
           ['<2-LeftMouse>'] = false,
           ['<Down>'] = false,
@@ -180,7 +183,7 @@ snacks.setup({
       },
       preview = {
         keys = {
-          ['q'] = 'close',
+          ['<Esc>'] = 'close',
 
           ['i'] = 'focus_input',
           ['<Tab>'] = 'focus_list',
@@ -190,7 +193,7 @@ snacks.setup({
           ['v'] = 'edit_vsplit',
           ['o'] = 'qflist',
 
-          ['<Esc>'] = false,
+          ['q'] = false,
         },
       },
     },
