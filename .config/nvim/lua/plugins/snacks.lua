@@ -169,10 +169,10 @@ snacks.setup({
       },
       select = {
         win = {
-          input = {
+          list = {
             keys = {
-              ['<Esc>'] = { 'close', mode = { 'n', 'i' } },
-              ['<CR>'] = { 'confirm', mode = { 'n', 'i' } },
+              ['<Esc>'] = 'close',
+              ['<CR>'] = 'confirm',
             },
           },
         },
@@ -198,6 +198,7 @@ snacks.setup({
         },
       },
       select = {
+        hidden = { 'input', 'preview' },
         layout = {
           backdrop = backdrop,
           max_width = 100,
