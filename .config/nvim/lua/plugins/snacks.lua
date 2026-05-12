@@ -1,7 +1,7 @@
 local snacks = require('snacks')
 local backdrop = 70
 local window_nav = {
-  function()
+  function(picker)
     vim.api.nvim_echo(
       { { ' Ожидание h/j/k/l (Esc для отмены) ', 'WarningMsg' } },
       false,
@@ -30,14 +30,18 @@ local window_nav = {
         return
       end
 
-      if key == 'h' or key == '<c-h>' then
+      if picker.opts.bo.filetype == 'snacks_picker_input' then
         current_picker:action('focus_list')
-      elseif key == 'l' or key == '<c-l>' then
-        current_picker:action('focus_preview')
-      elseif key == 'k' or key == '<c-k>' then
-        current_picker:action('focus_list')
-      elseif key == 'j' or key == '<c-j>' then
-        current_picker:action('focus_preview')
+      else
+        if key == 'h' or key == '<c-h>' then
+          current_picker:action('focus_list')
+        elseif key == 'l' or key == '<c-l>' then
+          current_picker:action('focus_preview')
+        elseif key == 'k' or key == '<c-k>' then
+          current_picker:action('focus_list')
+        elseif key == 'j' or key == '<c-j>' then
+          current_picker:action('focus_preview')
+        end
       end
     end)
   end,
@@ -88,6 +92,10 @@ local picker_files_keys = {
   ['<C-s>'] = false,
   ['<C-t>'] = false,
   ['<C-v>'] = false,
+  ['<C-w>h'] = false,
+  ['<C-w>j'] = false,
+  ['<C-w>k'] = false,
+  ['<C-w>l'] = false,
   ['<C-w>H'] = false,
   ['<C-w>J'] = false,
   ['<C-w>K'] = false,
@@ -167,6 +175,7 @@ snacks.setup({
           ['<Esc>'] = 'cancel',
           ['<c-g>'] = { 'toggle_live', mode = { 'i', 'n' } },
           ['<CR>'] = { 'focus_list', mode = { 'n', 'i' } },
+          ['<C-w>'] = window_nav,
 
           ['?'] = false,
           ['/'] = false,
@@ -201,7 +210,10 @@ snacks.setup({
           ['<C-r><c-l>'] = false,
           ['<C-r><c-p>'] = false,
           ['<C-r><c-w>'] = false,
-          ['<C-w>'] = false,
+          ['<C-w>h'] = false,
+          ['<C-w>j'] = false,
+          ['<C-w>k'] = false,
+          ['<C-w>l'] = false,
           ['<C-w>H'] = false,
           ['<C-w>J'] = false,
           ['<C-w>K'] = false,
