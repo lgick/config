@@ -1,50 +1,101 @@
 local snacks = require('snacks')
 local backdrop = 70
 local window_nav = {
-  ['<C-w>'] = {
-    function()
-      vim.api.nvim_echo(
-        { { ' Ожидание h/j/k/l (Esc для отмены) ', 'WarningMsg' } },
-        false,
-        {}
-      )
+  function()
+    vim.api.nvim_echo(
+      { { ' Ожидание h/j/k/l (Esc для отмены) ', 'WarningMsg' } },
+      false,
+      {}
+    )
 
-      local ok, char = pcall(vim.fn.getcharstr)
+    local ok, char = pcall(vim.fn.getcharstr)
 
-      vim.api.nvim_echo({ { '', 'Normal' } }, false, {})
+    vim.api.nvim_echo({ { '', 'Normal' } }, false, {})
 
-      if not ok then
+    if not ok then
+      return
+    end
+
+    local key = vim.fn.keytrans(char):lower()
+
+    if key == '<esc>' then
+      return
+    end
+
+    vim.schedule(function()
+      local pickers = require('snacks').picker.get() -- Список всех открытых пикеров
+      local current_picker = pickers[#pickers] -- Текущий активный пикер
+
+      if not current_picker then
         return
       end
 
-      local key = vim.fn.keytrans(char):lower()
-
-      if key == '<esc>' then
-        return
+      if key == 'h' or key == '<c-h>' then
+        current_picker:action('focus_list')
+      elseif key == 'l' or key == '<c-l>' then
+        current_picker:action('focus_preview')
+      elseif key == 'k' or key == '<c-k>' then
+        current_picker:action('focus_list')
+      elseif key == 'j' or key == '<c-j>' then
+        current_picker:action('focus_preview')
       end
+    end)
+  end,
+  mode = { 'n', 'i' },
+  desc = 'Snacks Window Nav',
+}
 
-      vim.schedule(function()
-        local pickers = require('snacks').picker.get() -- Список всех открытых пикеров
-        local current_picker = pickers[#pickers] -- Текущий активный пикер
+local picker_files_keys = {
+  ['q'] = 'close',
 
-        if not current_picker then
-          return
-        end
+  ['<Esc>'] = 'focus_input',
+  ['i'] = 'focus_input',
 
-        if key == 'h' or key == '<c-h>' then
-          current_picker:action('focus_list')
-        elseif key == 'l' or key == '<c-l>' then
-          current_picker:action('focus_preview')
-        elseif key == 'k' or key == '<c-k>' then
-          current_picker:action('focus_list')
-        elseif key == 'j' or key == '<c-j>' then
-          current_picker:action('focus_preview')
-        end
-      end)
-    end,
-    mode = { 'n', 'i' },
-    desc = 'Snacks Window Nav',
-  },
+  ['<C-w>'] = window_nav,
+
+  ['s'] = 'edit_split',
+  ['v'] = 'edit_vsplit',
+  ['<CR>'] = 'confirm',
+
+  ['o'] = 'qflist',
+
+  ['tf'] = 'toggle_follow', -- символические ссылки
+  ['th'] = 'toggle_hidden', -- скрытые файлы
+  ['ti'] = 'toggle_ignored', -- файлы из .gitignore
+
+  ['<Tab>'] = false,
+  ['?'] = false,
+  ['/'] = false,
+  ['<2-LeftMouse>'] = false,
+  ['<Down>'] = false,
+  ['<S-CR>'] = false,
+  ['<S-Tab>'] = false,
+  ['<Up>'] = false,
+  ['<a-d>'] = false,
+  ['<a-f>'] = false,
+  ['<a-h>'] = false,
+  ['<a-i>'] = false,
+  ['<a-m>'] = false,
+  ['<a-p>'] = false,
+  ['<a-w>'] = false,
+  ['<C-a>'] = false,
+  ['<C-b>'] = false,
+  ['<C-f>'] = false,
+  ['<C-n>'] = false,
+  ['<C-p>'] = false,
+  ['<C-q>'] = false,
+  ['<C-g>'] = false,
+  ['<C-s>'] = false,
+  ['<C-t>'] = false,
+  ['<C-v>'] = false,
+  ['<C-w>H'] = false,
+  ['<C-w>J'] = false,
+  ['<C-w>K'] = false,
+  ['<C-w>L'] = false,
+  ['<C-j>'] = false,
+  ['<C-k>'] = false,
+  ['<C-u>'] = false,
+  ['<C-d>'] = false,
 }
 
 snacks.setup({
@@ -169,77 +220,8 @@ snacks.setup({
           ['k'] = false,
         },
       },
-      list = {
-        keys = vim.tbl_extend('force', {
-          ['q'] = 'close',
-
-          ['i'] = 'focus_input',
-
-          ['s'] = 'edit_split',
-          ['v'] = 'edit_vsplit',
-          ['<CR>'] = 'confirm',
-
-          ['o'] = 'qflist',
-
-          ['tf'] = 'toggle_follow', -- символические ссылки
-          ['th'] = 'toggle_hidden', -- скрытые файлы
-          ['ti'] = 'toggle_ignored', -- файлы из .gitignore
-
-          ['<Esc>'] = false,
-          ['<Tab>'] = false,
-          ['?'] = false,
-          ['/'] = false,
-          ['<2-LeftMouse>'] = false,
-          ['<Down>'] = false,
-          ['<S-CR>'] = false,
-          ['<S-Tab>'] = false,
-          ['<Up>'] = false,
-          ['<a-d>'] = false,
-          ['<a-f>'] = false,
-          ['<a-h>'] = false,
-          ['<a-i>'] = false,
-          ['<a-m>'] = false,
-          ['<a-p>'] = false,
-          ['<a-w>'] = false,
-          ['<C-a>'] = false,
-          ['<C-b>'] = false,
-          ['<C-f>'] = false,
-          ['<C-n>'] = false,
-          ['<C-p>'] = false,
-          ['<C-q>'] = false,
-          ['<C-g>'] = false,
-          ['<C-s>'] = false,
-          ['<C-t>'] = false,
-          ['<C-v>'] = false,
-          ['<C-w>H'] = false,
-          ['<C-w>J'] = false,
-          ['<C-w>K'] = false,
-          ['<C-w>L'] = false,
-          ['<C-j>'] = false,
-          ['<C-k>'] = false,
-          ['<C-u>'] = false,
-          ['<C-d>'] = false,
-        }, window_nav),
-      },
-      preview = {
-        keys = vim.tbl_extend('force', {
-          ['q'] = 'close',
-
-          ['i'] = 'focus_input',
-
-          ['s'] = 'edit_split',
-          ['v'] = 'edit_vsplit',
-          ['<CR>'] = 'confirm',
-
-          ['o'] = 'qflist',
-
-          ['tf'] = 'toggle_follow', -- символические ссылки
-          ['th'] = 'toggle_hidden', -- скрытые файлы
-          ['ti'] = 'toggle_ignored', -- файлы из .gitignore
-
-          ['<Esc>'] = false,
-        }, window_nav),
-      },
+      list = { keys = picker_files_keys },
+      preview = { keys = picker_files_keys },
     },
   },
 })
