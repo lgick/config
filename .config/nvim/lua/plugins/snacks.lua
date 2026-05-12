@@ -140,6 +140,22 @@ local picker_files_keys = {
   ['<C-d>'] = false,
 }
 
+-- Записывает в регистр поиска введеное значение
+local set_search_reg = {
+  function()
+    local pickers = require('snacks').picker.get()
+    local current_picker = pickers[#pickers]
+    local search = current_picker:filter().search
+
+    if search and search ~= '' then
+      vim.fn.setreg('/', search)
+    end
+
+    current_picker:action('focus_list')
+  end,
+  mode = { 'n', 'i' },
+}
+
 snacks.setup({
   input = {
     enabled = true,
@@ -212,7 +228,7 @@ snacks.setup({
           ['q'] = 'close',
           ['<Esc>'] = 'cancel',
           ['<c-g>'] = { 'toggle_live', mode = { 'i', 'n' } },
-          ['<CR>'] = { 'focus_list', mode = { 'n', 'i' } },
+          ['<CR>'] = set_search_reg,
           ['<C-w>'] = window_nav,
 
           ['?'] = false,
