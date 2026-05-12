@@ -1,5 +1,13 @@
 local snacks = require('snacks')
 local backdrop = 70
+
+-- Возвращает активный picker
+local get_current_picker = function()
+  local pickers = require('snacks').picker.get()
+  return pickers[#pickers] -- Текущий активный пикер
+end
+
+-- Навигация <C-w> по окнам
 local window_nav = {
   function(picker)
     vim.api.nvim_echo(
@@ -23,8 +31,7 @@ local window_nav = {
     end
 
     vim.schedule(function()
-      local pickers = require('snacks').picker.get() -- Список всех открытых пикеров
-      local current_picker = pickers[#pickers] -- Текущий активный пикер
+      local current_picker = get_current_picker()
 
       if not current_picker then
         return
@@ -49,13 +56,12 @@ local window_nav = {
   desc = 'Snacks Window Nav',
 }
 
+-- Уникальный список в list
 local unique_files = true
-
 local function toggle_unique_files()
   unique_files = not unique_files
 
-  local pickers = require('snacks').picker.get() -- Список всех открытых пикеров
-  local current_picker = pickers[#pickers] -- Текущий активный пикер
+  local current_picker = get_current_picker()
 
   current_picker.opts.transform = unique_files and 'unique_file' or nil
   current_picker:find()
@@ -63,9 +69,9 @@ local function toggle_unique_files()
   vim.notify(unique_files and 'Unique files: ON' or 'Unique files: OFF')
 end
 
+-- Переключение окна preview с правильной фокусировкой
 local toggle_preview_and_focus = function()
-  local pickers = require('snacks').picker.get() -- Список всех открытых пикеров
-  local current_picker = pickers[#pickers] -- Текущий активный пикер
+  local current_picker = get_current_picker()
 
   local is_hidden = vim.tbl_contains(current_picker.layout.opts.hidden, 'preview')
 
@@ -81,6 +87,7 @@ local toggle_preview_and_focus = function()
   end)
 end
 
+-- Список хоткеев для list и preview
 local picker_files_keys = {
   ['q'] = 'close',
 
@@ -143,8 +150,7 @@ local picker_files_keys = {
 -- Записывает в регистр поиска введеное значение
 local set_search_reg = {
   function()
-    local pickers = require('snacks').picker.get()
-    local current_picker = pickers[#pickers]
+    local current_picker = get_current_picker()
     local search = current_picker:filter().search
 
     if search and search ~= '' then
