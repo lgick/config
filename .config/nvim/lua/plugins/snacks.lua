@@ -63,29 +63,22 @@ local function toggle_unique_files()
   vim.notify(unique_files and 'Unique files: ON' or 'Unique files: OFF')
 end
 
-local toggle_preview_and_focus = function(picker)
+local toggle_preview_and_focus = function()
   local pickers = require('snacks').picker.get() -- Список всех открытых пикеров
   local current_picker = pickers[#pickers] -- Текущий активный пикер
+
+  local is_hidden = vim.tbl_contains(current_picker.layout.opts.hidden, 'preview')
+
   current_picker:action('toggle_preview')
-  print(picker.hide())
 
-  --if picker.opts.bo.filetype == 'snacks_picker_list' then
-  --  picker:action('focus_list') -- Если закрыли -> прыгаем в список
-  --else
-  --end
-
-  --vim.schedule(function()
-  --  local hidden = picker.layout.config.hidden or {}
-  --  vim.print(hidden)
-
-  --  local is_preview_hidden = vim.tbl_contains(hidden, 'preview')
-
-  --  -- 3. Переводим фокус
-  --  if is_preview_hidden then
-  --  else
-  --    picker:action('focus_preview') -- Если открыли -> прыгаем в превью
-  --  end
-  --end)
+  vim.schedule(function()
+    -- Если preview был скрыт (теперь открыт)
+    if is_hidden then
+      current_picker:action('focus_preview')
+    else
+      current_picker:action('focus_list')
+    end
+  end)
 end
 
 local picker_files_keys = {
