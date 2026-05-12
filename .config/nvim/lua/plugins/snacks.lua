@@ -49,13 +49,54 @@ local window_nav = {
   desc = 'Snacks Window Nav',
 }
 
+local unique_files = true
+
+local function toggle_unique_files()
+  unique_files = not unique_files
+
+  local pickers = require('snacks').picker.get() -- Список всех открытых пикеров
+  local current_picker = pickers[#pickers] -- Текущий активный пикер
+
+  current_picker.opts.transform = unique_files and 'unique_file' or nil
+  current_picker:find()
+
+  vim.notify(unique_files and 'Unique files: ON' or 'Unique files: OFF')
+end
+
+local toggle_preview_and_focus = function(picker)
+  local pickers = require('snacks').picker.get() -- Список всех открытых пикеров
+  local current_picker = pickers[#pickers] -- Текущий активный пикер
+  current_picker:action('toggle_preview')
+  print(picker.hide())
+
+  --if picker.opts.bo.filetype == 'snacks_picker_list' then
+  --  picker:action('focus_list') -- Если закрыли -> прыгаем в список
+  --else
+  --end
+
+  --vim.schedule(function()
+  --  local hidden = picker.layout.config.hidden or {}
+  --  vim.print(hidden)
+
+  --  local is_preview_hidden = vim.tbl_contains(hidden, 'preview')
+
+  --  -- 3. Переводим фокус
+  --  if is_preview_hidden then
+  --  else
+  --    picker:action('focus_preview') -- Если открыли -> прыгаем в превью
+  --  end
+  --end)
+end
+
 local picker_files_keys = {
   ['q'] = 'close',
 
   ['<Esc>'] = 'focus_input',
   ['i'] = 'focus_input',
 
-  ['<C-w>'] = window_nav,
+  ['<C-w>'] = window_nav, -- навигация по <C-w>
+  ['u'] = toggle_unique_files, -- только уникальные файлы в list
+  ['p'] = toggle_preview_and_focus, -- отображение preview
 
   ['s'] = 'edit_split',
   ['v'] = 'edit_vsplit',
@@ -124,6 +165,9 @@ snacks.setup({
     enabled = true,
     ui_select = true,
     sources = {
+      grep = {
+        transform = 'unique_file',
+      },
       keymaps = {
         layout = { preset = 'vscode' },
         sort = {
