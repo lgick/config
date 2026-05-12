@@ -1,5 +1,51 @@
 local snacks = require('snacks')
 local backdrop = 70
+local window_nav = {
+  ['<C-w>'] = {
+    function()
+      vim.api.nvim_echo(
+        { { ' Ожидание h/j/k/l (Esc для отмены) ', 'WarningMsg' } },
+        false,
+        {}
+      )
+
+      local ok, char = pcall(vim.fn.getcharstr)
+
+      vim.api.nvim_echo({ { '', 'Normal' } }, false, {})
+
+      if not ok then
+        return
+      end
+
+      local key = vim.fn.keytrans(char):lower()
+
+      if key == '<esc>' then
+        return
+      end
+
+      vim.schedule(function()
+        local pickers = require('snacks').picker.get() -- Список всех открытых пикеров
+        local current_picker = pickers[#pickers] -- Текущий активный пикер
+
+        if not current_picker then
+          return
+        end
+
+        if key == 'h' or key == '<c-h>' then
+          current_picker:action('focus_list')
+        elseif key == 'l' or key == '<c-l>' then
+          current_picker:action('focus_preview')
+        elseif key == 'k' or key == '<c-k>' then
+          current_picker:action('focus_list')
+        elseif key == 'j' or key == '<c-j>' then
+          current_picker:action('focus_preview')
+        end
+      end)
+    end,
+    mode = { 'n', 'i' },
+    desc = 'Snacks Window Nav',
+  },
+}
 
 snacks.setup({
   input = {
@@ -66,30 +112,13 @@ snacks.setup({
     win = {
       input = {
         keys = {
-          ['<Esc>'] = { 'close', mode = { 'i', 'n' } },
-
-          ['i'] = 'focus_input',
-
+          ['q'] = 'close',
+          ['<Esc>'] = 'cancel',
           ['<c-g>'] = { 'toggle_live', mode = { 'i', 'n' } },
-
-          ['<c-j>'] = { 'list_down', mode = { 'i', 'n' } },
-          ['<c-k>'] = { 'list_up', mode = { 'i', 'n' } },
-          ['<c-u>'] = { 'preview_scroll_up', mode = { 'i', 'n' } },
-          ['<c-d>'] = { 'preview_scroll_down', mode = { 'i', 'n' } },
-
           ['<CR>'] = { 'focus_list', mode = { 'n', 'i' } },
-          ['<c-s>'] = { 'edit_split', mode = { 'i', 'n' } },
-          ['<c-v>'] = { 'edit_vsplit', mode = { 'i', 'n' } },
-          ['<c-o>'] = { 'qflist', mode = { 'i', 'n' } },
 
-          ['?'] = 'toggle_help_list',
-
-          ['q'] = false,
+          ['?'] = false,
           ['/'] = false,
-          ['<C-Down>'] = false,
-          ['<C-Up>'] = false,
-          ['<C-c>'] = false,
-          ['<C-w>'] = false,
           ['<Down>'] = false,
           ['<S-CR>'] = false,
           ['<S-Tab>'] = false,
@@ -103,25 +132,37 @@ snacks.setup({
           ['<a-m>'] = false,
           ['<a-p>'] = false,
           ['<a-w>'] = false,
-          ['<c-a>'] = false,
-          ['<c-b>'] = false,
-          ['<c-i>'] = false,
-          ['<c-f>'] = false,
-          ['<c-n>'] = false,
-          ['<c-p>'] = false,
-          ['<c-q>'] = false,
-          ['<c-t>'] = false,
-          ['<c-r>#'] = false,
-          ['<c-r>%'] = false,
-          ['<c-r><c-a>'] = false,
-          ['<c-r><c-f>'] = false,
-          ['<c-r><c-l>'] = false,
-          ['<c-r><c-p>'] = false,
-          ['<c-r><c-w>'] = false,
-          ['<c-w>H'] = false,
-          ['<c-w>J'] = false,
-          ['<c-w>K'] = false,
-          ['<c-w>L'] = false,
+          ['<C-Down>'] = false,
+          ['<C-Up>'] = false,
+          ['<C-c>'] = false,
+          ['<C-a>'] = false,
+          ['<C-b>'] = false,
+          ['<C-i>'] = false,
+          ['<C-f>'] = false,
+          ['<C-n>'] = false,
+          ['<C-p>'] = false,
+          ['<C-q>'] = false,
+          ['<C-t>'] = false,
+          ['<C-r>#'] = false,
+          ['<C-r>%'] = false,
+          ['<C-r><c-a>'] = false,
+          ['<C-r><c-f>'] = false,
+          ['<C-r><c-l>'] = false,
+          ['<C-r><c-p>'] = false,
+          ['<C-r><c-w>'] = false,
+          ['<C-w>'] = false,
+          ['<C-w>H'] = false,
+          ['<C-w>J'] = false,
+          ['<C-w>K'] = false,
+          ['<C-w>L'] = false,
+          ['<C-j>'] = false,
+          ['<C-k>'] = false,
+          ['<C-u>'] = false,
+          ['<C-d>'] = false,
+          ['<C-s>'] = false,
+          ['<C-v>'] = false,
+          ['<C-o>'] = false,
+          ['i'] = false,
           ['G'] = false,
           ['gg'] = false,
           ['j'] = false,
@@ -129,29 +170,24 @@ snacks.setup({
         },
       },
       list = {
-        keys = {
-          ['<Esc>'] = 'close',
+        keys = vim.tbl_extend('force', {
+          ['q'] = 'close',
 
           ['i'] = 'focus_input',
-          ['<Tab>'] = 'focus_preview',
 
-          ['<CR>'] = 'confirm',
           ['s'] = 'edit_split',
           ['v'] = 'edit_vsplit',
+          ['<CR>'] = 'confirm',
+
           ['o'] = 'qflist',
 
-          ['<c-j>'] = 'list_down',
-          ['<c-k>'] = 'list_up',
-          ['<c-u>'] = 'preview_scroll_up',
-          ['<c-d>'] = 'preview_scroll_down',
+          ['tf'] = 'toggle_follow', -- символические ссылки
+          ['th'] = 'toggle_hidden', -- скрытые файлы
+          ['ti'] = 'toggle_ignored', -- файлы из .gitignore
 
-          ['tf'] = 'toggle_follow',
-          ['th'] = 'toggle_hidden',
-          ['ti'] = 'toggle_ignored',
-
-          ['?'] = 'toggle_help_list',
-
-          ['q'] = false,
+          ['<Esc>'] = false,
+          ['<Tab>'] = false,
+          ['?'] = false,
           ['/'] = false,
           ['<2-LeftMouse>'] = false,
           ['<Down>'] = false,
@@ -165,36 +201,44 @@ snacks.setup({
           ['<a-m>'] = false,
           ['<a-p>'] = false,
           ['<a-w>'] = false,
-          ['<c-a>'] = false,
-          ['<c-b>'] = false,
-          ['<c-f>'] = false,
-          ['<c-n>'] = false,
-          ['<c-p>'] = false,
-          ['<c-q>'] = false,
-          ['<c-g>'] = false,
-          ['<c-s>'] = false,
-          ['<c-t>'] = false,
-          ['<c-v>'] = false,
-          ['<c-w>H'] = false,
-          ['<c-w>J'] = false,
-          ['<c-w>K'] = false,
-          ['<c-w>L'] = false,
-        },
+          ['<C-a>'] = false,
+          ['<C-b>'] = false,
+          ['<C-f>'] = false,
+          ['<C-n>'] = false,
+          ['<C-p>'] = false,
+          ['<C-q>'] = false,
+          ['<C-g>'] = false,
+          ['<C-s>'] = false,
+          ['<C-t>'] = false,
+          ['<C-v>'] = false,
+          ['<C-w>H'] = false,
+          ['<C-w>J'] = false,
+          ['<C-w>K'] = false,
+          ['<C-w>L'] = false,
+          ['<C-j>'] = false,
+          ['<C-k>'] = false,
+          ['<C-u>'] = false,
+          ['<C-d>'] = false,
+        }, window_nav),
       },
       preview = {
-        keys = {
-          ['<Esc>'] = 'close',
+        keys = vim.tbl_extend('force', {
+          ['q'] = 'close',
 
           ['i'] = 'focus_input',
-          ['<Tab>'] = 'focus_list',
 
-          ['<CR>'] = 'confirm',
           ['s'] = 'edit_split',
           ['v'] = 'edit_vsplit',
+          ['<CR>'] = 'confirm',
+
           ['o'] = 'qflist',
 
-          ['q'] = false,
-        },
+          ['tf'] = 'toggle_follow', -- символические ссылки
+          ['th'] = 'toggle_hidden', -- скрытые файлы
+          ['ti'] = 'toggle_ignored', -- файлы из .gitignore
+
+          ['<Esc>'] = false,
+        }, window_nav),
       },
     },
   },
