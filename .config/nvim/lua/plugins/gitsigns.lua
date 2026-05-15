@@ -1,116 +1,3 @@
-local actions = require('diffview.config').actions
-
-local function open_file()
-  local view = require('diffview.lib').get_current_view()
-
-  if not view or not view.panel:is_focused() then
-    return
-  end
-
-  if view.panel.single_file == true then
-    actions.select_entry()
-  else
-    local item = view.panel:get_item_at_cursor()
-
-    if not item or item.files then
-      return
-    end
-
-    actions.select_entry()
-  end
-end
-
-local function restore_with_confirm()
-  local answer = vim.fn.input('Restore this file? (y/n): ')
-
-  vim.cmd('redraw!')
-  vim.api.nvim_echo({}, false, {})
-
-  if answer:lower() == 'y' then
-    vim.schedule(function()
-      actions.restore_entry()
-    end)
-  end
-end
-
-require('diffview').setup({
-  enhanced_diff_hl = true,
-  file_panel = {
-    listing_style = 'list',
-
-    win_config = {
-      position = 'bottom',
-      height = 20,
-    },
-  },
-  file_history_panel = {
-    win_config = {
-      height = 20,
-    },
-  },
-  view = {
-    default = {
-      disable_diagnostics = true, -- Отключение ошибок LSP в диффах
-      winbar_info = false, -- Плашки "a/файл" и "b/файл" сверху
-    },
-  },
-  hooks = {
-    view_closed = function()
-      -- Обновление дерева nvim-tree (статусы git)
-      local success, api = pcall(require, 'nvim-tree.api')
-      if success then
-        api.tree.reload()
-      end
-    end,
-  },
-  keymaps = {
-    disable_defaults = true, -- Disable the default keymaps
-    view = {
-      { 'n', 'q', '<cmd>DiffviewClose<CR>', { desc = 'Close Diffview' } },
-      { 'n', '?', actions.help({ 'view' }), { desc = 'Open the help panel' } },
-      { 'n', 'f', actions.toggle_files, { desc = 'Toggle file panel' } },
-    },
-    file_panel = {
-      { 'n', 'q', '<cmd>DiffviewClose<CR>', { desc = 'Close Diffview' } },
-      { 'n', '<CR>', actions.select_entry, { desc = 'Open file' } },
-      { 'n', 'f', actions.toggle_files, { desc = 'Toggle file panel' } },
-      { 'n', 'R', restore_with_confirm, { desc = 'Restore file to state from selected entry' } },
-      { 'n', '<C-u>', actions.scroll_view(-0.25), { desc = 'Scroll the view up' } },
-      { 'n', '<C-d>', actions.scroll_view(0.25), { desc = 'Scroll the view down' } },
-      { 'n', 'j', actions.next_entry, { desc = 'diffview_ignore' } },
-      { 'n', 'k', actions.prev_entry, { desc = 'diffview_ignore' } },
-
-      { 'n', 's', actions.toggle_stage_entry, { desc = 'Stage/unstage the selected entry' } },
-      { 'n', 'S', actions.stage_all, { desc = 'Stage all entries' } },
-      { 'n', 'U', actions.unstage_all, { desc = 'Unstage all entries' } },
-      { 'n', '?', actions.help('file_panel'), { desc = 'Open the help panel' } },
-    },
-    file_history_panel = {
-      { 'n', 'q', '<Cmd>DiffviewClose<CR>', { desc = 'Close Diffview' } },
-      { 'n', '<CR>', open_file, { desc = 'Open file' } },
-      { 'n', 'f', actions.toggle_files, { desc = 'Toggle file panel' } },
-      { 'n', 'o', actions.toggle_fold, { desc = 'Toggle directory' } },
-      { 'n', 'R', restore_with_confirm, { desc = 'Restore file to state from selected entry' } },
-      { 'n', '<C-u>', actions.scroll_view(-0.25), { desc = 'Scroll the view up' } },
-      { 'n', '<C-d>', actions.scroll_view(0.25), { desc = 'Scroll the view down' } },
-      { 'n', 'j', actions.next_entry, { desc = 'diffview_ignore' } },
-      { 'n', 'k', actions.prev_entry, { desc = 'diffview_ignore' } },
-
-      { 'n', 'K', actions.open_commit_log, { desc = 'Show commit details' } },
-      { 'n', '?', actions.help('file_history_panel'), { desc = 'Open the help panel' } },
-      { 'n', '!', actions.options, { desc = 'Open the option panel' } },
-    },
-    option_panel = {
-      { 'n', 'q', actions.close, { desc = 'Close the panel' } },
-      { 'n', '?', actions.help('option_panel'), { desc = 'Open the help panel' } },
-      { 'n', '<CR>', actions.select_entry, { desc = 'Change the current option' } },
-    },
-    help_panel = {
-      { 'n', 'q', actions.close, { desc = 'Close help menu' } },
-    },
-  },
-})
-
 local gs = require('gitsigns')
 local active_buf = nil
 local augroup = vim.api.nvim_create_augroup('GitStageFlowAuCmds', { clear = true })
@@ -251,6 +138,8 @@ end
 
 local function turn_on_git_mode(callback)
   local buf = vim.api.nvim_get_current_buf()
+  local full_path = vim.api.nvim_buf_get_name(buf)
+  local filename = vim.fs.basename(full_path)
 
   gs.detach_all()
 
@@ -357,7 +246,7 @@ local function turn_on_git_mode(callback)
     end, opts)
 
     update_statusline_color(buf)
-    callback()
+    callback(filename)
   end)
 end
 
@@ -368,6 +257,9 @@ local function turn_off_git_mode(callback)
 
   -- Если есть буфер и он валиден
   if active_buf and vim.api.nvim_buf_is_valid(active_buf) then
+    local full_path = vim.api.nvim_buf_get_name(active_buf)
+    local filename = vim.fs.basename(full_path)
+
     if vim.b[active_buf].original_modifiable ~= nil then
       vim.bo[active_buf].modifiable = vim.b[active_buf].original_modifiable
       vim.b[active_buf].original_modifiable = nil
@@ -381,8 +273,8 @@ local function turn_off_git_mode(callback)
       local win = vim.fn.bufwinid(active_buf)
       set_winhl(win, nil)
 
+      callback(filename)
       active_buf = nil
-      callback()
     end
   end
 end
@@ -397,7 +289,7 @@ vim.api.nvim_create_autocmd('User', {
   end,
 })
 
--- Обновление или сброс цвета окна при переключении между файлами/сплитами
+-- Отключение Git Stage при смене буфера
 vim.api.nvim_create_autocmd({ 'BufEnter', 'WinEnter' }, {
   group = augroup,
   callback = function()
@@ -405,39 +297,21 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'WinEnter' }, {
       return
     end
 
-    local win = vim.api.nvim_get_current_win()
-    local buf = vim.api.nvim_get_current_buf()
-
-    if active_buf == buf then
-      -- Если буфер в реестре, обновляем его цвета
-      update_statusline_color(buf)
-    else
-      -- Если мы переключились на буфер вне реестра,
-      -- очищаем подсветку статус-лайна для текущего окна
-      set_winhl(win, nil)
-    end
+    turn_off_git_mode(function(filename)
+      print('Git Stage Flow (filename: ' .. filename .. '): OFF')
+    end)
   end,
 })
 
 -- Команда управления gitsigns
 vim.api.nvim_create_user_command('GitStageFlow', function()
-  local buf = vim.api.nvim_get_current_buf()
-
   if active_buf then
-    if active_buf == buf then
-      turn_off_git_mode(function()
-        print('Git Stage Flow: OFF')
-      end)
-    else
-      turn_off_git_mode(function()
-        turn_on_git_mode(function()
-          print('Git Stage Flow: ON')
-        end)
-      end)
-    end
+    turn_off_git_mode(function(filename)
+      print('Git Stage Flow (filename: ' .. filename .. '): OFF')
+    end)
   else
-    turn_on_git_mode(function()
-      print('Git Stage Flow: ON')
+    turn_on_git_mode(function(filename)
+      print('Git Stage Flow (filename: ' .. filename .. '): ON')
     end)
   end
 end, { desc = 'Toggle Git Stage Flow' })
