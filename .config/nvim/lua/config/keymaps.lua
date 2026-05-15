@@ -189,6 +189,39 @@ map(
 )
 
 ------------------------------------------
+-- AI (Claude Code)
+------------------------------------------
+
+-- УПРАВЛЕНИЕ СЕССИЕЙ CLAUDE CODE
+
+-- Открыть/закрыть панель Claude
+map('n', '<leader>ac', '<cmd>ClaudeCode<CR>', { desc = 'Toggle Claude' })
+-- Добавить файл из проводника в ИИ
+map('n', '<leader>af', '<cmd>ClaudeCodeFocus<CR>', { desc = 'Focus Claude' })
+-- Возобновить прошлую сессию ИИ
+map('n', '<leader>ar', '<cmd>ClaudeCode --resume<CR>', { desc = 'Resume Claude' })
+-- Продолжить текущий диалог с ИИ
+map('n', '<leader>aC', '<cmd>ClaudeCode --continue<CR>', { desc = 'Continue Claude' })
+-- Выбрать другую модель Claude
+map('n', '<leader>am', '<cmd>ClaudeCodeSelectModel<CR>', { desc = 'Select Claude model' })
+
+-- ДОБАВЛЕНИЕ КОНТЕКСТА (ФАЙЛОВ И КОДА)
+
+-- Передать текущий открытый файл в ИИ
+map('n', '<leader>ab', '<cmd>ClaudeCodeAdd %<CR>', { desc = 'Add current buffer' })
+-- Отправить выделенный код в ИИ
+map('v', '<leader>as', '<cmd>ClaudeCodeSend<CR>', { desc = 'Send to Claude' })
+-- Добавить файл из проводника в ИИ
+map('n', '<leader>as', '<cmd>ClaudeCodeTreeAdd<CR>', { desc = 'Add file from nvim-tree' })
+
+-- УПРАВЛЕНИЕ ИЗМЕНЕНИЯМИ (DIFF)
+
+-- Принять правки кода от Claude
+map('n', '<leader>aa', '<cmd>ClaudeCodeDiffAccept<CR>', { desc = 'Accept diff' })
+-- Отклонить правки кода от Claude
+map('n', '<leader>ad', '<cmd>ClaudeCodeDiffDeny<CR>', { desc = 'Deny diff' })
+
+------------------------------------------
 -- System
 ------------------------------------------
 

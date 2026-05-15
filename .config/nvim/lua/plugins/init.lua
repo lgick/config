@@ -28,6 +28,8 @@ vim.pack.add({
 
   { src = 'https://www.github.com/lewis6991/gitsigns.nvim' }, -- git stager
   { src = 'https://github.com/sindrets/diffview.nvim' }, -- git diff
+
+  { src = 'https://github.com/coder/claudecode.nvim' }, -- claude code
 })
 
 vim.cmd([[colorscheme paperblue]])
