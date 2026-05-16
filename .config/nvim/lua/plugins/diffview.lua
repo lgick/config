@@ -73,6 +73,7 @@ require('diffview').setup({
     file_panel = {
       { 'n', 'q', '<cmd>DiffviewClose<CR>', { desc = 'Close Diffview' } },
       { 'n', '<CR>', actions.select_entry, { desc = 'Open file' } },
+      { 'n', 'O', actions.goto_file_edit, { desc = 'Open local file' } },
       { 'n', 'f', actions.toggle_files, { desc = 'Toggle file panel' } },
       { 'n', 'R', restore_with_confirm, { desc = 'Restore file to state from selected entry' } },
       { 'n', '<C-u>', actions.scroll_view(-0.25), { desc = 'Scroll the view up' } },
@@ -86,8 +87,9 @@ require('diffview').setup({
       { 'n', '?', actions.help('file_panel'), { desc = 'Open the help panel' } },
     },
     file_history_panel = {
-      { 'n', 'q', '<Cmd>DiffviewClose<CR>', { desc = 'Close Diffview' } },
+      { 'n', 'q', '<cmd>DiffviewClose<CR>', { desc = 'Close Diffview' } },
       { 'n', '<CR>', open_file, { desc = 'Open file' } },
+      { 'n', 'O', actions.goto_file_edit, { desc = 'Open local file' } },
       { 'n', 'f', actions.toggle_files, { desc = 'Toggle file panel' } },
       { 'n', 'o', actions.toggle_fold, { desc = 'Toggle directory' } },
       { 'n', 'R', restore_with_confirm, { desc = 'Restore file to state from selected entry' } },
