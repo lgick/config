@@ -3312,6 +3312,8 @@
 	<integer>0</integer>
 	<key>TripleClickSelectsFullWrappedLines</key>
 	<true/>
+	<key>UnderlineHyperlinks</key>
+	<false/>
 	<key>UseLionStyleFullscreen</key>
 	<true/>
 	<key>VisualIndicatorForEsc</key>
