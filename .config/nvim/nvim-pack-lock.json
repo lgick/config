@@ -1,11 +1,11 @@
 {
   "plugins": {
     "SchemaStore.nvim": {
-      "rev": "7127911cc824a1d2f600492edd9667b476cf3eda",
+      "rev": "b0d5f4876c84f7c5c808ae4be4e05dd8207102d0",
       "src": "https://github.com/b0o/SchemaStore.nvim"
     },
     "aerial.nvim": {
-      "rev": "645d108a5242ec7b378cbe643eb6d04d4223f034",
+      "rev": "43dd88ad4024b1945906887521057c73d3b0d84e",
       "src": "https://github.com/stevearc/aerial.nvim"
     },
     "blink.cmp": {
@@ -14,7 +14,7 @@
       "version": "1.0.0 - 2.0.0"
     },
     "conform.nvim": {
-      "rev": "dca1a190aa85f9065979ef35802fb77131911106",
+      "rev": "18aeab3d63d350dcf44d64c462cc489a3412af40",
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "diffview.nvim": {
@@ -34,7 +34,7 @@
       "src": "https://github.com/folke/lazydev.nvim"
     },
     "mason-lspconfig.nvim": {
-      "rev": "51feb0ada33d18f3c5c71ffb46005dbf8b33bef4",
+      "rev": "7b01e2974a47d489bb92f47a41e4c0088ea8f86e",
       "src": "https://github.com/mason-org/mason-lspconfig.nvim"
     },
     "mason-tool-installer.nvim": {
@@ -42,7 +42,7 @@
       "src": "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim"
     },
     "mason.nvim": {
-      "rev": "e54f5bf5f12c560da31c17eee5b3e1bd369f3ff9",
+      "rev": "8e921c2b68571e978db5d4d3fef9c9a7f8755473",
       "src": "https://github.com/mason-org/mason.nvim"
     },
     "nvim-autopairs": {
@@ -50,11 +50,11 @@
       "src": "https://github.com/windwp/nvim-autopairs"
     },
     "nvim-lspconfig": {
-      "rev": "451d4ef9abd4f0f08e379ef0d55d1c391b6125a7",
+      "rev": "f9349d4d99e7d66403ae8bf4fbd357b154dca7a7",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-tree.lua": {
-      "rev": "f9bfc0059eca24546b69a7006110463da4808f8f",
+      "rev": "07f541fcaa4a5ae019598240362449ab7e9812b3",
       "src": "https://github.com/nvim-tree/nvim-tree.lua"
     },
     "nvim-treesitter": {
@@ -70,7 +70,7 @@
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "paperblue.nvim": {
-      "rev": "0264c394aabd0da72635c09c11bfbd09be49bd39",
+      "rev": "c665985f4dbfa18ef218ca7ea99189830f8f039f",
       "src": "https://github.com/lgick/paperblue.nvim"
     },
     "snacks.nvim": {
