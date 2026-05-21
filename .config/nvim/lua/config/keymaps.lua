@@ -76,9 +76,6 @@ map('n', '<leader>f', '<cmd>NvimTreeToggle<CR>', { desc = 'Nvim Tree' })
 -- , + o: Aerial - code navigation
 map('n', '<leader>o', '<cmd>AerialToggle<CR>', { desc = 'Code Navigation' })
 
--- , + i: Открывает чат
-map('n', '<leader>i', '<cmd>call codeium#Chat()<CR>', { desc = 'AI' })
-
 -- , + z: Сворачивает функциональные блоки в файле
 map('n', '<leader>z', '<cmd>Fold<CR>', { desc = 'Folding' })
 
