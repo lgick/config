@@ -28,6 +28,9 @@ vim.pack.add({
 
   { src = 'https://www.github.com/lewis6991/gitsigns.nvim' }, -- git stager
   { src = 'https://github.com/sindrets/diffview.nvim' }, -- git diff
+
+  { src = 'https://github.com/nvim-lua/plenary.nvim' },
+  { src = 'https://github.com/olimorris/codecompanion.nvim' },
 })
 
 vim.cmd([[colorscheme paperblue]])
@@ -51,3 +54,4 @@ require('plugins.snacks')
 require('plugins.trouble')
 require('plugins.gitsigns')
 require('plugins.diffview')
+require('plugins.codecompanion')
