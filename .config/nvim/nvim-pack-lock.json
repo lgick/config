@@ -1,5 +1,9 @@
 {
   "plugins": {
+    "99": {
+      "rev": "4d229141546290746c82ac90f5afc2786865b5f3",
+      "src": "https://github.com/ThePrimeagen/99"
+    },
     "SchemaStore.nvim": {
       "rev": "efa62017f59a6346486cc567d70acce965a00b12",
       "src": "https://github.com/b0o/SchemaStore.nvim"
@@ -12,10 +16,6 @@
       "rev": "78336bc89ee5365633bcf754d93df01678b5c08f",
       "src": "https://github.com/Saghen/blink.cmp",
       "version": "1.0.0 - 2.0.0"
-    },
-    "codecompanion.nvim": {
-      "rev": "b1cbe52ecd71e7b0ed43ac1dc6eb3aab4099db00",
-      "src": "https://github.com/olimorris/codecompanion.nvim"
     },
     "conform.nvim": {
       "rev": "619363c30309d29ffa631e67c8183f2a72caa373",

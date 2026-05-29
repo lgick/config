@@ -65,7 +65,7 @@ map('n', '<leader>n', '<cmd>bn<CR>', { desc = 'Next Buffer' })
 map('n', '<leader>d', '<cmd>Bufdelete<CR>', { desc = 'Delete Buffer And Switch' })
 
 -- , + c: Копирует в системный буфер
-map('v', '<leader>c', '"+y', { desc = 'Copy' })
+map('x', '<leader>c', '"+y', { desc = 'Copy' })
 
 -- , + v: Вставляет из системного буфера
 map('n', '<leader>v', '"+p', { desc = 'Paste' })
@@ -132,7 +132,7 @@ map('n', '<leader>sg', function()
 end, { desc = 'Live Grep' })
 
 -- поиск конкретного слова в файлах
-map('v', '<leader>sg', function()
+map('x', '<leader>sg', function()
   Snacks.picker.grep_word({
     hidden = true,
   })
@@ -189,11 +189,20 @@ map(
 -- AI
 ------------------------------------------
 
--- , + ac: Открывает чат
-map('n', '<leader>ac', '<cmd>CodeCompanionChat<CR>', { desc = 'AI Chat' })
+-- Отправка выделенного фрагмента визуального режима
+map('x', '<leader>av', function()
+  require('99').visual({})
+end, { desc = '99: Visual prompt' })
 
--- , + ai: Открывает чат
-map({ 'n', 'v' }, '<leader>ai', '<cmd>CodeCompanion<CR>', { desc = 'AI Inline' })
+-- Отмена всех выполняющихся в данный момент запросов
+map('n', '<leader>ax', function()
+  require('99').stop_all_requests()
+end, { desc = '99: Cancel requests' })
+
+-- Поиск по проекту на основе промпта
+map('n', '<leader>as', function()
+  require('99').search({})
+end, { desc = '99: Search project' })
 
 ------------------------------------------
 -- System

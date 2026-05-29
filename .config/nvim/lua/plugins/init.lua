@@ -30,7 +30,7 @@ vim.pack.add({
   { src = 'https://github.com/sindrets/diffview.nvim' }, -- git diff
 
   { src = 'https://github.com/nvim-lua/plenary.nvim' },
-  { src = 'https://github.com/olimorris/codecompanion.nvim' },
+  { src = 'https://github.com/ThePrimeagen/99' },
 })
 
 vim.cmd([[colorscheme paperblue]])
