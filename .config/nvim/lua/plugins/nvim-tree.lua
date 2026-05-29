@@ -121,8 +121,8 @@ nvimtree.setup({
       modified_placement = 'after',
       web_devicons = {
         file = {
-          enable = false,
-          color = false,
+          enable = true,
+          color = true,
         },
       },
       show = {
