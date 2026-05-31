@@ -108,22 +108,22 @@ end, { desc = 'Toggle Diagnostic' })
 
 -- поиск файлов
 map('n', '<leader>sf', function()
-  Snacks.picker.files({ hidden = true })
+  Snacks.picker.files({ focus = 'list', hidden = true })
 end, { desc = 'Find Files' })
 
 -- буфферы
 map('n', '<leader>sb', function()
-  Snacks.picker.buffers()
+  Snacks.picker.buffers({ focus = 'list' })
 end, { desc = 'Buffer Files' })
 
 -- недавно открытые файлы
 map('n', '<leader>sr', function()
-  Snacks.picker.recent({ filter = { cwd = true } })
+  Snacks.picker.recent({ focus = 'list', filter = { cwd = true } })
 end, { desc = 'Recent Files' })
 
 -- конфиг nvim
 map('n', '<leader>sc', function()
-  Snacks.picker.files({ cwd = vim.fn.stdpath('config'), title = 'Config Files' })
+  Snacks.picker.files({ focus = 'list', cwd = vim.fn.stdpath('config'), title = 'Config Files' })
 end, { desc = 'Config Files' })
 
 -- поиск в файлах
@@ -134,6 +134,7 @@ end, { desc = 'Live Grep' })
 -- поиск конкретного слова в файлах
 map('v', '<leader>sg', function()
   Snacks.picker.grep_word({
+    focus = 'list',
     hidden = true,
   })
 end, { desc = 'Live Grep Word' })
