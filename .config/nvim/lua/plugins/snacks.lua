@@ -91,7 +91,7 @@ end
 local picker_files_keys = {
   ['q'] = 'close',
 
-  ['<Esc>'] = 'focus_input',
+  ['<Esc>'] = 'close',
   ['i'] = 'focus_input',
 
   ['<C-w>'] = window_nav, -- навигация по <C-w>

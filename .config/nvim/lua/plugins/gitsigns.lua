@@ -245,13 +245,17 @@ local function turn_on_git_mode(callback)
       vim.cmd('GitStageFlow')
     end, opts)
 
+    vim.keymap.set('n', '<Esc>', function()
+      vim.cmd('GitStageFlow')
+    end, opts)
+
     update_statusline_color(buf)
     callback(filename)
   end)
 end
 
 local function turn_off_git_mode(callback)
-  local keys = { 's', 'S', 'U', 'u', '<C-r>', 'r', 'R', 'K', 'n', 'N', 'p', 'P', 'w', 'q' }
+  local keys = { 's', 'S', 'U', 'u', '<C-r>', 'r', 'R', 'K', 'n', 'N', 'p', 'P', 'w', 'q', '<Esc>' }
 
   gs.detach_all()
 
