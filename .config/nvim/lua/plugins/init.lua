@@ -30,7 +30,7 @@ vim.pack.add({
   { src = 'https://github.com/sindrets/diffview.nvim' }, -- git diff
 
   { src = 'https://github.com/nvim-lua/plenary.nvim' },
-  { src = 'https://github.com/ThePrimeagen/99' },
+  { src = 'https://github.com/sudo-tee/opencode.nvim' },
 })
 
 vim.cmd([[colorscheme paperblue]])
@@ -54,4 +54,4 @@ require('plugins.snacks')
 require('plugins.trouble')
 require('plugins.gitsigns')
 require('plugins.diffview')
-require('plugins.codecompanion')
+require('plugins.opencode')
