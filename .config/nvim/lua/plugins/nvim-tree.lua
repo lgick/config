@@ -122,7 +122,7 @@ nvimtree.setup({
       web_devicons = {
         file = {
           enable = true,
-          color = true,
+          color = false,
         },
       },
       show = {

@@ -1,4 +1,7 @@
+----------------------------------------
 -- Подсветка при копировании
+----------------------------------------
+
 vim.api.nvim_create_autocmd('TextYankPost', {
   group = vim.api.nvim_create_augroup('highlight_yank', { clear = true }),
   pattern = '*',
@@ -8,7 +11,10 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
--- сохранение позиции курсора при открытии файла
+--------------------------------------------------------
+-- Сохранение позиции курсора при открытии файла
+--------------------------------------------------------
+
 vim.api.nvim_create_autocmd('BufReadPost', {
   callback = function(args)
     local mark = vim.api.nvim_buf_get_mark(args.buf, '"')
@@ -22,18 +28,27 @@ vim.api.nvim_create_autocmd('BufReadPost', {
   end,
 })
 
--- окно справки (:help) открывается в вертикальном сплите справа
+---------------------------------------------------------------------
+-- Окно справки (:help) открывается в вертикальном сплите справа
+---------------------------------------------------------------------
+
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'help',
   command = 'wincmd L',
 })
 
--- авто-ресайз при изменении размера терминала
+----------------------------------------------------
+-- Авто-ресайз при изменении размера терминала
+----------------------------------------------------
+
 vim.api.nvim_create_autocmd('VimResized', {
   command = 'wincmd =',
 })
 
--- подсветка .env файлов настроек окружения (.env) как конфигурационных файлов (dosini)
+------------------------------------------------------------------------------------------
+-- Подсветка .env файлов настроек окружения (.env) как конфигурационных файлов (dosini)
+------------------------------------------------------------------------------------------
+
 vim.api.nvim_create_autocmd('BufRead', {
   group = vim.api.nvim_create_augroup('dotenv_ft', { clear = true }),
   pattern = { '.env', '.env.*' },
@@ -41,6 +56,10 @@ vim.api.nvim_create_autocmd('BufRead', {
     vim.bo.filetype = 'dosini'
   end,
 })
+
+-----------------------------------------------------------
+-- Подсветка строки (cursorline) в активном окне
+-----------------------------------------------------------
 
 local cursorline_group = vim.api.nvim_create_augroup('active_cursorline', { clear = true })
 
@@ -60,7 +79,27 @@ vim.api.nvim_create_autocmd({ 'WinLeave', 'BufLeave' }, {
   end,
 })
 
--- переименование файла внутри nvim-tree с изменением его во всём проекте
+-----------------------------------------------------------
+-- Изменение цвета в Insert Mode
+-----------------------------------------------------------
+
+local sl_group = vim.api.nvim_create_augroup('InsertModeCustomGroup', { clear = true })
+
+-- Автокоманда при переключении Insert mode
+vim.api.nvim_create_autocmd({ 'InsertEnter', 'InsertLeave' }, {
+  group = sl_group,
+  pattern = '*',
+  callback = function()
+    vim.schedule(function()
+      vim.cmd('UpdateInsertModeColor')
+    end)
+  end,
+})
+
+------------------------------------------------------------------------------
+-- Переименование файла внутри nvim-tree с изменением его во всём проекте
+------------------------------------------------------------------------------
+
 local prev = { new_name = '', old_name = '' }
 
 vim.api.nvim_create_autocmd('User', {
@@ -77,33 +116,25 @@ vim.api.nvim_create_autocmd('User', {
   end,
 })
 
--- статус lsp
+------------------
+-- Статус lsp
+------------------
+
 vim.api.nvim_create_autocmd('LspProgress', {
   callback = function(event)
-    local spinner = { '⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏' }
-    vim.notify(vim.lsp.status(), 'info', {
-      id = 'lsp_progress',
-      opts = function(notif)
-        notif.icon = event.data.params.value.kind == 'end' and ' '
-          or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
-      end,
-    })
-  end,
-})
+    -- Проверяем, что это финальный статус ('end') от сервера
+    if event.data.params.value.kind == 'end' then
+      local client = vim.lsp.get_client_by_id(event.data.client_id)
+      local client_name = client and client.name or 'LSP'
 
--- закрытие undotree при уходе с окна
-vim.api.nvim_create_autocmd('WinLeave', {
-  callback = function()
-    if vim.bo.filetype == 'nvim-undotree' then
-      require('undotree').open()
+      -- Выводим однократное сообщение внизу экрана
+      vim.notify(client_name .. ' ready!', vim.log.levels.INFO)
+
+      -- Через 3 секунды очищаем командную строку
+      vim.defer_fn(function()
+        vim.cmd('redraw!')
+        vim.api.nvim_echo({}, false, {})
+      end, 3000)
     end
-  end,
-})
-
--- statusline undotree
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = 'nvim-undotree',
-  callback = function()
-    vim.opt_local.statusline = 'UndoTree: %f %= %l/%L'
   end,
 })
