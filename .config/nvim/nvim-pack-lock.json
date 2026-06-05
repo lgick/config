@@ -1,11 +1,11 @@
 {
   "plugins": {
     "SchemaStore.nvim": {
-      "rev": "efa62017f59a6346486cc567d70acce965a00b12",
+      "rev": "fce1d90e76c59337b6d3778c272c1b972a658269",
       "src": "https://github.com/b0o/SchemaStore.nvim"
     },
     "aerial.nvim": {
-      "rev": "585db11015abccf673dc5bd6502714d5655554be",
+      "rev": "28fe6e822ae344544c379d60fcb13c9519a1f08a",
       "src": "https://github.com/stevearc/aerial.nvim"
     },
     "blink.cmp": {
@@ -22,7 +22,7 @@
       "src": "https://github.com/sindrets/diffview.nvim"
     },
     "gitsigns.nvim": {
-      "rev": "dd3f588bacbeb041be6facf1742e42097f62165d",
+      "rev": "25050e4ed39e628282831d4cbecb1850454ce915",
       "src": "https://www.github.com/lewis6991/gitsigns.nvim"
     },
     "indent-blankline.nvim": {
@@ -34,7 +34,7 @@
       "src": "https://github.com/folke/lazydev.nvim"
     },
     "mason-lspconfig.nvim": {
-      "rev": "7b01e2974a47d489bb92f47a41e4c0088ea8f86e",
+      "rev": "0a695750d747db1e7e70bcf0267ef8951c95fc83",
       "src": "https://github.com/mason-org/mason-lspconfig.nvim"
     },
     "mason-tool-installer.nvim": {
@@ -42,7 +42,7 @@
       "src": "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim"
     },
     "mason.nvim": {
-      "rev": "bb639d4bf385a4d89f478b83af4d770be05ab7eb",
+      "rev": "16ba83bfc8a25f52bb545134f5bee082b195c460",
       "src": "https://github.com/mason-org/mason.nvim"
     },
     "nvim-autopairs": {
@@ -50,7 +50,7 @@
       "src": "https://github.com/windwp/nvim-autopairs"
     },
     "nvim-lspconfig": {
-      "rev": "9573948c38bfabeec353ae7dd7d3ffec4c506a6b",
+      "rev": "229b79051b380377664edc4cbd534930154921a1",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-tree.lua": {
@@ -70,7 +70,7 @@
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "paperblue.nvim": {
-      "rev": "268b4b1197015b0c47bca8e391011e0f6370dee7",
+      "rev": "71cf9bca4db93074bcd77a6f9f01c4dcfcb12d31",
       "src": "https://github.com/lgick/paperblue.nvim"
     },
     "snacks.nvim": {
