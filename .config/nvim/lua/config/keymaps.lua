@@ -26,7 +26,15 @@ g.mapleader = ','
 ------------------------------------------
 
 -- Переключение языка в режиме ввода и поиска
-map({ 'c', 'i' }, '<C-l>', '<C-^>', { desc = 'Toggle language' })
+map({ 'c', 'i' }, '<C-l>', function()
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-^>', true, false, true), 'n', false)
+
+  vim.schedule(function()
+    vim.cmd('UpdateInsertModeColor')
+  end)
+end, {
+  desc = 'Toggle language',
+})
 
 -- Сброс языка при выходе из Insert mode
 map('i', '<ESC>', '<ESC><cmd>set iminsert=0<CR>', { silent = true, desc = 'Language Reset' })

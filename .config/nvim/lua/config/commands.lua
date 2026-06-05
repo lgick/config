@@ -3,6 +3,44 @@ local fn = vim.fn
 local opt = vim.opt
 local api = vim.api
 local cmd = vim.cmd
+local wo = vim.wo
+
+api.nvim_create_user_command('UpdateInsertModeColor', function()
+  local win = api.nvim_get_current_win()
+  local current = wo[win].winhighlight
+  local mode = api.nvim_get_mode().mode
+  local is_insert = mode:sub(1, 1) == 'i'
+  local new_parts = {}
+
+  -- Очищаем все старые упоминания
+  if current ~= '' then
+    for _, part in ipairs(vim.split(current, ',')) do
+      if
+        part ~= ''
+        and not part:match('^StatusLine:StatusLineInsert')
+        and not part:match('^CursorLineNr:CursorLineNrInsert')
+      then
+        table.insert(new_parts, part)
+      end
+    end
+  end
+
+  if is_insert then
+    local lang = opt.iminsert:get()
+
+    if lang == 0 then
+      table.insert(new_parts, 'StatusLine:StatusLineInsertEn')
+      table.insert(new_parts, 'CursorLineNr:CursorLineNrInsertEn')
+    elseif lang == 1 then
+      table.insert(new_parts, 'StatusLine:StatusLineInsertRu')
+      table.insert(new_parts, 'CursorLineNr:CursorLineNrInsertRu')
+    end
+  end
+
+  vim.wo.winhighlight = table.concat(new_parts, ',')
+end, {
+  desc = 'Обновляет цвета в Insert mode',
+})
 
 api.nvim_create_user_command('TsLsForceLoad', function()
   local clients = vim.lsp.get_clients({ name = 'ts_ls' })
