@@ -15,3 +15,5 @@
 .config/*
 !.config/nvim/
 !.config/opencode/
+
+!.agents/

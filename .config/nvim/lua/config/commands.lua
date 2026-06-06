@@ -29,12 +29,12 @@ api.nvim_create_user_command('UpdateInsertModeColor', function()
     local lang = opt.iminsert:get()
 
     if lang == 0 then
+      table.insert(new_parts, 'StatusLine:StatusLineInsertEn')
       table.insert(new_parts, 'CursorLineNr:CursorLineNrInsertEn')
     elseif lang == 1 then
+      table.insert(new_parts, 'StatusLine:StatusLineInsertRu')
       table.insert(new_parts, 'CursorLineNr:CursorLineNrInsertRu')
     end
-
-    table.insert(new_parts, 'StatusLine:StatusLineInsert')
   end
 
   vim.wo.winhighlight = table.concat(new_parts, ',')

@@ -73,7 +73,7 @@ map('n', '<leader>n', '<cmd>bn<CR>', { desc = 'Next Buffer' })
 map('n', '<leader>d', '<cmd>Bufdelete<CR>', { desc = 'Delete Buffer And Switch' })
 
 -- , + c: Копирует в системный буфер
-map('v', '<leader>c', '"+y', { desc = 'Copy' })
+map('x', '<leader>c', '"+y', { desc = 'Copy' })
 
 -- , + v: Вставляет из системного буфера
 map('n', '<leader>v', '"+p', { desc = 'Paste' })
@@ -140,7 +140,7 @@ map('n', '<leader>sg', function()
 end, { desc = 'Live Grep' })
 
 -- поиск конкретного слова в файлах
-map('v', '<leader>sg', function()
+map('x', '<leader>sg', function()
   Snacks.picker.grep_word({
     focus = 'list',
     hidden = true,
@@ -193,6 +193,10 @@ map(
   '<cmd>Trouble diagnostics fold_close_all=1<CR>',
   { desc = 'Trouble Diagnostics (All)' }
 )
+
+------------------------------------------
+-- AI
+------------------------------------------
 
 ------------------------------------------
 -- System
