@@ -14,4 +14,3 @@
 !.config/
 .config/*
 !.config/nvim/
-!.config/opencode/
