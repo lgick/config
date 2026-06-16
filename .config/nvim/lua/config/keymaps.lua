@@ -198,8 +198,19 @@ map(
 )
 
 ------------------------------------------
--- AI
+-- Saving session
 ------------------------------------------
+
+-- <leader> + ws: Сохранение сессии проекта
+map('n', '<leader>ws', '<cmd>SaveCurrentSession<CR>', { desc = 'Save current session manually' })
+
+-- <leader> + wl: Загрузка сессии проекта
+map('n', '<leader>wl', '<cmd>LoadCurrentSession<CR>', { desc = 'Load current session manually' })
+
+-- <leader> + wS: Показать список всех сессий для выбора
+map('n', '<leader>wS', function()
+  require('plugins.persistence').select()
+end, { desc = 'Select or list all saved sessions' })
 
 ------------------------------------------
 -- System

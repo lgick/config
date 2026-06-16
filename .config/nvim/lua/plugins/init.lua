@@ -25,6 +25,7 @@ vim.pack.add({
 
   { src = 'https://github.com/folke/snacks.nvim' }, -- дашборд, окно picker с поиском, буфферами
   { src = 'https://github.com/folke/trouble.nvim' }, -- окно ошибок и предупреждений
+  { src = 'https://github.com/folke/persistence.nvim' }, -- сессии проектов
 
   { src = 'https://www.github.com/lewis6991/gitsigns.nvim' }, -- git stager
   { src = 'https://github.com/sindrets/diffview.nvim' }, -- git diff

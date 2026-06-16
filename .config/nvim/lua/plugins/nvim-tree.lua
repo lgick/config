@@ -100,12 +100,12 @@ nvimtree.setup({
   hijack_cursor = true,
 
   view = {
+    preserve_window_proportions = true, -- Запрещает дереву менять пропорции окон при фокусе
     relativenumber = false,
     width = {
       min = 30, -- Минимальная ширина окна
       max = 40, -- Максимальная ширина окна
     },
-    adaptive_size = true, -- Автоматическое изменение ширины окна
     side = 'left', -- Позиция окна (left/right)
   },
 

@@ -58,6 +58,9 @@ opt.cursorcolumn = false
 -- командной строки
 opt.fillchars:append({ diff = ' ', vert = '|', eob = ' ', fold = ' ', msgsep = ' ' })
 
+-- Автоматическое изменение размера окон
+opt.equalalways = false
+
 ------------------------------------------
 -- Форматирование текста
 ------------------------------------------
@@ -106,7 +109,22 @@ opt.softtabstop = 2
 opt.shiftwidth = 2
 
 -- Настройка сессий
-opt.sessionoptions = 'buffers,folds,sesdir,tabpages,globals,options,resize,winpos'
+opt.sessionoptions = {
+  'blank',
+  'buffers',
+  'curdir',
+  'folds',
+  'globals',
+  'help',
+  'localoptions',
+  'options',
+  'skiprtp',
+  'resize',
+  'tabpages',
+  'terminal',
+  'winpos',
+  'winsize',
+}
 
 ------------------------------------------
 -- Дата и время

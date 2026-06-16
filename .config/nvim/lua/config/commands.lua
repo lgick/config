@@ -104,6 +104,34 @@ end, {
 })
 
 utils.create_confirm_command({
+  name = 'SaveCurrentSession',
+  prompt = 'Сохранить сессию проекта? (y/n): ',
+  desc = 'Save current session manually',
+  action = function()
+    require('plugins.persistence').save()
+    print('Session successfully saved via Persistence!')
+  end,
+})
+
+utils.create_confirm_command({
+  name = 'LoadCurrentSession',
+  prompt = 'Загрузить сессию проекта? (y/n): ',
+  desc = 'Load current session manually',
+  action = function()
+    require('plugins.persistence').load()
+  end,
+})
+
+utils.create_confirm_command({
+  name = 'DeleteCurrentSession',
+  prompt = 'Удалить сессию проекта? (y/n): ',
+  desc = 'Delete current session file',
+  action = function()
+    require('plugins.persistence').delete()
+  end,
+})
+
+utils.create_confirm_command({
   name = 'UpdateNvimPlugins',
   prompt = 'Обновить плагины Neovim? (y/n): ',
   desc = 'Update Nvim Plugins',

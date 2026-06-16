@@ -73,6 +73,10 @@
       "rev": "4f3c6af69153a2fccaf793d94d23170cf195cff3",
       "src": "https://github.com/lgick/paperblue.nvim"
     },
+    "persistence.nvim": {
+      "rev": "b20b2a7887bd39c1a356980b45e03250f3dce49c",
+      "src": "https://github.com/folke/persistence.nvim"
+    },
     "snacks.nvim": {
       "rev": "882c996cf28183f4d63640de0b4c02ec886d01f2",
       "src": "https://github.com/folke/snacks.nvim"
