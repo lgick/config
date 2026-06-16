@@ -1,5 +1,10 @@
 require('mason').setup()
 require('mason-lspconfig').setup()
+
+vim.lsp.config('lua_ls', {
+  root_markers = { '.luarc.json', '.luarc.jsonc' },
+  single_file_support = false,
+})
 require('mason-tool-installer').setup({
   ensure_installed = {
     'ts_ls',
