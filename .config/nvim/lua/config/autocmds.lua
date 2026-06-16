@@ -96,6 +96,28 @@ vim.api.nvim_create_autocmd({ 'InsertEnter', 'InsertLeave' }, {
   end,
 })
 
+-----------------------------------------------------------
+-- Сброс языка на английский при завершении ввода
+-----------------------------------------------------------
+
+-- Сброс языка при выходе из Insert mode
+vim.api.nvim_create_autocmd('InsertLeave', {
+  group = sl_group,
+  pattern = '*',
+  callback = function()
+    vim.opt.iminsert = 0
+  end,
+})
+
+-- Сброс языка при выходе из командной строки и поиска
+vim.api.nvim_create_autocmd('CmdlineLeave', {
+  group = sl_group,
+  pattern = '*',
+  callback = function()
+    vim.opt.imsearch = 0
+  end,
+})
+
 ------------------------------------------------------------------------------
 -- Переименование файла внутри nvim-tree с изменением его во всём проекте
 ------------------------------------------------------------------------------

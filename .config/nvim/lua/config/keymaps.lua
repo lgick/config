@@ -39,9 +39,6 @@ end, {
   desc = 'Toggle language',
 })
 
--- Сброс языка при выходе из Insert mode
-map('i', '<ESC>', '<ESC><cmd>set iminsert=0<CR>', { silent = true, desc = 'Language Reset' })
-
 ------------------------------------------
 -- Поиск
 ------------------------------------------
