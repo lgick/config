@@ -114,13 +114,8 @@ end, { desc = 'Toggle Diagnostic' })
 -- AI
 ----------------------------------------
 
--- , + a: Открывает vsplit с ai
-map('n', '<leader>a', function()
-  vim.cmd('botright vsplit')
-  vim.cmd('vertical resize ' .. math.floor(vim.o.columns * 0.33))
-  vim.cmd('terminal claude')
-  vim.cmd('startinsert')
-end, { desc = 'Open AI' })
+-- , + a: Управление AI
+map('n', '<leader>a', '<cmd>ToggleAI<CR>', { desc = 'Toggle AI' })
 
 ----------------------------------------
 -- Snacks

@@ -214,6 +214,41 @@ end, {
   desc = 'Folding',
 })
 
+local ai_buf = nil
+
+api.nvim_create_user_command('ToggleAI', function()
+  if ai_buf and not api.nvim_buf_is_valid(ai_buf) then
+    ai_buf = nil
+  end
+
+  if ai_buf then
+    local ai_win = nil
+    for _, win in ipairs(api.nvim_list_wins()) do
+      if api.nvim_win_get_buf(win) == ai_buf then
+        ai_win = win
+        break
+      end
+    end
+
+    if ai_win then
+      api.nvim_win_close(ai_win, false)
+    else
+      cmd('botright vsplit')
+      cmd('vertical resize ' .. math.floor(vim.o.columns * 0.33))
+      api.nvim_win_set_buf(0, ai_buf)
+      cmd('startinsert')
+    end
+  else
+    cmd('botright vsplit')
+    cmd('vertical resize ' .. math.floor(vim.o.columns * 0.33))
+    cmd('terminal claude')
+    cmd('startinsert')
+    ai_buf = api.nvim_get_current_buf()
+  end
+end, {
+  desc = 'Toggle AI split (keeps session alive)',
+})
+
 api.nvim_create_user_command('Bufdelete', function()
   local curr_buf = vim.api.nvim_get_current_buf()
   local bufs = vim.fn.getbufinfo({ buflisted = 1 })
