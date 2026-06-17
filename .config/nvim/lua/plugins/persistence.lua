@@ -2,11 +2,13 @@ local M = {}
 local initialized = false
 
 local function ensure()
-  if initialized then return end
+  if initialized then
+    return
+  end
   require('persistence').setup({
-    dir = vim.fn.stdpath('state') .. '/sessions/',
+    dir = vim.fn.stdpath('config') .. '/_sessions/',
     need = 0,
-    branch = true,
+    branch = false,
   })
   require('persistence').stop()
   initialized = true
@@ -28,12 +30,7 @@ function M.select()
   local persistence = require('persistence')
 
   local function parse_name(path)
-    local name = vim.fn.fnamemodify(path, ':t:r')
-    local dir_part, branch = name:match('^(.-)@@(.+)$')
-    if dir_part then
-      return dir_part:gsub('%%', '/') .. '  [' .. branch .. ']'
-    end
-    return name:gsub('%%', '/')
+    return vim.fn.fnamemodify(path, ':t:r'):gsub('%%', '/')
   end
 
   Snacks.picker.pick('sessions', {
@@ -58,7 +55,9 @@ function M.select()
         end
       end,
       delete_session = function(picker, item)
-        if not item then return end
+        if not item then
+          return
+        end
         vim.fn.delete(item.path)
         vim.notify('Deleted: ' .. item.text)
         picker:find()
@@ -79,7 +78,7 @@ function M.delete()
   ensure()
   local path = require('persistence').current()
   if not path or vim.fn.filereadable(path) == 0 then
-    vim.notify('No session file for current project/branch', vim.log.levels.WARN)
+    vim.notify('No session file for current project', vim.log.levels.WARN)
     return
   end
   vim.fn.delete(path)
