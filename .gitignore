@@ -14,3 +14,8 @@
 !.config/
 .config/*
 !.config/nvim/
+
+!.claude/
+.claude/*
+!.claude/settings.json
+!.claude/keybindings.json

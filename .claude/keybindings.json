@@ -1,0 +1,122 @@
+{
+  "$schema": "https://www.schemastore.org/claude-code-keybindings.json",
+  "$docs": "https://code.claude.com/docs/en/keybindings",
+  "bindings": [
+    {
+      "context": "Global",
+      "bindings": {
+        "escape": "app:interrupt",
+        "ctrl+q": "app:interrupt",
+        "ctrl+r": "history:search",
+        "ctrl+o": "app:toggleTranscript",
+        "ctrl+t": "app:toggleTodos"
+      }
+    },
+    {
+      "context": "Chat",
+      "bindings": {
+        "enter": "chat:submit",
+        "ctrl+j": "chat:newline",
+        "up": "history:previous",
+        "down": "history:next",
+        "ctrl+_": "chat:undo",
+        "ctrl+-": "chat:undo",
+        "tab": "chat:cycleMode",
+        "shift+tab": "chat:cycleMode",
+        "meta+p": "chat:modelPicker",
+        "ctrl+l": null,
+        "cmd+k": "chat:clearScreen",
+        "meta+j": "scroll:lineDown",
+        "meta+k": "scroll:lineUp",
+        "meta+d": "scroll:halfPageDown",
+        "meta+u": "scroll:halfPageUp"
+      }
+    },
+    {
+      "context": "Autocomplete",
+      "bindings": {
+        "tab": "autocomplete:accept",
+        "escape": "autocomplete:dismiss",
+        "up": "autocomplete:previous",
+        "down": "autocomplete:next"
+      }
+    },
+    {
+      "context": "Confirmation",
+      "bindings": {
+        "y": "confirm:yes",
+        "n": "confirm:no",
+        "enter": "confirm:yes",
+        "escape": "confirm:no",
+        "space": "confirm:toggle",
+        "tab": "confirm:nextField",
+        "shift+tab": "confirm:cycleMode",
+        "up": "confirm:previous",
+        "down": "confirm:next"
+      }
+    },
+    {
+      "context": "Transcript",
+      "bindings": {
+        "escape": "transcript:exit",
+        "q": "transcript:exit",
+        "ctrl+u": "scroll:halfPageUp",
+        "ctrl+f": "scroll:fullPageDown",
+        "ctrl+b": "scroll:fullPageUp",
+        "j": "scroll:lineDown",
+        "k": "scroll:lineUp",
+        "g": "scroll:top",
+        "shift+g": "scroll:bottom",
+        "space": "scroll:fullPageDown"
+      }
+    },
+    {
+      "context": "HistorySearch",
+      "bindings": {
+        "ctrl+r": "historySearch:next",
+        "escape": "historySearch:accept",
+        "tab": "historySearch:accept",
+        "enter": "historySearch:execute",
+        "ctrl+s": "historySearch:cycleScope"
+      }
+    },
+    {
+      "context": "Scroll",
+      "bindings": {
+        "pageup": "scroll:pageUp",
+        "pagedown": "scroll:pageDown",
+        "wheelup": "scroll:lineUp",
+        "wheeldown": "scroll:lineDown",
+        "ctrl+shift+c": "selection:copy"
+      }
+    },
+    {
+      "context": "Select",
+      "bindings": {
+        "up": "select:previous",
+        "down": "select:next",
+        "j": "select:next",
+        "k": "select:previous",
+        "enter": "select:accept",
+        "escape": "select:cancel"
+      }
+    },
+    {
+      "context": "ModelPicker",
+      "bindings": {
+        "left": "modelPicker:decreaseEffort",
+        "right": "modelPicker:increaseEffort"
+      }
+    },
+    {
+      "context": "DiffDialog",
+      "bindings": {
+        "escape": "diff:dismiss",
+        "j": "diff:nextFile",
+        "k": "diff:previousFile",
+        "g": "scroll:top",
+        "shift+g": "scroll:bottom"
+      }
+    }
+  ]
+}
