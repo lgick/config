@@ -77,8 +77,8 @@ opt.imsearch = 0
 -- Невидимый курсор мыши при наборе текста
 opt.mousehide = true
 
--- Мышь в normal/visual/insert
-opt.mouse = 'nvi'
+-- Выделение мышкой
+opt.mouse = 'a'
 
 -- Кодировка
 opt.fileencodings = 'utf8,cp1251'
