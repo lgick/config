@@ -29,6 +29,8 @@ vim.pack.add({
 
   { src = 'https://www.github.com/lewis6991/gitsigns.nvim' }, -- git stager
   { src = 'https://github.com/sindrets/diffview.nvim' }, -- git diff
+
+  { src = 'https://github.com/lgick/notes.nvim' }, -- notes
 })
 
 vim.cmd([[colorscheme paperblue]])
@@ -52,3 +54,4 @@ require('plugins.snacks')
 require('plugins.trouble')
 require('plugins.gitsigns')
 require('plugins.diffview')
+require('plugins.notes')

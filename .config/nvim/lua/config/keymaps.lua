@@ -84,6 +84,9 @@ map('n', '<leader>f', '<cmd>NvimTreeToggle<CR>', { desc = 'Nvim Tree' })
 -- , + o: Aerial - code navigation
 map('n', '<leader>o', '<cmd>AerialToggle<CR>', { desc = 'Code Navigation' })
 
+-- , + m: Заметки (Notes)
+map('n', '<leader>m', '<cmd>Notes<CR>', { desc = 'Notes' })
+
 -- , + z: Сворачивает функциональные блоки в файле
 map('n', '<leader>z', '<cmd>Fold<CR>', { desc = 'Folding' })
 
@@ -109,13 +112,6 @@ map('n', '<leader>ud', function()
   vim.diagnostic.enable(is_enabled)
   notify(is_enabled and 'Diagnostics On' or 'Diagnostics Off')
 end, { desc = 'Toggle Diagnostic' })
-
-----------------------------------------
--- AI
-----------------------------------------
-
--- , + a: Управление AI
-map('n', '<leader>a', '<cmd>ToggleAI<CR>', { desc = 'Toggle AI' })
 
 ----------------------------------------
 -- Snacks
