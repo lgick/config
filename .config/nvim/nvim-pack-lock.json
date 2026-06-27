@@ -46,7 +46,7 @@
       "src": "https://github.com/mason-org/mason.nvim"
     },
     "notes.nvim": {
-      "rev": "38a16831ec200f9eb24a2e4935d9eccd8587fe20",
+      "rev": "2a21249e4ccf03f8be18cf5f0bbdec145ec80fb9",
       "src": "https://github.com/lgick/notes.nvim"
     },
     "nvim-autopairs": {
@@ -74,7 +74,7 @@
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "paperblue.nvim": {
-      "rev": "4f3c6af69153a2fccaf793d94d23170cf195cff3",
+      "rev": "37628cac468e78719b24c83b68a0a765a61cd991",
       "src": "https://github.com/lgick/paperblue.nvim"
     },
     "persistence.nvim": {
