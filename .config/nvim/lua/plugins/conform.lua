@@ -24,8 +24,9 @@ require('conform').setup({
     graphql = { 'prettierd' },
     nginx = { 'nginx-config-formatter' },
   },
-  format_on_save = function()
-    if vim.g.disable_autoformat then
+
+  format_on_save = function(bufnr)
+    if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
       return
     end
 

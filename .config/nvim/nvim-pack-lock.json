@@ -34,7 +34,7 @@
       "src": "https://github.com/folke/lazydev.nvim"
     },
     "mason-lspconfig.nvim": {
-      "rev": "50bf3871b539896bd0650b882f6e6b467cc1c1eb",
+      "rev": "47059d71b42d74b0a1e9f61c1d99d301039c3b5b",
       "src": "https://github.com/mason-org/mason-lspconfig.nvim"
     },
     "mason-tool-installer.nvim": {
@@ -46,7 +46,7 @@
       "src": "https://github.com/mason-org/mason.nvim"
     },
     "notes.nvim": {
-      "rev": "2a21249e4ccf03f8be18cf5f0bbdec145ec80fb9",
+      "rev": "5f59998dba203f670390848ace1f8781d2befb77",
       "src": "https://github.com/lgick/notes.nvim"
     },
     "nvim-autopairs": {
@@ -74,7 +74,7 @@
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "paperblue.nvim": {
-      "rev": "37628cac468e78719b24c83b68a0a765a61cd991",
+      "rev": "e159548832b935afbdc7264924af1fb6585bb296",
       "src": "https://github.com/lgick/paperblue.nvim"
     },
     "persistence.nvim": {

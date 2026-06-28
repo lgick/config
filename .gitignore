@@ -18,5 +18,4 @@
 
 !.claude/
 .claude/*
-!.claude/settings.json
 !.claude/keybindings.json

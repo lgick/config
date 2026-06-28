@@ -160,3 +160,30 @@ vim.api.nvim_create_autocmd('LspProgress', {
     end
   end,
 })
+
+-------------------------------------------------------
+-- Перезапуск prettierd при изменении конфига
+-------------------------------------------------------
+
+local prettierd_group = vim.api.nvim_create_augroup('PrettierdRestart', { clear = true })
+
+vim.api.nvim_create_autocmd('BufWritePost', {
+  group = prettierd_group,
+  pattern = {
+    '.prettierrc',
+    '.prettierrc.json',
+    '.prettierrc.yml',
+    '.prettierrc.yaml',
+    '.prettierrc.json5',
+    '.prettierrc.js',
+    '.prettierrc.cjs',
+    '.prettierrc.mjs',
+    'prettier.config.js',
+    'prettier.config.cjs',
+    'prettier.config.mjs',
+  },
+  callback = function()
+    vim.fn.system('prettierd restart')
+    vim.notify('prettierd cache cleared successfully!', vim.log.levels.INFO, { title = 'Conform' })
+  end,
+})

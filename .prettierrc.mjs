@@ -12,7 +12,7 @@ const config = {
     {
       files: '*.md',
       options: {
-        printWidth: 99,
+        printWidth: 80,
         proseWrap: 'always', // перенос обычного текста
       },
     },
