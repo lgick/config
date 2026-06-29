@@ -78,7 +78,7 @@ opt.imsearch = 0
 opt.mousehide = true
 
 -- Выделение мышкой
-opt.mouse = 'a'
+opt.mouse = 'r'
 
 -- Кодировка
 opt.fileencodings = 'utf8,cp1251'

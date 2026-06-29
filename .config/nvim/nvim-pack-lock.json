@@ -46,7 +46,7 @@
       "src": "https://github.com/mason-org/mason.nvim"
     },
     "notes.nvim": {
-      "rev": "5f59998dba203f670390848ace1f8781d2befb77",
+      "rev": "7e7fcfdb8867dae4957a230e4a71d7ecdbc12a5b",
       "src": "https://github.com/lgick/notes.nvim"
     },
     "nvim-autopairs": {
