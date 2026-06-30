@@ -17,8 +17,6 @@ vim.pack.add({
 
   { src = 'https://github.com/stevearc/conform.nvim' }, -- форматирование кода (запускает prettier)
 
-  { src = 'https://github.com/stevearc/aerial.nvim' }, -- навигация по коду в файле
-
   { src = 'https://github.com/lukas-reineke/indent-blankline.nvim' }, -- линии отступов для блоков кода
   { src = 'https://github.com/windwp/nvim-autopairs' }, -- автоматическое закрытие скобок
   { src = 'https://github.com/windwp/nvim-ts-autotag' }, -- автозакрытие и переименование тегов
@@ -45,7 +43,6 @@ require('lazydev').setup({
 require('plugins.blink-cmp')
 require('plugins.nvim-tree')
 require('plugins.treesitter')
-require('plugins.aerial')
 require('plugins.indent-blankline')
 require('plugins.conform')
 require('nvim-autopairs').setup()
