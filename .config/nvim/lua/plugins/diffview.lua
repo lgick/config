@@ -32,7 +32,15 @@ local function restore_file_with_confirm()
   if answer:lower() == 'y' then
     vim.schedule(function()
       actions.restore_entry()
+      vim.schedule(reload_nvim_tree)
     end)
+  end
+end
+
+local function reload_nvim_tree()
+  local ok, api = pcall(require, 'nvim-tree.api')
+  if ok then
+    api.tree.reload()
   end
 end
 
@@ -126,6 +134,11 @@ local function restore_with_confirm()
     vim.notify('Restored to ' .. short_hash)
     vim.cmd('DiffviewClose')
     close_missing_buffers(toplevel)
+    -- Перезагружаем открытые буферы и nvim-tree (файлы обновились на диске)
+    vim.schedule(function()
+      vim.cmd('checktime')
+      reload_nvim_tree()
+    end)
     return
   end
 
@@ -140,33 +153,35 @@ local function restore_with_confirm()
   local abs_path = item.absolute_path
     or (toplevel and vim.fs.joinpath(toplevel, item.path))
 
-  -- Файл удалён в этом коммите и уже отсутствует локально — нечего делать
-  if item.status == 'D' and (not abs_path or not vim.uv.fs_stat(abs_path)) then
-    vim.notify("'" .. item.path .. "' is already absent")
-    return
-  end
-
   local answer = vim.fn.input(('Restore file from commit %s? (y/n): '):format(short_hash))
   vim.cmd('redraw!')
   vim.api.nvim_echo({}, false, {})
 
   if answer:lower() ~= 'y' then return end
 
+  local restore_ref
   if item.status == 'D' then
-    -- Файл удалён в коммите → удаляем локально и из индекса
-    vim.uv.fs_unlink(abs_path)
-    vim.fn.system({ 'git', '-C', toplevel, 'rm', '--cached', '-f', '--', item.path })
+    -- Файл удалён в этом коммите → берём версию из родительского коммита
+    restore_ref = hash .. '^1'
+  else
+    restore_ref = hash
+  end
+
+  -- git checkout автоматически создаёт директории если их нет
+  local result = vim.fn.system({ 'git', '-C', toplevel, 'checkout', restore_ref, '--', item.path })
+  if vim.v.shell_error ~= 0 then
+    vim.notify('Restore failed: ' .. result, vim.log.levels.ERROR)
+    return
+  end
+
+  -- Перезагружаем буфер если файл открыт, обновляем nvim-tree
+  vim.schedule(function()
     local bufnr = vim.fn.bufnr(abs_path)
     if bufnr ~= -1 then
-      pcall(vim.api.nvim_buf_delete, bufnr, { force = true })
+      vim.cmd('checktime ' .. bufnr)
     end
-  else
-    -- git checkout автоматически создаёт директории если их нет
-    local result = vim.fn.system({ 'git', '-C', toplevel, 'checkout', hash, '--', item.path })
-    if vim.v.shell_error ~= 0 then
-      vim.notify('Restore failed: ' .. result, vim.log.levels.ERROR)
-    end
-  end
+    reload_nvim_tree()
+  end)
 end
 
 require('diffview').setup({
