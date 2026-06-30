@@ -24,6 +24,10 @@
 | `,gf`     |  n,v   | Git file history (diffview.nvim)        |
 | `,gp`     |   n    | Git project history (diffview.nvim)     |
 | --------- | ------ | --------------------------------------- |
+| `,ws`     |   n    | Save current session manually           |
+| `,wl`     |   n    | Load current session manually           |
+| `,wa`     |   n    | Select or list all saved sessions       |
+| --------- | ------ | --------------------------------------- |
 | `,ud`     |   n    | Toggle diagnostic                       |
 | `,uf`     |   n    | Toggle autoformat                       |
 | --------- | ------ | --------------------------------------- |
