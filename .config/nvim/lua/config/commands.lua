@@ -253,14 +253,20 @@ api.nvim_create_user_command('Bufdelete', function()
   local curr_buf = vim.api.nvim_get_current_buf()
   local bufs = vim.fn.getbufinfo({ buflisted = 1 })
 
+  local modified = vim.api.nvim_get_option_value('modified', { buf = curr_buf })
+  if modified then
+    local choice = vim.fn.confirm('Buffer has unsaved changes. Delete anyway?', '&Yes\n&No', 2)
+    if choice ~= 1 then
+      return
+    end
+  end
+
   if #bufs <= 1 then
-    -- Если это последний буфер, создать новый пустой и удалить текущий
     cmd('enew')
-    api.nvim_buf_delete(curr_buf, { force = false })
+    api.nvim_buf_delete(curr_buf, { force = true })
   else
-    -- Если буферов много, переход на следующий и удалить текущий
     cmd('bn')
-    api.nvim_buf_delete(curr_buf, { force = false })
+    api.nvim_buf_delete(curr_buf, { force = true })
   end
 end, {
   desc = 'Delete Buffer And Switch',
