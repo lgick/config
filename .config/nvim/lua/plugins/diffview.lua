@@ -22,8 +22,69 @@ local function open_file()
   end
 end
 
+-- Надёжная перезагрузка nvim-tree.
+-- nvim-tree.reload_explorer обновляет модель данных всегда, но РИСУЕТ только
+-- если окно дерева видно (view.is_visible()). После restore фокус в панели
+-- diffview (часто в отдельной вкладке) → дерево не перерисовывается, узел
+-- (напр. восстановленный .stylua.toml) не виден до ручного R. Поэтому:
+--   1) reload сразу/с задержкой — отрисует, если дерево видно прямо сейчас;
+--   2) одноразовый BufEnter на буфере NvimTree_* — ГАРАНТИРУЕТ перерисовку,
+--      когда пользователь вернётся к дереву (вход в окно не делает reload сам).
+local nvt_group = vim.api.nvim_create_augroup('DiffviewNvimTreeReload', { clear = true })
+local function reload_nvim_tree()
+  local ok, api = pcall(require, 'nvim-tree.api')
+  if not ok then
+    return
+  end
+
+  local function reload()
+    pcall(api.tree.reload)
+  end
+
+  vim.schedule(reload) -- если дерево видно сейчас — отрисуется сразу
+  vim.defer_fn(reload, 100) -- после settle git-статуса / диффвью
+
+  -- перерисовать при следующем входе в окно дерева
+  pcall(vim.api.nvim_clear_autocmds, { group = nvt_group })
+  vim.api.nvim_create_autocmd('BufEnter', {
+    group = nvt_group,
+    pattern = 'NvimTree_*',
+    once = true,
+    callback = reload,
+  })
+end
+
+-- Закрывает буферы файлов, которых больше нет на диске (после restore)
+local function close_missing_buffers(toplevel)
+  -- Префикс с разделителем, чтобы '/a/proj' не совпадал с '/a/proj2/...'
+  local prefix = toplevel:gsub('/+$', '') .. '/'
+  vim.schedule(function()
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+      if vim.api.nvim_buf_is_valid(buf) and vim.bo[buf].buflisted then
+        local name = vim.api.nvim_buf_get_name(buf)
+        -- Только буферы из текущего репо, у которых нет файла на диске
+        if name ~= '' and name:sub(1, #prefix) == prefix and not vim.uv.fs_stat(name) then
+          pcall(vim.api.nvim_buf_delete, buf, { force = true })
+        end
+      end
+    end
+  end)
+end
+
 -- Восстановление файла в file_panel (git diff, без истории коммитов)
 local function restore_file_with_confirm()
+  local view = require('diffview.lib').get_current_view()
+
+  if not view or not view.panel:is_focused() then
+    return
+  end
+
+  -- Курсор должен стоять на файле, а не на заголовке/группе
+  local item = view.panel:get_item_at_cursor()
+  if not item or item.files then
+    return
+  end
+
   local answer = vim.fn.input('Restore file? (y/n): ')
 
   vim.cmd('redraw!')
@@ -32,31 +93,10 @@ local function restore_file_with_confirm()
   if answer:lower() == 'y' then
     vim.schedule(function()
       actions.restore_entry()
-      vim.schedule(reload_nvim_tree)
+      vim.cmd('checktime') -- обновляем открытые буферы, изменившиеся на диске
+      reload_nvim_tree()
     end)
   end
-end
-
-local function reload_nvim_tree()
-  local ok, api = pcall(require, 'nvim-tree.api')
-  if ok then
-    api.tree.reload()
-  end
-end
-
--- Закрывает буферы файлов, которых больше нет на диске (после restore)
-local function close_missing_buffers(toplevel)
-  vim.schedule(function()
-    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-      if vim.api.nvim_buf_is_valid(buf) and vim.bo[buf].buflisted then
-        local name = vim.api.nvim_buf_get_name(buf)
-        -- Только буферы из текущего репо, у которых нет файла на диске
-        if name ~= '' and name:sub(1, #toplevel) == toplevel and not vim.uv.fs_stat(name) then
-          pcall(vim.api.nvim_buf_delete, buf, { force = true })
-        end
-      end
-    end
-  end)
 end
 
 -- Универсальный restore для file_history_panel:
@@ -73,6 +113,10 @@ local function restore_with_confirm()
   if not item then return end
 
   local toplevel = view.adapter.ctx and view.adapter.ctx.toplevel
+  if not toplevel then
+    vim.notify('Cannot determine repo toplevel', vim.log.levels.ERROR)
+    return
+  end
 
   -- Курсор на коммите в режиме истории проекта → восстановить весь проект
   if item.files and not view.panel.single_file then
@@ -86,8 +130,11 @@ local function restore_with_confirm()
 
     if answer:lower() ~= 'y' then return end
 
-    -- Сохраняем незакоммиченные изменения в stash с именем для опознавания
-    local dirty = vim.fn.system({ 'git', '-C', toplevel, 'status', '--porcelain' })
+    -- Сохраняем незакоммиченные изменения в stash с именем для опознавания.
+    -- --untracked-files=all форсирует показ untracked, даже если в конфиге
+    -- стоит status.showUntrackedFiles=no (иначе clean -fd удалит их безвозвратно).
+    local stashed = false
+    local dirty = vim.fn.system({ 'git', '-C', toplevel, 'status', '--porcelain', '--untracked-files=all' })
     if vim.trim(dirty) ~= '' then
       local branch = vim.trim(vim.fn.system({ 'git', '-C', toplevel, 'branch', '--show-current' }))
       local head_short = vim.trim(vim.fn.system({ 'git', '-C', toplevel, 'rev-parse', '--short', 'HEAD' }))
@@ -97,6 +144,7 @@ local function restore_with_confirm()
         vim.notify('git stash failed', vim.log.levels.ERROR)
         return
       end
+      stashed = true
     end
 
     -- Сравниваем деревья HEAD и hash для точного определения удаляемых файлов
@@ -120,17 +168,27 @@ local function restore_with_confirm()
     if #hash_files > 0 then
       local result = vim.fn.system({ 'git', '-C', toplevel, 'checkout', hash, '--', '.' })
       if vim.v.shell_error ~= 0 then
+        -- Восстанавливаем спрятанные изменения, чтобы stash не остался «висеть»
+        if stashed then
+          vim.fn.system({ 'git', '-C', toplevel, 'stash', 'pop' })
+        end
         vim.notify('git checkout failed: ' .. result, vim.log.levels.ERROR)
         return
       end
     end
 
     if #to_delete > 0 then
-      vim.fn.system(vim.list_extend({ 'git', '-C', toplevel, 'rm', '-f', '--' }, to_delete))
+      local result = vim.fn.system(vim.list_extend({ 'git', '-C', toplevel, 'rm', '-f', '--' }, to_delete))
+      if vim.v.shell_error ~= 0 then
+        vim.notify('git rm failed: ' .. result, vim.log.levels.WARN)
+      end
     end
 
     -- Убираем пустые директории после удаления файлов
-    vim.fn.system({ 'git', '-C', toplevel, 'clean', '-fd' })
+    local clean_result = vim.fn.system({ 'git', '-C', toplevel, 'clean', '-fd' })
+    if vim.v.shell_error ~= 0 then
+      vim.notify('git clean failed: ' .. clean_result, vim.log.levels.WARN)
+    end
     vim.notify('Restored to ' .. short_hash)
     vim.cmd('DiffviewClose')
     close_missing_buffers(toplevel)
@@ -150,8 +208,6 @@ local function restore_with_confirm()
 
   local hash = item.commit and item.commit.hash
   local short_hash = hash and hash:sub(1, 7) or ''
-  local abs_path = item.absolute_path
-    or (toplevel and vim.fs.joinpath(toplevel, item.path))
 
   local answer = vim.fn.input(('Restore file from commit %s? (y/n): '):format(short_hash))
   vim.cmd('redraw!')
@@ -163,6 +219,12 @@ local function restore_with_confirm()
   if item.status == 'D' then
     -- Файл удалён в этом коммите → берём версию из родительского коммита
     restore_ref = hash .. '^1'
+    -- У корневого коммита нет родителя — даём понятную ошибку вместо cryptic от git
+    vim.fn.system({ 'git', '-C', toplevel, 'rev-parse', '--verify', '--quiet', restore_ref .. '^{commit}' })
+    if vim.v.shell_error ~= 0 then
+      vim.notify('Cannot restore: commit ' .. short_hash .. ' has no parent', vim.log.levels.ERROR)
+      return
+    end
   else
     restore_ref = hash
   end
@@ -174,12 +236,10 @@ local function restore_with_confirm()
     return
   end
 
-  -- Перезагружаем буфер если файл открыт, обновляем nvim-tree
+  -- Обновляем открытые буферы (изменившиеся на диске) и nvim-tree.
+  -- Голый checktime безопаснее bufnr(path): bufnr трактует путь как паттерн.
   vim.schedule(function()
-    local bufnr = vim.fn.bufnr(abs_path)
-    if bufnr ~= -1 then
-      vim.cmd('checktime ' .. bufnr)
-    end
+    vim.cmd('checktime')
     reload_nvim_tree()
   end)
 end
@@ -208,10 +268,7 @@ require('diffview').setup({
   hooks = {
     view_closed = function()
       -- Обновление дерева nvim-tree (статусы git)
-      local success, api = pcall(require, 'nvim-tree.api')
-      if success then
-        api.tree.reload()
-      end
+      reload_nvim_tree()
     end,
   },
   keymaps = {
