@@ -173,7 +173,7 @@ end, { desc = 'Git File History' })
 
 -- , + gp: Git project history
 map('n', '<leader>gp', function()
-  vim.cmd('DiffviewFileHistory')
+  vim.cmd('DiffviewFileHistory --max-count=9999999')
 end, { desc = 'Git Project History' })
 
 ----------------------------------------
