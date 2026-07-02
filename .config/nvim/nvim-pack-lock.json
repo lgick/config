@@ -18,7 +18,7 @@
       "src": "https://github.com/sindrets/diffview.nvim"
     },
     "gitsigns.nvim": {
-      "rev": "2038c666bd9d8a0b7349a0b6ee00dc83104b9ecf",
+      "rev": "eb60cc7b94c46005237fd34170d76f3a089a90aa",
       "src": "https://www.github.com/lewis6991/gitsigns.nvim"
     },
     "indent-blankline.nvim": {
@@ -42,7 +42,7 @@
       "src": "https://github.com/mason-org/mason.nvim"
     },
     "notes.nvim": {
-      "rev": "7e7fcfdb8867dae4957a230e4a71d7ecdbc12a5b",
+      "rev": "1c0996bf82f655cc3347c32d670708a236c3cb23",
       "src": "https://github.com/lgick/notes.nvim"
     },
     "nvim-autopairs": {
@@ -50,11 +50,11 @@
       "src": "https://github.com/windwp/nvim-autopairs"
     },
     "nvim-lspconfig": {
-      "rev": "dd1c9b802c943278179a5d819369cda085b79d45",
+      "rev": "292f44408498103c47996ff5c18fd366293840d8",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-tree.lua": {
-      "rev": "8e8be709c9a93e1ebefde7964884a8b564bfd3e0",
+      "rev": "7ff7040bf6c246671eb55cb1727de4fd9f92a106",
       "src": "https://github.com/nvim-tree/nvim-tree.lua"
     },
     "nvim-treesitter": {
@@ -66,7 +66,7 @@
       "src": "https://github.com/windwp/nvim-ts-autotag"
     },
     "nvim-web-devicons": {
-      "rev": "dfbfaa967a6f7ec50789bead7ef87e336c1fa63c",
+      "rev": "dad71387de386a946b123079d0e53f23028f3abd",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "paperblue.nvim": {
