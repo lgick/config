@@ -6,36 +6,8 @@
   "contributes": {
     "snippets": [
       {
-        "language": [
-          "plaintext",
-          "markdown",
-          "tex",
-          "html",
-          "global",
-          "all"
-        ],
-        "path": "./global.json"
-      },
-      {
-        "language": [
-          "license"
-        ],
-        "path": "./license.json"
-      },
-      {
-        "language": [
-          "gitcommit",
-          "NeogitCommitMessage"
-        ],
-        "path": "./gitcommit.json"
-      },
-      {
         "language": "lua",
-        "path": "./lua/lua.json"
-      },
-      {
-        "language": "luadoc",
-        "path": "./lua/luadoc.json"
+        "path": "./lua.json"
       },
       {
         "language": [
@@ -105,10 +77,6 @@
       {
         "language": "typescriptreact",
         "path": "./javascript/next-ts.json"
-      },
-      {
-        "language": "loremipsum",
-        "path": "./loremipsum.json"
       }
     ]
   }
