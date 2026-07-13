@@ -27,6 +27,7 @@ require('notes').setup({
     close = 'q', -- close notes (works from any notes window)
     window_nav = '<C-w>', -- prefix; then h/j/k/l → move between windows
     toggle_panels = '<C-t>', -- hide/show Folders + Notes columns
+    change_folder = 'o', -- folders: enter the folder under cursor / go up from row 1
   },
 
   -- Sync status icons shown in the tab label next to 'notes.nvim'.
