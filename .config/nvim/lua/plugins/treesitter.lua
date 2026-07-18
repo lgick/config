@@ -22,6 +22,8 @@ local parsers_to_install = {
   'nginx',
   'regex',
   'yaml',
+  'rust',
+  'ron',
 }
 
 local function install_missing_parsers()

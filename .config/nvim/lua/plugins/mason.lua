@@ -1,10 +1,6 @@
 require('mason').setup()
 require('mason-lspconfig').setup()
 
-vim.lsp.config('lua_ls', {
-  root_markers = { '.luarc.json', '.luarc.jsonc' },
-  single_file_support = false,
-})
 require('mason-tool-installer').setup({
   ensure_installed = {
     'ts_ls',
@@ -20,6 +16,7 @@ require('mason-tool-installer').setup({
     'nginx-config-formatter',
     'tree-sitter-cli',
     'json-lsp',
+    'rust-analyzer',
   },
   auto_update = true,
   run_on_start = true,

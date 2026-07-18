@@ -23,6 +23,7 @@ require('conform').setup({
     markdown = { 'prettierd' },
     graphql = { 'prettierd' },
     nginx = { 'nginx-config-formatter' },
+    rust = { 'rustfmt' },
   },
 
   format_on_save = function(bufnr)
