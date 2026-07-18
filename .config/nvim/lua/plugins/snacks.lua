@@ -102,7 +102,7 @@ local picker_files_keys = {
   ['v'] = 'edit_vsplit',
   ['<CR>'] = 'confirm',
 
-  ['o'] = 'qflist',
+  ['O'] = 'qflist',
 
   ['tf'] = 'toggle_follow', -- символические ссылки
   ['th'] = 'toggle_hidden', -- скрытые файлы
@@ -236,6 +236,7 @@ snacks.setup({
           ['<c-g>'] = { 'toggle_live', mode = { 'i', 'n' } },
           ['<CR>'] = set_search_reg,
           ['<C-w>'] = window_nav,
+          ['O'] = 'qflist',
 
           ['?'] = false,
           ['/'] = false,
