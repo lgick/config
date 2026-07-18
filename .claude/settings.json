@@ -1,9 +1,10 @@
 {
-  "model": "sonnet",
+  "model": "Fable",
   "statusLine": {
     "type": "command",
     "command": "bash ~/.claude/statusline-command.sh"
   },
-  "effortLevel": "medium",
-  "theme": "auto"
+  "effortLevel": "high",
+  "theme": "auto",
+  "editorMode": "normal"
 }

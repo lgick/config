@@ -20,4 +20,3 @@
 .claude/*
 !.claude/keybindings.json
 !.claude/statusline-command.sh
-!.claude/settings.json
