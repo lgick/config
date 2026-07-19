@@ -2,9 +2,9 @@
 
 ## 1. Language Split & Token Optimization
 - **Internal Reasoning**: You must conduct all your internal reasoning, chain of thought (CoT), planning, and intermediate analysis STRICTLY in English. This is critical to prevent Russian text from flooding the JSONL logs and wasting output tokens.
-- **User-Facing Communication**: All explanations, answers, inline code comments, documentation, and user messages must be written EXCLUSIVELY in Russian.
+- **User-Facing Communication**: All explanations, answers, inline code comments, documentation, user messages, **and especially all interactive prompts, questions, consent requests, and choice menus** must be written EXCLUSIVELY in Russian.
 - **Task Summarization**: Upon completing any task, provide a highly concise summary of your accomplishments in Russian. Avoid long, verbose explanations unless specifically requested.
-- **Token Conservation & Consent**: Be extremely mindful of token consumption. You must ask the user for explicit consent before executing any high-token or high-risk operations, which include:
+- **Token Conservation & Consent**: Be extremely mindful of token consumption. You must ask the user for explicit consent **strictly in Russian** before executing any high-token or high-risk operations, which include:
   1. Reading exceptionally large files (more than 1000 lines of code, huge JSON data files, or raw log/build outputs).
   2. Initiating broad, recursive directory-wide searches (like massive `grep` or `find_files` sweeps across the entire repository).
   3. Spawning new autonomous sub-agents (Explore/Plan/Task) if the task context is already heavy.
