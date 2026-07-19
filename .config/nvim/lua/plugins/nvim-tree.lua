@@ -4,6 +4,68 @@ vim.g.loaded_netrwPlugin = 1
 
 local nvimtree = require('nvim-tree')
 
+local function custom_nvim_tree_sorter(nodes)
+  local uv = vim.uv or vim.loop
+
+  -- Вспомогательная функция для гарантированного получения mtime
+  local function get_mtime(node)
+    local stat = node.fs_stat
+    -- Если nvim-tree еще не заполнил поле fs_stat,
+    -- запрашиваем системную информацию о файле напрямую
+    if not stat and node.absolute_path then
+      stat = uv.fs_stat(node.absolute_path)
+    end
+    return stat and stat.mtime or { sec = 0, nsec = 0 }
+  end
+
+  table.sort(nodes, function(a, b)
+    -- 1. Папки всегда сверху
+    if a.type == 'directory' and b.type ~= 'directory' then
+      return true
+    elseif a.type ~= 'directory' and b.type == 'directory' then
+      return false
+    end
+
+    -- 2. Если оба элемента — папки, сортируем их по алфавиту
+    if a.type == 'directory' and b.type == 'directory' then
+      local a_name = a.name:lower()
+      local b_name = b.name:lower()
+      if a_name ~= b_name then
+        return a_name < b_name
+      else
+        return a.name < b.name
+      end
+    end
+
+    -- 3. Если оба элемента — файлы, сортируем по времени модификации (сначала новые)
+    local a_mtime = get_mtime(a)
+    local b_mtime = get_mtime(b)
+
+    local a_sec = a_mtime.sec or 0
+    local b_sec = b_mtime.sec or 0
+
+    if a_sec ~= b_sec then
+      return a_sec > b_sec
+    end
+
+    -- Сравнение наносекунд на случай одинаковых секунд
+    local a_nsec = a_mtime.nsec or 0
+    local b_nsec = b_mtime.nsec or 0
+
+    if a_nsec ~= b_nsec then
+      return a_nsec > b_nsec
+    end
+
+    -- 4. Если время модификации полностью совпадает, сортируем по алфавиту
+    local a_name = a.name:lower()
+    local b_name = b.name:lower()
+    if a_name ~= b_name then
+      return a_name < b_name
+    end
+    return a.name < b.name
+  end)
+end
+
 local function custom_attach(bufnr)
   local api = require('nvim-tree.api')
   local keymap = vim.keymap
@@ -93,6 +155,10 @@ local function custom_attach(bufnr)
 end
 
 nvimtree.setup({
+  sort = {
+    sorter = custom_nvim_tree_sorter,
+  },
+
   update_focused_file = {
     enable = true,
   },
