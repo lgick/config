@@ -29,6 +29,8 @@ vim.pack.add({
   { src = 'https://github.com/sindrets/diffview.nvim' }, -- git diff
 
   { src = 'https://github.com/lgick/notes.nvim' }, -- notes
+
+  { src = 'https://github.com/folke/zen-mode.nvim' }, -- просмотр тесктовых документов
 })
 
 vim.cmd([[colorscheme paperblue]])
@@ -52,3 +54,4 @@ require('plugins.trouble')
 require('plugins.gitsigns')
 require('plugins.diffview')
 require('plugins.notes')
+require('plugins.zen-mode')
