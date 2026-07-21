@@ -12,14 +12,10 @@ api.nvim_create_user_command('UpdateInsertModeColor', function()
   local is_insert = mode:sub(1, 1) == 'i'
   local new_parts = {}
 
-  -- Очищаем все старые упоминания
+  -- Очищаем все старые упоминания winhighlight
   if current ~= '' then
     for _, part in ipairs(vim.split(current, ',')) do
-      if
-        part ~= ''
-        and not part:match('^StatusLine:StatusLineInsert')
-        and not part:match('^CursorLineNr:CursorLineNrInsert')
-      then
+      if part ~= '' and not part:match('^StatusLine:StatusLineInsert') then
         table.insert(new_parts, part)
       end
     end
@@ -30,11 +26,13 @@ api.nvim_create_user_command('UpdateInsertModeColor', function()
 
     if lang == 0 then
       table.insert(new_parts, 'StatusLine:StatusLineInsertEn')
-      table.insert(new_parts, 'CursorLineNr:CursorLineNrInsertEn')
+      api.nvim_set_hl(0, 'CursorInsert', { link = 'CursorInsertEn' })
     elseif lang == 1 then
       table.insert(new_parts, 'StatusLine:StatusLineInsertRu')
-      table.insert(new_parts, 'CursorLineNr:CursorLineNrInsertRu')
+      api.nvim_set_hl(0, 'CursorInsert', { link = 'CursorInsertRu' })
     end
+  else
+    api.nvim_set_hl(0, 'CursorInsert', { link = 'CursorInsertEn' })
   end
 
   vim.wo.winhighlight = table.concat(new_parts, ',')
