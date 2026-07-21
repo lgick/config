@@ -31,6 +31,8 @@ vim.pack.add({
   { src = 'https://github.com/lgick/notes.nvim' }, -- notes
 
   { src = 'https://github.com/folke/zen-mode.nvim' }, -- просмотр тесктовых документов
+
+  { src = 'https://github.com/meanderingprogrammer/render-markdown.nvim' },
 })
 
 vim.cmd([[colorscheme paperblue]])
@@ -55,3 +57,4 @@ require('plugins.gitsigns')
 require('plugins.diffview')
 require('plugins.notes')
 require('plugins.zen-mode')
+require('plugins.render-markdown')
