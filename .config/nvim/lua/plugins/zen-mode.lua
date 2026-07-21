@@ -17,6 +17,7 @@ require('zen-mode').setup({
       linebreak = true, -- Перенос строго по границам слов
     },
   },
+
   -- Срабатывает при открытии Zen mode
   on_open = function()
     zen_bufnr = vim.api.nvim_get_current_buf()
