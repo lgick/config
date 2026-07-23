@@ -293,8 +293,8 @@ vim.api.nvim_create_autocmd('User', {
   end,
 })
 
--- Отключение Git Stage при смене буфера
-vim.api.nvim_create_autocmd({ 'BufEnter', 'WinEnter' }, {
+-- Отключение Git Stage при смене буфера или окна
+vim.api.nvim_create_autocmd({ 'BufLeave', 'WinLeave' }, {
   group = augroup,
   callback = function()
     if not active_buf then
