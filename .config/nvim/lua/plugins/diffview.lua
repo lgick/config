@@ -139,7 +139,11 @@ local function restore_with_confirm()
     if vim.trim(dirty) ~= '' then
       local branch = vim.trim(git(toplevel, { 'branch', '--show-current' }))
       local head_short = vim.trim(git(toplevel, { 'rev-parse', '--short', 'HEAD' }))
-      local stash_msg = ('WIP on %s:%s (before restore to %s)'):format(branch, head_short, short_hash)
+      local stash_msg = ('WIP on %s:%s (before restore to %s)'):format(
+        branch,
+        head_short,
+        short_hash
+      )
       git(toplevel, { 'stash', 'push', '--include-untracked', '-m', stash_msg })
       if vim.v.shell_error ~= 0 then
         vim.notify('git stash failed', vim.log.levels.ERROR)
@@ -274,8 +278,8 @@ require('diffview').setup({
       { 'n', 'O', actions.goto_file_edit, { desc = 'Open local file' } },
       { 'n', 'f', actions.toggle_files, { desc = 'Toggle file panel' } },
       { 'n', 'r', restore_file_with_confirm, { desc = 'Restore file' } },
-      { 'n', '<C-u>', actions.scroll_view(-0.25), { desc = 'Scroll the view up' } },
-      { 'n', '<C-d>', actions.scroll_view(0.25), { desc = 'Scroll the view down' } },
+      { 'n', '<C-p>', actions.scroll_view(-0.25), { desc = 'Scroll the view up' } },
+      { 'n', '<C-n>', actions.scroll_view(0.25), { desc = 'Scroll the view down' } },
       { 'n', 'j', actions.next_entry, { desc = 'diffview_ignore' } },
       { 'n', 'k', actions.prev_entry, { desc = 'diffview_ignore' } },
 
@@ -291,8 +295,8 @@ require('diffview').setup({
       { 'n', 'f', actions.toggle_files, { desc = 'Toggle file panel' } },
       { 'n', 'o', actions.toggle_fold, { desc = 'Toggle directory' } },
       { 'n', 'r', restore_with_confirm, { desc = 'Restore file / project from commit' } },
-      { 'n', '<C-u>', actions.scroll_view(-0.25), { desc = 'Scroll the view up' } },
-      { 'n', '<C-d>', actions.scroll_view(0.25), { desc = 'Scroll the view down' } },
+      { 'n', '<C-p>', actions.scroll_view(-0.25), { desc = 'Scroll the view up' } },
+      { 'n', '<C-n>', actions.scroll_view(0.25), { desc = 'Scroll the view down' } },
       { 'n', 'j', actions.next_entry, { desc = 'diffview_ignore' } },
       { 'n', 'k', actions.prev_entry, { desc = 'diffview_ignore' } },
 
