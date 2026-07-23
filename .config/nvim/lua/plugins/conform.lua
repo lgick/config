@@ -27,6 +27,10 @@ require('conform').setup({
   },
 
   format_on_save = function(bufnr)
+    if not vim.bo[bufnr].modifiable then
+      return
+    end
+
     if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
       return
     end

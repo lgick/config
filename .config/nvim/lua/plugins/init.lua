@@ -32,7 +32,8 @@ vim.pack.add({
 
   { src = 'https://github.com/folke/zen-mode.nvim' }, -- просмотр тесктовых документов
 
-  { src = 'https://github.com/meanderingprogrammer/render-markdown.nvim' },
+  { src = 'https://github.com/meanderingprogrammer/render-markdown.nvim' }, -- отображение md
+  { src = 'https://github.com/jghauser/follow-md-links.nvim' }, -- переходы по ссылкам в md
 })
 
 vim.cmd([[colorscheme paperblue]])
