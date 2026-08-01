@@ -3,7 +3,7 @@ local zen_bufnr = nil
 require('zen-mode').setup({
   window = {
     backdrop = 0.4, -- Затемнение фона вокруг текста
-    width = 87, -- Ширина окна Zen
+    width = 85, -- Ширина окна Zen
     height = 0.95, -- Высота окна Zen
     options = {
       signcolumn = 'no', -- Отключение боковой панели знаков диагностики и Git

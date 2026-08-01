@@ -11,9 +11,7 @@ require('render-markdown').setup({
     left_margin = 0,
   },
 
-  indent = {
-    enabled = true, -- По умолчанию false
-    per_level = 2, -- Количество пробелов для смещения на каждый уровень заголовка
-    icon = '│ ',
+  pipe_table = {
+   enabled = false,
   },
 })
