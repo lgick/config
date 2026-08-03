@@ -18,6 +18,11 @@ local function custom_nvim_tree_sorter(nodes)
     return stat and stat.mtime or { sec = 0, nsec = 0 }
   end
 
+  local mtime_cache = {}
+  for _, node in ipairs(nodes) do
+    mtime_cache[node] = get_mtime(node)
+  end
+
   table.sort(nodes, function(a, b)
     -- 1. Папки всегда сверху
     if a.type == 'directory' and b.type ~= 'directory' then
@@ -38,8 +43,8 @@ local function custom_nvim_tree_sorter(nodes)
     end
 
     -- 3. Если оба элемента — файлы, сортируем по времени модификации (сначала новые)
-    local a_mtime = get_mtime(a)
-    local b_mtime = get_mtime(b)
+    local a_mtime = mtime_cache[a]
+    local b_mtime = mtime_cache[b]
 
     local a_sec = a_mtime.sec or 0
     local b_sec = b_mtime.sec or 0
