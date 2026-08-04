@@ -107,3 +107,4 @@ export GREP_OPTIONS='--color=auto'
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
 export PATH="/opt/homebrew/opt/python@3.10/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
