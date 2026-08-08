@@ -12,11 +12,13 @@
 
 ## 2. Planning, Modularization & Progress Tracking
 - **Plan Format**: All detailed planning must be written in Russian.
-- **Modular Directory**: Store all detailed plans inside the `plan/` directory. Break down the plan into separate, detailed Markdown files for each stage/milestone (e.g., `plan/stage_1.md`, `plan/stage_2.md`).
+- **Plan Directory**: Store all detailed plans inside the `plan/` directory.
+- **Splitting Is Conditional**: Do NOT split a plan into stages by default. A small or medium plan stays in a single file (e.g., `plan/<name>.md`). Only when the plan is genuinely large (many independent milestones, wide code scope, or work that cannot be delivered in one pass) must you **first propose the split to the user strictly in Russian**, and only after their consent break it into separate stage files (e.g., `plan/stage_1.md`, `plan/stage_2.md`). Immediately after the split is written, proceed to execute the FIRST stage without waiting for another instruction.
 - **Heavy Stages**: If a stage is complex or heavy, it must be subdivided into sub-stages or sub-steps within its respective stage file.
-- **Master Index**: Maintain a master plan file at `plan/README.md`. This file must act as an index containing a high-level summary of all stages and their completion status.
+- **Master Index**: For multi-stage plans only, maintain a master plan file at `plan/README.md`. This file must act as an index containing a high-level summary of all stages and their completion status. A single-file plan needs no index.
 - **Token Saving**: When asked to execute a specific stage (e.g., "Сделай 5-й этап плана"), first inspect `plan/README.md` and then open ONLY the specific stage file (e.g., `plan/stage_5.md`). Do not read or load other stage files unless explicitly instructed, to save context tokens.
-- **Progress Verification**: When working on a task defined by a plan (whether it is a multi-file plan in `plan/` or a single `PLAN.md` file), you must mark completed stages with a "✅ выполнен" tag next to the stage header. The plan must always accurately reflect the current progress of the work.
+- **Progress Verification**: When working on a task defined by a plan (whether it is a multi-file plan in `plan/`, a single plan file, or a single `PLAN.md` file), you must mark completed stages with a "✅ выполнен" tag next to the stage header. The plan must always accurately reflect the current progress of the work.
+- **Archiving Completed Plans**: As soon as a plan located in the project's `plan/` directory is fully completed (all stages marked "✅ выполнен"), move it into `plan/done/`, creating that directory if it does not exist. Use `git mv` for tracked files. A multi-stage plan must be moved as a whole set (all stage files together with their index) into a single subdirectory, e.g. `plan/done/<plan-name>/`. Never commit the move — leave it in the working tree per section 6.
 
 ## 3. Command Execution & Noise Reduction
 - **Silent Commands**: When running tests, builds, linting, or compilations, always use flags that minimize console output to prevent bloated logs from polluting the session context (e.g., use `npm test -- --silent`, `vitest --reporter=terse`, `--quiet`, or respective quiet flags).
