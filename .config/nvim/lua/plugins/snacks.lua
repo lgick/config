@@ -181,7 +181,7 @@ snacks.setup({
     ui_select = true,
     sources = {
       grep = {
-        transform = 'unique_file',
+        transform = nil,
       },
       keymaps = {
         layout = { preset = 'vscode' },
