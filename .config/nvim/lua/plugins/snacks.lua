@@ -100,7 +100,7 @@ local picker_files_keys = {
 
   ['s'] = 'edit_split',
   ['v'] = 'edit_vsplit',
-  ['<CR>'] = 'confirm',
+  ['o'] = 'confirm',
 
   ['O'] = 'qflist',
 
@@ -113,6 +113,7 @@ local picker_files_keys = {
   ['/'] = false,
   ['<2-LeftMouse>'] = false,
   ['<Down>'] = false,
+  ['<CR>'] = false,
   ['<S-CR>'] = false,
   ['<S-Tab>'] = false,
   ['<Up>'] = false,
