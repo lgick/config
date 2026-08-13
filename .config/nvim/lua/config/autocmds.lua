@@ -109,17 +109,26 @@ vim.api.nvim_create_autocmd({ 'InsertEnter', 'InsertLeave' }, {
 
 local sl_color_group = vim.api.nvim_create_augroup('StatusLineColorGroup', { clear = true })
 
--- Вызываем команду по имени при входе в буфер/окно
+-- Вызываем команду для буфера, у которого сработало событие
 vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWinEnter', 'FileType' }, {
   group = sl_color_group,
-  command = 'UpdateBufferStatusColor',
+  pattern = '*',
+  callback = function(args)
+    vim.schedule(function()
+      vim.cmd('UpdateBufferStatusColor ' .. args.buf)
+    end)
+  end,
 })
 
 -- Вызываем при изменении опций
 vim.api.nvim_create_autocmd('OptionSet', {
   group = sl_color_group,
   pattern = { 'readonly', 'modifiable' },
-  command = 'UpdateBufferStatusColor',
+  callback = function(args)
+    vim.schedule(function()
+      vim.cmd('UpdateBufferStatusColor ' .. args.buf)
+    end)
+  end,
 })
 
 -----------------------------------------------------------

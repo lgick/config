@@ -40,45 +40,56 @@ end, {
   desc = 'Обновляет цвета в Insert mode',
 })
 
-api.nvim_create_user_command('UpdateBufferStatusColor', function()
-  local win = api.nvim_get_current_win()
+api.nvim_create_user_command('UpdateBufferStatusColor', function(command_opts)
+  local buf = tonumber(command_opts.args) or api.nvim_get_current_buf()
 
-  if not api.nvim_win_is_valid(win) then
+  if not api.nvim_buf_is_valid(buf) then
     return
   end
 
-  local buf = api.nvim_get_current_buf()
-  local current = wo[win].winhighlight or ''
-  local new_parts = {}
+  -- Находим все окна, в которых реально показан этот буфер (для поддержки сплитов)
+  local wins = fn.win_findbuf(buf)
+  if #wins == 0 then
+    return
+  end
 
-  -- Очищаем все старые упоминания StatusLineHelp/NotModifiable/ReadOnly
-  if current ~= '' then
-    for _, part in ipairs(vim.split(current, ',')) do
-      if
-        part ~= ''
-        and not part:match('^StatusLine:StatusLineHelp')
-        and not part:match('^StatusLine:StatusLineNotModifiable')
-        and not part:match('^StatusLine:StatusLineReadOnly')
-      then
-        table.insert(new_parts, part)
+  -- Обновляем подсветку для каждого найденного окна
+  for _, win in ipairs(wins) do
+    if api.nvim_win_is_valid(win) then
+      local current = wo[win].winhighlight or ''
+      local new_parts = {}
+
+      -- Очищаем все старые упоминания StatusLineHelp/NotModifiable/ReadOnly
+      if current ~= '' then
+        for _, part in ipairs(vim.split(current, ',')) do
+          if
+            part ~= ''
+            and not part:match('^StatusLine:StatusLineHelp')
+            and not part:match('^StatusLine:StatusLineNotModifiable')
+            and not part:match('^StatusLine:StatusLineReadOnly')
+          then
+            table.insert(new_parts, part)
+          end
+        end
       end
+
+      local filetype = vim.bo[buf].filetype
+      local modifiable = vim.bo[buf].modifiable
+      local readonly = vim.bo[buf].readonly
+
+      if filetype == 'help' then
+        table.insert(new_parts, 'StatusLine:StatusLineHelp')
+      elseif not modifiable then
+        table.insert(new_parts, 'StatusLine:StatusLineNotModifiable')
+      elseif readonly then
+        table.insert(new_parts, 'StatusLine:StatusLineReadOnly')
+      end
+
+      wo[win].winhighlight = table.concat(new_parts, ',')
     end
   end
-
-  local filetype = vim.bo[buf].filetype
-  local modifiable = vim.bo[buf].modifiable
-  local readonly = vim.bo[buf].readonly
-
-  if filetype == 'help' then
-    table.insert(new_parts, 'StatusLine:StatusLineHelp')
-  elseif not modifiable then
-    table.insert(new_parts, 'StatusLine:StatusLineNotModifiable')
-  elseif readonly then
-    table.insert(new_parts, 'StatusLine:StatusLineReadOnly')
-  end
-
-  wo[win].winhighlight = table.concat(new_parts, ',')
 end, {
+  nargs = '?',
   desc = 'Обновляет цвет statusline для help/not modifiable/readonly буферов',
 })
 
