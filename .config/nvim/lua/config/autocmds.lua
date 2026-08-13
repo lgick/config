@@ -104,6 +104,25 @@ vim.api.nvim_create_autocmd({ 'InsertEnter', 'InsertLeave' }, {
 })
 
 -----------------------------------------------------------
+-- Изменение цветовой группы для statusline
+-----------------------------------------------------------
+
+local sl_color_group = vim.api.nvim_create_augroup('StatusLineColorGroup', { clear = true })
+
+-- Вызываем команду по имени при входе в буфер/окно
+vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWinEnter', 'FileType' }, {
+  group = sl_color_group,
+  command = 'UpdateBufferStatusColor',
+})
+
+-- Вызываем при изменении опций
+vim.api.nvim_create_autocmd('OptionSet', {
+  group = sl_color_group,
+  pattern = { 'readonly', 'modifiable' },
+  command = 'UpdateBufferStatusColor',
+})
+
+-----------------------------------------------------------
 -- Сброс языка на английский при завершении ввода
 -----------------------------------------------------------
 

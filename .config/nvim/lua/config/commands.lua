@@ -40,6 +40,48 @@ end, {
   desc = 'Обновляет цвета в Insert mode',
 })
 
+api.nvim_create_user_command('UpdateBufferStatusColor', function()
+  local win = api.nvim_get_current_win()
+
+  if not api.nvim_win_is_valid(win) then
+    return
+  end
+
+  local buf = api.nvim_get_current_buf()
+  local current = wo[win].winhighlight or ''
+  local new_parts = {}
+
+  -- Очищаем все старые упоминания StatusLineHelp/NotModifiable/ReadOnly
+  if current ~= '' then
+    for _, part in ipairs(vim.split(current, ',')) do
+      if
+        part ~= ''
+        and not part:match('^StatusLine:StatusLineHelp')
+        and not part:match('^StatusLine:StatusLineNotModifiable')
+        and not part:match('^StatusLine:StatusLineReadOnly')
+      then
+        table.insert(new_parts, part)
+      end
+    end
+  end
+
+  local filetype = vim.bo[buf].filetype
+  local modifiable = vim.bo[buf].modifiable
+  local readonly = vim.bo[buf].readonly
+
+  if filetype == 'help' then
+    table.insert(new_parts, 'StatusLine:StatusLineHelp')
+  elseif not modifiable then
+    table.insert(new_parts, 'StatusLine:StatusLineNotModifiable')
+  elseif readonly then
+    table.insert(new_parts, 'StatusLine:StatusLineReadOnly')
+  end
+
+  wo[win].winhighlight = table.concat(new_parts, ',')
+end, {
+  desc = 'Обновляет цвет statusline для help/not modifiable/readonly буферов',
+})
+
 api.nvim_create_user_command('TsLsForceLoad', function()
   local clients = vim.lsp.get_clients({ name = 'ts_ls' })
 
