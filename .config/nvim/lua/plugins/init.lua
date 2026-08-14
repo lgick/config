@@ -11,7 +11,6 @@ vim.pack.add({
   { src = 'https://github.com/nvim-tree/nvim-web-devicons' }, -- иконки для файлов
 
   { src = 'https://github.com/Saghen/blink.cmp', version = vim.version.range('1.*') }, -- автодополнение
-  { src = 'https://github.com/folke/lazydev.nvim' }, -- умные подсказки для работы с api neovim и lua-плагинов
 
   { src = 'https://github.com/b0o/SchemaStore.nvim' }, -- каталог для json
 
@@ -39,12 +38,6 @@ vim.pack.add({
 vim.cmd([[colorscheme paperblue]])
 
 require('plugins.mason')
-require('lazydev').setup({
-  library = {
-    { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
-    { path = 'snacks.nvim', words = { 'Snacks' } },
-  },
-})
 require('plugins.blink-cmp')
 require('plugins.nvim-tree')
 require('plugins.treesitter')
