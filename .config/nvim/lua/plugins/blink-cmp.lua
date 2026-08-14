@@ -77,7 +77,6 @@ require('blink.cmp').setup({
   sources = {
     default = {
       'lsp',
-      'lazydev',
       'snippets',
       'path',
       'buffer',
@@ -96,10 +95,6 @@ require('blink.cmp').setup({
         opts = {
           friendly_snippets = false,
         },
-      },
-
-      lazydev = {
-        module = 'lazydev.integrations.blink',
       },
 
       lsp = {
