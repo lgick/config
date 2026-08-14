@@ -104,6 +104,37 @@ vim.api.nvim_create_autocmd({ 'InsertEnter', 'InsertLeave' }, {
 })
 
 -----------------------------------------------------------
+-- Изменение цветовой группы для statusline
+-----------------------------------------------------------
+
+local sl_color_group = vim.api.nvim_create_augroup('StatusLineColorGroup', { clear = true })
+
+-- Вызываем команду для буфера, у которого сработало событие
+vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWinEnter', 'FileType' }, {
+  group = sl_color_group,
+  pattern = '*',
+  callback = function(args)
+    vim.schedule(function()
+      vim.cmd('UpdateBufferStatusColor ' .. args.buf)
+    end)
+  end,
+})
+
+-- Вызываем при изменении опций
+-- Событие OptionSet не устанавливает <abuf> (args.buf всегда 0),
+-- поэтому берём именно текущий буфер, а не args.buf
+vim.api.nvim_create_autocmd('OptionSet', {
+  group = sl_color_group,
+  pattern = { 'readonly', 'modifiable' },
+  callback = function()
+    local buf = vim.api.nvim_get_current_buf()
+    vim.schedule(function()
+      vim.cmd('UpdateBufferStatusColor ' .. buf)
+    end)
+  end,
+})
+
+-----------------------------------------------------------
 -- Сброс языка на английский при завершении ввода
 -----------------------------------------------------------
 
