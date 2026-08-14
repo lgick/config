@@ -121,12 +121,15 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWinEnter', 'FileType' }, {
 })
 
 -- Вызываем при изменении опций
+-- Событие OptionSet не устанавливает <abuf> (args.buf всегда 0),
+-- поэтому берём именно текущий буфер, а не args.buf
 vim.api.nvim_create_autocmd('OptionSet', {
   group = sl_color_group,
   pattern = { 'readonly', 'modifiable' },
-  callback = function(args)
+  callback = function()
+    local buf = vim.api.nvim_get_current_buf()
     vim.schedule(function()
-      vim.cmd('UpdateBufferStatusColor ' .. args.buf)
+      vim.cmd('UpdateBufferStatusColor ' .. buf)
     end)
   end,
 })

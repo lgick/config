@@ -40,6 +40,14 @@ end, {
   desc = 'Обновляет цвета в Insert mode',
 })
 
+-- Есть ли у группы реально заданные атрибуты (fg/bg/...), а не пустая заглушка.
+-- Если группа не настроена, оставляем winhighlight без override,
+-- чтобы окно использовало обычное правило StatusLine.
+local function has_highlight_defined(name)
+  local ok, hl = pcall(api.nvim_get_hl, 0, { name = name })
+  return ok and hl ~= nil and next(hl) ~= nil
+end
+
 api.nvim_create_user_command('UpdateBufferStatusColor', function(command_opts)
   local buf = tonumber(command_opts.args) or api.nvim_get_current_buf()
 
@@ -74,15 +82,31 @@ api.nvim_create_user_command('UpdateBufferStatusColor', function(command_opts)
       end
 
       local filetype = vim.bo[buf].filetype
+      local buftype = vim.bo[buf].buftype
       local modifiable = vim.bo[buf].modifiable
       local readonly = vim.bo[buf].readonly
 
-      if filetype == 'help' then
-        table.insert(new_parts, 'StatusLine:StatusLineHelp')
-      elseif not modifiable then
-        table.insert(new_parts, 'StatusLine:StatusLineNotModifiable')
-      elseif readonly then
-        table.insert(new_parts, 'StatusLine:StatusLineReadOnly')
+      -- Буферы плагинов (nvim-tree, snacks, terminal, quickfix и т.п.)
+      -- не должны получать эти группы — только буферы с открытым файлом
+      -- (обычные и :help)
+      local is_file_buffer = buftype == '' or buftype == 'help'
+
+      local status_group = nil
+
+      if is_file_buffer then
+        if filetype == 'help' then
+          status_group = 'StatusLineHelp'
+        elseif not modifiable then
+          status_group = 'StatusLineNotModifiable'
+        elseif readonly then
+          status_group = 'StatusLineReadOnly'
+        end
+      end
+
+      -- Ставим override, только если группа реально настроена,
+      -- иначе окно останется с обычным правилом StatusLine
+      if status_group and has_highlight_defined(status_group) then
+        table.insert(new_parts, 'StatusLine:' .. status_group)
       end
 
       wo[win].winhighlight = table.concat(new_parts, ',')
