@@ -288,7 +288,11 @@ vim.api.nvim_create_autocmd('User', {
   group = augroup,
   callback = function(args)
     if args.data and args.data.buffer == active_buf then
-      update_statusline_color(active_buf)
+      -- Событие GitSignsUpdate может прилететь раньше, чем sign_renderer,
+      -- поэтому откладываем проверку has_staged_signs на следующий тик
+      vim.schedule(function()
+        update_statusline_color(active_buf)
+      end)
     end
   end,
 })
