@@ -33,7 +33,12 @@ map({ 'c', 'i' }, '<C-l>', function()
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-^>', true, false, true), 'n', false)
 
   vim.schedule(function()
-    vim.cmd('UpdateInsertModeColor')
+    -- Обновляем цвет курсора на лету
+    if _G.UpdateCursorColor then
+      _G.UpdateCursorColor()
+    end
+    -- Форсируем обновление статуслайна для мгновенной смены цвета раскладки
+    vim.cmd('redrawstatus')
   end)
 end, {
   desc = 'Toggle language',

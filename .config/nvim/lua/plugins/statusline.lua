@@ -1,4 +1,48 @@
 ------------------------------------------
+-- Дефолтные группы подсветки (Fallbacks)
+------------------------------------------
+
+local function set_statusline_defaults()
+  local set_hl = vim.api.nvim_set_hl
+  set_hl(0, 'StatusLineHelp', { link = 'StatusLine', default = true })
+  set_hl(0, 'StatusLineNotModifiable', { link = 'StatusLine', default = true })
+  set_hl(0, 'StatusLineReadOnly', { link = 'StatusLine', default = true })
+  set_hl(0, 'StatusLineInsertEn', { link = 'StatusLine', default = true })
+  set_hl(0, 'StatusLineInsertRu', { link = 'StatusLine', default = true })
+
+  -- Подушка безопасности для GitStageFlow (если тема их не настраивает)
+  set_hl(0, 'GitSignsStatusLine', { link = 'StatusLine', default = true })
+  set_hl(0, 'GitSignsStatusLineUnstaged', { link = 'StatusLine', default = true })
+  set_hl(0, 'GitSignsStatusLineStaged', { link = 'StatusLine', default = true })
+end
+
+-- Инициализируем при старте и восстанавливаем при смене тем оформления
+set_statusline_defaults()
+vim.api.nvim_create_autocmd('ColorScheme', {
+  callback = set_statusline_defaults,
+})
+
+------------------------------------------
+-- Управление цветом курсора в режиме вставки
+------------------------------------------
+
+function _G.UpdateCursorColor()
+  local mode = vim.api.nvim_get_mode().mode
+  local is_insert = mode:sub(1, 1) == 'i'
+
+  if is_insert then
+    local lang = vim.opt.iminsert:get()
+    if lang == 0 then
+      vim.api.nvim_set_hl(0, 'CursorInsert', { link = 'CursorInsertEn' })
+    elseif lang == 1 then
+      vim.api.nvim_set_hl(0, 'CursorInsert', { link = 'CursorInsertRu' })
+    end
+  else
+    vim.api.nvim_set_hl(0, 'CursorInsert', { link = 'CursorInsertEn' })
+  end
+end
+
+------------------------------------------
 -- Классификация буферов по категориям
 ------------------------------------------
 
@@ -19,6 +63,60 @@ function _G.GetBufferCategory(bufnr)
 
   -- плагин
   return 'plugin_file'
+end
+
+------------------------------------------
+-- Определение цвета статуслайна
+------------------------------------------
+
+function _G.StatuslineHighlight()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local winnr = vim.api.nvim_get_current_win()
+
+  -- Проверяем, активно ли окно, которое сейчас отрисовывается
+  local is_active = (winnr == tonumber(vim.g.actual_curwin or 0))
+
+  -- Неактивные окна не перекрашиваем (используют дефолтный StatusLineNC)
+  if not is_active then
+    return ''
+  end
+
+  local category = _G.GetBufferCategory(bufnr)
+
+  -- 1. Сначала обрабатываем режим вставки для обычных файлов
+  if category == 'file' then
+    local mode = vim.api.nvim_get_mode().mode
+    local is_insert = mode:sub(1, 1) == 'i'
+
+    if is_insert then
+      local lang = vim.opt.iminsert:get()
+      if lang == 0 then
+        return '%#StatusLineInsertEn#'
+      elseif lang == 1 then
+        return '%#StatusLineInsertRu#'
+      end
+    end
+  end
+
+  -- 2. Если мы не в режиме вставки, проверяем типы буферов
+  if category == 'docs' then
+    return '%#StatusLineHelp#'
+  elseif category == 'file' then
+    -- Если для этого буфера сейчас запущен GitStageFlow,
+    -- мы возвращаем пустую строку и полностью отдаем управление цвету из gitsigns.lua
+    local is_git_stage = vim.b[bufnr].original_modifiable ~= nil
+    if is_git_stage then
+      return ''
+    end
+
+    if not vim.bo[bufnr].modifiable then
+      return '%#StatusLineNotModifiable#'
+    elseif vim.bo[bufnr].readonly then
+      return '%#StatusLineReadOnly#'
+    end
+  end
+
+  return ''
 end
 
 ------------------------------------------
@@ -148,4 +246,5 @@ end
 -- Применение шаблона
 ------------------------------------------
 
-vim.opt.statusline = '%<%{%v:lua.StatuslineLeft()%}%=%{%v:lua.StatuslineRight()%}'
+vim.opt.statusline =
+  '%<%{%v:lua.StatuslineHighlight()%}%{%v:lua.StatuslineLeft()%}%=%{%v:lua.StatuslineRight()%}%*'

@@ -87,56 +87,23 @@ vim.api.nvim_create_autocmd({ 'WinLeave', 'BufLeave' }, {
 })
 
 -----------------------------------------------------------
--- Изменение цвета в Insert Mode
+-- Изменение цвета курсора в Insert Mode и сброс языка
 -----------------------------------------------------------
 
 local sl_group = vim.api.nvim_create_augroup('InsertModeCustomGroup', { clear = true })
 
--- Автокоманда при переключении Insert mode
+-- Автокоманда при переключении Insert mode (вызов из statusline)
 vim.api.nvim_create_autocmd({ 'InsertEnter', 'InsertLeave' }, {
   group = sl_group,
   pattern = '*',
   callback = function()
     vim.schedule(function()
-      vim.cmd('UpdateInsertModeColor')
+      if _G.UpdateCursorColor then
+        _G.UpdateCursorColor()
+      end
     end)
   end,
 })
-
------------------------------------------------------------
--- Изменение цветовой группы для statusline
------------------------------------------------------------
-
-local sl_color_group = vim.api.nvim_create_augroup('StatusLineColorGroup', { clear = true })
-
--- Вызываем команду для буфера, у которого сработало событие
-vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWinEnter', 'FileType' }, {
-  group = sl_color_group,
-  pattern = '*',
-  callback = function(args)
-    vim.schedule(function()
-      vim.cmd('UpdateBufferStatusColor ' .. args.buf)
-    end)
-  end,
-})
-
--- Вызываем при изменении опций
--- Событие OptionSet не устанавливает <abuf> (args.buf всегда 0),
--- поэтому берём именно текущий буфер, а не args.buf
-vim.api.nvim_create_autocmd('OptionSet', {
-  group = sl_color_group,
-  pattern = { 'readonly', 'modifiable' },
-  callback = function()
-    local buf = vim.api.nvim_get_current_buf()
-    vim.schedule(function()
-      vim.cmd('UpdateBufferStatusColor ' .. buf)
-    end)
-  end,
-})
-
------------------------------------------------------------
--- Сброс языка на английский при завершении ввода
------------------------------------------------------------
 
 -- Сброс языка при выходе из Insert mode
 vim.api.nvim_create_autocmd('InsertLeave', {
@@ -153,6 +120,19 @@ vim.api.nvim_create_autocmd('CmdlineLeave', {
   pattern = '*',
   callback = function()
     vim.opt.imsearch = 0
+  end,
+})
+
+-----------------------------------------------------------
+-- Восстановление дефолтных связей статуслайна при смене темы
+-----------------------------------------------------------
+
+vim.api.nvim_create_autocmd('ColorScheme', {
+  group = vim.api.nvim_create_augroup('StatusLineColorScheme', { clear = true }),
+  callback = function()
+    if _G.SetStatuslineDefaults then
+      _G.SetStatuslineDefaults()
+    end
   end,
 })
 
