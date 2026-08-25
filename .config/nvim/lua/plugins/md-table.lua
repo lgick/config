@@ -22,75 +22,63 @@ local config = {
 
 local table_format_group = vim.api.nvim_create_augroup('MarkdownTableAutoFormat', { clear = true })
 
--- Токенизатор текста, защищающий специальные выражения от разбиения
+-- Токенизатор текста. Слово - это ровно то, что стоит между пробелами:
+-- склеивать соседние токены через пробел нельзя, иначе `vimp-tanks`'s
+-- превращается в `vimp-tanks` 's, то есть форматтер правит текст документа.
+-- Пробел ВНУТРИ защищённой конструкции (code span, **жирный**, ссылка, HTML-тег)
+-- слово не разрывает
 local function tokenize_text(text)
   local tokens = {}
   local i = 1
   local len = #text
 
+  -- Если в позиции pos начинается защищённая конструкция, вернуть её последний
+  -- байт, иначе nil
+  local function protected_end(pos)
+    local _, e = text:find('^!?%[[^%]]-%]%([^%)]-%)', pos) -- [текст](url)
+    if e then
+      return e
+    end
+
+    _, e = text:find('^<[^<>]->', pos) -- <img src="..." alt="...">
+    if e then
+      return e
+    end
+
+    for _, marker in ipairs({ '**', '~~', '__' }) do
+      if text:sub(pos, pos + 1) == marker then
+        local close = text:find(marker, pos + 2, true)
+        if close then
+          return close + 1
+        end
+      end
+    end
+
+    if text:sub(pos, pos) == '`' then
+      local close = text:find('`', pos + 1, true)
+      if close then
+        return close
+      end
+    end
+
+    return nil
+  end
+
   while i <= len do
-    -- Пропускаем начальные пробелы
-    local space_start, space_end = text:find('^%s+', i)
-    if space_start then
-      i = space_end + 1
+    local _, ws_end = text:find('^%s+', i)
+    if ws_end then
+      i = ws_end + 1
     end
 
     if i > len then
       break
     end
 
-    -- Ссылка / картинка: [текст](url) и ![текст](url) - могут содержать
-    -- пробелы, но разрывать их нельзя, иначе ссылка перестанет работать
-    local link_end = select(2, text:find('^!?%[[^%]]-%]%([^%)]-%)', i))
-    -- HTML-тег: <img src="..." alt="..."> - тоже с пробелами внутри
-    local tag_end = not link_end and select(2, text:find('^<[^<>]->', i)) or nil
-
-    if link_end then
-      table.insert(tokens, text:sub(i, link_end))
-      i = link_end + 1
-    elseif tag_end then
-      table.insert(tokens, text:sub(i, tag_end))
-      i = tag_end + 1
-    -- Проверка на жирный шрифт: **
-    elseif text:sub(i, i + 1) == '**' then
-      local next_bold = text:find('%*%*', i + 2)
-      if next_bold then
-        local token = text:sub(i, next_bold + 1)
-        table.insert(tokens, token)
-        i = next_bold + 2
-      else
-        local token_end = text:find('%s', i) or (len + 1)
-        table.insert(tokens, text:sub(i, token_end - 1))
-        i = token_end
-      end
-    -- Проверка на встроенный код (backticks): `
-    elseif text:sub(i, i) == '`' then
-      local next_backtick = text:find('`', i + 1)
-      if next_backtick then
-        local token = text:sub(i, next_backtick)
-        table.insert(tokens, token)
-        i = next_backtick + 1
-      else
-        local token_end = text:find('%s', i) or (len + 1)
-        table.insert(tokens, text:sub(i, token_end - 1))
-        i = token_end
-      end
-    else
-      -- Обычное слово до следующего пробела, обратной кавычки или **
-      local next_space = text:find('%s', i) or (len + 1)
-      local next_backtick = text:find('`', i) or (len + 1)
-      local next_bold = text:find('%*%*', i) or (len + 1)
-      local next_link = text:find('!?%[[^%]]-%]%([^%)]-%)', i) or (len + 1)
-      local next_tag = text:find('<[^<>]->', i) or (len + 1)
-      local token_end =
-        math.min(next_space, next_backtick, next_bold, next_link, next_tag)
-
-      if token_end > i then
-        local token = text:sub(i, token_end - 1)
-        table.insert(tokens, token)
-        i = token_end
-      end
+    local token_start = i
+    while i <= len and not text:sub(i, i):match('%s') do
+      i = (protected_end(i) or i) + 1
     end
+    table.insert(tokens, text:sub(token_start, i - 1))
   end
 
   return tokens
