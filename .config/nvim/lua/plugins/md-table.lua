@@ -10,14 +10,15 @@ local config = {
   max_width = 80,
 
   -- Если true, между логическими строками рисуется разделитель |---|---|
-  -- (стиль "grid"). Граница логической строки однозначна, но GFM-парсер
-  -- считает такой разделитель началом новой таблицы: render-markdown рисует
-  -- лишние границы, а последняя строка переноса подсвечивается как шапка.
-  -- Лечится pipe_table.style = 'normal' в render-markdown.lua.
-  -- Если false, перенос обозначается пустой первой ячейкой: валидный GFM и
-  -- чистая отрисовка, но строка с реально пустой первой колонкой приклеится
-  -- к предыдущей.
-  row_separators = true,
+  -- (стиль "grid"). НЕ включать: GFM-парсер считает такой разделитель началом
+  -- новой таблицы, поэтому строка перед ним отрисовывается как шапка - жирной.
+  --
+  -- При false перенос обозначается пустой первой ячейкой. Однозначность даёт
+  -- правило "первая колонка не переносится" (её ячейка целиком - жёсткий
+  -- минимум ширины): раз первая ячейка непустая у каждой логической строки,
+  -- пустая означает продолжение предыдущей. Осечка возможна только там, где
+  -- первая колонка пуста осмысленно.
+  row_separators = false,
 }
 
 local table_format_group = vim.api.nvim_create_augroup('MarkdownTableAutoFormat', { clear = true })
@@ -501,14 +502,20 @@ local function format_single_table(table_lines)
     end
   end
 
-  -- Шапка не переносится, поэтому её ячейка целиком - тоже жёсткий минимум
-  -- колонки, а не только самый длинный токен в ней
+  -- Что не переносится, то целиком становится жёстким минимумом ширины колонки:
+  --  * шапка - иначе разделитель перестанет быть второй строкой таблицы;
+  --  * первая колонка - на её непустоте держится распознавание переноса
   local header_idx = separator_idx and (separator_idx - 1) or nil
-  if header_idx and parsed_rows[header_idx] then
-    for col_idx, cell in ipairs(parsed_rows[header_idx]) do
-      local display_cell = config.ignore_markdown_syntax and strip_markdown_syntax(cell) or cell
-      local width = vim.fn.strdisplaywidth(display_cell)
-      max_word_widths[col_idx] = math.max(max_word_widths[col_idx] or 0, width)
+  for row_idx, cells in ipairs(parsed_rows) do
+    if row_idx ~= separator_idx then
+      for col_idx, cell in ipairs(cells) do
+        if col_idx == 1 or row_idx == header_idx then
+          local display_cell = config.ignore_markdown_syntax and strip_markdown_syntax(cell)
+            or cell
+          local width = vim.fn.strdisplaywidth(display_cell)
+          max_word_widths[col_idx] = math.max(max_word_widths[col_idx] or 0, width)
+        end
+      end
     end
   end
 
@@ -559,7 +566,9 @@ local function format_single_table(table_lines)
       for col_idx = 1, max_cols do
         local cell = cells[col_idx] or ''
         local width = target_widths[col_idx]
-        local wrapped = is_header and { cell }
+        -- первую колонку тоже не переносим: пустая первая ячейка - единственный
+        -- признак, по которому строка продолжения отличается от новой строки
+        local wrapped = (is_header or col_idx == 1) and { cell }
           or wrap_text(cell, width, config.ignore_markdown_syntax)
         wrapped_cols[col_idx] = wrapped
         row_height = math.max(row_height, #wrapped)
