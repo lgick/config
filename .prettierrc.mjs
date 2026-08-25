@@ -13,7 +13,7 @@ const config = {
       files: '*.md',
       options: {
         printWidth: 80, // ограничения в длине строки для кода в md
-        proseWrap: 'preserve', // перенос обычного текста
+        proseWrap: 'always', // жёсткий перенос обычного текста по printWidth
       },
     },
   ],

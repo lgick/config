@@ -52,4 +52,7 @@ require('plugins.diffview')
 require('plugins.notes')
 require('plugins.zen-mode')
 require('plugins.render-markdown')
+-- Форматтер md-таблиц: подключаем ПОСЛЕ conform, чтобы его BufWritePre
+-- отрабатывал после prettierd и был последним словом по ширине таблиц
+require('plugins.md-table')
 require('plugins.statusline')
