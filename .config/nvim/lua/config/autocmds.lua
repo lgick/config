@@ -172,12 +172,18 @@ vim.api.nvim_create_autocmd('LspProgress', {
 -- Перенос строк (wrap) в markdown файлах
 -----------------------------------------------------------
 
+-- Мягкий перенос в markdown выключен намеренно. Переносом занимается сам файл:
+-- prettier (proseWrap: 'always') режет абзацы по 80 колонок, plugins/md-table.lua
+-- переносит содержимое ячеек таблиц. Экранный же перенос ломает таблицы: строка
+-- уезжает на следующую экранную строку, и сетка рассыпается. Плюс Neovim при
+-- расчёте переноса учитывает виртуальные отступы render-markdown, но не учитывает
+-- скрытую (conceal) разметку, поэтому таблица шириной 80 начинала переноситься
+-- даже в окне на 90 колонок.
 vim.api.nvim_create_autocmd('FileType', {
   group = vim.api.nvim_create_augroup('markdown_wrap', { clear = true }),
   pattern = 'markdown',
   callback = function()
-    vim.opt_local.wrap = true
-    vim.opt_local.linebreak = true
+    vim.opt_local.wrap = false
   end,
 })
 

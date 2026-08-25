@@ -184,11 +184,20 @@ local function parse_table_lines(table_lines)
 
   -- Находим первый разделитель - он отделяет шапку от данных
   local delimiter_idx = nil
+  local sep_count = 0
   for idx, cells in ipairs(all_rows) do
-    if is_separator_row(cells) and not delimiter_idx then
-      delimiter_idx = idx
+    if is_separator_row(cells) then
+      sep_count = sep_count + 1
+      if not delimiter_idx then
+        delimiter_idx = idx
+      end
     end
   end
+
+  -- Больше одного разделителя - таблица уже в стиле grid: границы логических
+  -- строк заданы разделителями, и первая колонка тоже могла быть перенесена,
+  -- поэтому эвристика "пустая первая ячейка" здесь не применима
+  local grid_style = sep_count > 1
 
   if not delimiter_idx then
     delimiter_idx = math.min(2, #all_rows)
@@ -237,7 +246,7 @@ local function parse_table_lines(table_lines)
       -- Промежуточный разделитель, добавленный самим форматтером: он лишь
       -- закрывает логическую строку и заново вставляется при форматировании
       flush()
-    elseif current_logical_row and is_continuation_row(cells) then
+    elseif current_logical_row and (grid_style or is_continuation_row(cells)) then
       merge(cells)
     else
       flush()
@@ -295,6 +304,44 @@ local function get_max_word_width(cell, ignore_markdown)
   return max_word_w
 end
 
+-- Разбивка спецвыражения (`код`, **жирный**), которое длиннее колонки.
+-- Маркер закрывается и открывается заново на каждом фрагменте, поэтому каждая
+-- строка остаётся валидной разметкой, а не половиной разорванного code span.
+-- Возвращает nil, если разбить нечем (колонка уже пары маркеров)
+local function split_special(token, max_width, ignore_markdown)
+  local marker
+  if token:sub(1, 2) == '**' and token:sub(-2, -1) == '**' then
+    marker = '**'
+  elseif token:sub(1, 1) == '`' and token:sub(-1, -1) == '`' then
+    marker = '`'
+  else
+    return nil
+  end
+
+  local inner = token:sub(#marker + 1, -#marker - 1)
+  -- при ignore_markdown маркеры не занимают места на экране
+  local budget = ignore_markdown and max_width or (max_width - 2 * #marker)
+  if budget < 1 then
+    return nil
+  end
+
+  local parts = {}
+  local current = ''
+  for char in inner:gmatch('[%z\1-\127\194-\244][\128-\191]*') do
+    if vim.fn.strdisplaywidth(current .. char) > budget and current ~= '' then
+      table.insert(parts, marker .. current .. marker)
+      current = char
+    else
+      current = current .. char
+    end
+  end
+  if current ~= '' then
+    table.insert(parts, marker .. current .. marker)
+  end
+
+  return #parts > 0 and parts or nil
+end
+
 -- Умный перенос текста ячейки на несколько строк с защитой спецвыражений
 local function wrap_text(text, max_width, ignore_markdown)
   local display_text = ignore_markdown and strip_markdown_syntax(text) or text
@@ -319,8 +366,21 @@ local function wrap_text(text, max_width, ignore_markdown)
       local is_special = (word:sub(1, 1) == '`' and word:sub(-1, -1) == '`')
         or (word:sub(1, 2) == '**' and word:sub(-2, -1) == '**')
 
-      if is_special then
-        -- НЕ РАЗРЫВАЕМ спецвыражение. Переносим целиком на отдельную строчку
+      local parts = is_special and split_special(word, max_width, ignore_markdown)
+
+      if parts then
+        -- Режем спецвыражение на валидные куски, иначе строка вылезет за
+        -- ширину колонки и вся таблица перестанет быть прямоугольной
+        if current_line ~= '' then
+          table.insert(lines, current_line)
+          current_line = ''
+        end
+        for i = 1, #parts - 1 do
+          table.insert(lines, parts[i])
+        end
+        current_line = parts[#parts]
+      elseif is_special then
+        -- Разбить нечем: кладём целиком отдельной строкой
         if current_line ~= '' then
           table.insert(lines, current_line)
           current_line = ''
@@ -663,8 +723,14 @@ end
 vim.api.nvim_create_autocmd('BufWritePre', {
   group = table_format_group,
   pattern = '*',
-  callback = function()
-    if vim.bo.filetype == 'markdown' then
+  callback = function(args)
+    -- Тот же переключатель, что и у conform (<leader>uf): "Disabled autoformat"
+    -- обязан отключать вообще всё форматирование при сохранении
+    if vim.g.disable_autoformat or vim.b[args.buf].disable_autoformat then
+      return
+    end
+
+    if vim.bo[args.buf].filetype == 'markdown' then
       format_markdown_tables_in_buffer()
     end
   end,
