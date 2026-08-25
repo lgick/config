@@ -39,8 +39,20 @@ local function tokenize_text(text)
       break
     end
 
+    -- Ссылка / картинка: [текст](url) и ![текст](url) - могут содержать
+    -- пробелы, но разрывать их нельзя, иначе ссылка перестанет работать
+    local link_end = select(2, text:find('^!?%[[^%]]-%]%([^%)]-%)', i))
+    -- HTML-тег: <img src="..." alt="..."> - тоже с пробелами внутри
+    local tag_end = not link_end and select(2, text:find('^<[^<>]->', i)) or nil
+
+    if link_end then
+      table.insert(tokens, text:sub(i, link_end))
+      i = link_end + 1
+    elseif tag_end then
+      table.insert(tokens, text:sub(i, tag_end))
+      i = tag_end + 1
     -- Проверка на жирный шрифт: **
-    if text:sub(i, i + 1) == '**' then
+    elseif text:sub(i, i + 1) == '**' then
       local next_bold = text:find('%*%*', i + 2)
       if next_bold then
         local token = text:sub(i, next_bold + 1)
@@ -68,7 +80,10 @@ local function tokenize_text(text)
       local next_space = text:find('%s', i) or (len + 1)
       local next_backtick = text:find('`', i) or (len + 1)
       local next_bold = text:find('%*%*', i) or (len + 1)
-      local token_end = math.min(next_space, next_backtick, next_bold)
+      local next_link = text:find('!?%[[^%]]-%]%([^%)]-%)', i) or (len + 1)
+      local next_tag = text:find('<[^<>]->', i) or (len + 1)
+      local token_end =
+        math.min(next_space, next_backtick, next_bold, next_link, next_tag)
 
       if token_end > i then
         local token = text:sub(i, token_end - 1)
@@ -204,9 +219,28 @@ local function parse_table_lines(table_lines)
   end
 
   local parsed_rows = {}
-  -- Переносим шапку
+  -- Шапка в GFM - ровно одна строка (разделитель обязан быть второй строкой
+  -- таблицы). Всё, что стоит до разделителя, склеиваем в одну логическую строку:
+  -- это же чинит файлы, где шапку уже успело разорвать на несколько строк
+  local header = nil
   for i = 1, delimiter_idx - 1 do
-    table.insert(parsed_rows, all_rows[i])
+    local cells = all_rows[i]
+    if not header then
+      header = vim.deepcopy(cells)
+    else
+      for col_idx = 1, math.max(#header, #cells) do
+        local val1 = header[col_idx] or ''
+        local val2 = cells[col_idx] or ''
+        if val1 ~= '' and val2 ~= '' then
+          header[col_idx] = val1 .. ' ' .. val2
+        elseif val1 == '' then
+          header[col_idx] = val2
+        end
+      end
+    end
+  end
+  if header then
+    table.insert(parsed_rows, header)
   end
 
   -- Переносим главный разделитель
@@ -304,44 +338,6 @@ local function get_max_word_width(cell, ignore_markdown)
   return max_word_w
 end
 
--- Разбивка спецвыражения (`код`, **жирный**), которое длиннее колонки.
--- Маркер закрывается и открывается заново на каждом фрагменте, поэтому каждая
--- строка остаётся валидной разметкой, а не половиной разорванного code span.
--- Возвращает nil, если разбить нечем (колонка уже пары маркеров)
-local function split_special(token, max_width, ignore_markdown)
-  local marker
-  if token:sub(1, 2) == '**' and token:sub(-2, -1) == '**' then
-    marker = '**'
-  elseif token:sub(1, 1) == '`' and token:sub(-1, -1) == '`' then
-    marker = '`'
-  else
-    return nil
-  end
-
-  local inner = token:sub(#marker + 1, -#marker - 1)
-  -- при ignore_markdown маркеры не занимают места на экране
-  local budget = ignore_markdown and max_width or (max_width - 2 * #marker)
-  if budget < 1 then
-    return nil
-  end
-
-  local parts = {}
-  local current = ''
-  for char in inner:gmatch('[%z\1-\127\194-\244][\128-\191]*') do
-    if vim.fn.strdisplaywidth(current .. char) > budget and current ~= '' then
-      table.insert(parts, marker .. current .. marker)
-      current = char
-    else
-      current = current .. char
-    end
-  end
-  if current ~= '' then
-    table.insert(parts, marker .. current .. marker)
-  end
-
-  return #parts > 0 and parts or nil
-end
-
 -- Умный перенос текста ячейки на несколько строк с защитой спецвыражений
 local function wrap_text(text, max_width, ignore_markdown)
   local display_text = ignore_markdown and strip_markdown_syntax(text) or text
@@ -362,57 +358,15 @@ local function wrap_text(text, max_width, ignore_markdown)
     local word_width = vim.fn.strdisplaywidth(display_word)
 
     if word_width > max_width then
-      -- Проверяем, является ли токен специальным выражением (код или жирный текст)
-      local is_special = (word:sub(1, 1) == '`' and word:sub(-1, -1) == '`')
-        or (word:sub(1, 2) == '**' and word:sub(-2, -1) == '**')
-
-      local parts = is_special and split_special(word, max_width, ignore_markdown)
-
-      if parts then
-        -- Режем спецвыражение на валидные куски, иначе строка вылезет за
-        -- ширину колонки и вся таблица перестанет быть прямоугольной
-        if current_line ~= '' then
-          table.insert(lines, current_line)
-          current_line = ''
-        end
-        for i = 1, #parts - 1 do
-          table.insert(lines, parts[i])
-        end
-        current_line = parts[#parts]
-      elseif is_special then
-        -- Разбить нечем: кладём целиком отдельной строкой
-        if current_line ~= '' then
-          table.insert(lines, current_line)
-          current_line = ''
-        end
-        table.insert(lines, word)
-      else
-        -- Обычное слово длиннее всей колонки, делим посимвольно
-        if current_line ~= '' then
-          table.insert(lines, current_line)
-          current_line = ''
-        end
-
-        local word_chars = {}
-        for char in word:gmatch('[%z\1-\127\194-\244][\128-\191]*') do
-          table.insert(word_chars, char)
-        end
-
-        local temp_line = ''
-        for _, char in ipairs(word_chars) do
-          local display_temp = ignore_markdown and strip_markdown_syntax(temp_line .. char)
-            or (temp_line .. char)
-          if vim.fn.strdisplaywidth(display_temp) > max_width then
-            table.insert(lines, temp_line)
-            temp_line = char
-          else
-            temp_line = temp_line .. char
-          end
-        end
-        if temp_line ~= '' then
-          current_line = temp_line
-        end
+      -- Токен шире колонки. Не режем его НИКОГДА: разорванная ссылка, HTML-тег
+      -- или code span - это испорченный документ, а не косметика. Колонка и так
+      -- рассчитана по самому длинному токену (calculate_target_widths), поэтому
+      -- сюда попадают только вырожденные случаи - кладём токен отдельной строкой
+      -- и миримся с тем, что она выступит за расчётную ширину
+      if current_line ~= '' then
+        table.insert(lines, current_line)
       end
+      current_line = word
     else
       local space = (current_line == '') and '' or ' '
       local line_with_word = current_line .. space .. word
@@ -458,19 +412,11 @@ local function calculate_target_widths(natural_widths, max_word_widths, availabl
     sum_min_widths = sum_min_widths + min_w
   end
 
+  -- Минимумы не влезают в доступную ширину: ужимать их нельзя - это порвало бы
+  -- ссылку, тег или code span. Отдаём ровно минимумы: таблица выйдет за
+  -- max_width, но будет настолько узкой, насколько это вообще возможно
   if sum_min_widths > available_width then
-    local remaining_width = available_width
-    for i = 1, N do
-      target_widths[i] = math.max(3, math.floor((min_widths[i] / sum_min_widths) * available_width))
-      remaining_width = remaining_width - target_widths[i]
-    end
-    local idx = 1
-    while remaining_width > 0 do
-      target_widths[idx] = target_widths[idx] + 1
-      remaining_width = remaining_width - 1
-      idx = (idx % N) + 1
-    end
-    return target_widths
+    return min_widths
   end
 
   for i = 1, N do
@@ -567,6 +513,17 @@ local function format_single_table(table_lines)
     end
   end
 
+  -- Шапка не переносится, поэтому её ячейка целиком - тоже жёсткий минимум
+  -- колонки, а не только самый длинный токен в ней
+  local header_idx = separator_idx and (separator_idx - 1) or nil
+  if header_idx and parsed_rows[header_idx] then
+    for col_idx, cell in ipairs(parsed_rows[header_idx]) do
+      local display_cell = config.ignore_markdown_syntax and strip_markdown_syntax(cell) or cell
+      local width = vim.fn.strdisplaywidth(display_cell)
+      max_word_widths[col_idx] = math.max(max_word_widths[col_idx] or 0, width)
+    end
+  end
+
   for col_idx = 1, max_cols do
     if (natural_widths[col_idx] or 0) < 3 then
       natural_widths[col_idx] = 3
@@ -605,13 +562,17 @@ local function format_single_table(table_lines)
         is_first_data_row = false
       end
 
-      -- Перенос содержимого ячеек
+      -- Перенос содержимого ячеек. Шапку не переносим никогда: разделитель
+      -- обязан быть второй строкой таблицы, иначе для GFM это уже не таблица -
+      -- prettier на следующем сохранении разберёт её как абзац и развалит файл
+      local is_header = separator_idx and row_idx < separator_idx
       local wrapped_cols = {}
       local row_height = 1
       for col_idx = 1, max_cols do
         local cell = cells[col_idx] or ''
         local width = target_widths[col_idx]
-        local wrapped = wrap_text(cell, width, config.ignore_markdown_syntax)
+        local wrapped = is_header and { cell }
+          or wrap_text(cell, width, config.ignore_markdown_syntax)
         wrapped_cols[col_idx] = wrapped
         row_height = math.max(row_height, #wrapped)
       end
@@ -636,6 +597,32 @@ local function format_single_table(table_lines)
   end
 
   return formatted_lines
+end
+
+-- Страховка от порчи документа: результат обязан быть валидной GFM-таблицей -
+-- разделитель второй строкой и одинаковое число колонок во всех строках.
+-- Если инвариант нарушен, блок лучше оставить как был, чем испортить файл
+local function is_valid_table(lines)
+  if #lines < 2 then
+    return false
+  end
+
+  local header = split_row(lines[1])
+  if #header == 0 or is_separator_row(header) then
+    return false
+  end
+
+  if not is_separator_row(split_row(lines[2])) then
+    return false
+  end
+
+  for _, line in ipairs(lines) do
+    if #split_row(line) ~= #header then
+      return false
+    end
+  end
+
+  return true
 end
 
 -- Поиск всех блоков таблиц в файле
@@ -699,7 +686,7 @@ local function format_markdown_tables_in_buffer()
   for i = #blocks, 1, -1 do
     local block = blocks[i]
     local formatted = format_single_table(block.lines)
-    if formatted then
+    if formatted and is_valid_table(formatted) then
       vim.api.nvim_buf_set_lines(bufnr, block.start_line - 1, block.end_line, false, formatted)
       changed = true
 
