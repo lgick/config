@@ -12,7 +12,7 @@ require('render-markdown').setup({
   },
 
   pipe_table = {
-    enabled = true,
+    enabled = false,
     preset = 'round', -- скруглённые углы рамки
     style = 'full', -- верхняя и нижняя границы
     -- padded: ширина колонки считается по ВИДИМОЙ ширине ячейки (после

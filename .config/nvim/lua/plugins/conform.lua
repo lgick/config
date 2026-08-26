@@ -26,6 +26,10 @@ require('conform').setup({
     rust = { 'rustfmt' },
   },
 
+  -- Синхронный format_on_save обязателен: md-table вешает свой BufWritePre
+  -- после conform и правит ширины таблиц последним. Перевод на
+  -- format_after_save (асинхронный, уже после записи) молча обнулит его
+  -- результат
   format_on_save = function(bufnr)
     if not vim.bo[bufnr].modifiable then
       return
