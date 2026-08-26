@@ -12,6 +12,9 @@ const config = {
     {
       files: '*.md',
       options: {
+        // ДОЛЖНО совпадать с max_width в
+        // ~/.config/nvim/lua/plugins/md-table.lua: рассинхронизация
+        // проявится как "таблицы то влезают, то нет"
         printWidth: 80, // ограничения в длине строки для кода в md
         proseWrap: 'always', // жёсткий перенос обычного текста по printWidth
       },
