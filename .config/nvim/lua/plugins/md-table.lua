@@ -9,17 +9,39 @@ local config = {
   -- Максимальная ширина таблицы (совпадает с printWidth: 80 у prettier).
   max_width = 80,
 
-  -- Если true, между логическими строками рисуется разделитель |---|---|
-  -- (стиль "grid"). НЕ включать: GFM-парсер считает такой разделитель началом
-  -- новой таблицы, поэтому строка перед ним отрисовывается как шапка - жирной.
+  -- Комфортная ширина переносимой колонки. Жёсткий минимум колонки задаётся
+  -- длиной неразрывного токена, поэтому колонка с кодом забирает ширину, а
+  -- колонка с прозой остаётся на своём полу и рассыпается в лесенку. Колонка,
+  -- чья самая высокая ячейка занимает min_wrapped_lines строк и больше,
+  -- расширяется до min_wrapped_width - но никогда не шире, чем нужно её
+  -- содержимому. Отдать ширину соседям при этом нечего (они стоят на
+  -- неразрывных токенах), поэтому таблица может выйти за max_width.
+  -- min_wrapped_width = 0 отключает правило.
+  min_wrapped_width = 20,
+  min_wrapped_lines = 3,
+
+  -- Линия между логическими строками таблицы:
+  --   'multiline' - только там, где соседняя строка занимает больше одной
+  --                 строки (ради чего разделитель и нужен - видно, где
+  --                 многострочная строка кончается), без шума в таблицах
+  --                 из однострочных строк;
+  --   true        - между всеми строками;
+  --   false       - не рисовать.
   --
-  -- При false перенос обозначается пустой первой ячейкой. Однозначность даёт
-  -- правило "первая колонка не переносится" (её ячейка целиком - жёсткий
-  -- минимум ширины): раз первая ячейка непустая у каждой логической строки,
-  -- пустая означает продолжение предыдущей. Осечка возможна только там, где
-  -- первая колонка пуста осмысленно.
-  row_separators = false,
+  -- Линия рисуется символом ROW_RULE_CHAR, а НЕ дефисами: |---|---| для GFM -
+  -- валидный разделитель шапки, парсер начинает с него новую таблицу, и строка
+  -- перед ним отрисовывается как шапка, то есть жирной. Строка из '─' для
+  -- парсера обычная строка данных, таблица остаётся одна.
+  row_separators = true,
 }
+
+-- Символ линии между строками. Требования:
+--   * не '-' и не ':' - иначе GFM считает строку разделителем шапки;
+--   * ровно один байт - render-markdown считает ширину ячейки в байтах, и на
+--     многобайтовом символе (например '─') раскладка таблицы разъезжается
+--     настолько, что отрисовка отваливается для всего буфера;
+--   * инертный в инлайн-разметке - '~' и '_' стали бы зачёркиванием и курсивом.
+local ROW_RULE_CHAR = '~'
 
 local table_format_group = vim.api.nvim_create_augroup('MarkdownTableAutoFormat', { clear = true })
 
@@ -172,6 +194,20 @@ local function is_separator_row(cells)
   return true
 end
 
+-- Проверка на строку-линию, нарисованную самим форматтером (см. ROW_RULE_CHAR).
+-- Для GFM это обычная строка данных, поэтому распознаём её сами
+local function is_rule_row(cells)
+  if #cells == 0 then
+    return false
+  end
+  for _, cell in ipairs(cells) do
+    if cell == '' or cell:gsub(ROW_RULE_CHAR, '') ~= '' then
+      return false
+    end
+  end
+  return true
+end
+
 -- Проверка на строку-продолжение (перенос предыдущей логической строки):
 -- первая колонка пустая
 local function is_continuation_row(cells)
@@ -265,9 +301,10 @@ local function parse_table_lines(table_lines)
 
   for i = delimiter_idx + 1, #all_rows do
     local cells = all_rows[i]
-    if is_separator_row(cells) then
-      -- Промежуточный разделитель, добавленный самим форматтером: он лишь
-      -- закрывает логическую строку и заново вставляется при форматировании
+    if is_separator_row(cells) or is_rule_row(cells) then
+      -- Линия, добавленная самим форматтером (или разделитель из файлов,
+      -- отформатированных прежней версией): она лишь закрывает логическую
+      -- строку и заново вставляется при форматировании
       flush()
     elseif current_logical_row and (grid_style or is_continuation_row(cells)) then
       merge(cells)
@@ -376,6 +413,45 @@ local function wrap_text(text, max_width, ignore_markdown)
   end
 
   return lines
+end
+
+-- Комфортный минимум для переносимых колонок.
+-- Проход только расширяет колонки и никогда не сужает, поэтому итерации до
+-- неподвижной точки не нужны - хватает одного прохода.
+local function apply_comfort_widths(
+  parsed_rows,
+  separator_idx,
+  max_cols,
+  natural_widths,
+  target_widths
+)
+  if config.min_wrapped_width <= 0 or not separator_idx then
+    return
+  end
+
+  -- первую колонку пропускаем: она не переносится по построению
+  for col_idx = 2, max_cols do
+    local width = target_widths[col_idx]
+
+    -- natural > width означает "колонка будет переноситься" - тот же факт, что
+    -- и "в колонке есть многострочная ячейка", но без цикла: многострочность
+    -- зависит от ширины, которую мы здесь и определяем
+    if width < config.min_wrapped_width and (natural_widths[col_idx] or 0) > width then
+      local height = 1
+      for row_idx = separator_idx + 1, #parsed_rows do
+        local cell = parsed_rows[row_idx][col_idx] or ''
+        local wrapped = wrap_text(cell, width, config.ignore_markdown_syntax)
+        height = math.max(height, #wrapped)
+      end
+
+      if height >= config.min_wrapped_lines then
+        -- потолок natural_widths обязателен: расширять колонку сверх того, что
+        -- нужно её содержимому, значит гнать таблицу вширь ради пустот
+        target_widths[col_idx] =
+          math.max(width, math.min(natural_widths[col_idx], config.min_wrapped_width))
+      end
+    end
+  end
 end
 
 -- Пропорциональное распределение доступной ширины с защитой от разрыва слов
@@ -510,8 +586,7 @@ local function format_single_table(table_lines)
     if row_idx ~= separator_idx then
       for col_idx, cell in ipairs(cells) do
         if col_idx == 1 or row_idx == header_idx then
-          local display_cell = config.ignore_markdown_syntax and strip_markdown_syntax(cell)
-            or cell
+          local display_cell = config.ignore_markdown_syntax and strip_markdown_syntax(cell) or cell
           local width = vim.fn.strdisplaywidth(display_cell)
           max_word_widths[col_idx] = math.max(max_word_widths[col_idx] or 0, width)
         end
@@ -526,70 +601,85 @@ local function format_single_table(table_lines)
   end
 
   local target_widths = calculate_target_widths(natural_widths, max_word_widths, available_width)
+  apply_comfort_widths(parsed_rows, separator_idx, max_cols, natural_widths, target_widths)
+
+  -- Раскладываем строки данных заранее: чтобы решить, нужна ли линия между
+  -- соседями, надо знать их высоту, а она известна только после переноса
+  local rendered = {}
+  for row_idx = (separator_idx or 0) + 1, #parsed_rows do
+    local cells = parsed_rows[row_idx]
+    local wrapped_cols = {}
+    local height = 1
+    for col_idx = 1, max_cols do
+      local cell = cells[col_idx] or ''
+      -- первую колонку не переносим: пустая первая ячейка - единственный
+      -- признак, по которому строка продолжения отличается от новой строки
+      local wrapped = col_idx == 1 and { cell }
+        or wrap_text(cell, target_widths[col_idx], config.ignore_markdown_syntax)
+      wrapped_cols[col_idx] = wrapped
+      height = math.max(height, #wrapped)
+    end
+    rendered[#rendered + 1] = { cols = wrapped_cols, height = height }
+  end
+
+  local function build_row(get_cell)
+    local formatted_cells = {}
+    for col_idx = 1, max_cols do
+      formatted_cells[col_idx] = get_cell(col_idx, target_widths[col_idx])
+    end
+    return indent .. '| ' .. table.concat(formatted_cells, ' | ') .. ' |'
+  end
 
   local formatted_lines = {}
-  local is_first_data_row = true
 
-  for row_idx, cells in ipairs(parsed_rows) do
-    if row_idx == separator_idx then
-      local formatted_cells = {}
-      for col_idx = 1, max_cols do
-        local align = alignments[col_idx] or 'default'
-        local width = target_widths[col_idx]
-        table.insert(formatted_cells, format_separator_cell(width, align))
-      end
-      table.insert(formatted_lines, indent .. '| ' .. table.concat(formatted_cells, ' | ') .. ' |')
-    else
-      -- Если это строка данных (и не самая первая), рисуем разделительную линию между ячейками
-      if separator_idx and row_idx > separator_idx then
-        if config.row_separators and not is_first_data_row then
-          local formatted_cells = {}
-          for col_idx = 1, max_cols do
-            local align = alignments[col_idx] or 'default'
-            local width = target_widths[col_idx]
-            table.insert(formatted_cells, format_separator_cell(width, align))
-          end
-          table.insert(
-            formatted_lines,
-            indent .. '| ' .. table.concat(formatted_cells, ' | ') .. ' |'
-          )
-        end
-        is_first_data_row = false
-      end
+  -- Шапка. Не переносим никогда: разделитель обязан быть второй строкой
+  -- таблицы, иначе для GFM это уже не таблица - prettier на следующем
+  -- сохранении разберёт её как абзац и развалит файл
+  for row_idx = 1, (separator_idx or 1) - 1 do
+    local cells = parsed_rows[row_idx]
+    formatted_lines[#formatted_lines + 1] = build_row(function(col_idx, width)
+      return pad_cell(
+        cells[col_idx] or '',
+        width,
+        alignments[col_idx] or 'default',
+        config.ignore_markdown_syntax
+      )
+    end)
+  end
 
-      -- Перенос содержимого ячеек. Шапку не переносим никогда: разделитель
-      -- обязан быть второй строкой таблицы, иначе для GFM это уже не таблица -
-      -- prettier на следующем сохранении разберёт её как абзац и развалит файл
-      local is_header = separator_idx and row_idx < separator_idx
-      local wrapped_cols = {}
-      local row_height = 1
-      for col_idx = 1, max_cols do
-        local cell = cells[col_idx] or ''
-        local width = target_widths[col_idx]
-        -- первую колонку тоже не переносим: пустая первая ячейка - единственный
-        -- признак, по которому строка продолжения отличается от новой строки
-        local wrapped = (is_header or col_idx == 1) and { cell }
-          or wrap_text(cell, width, config.ignore_markdown_syntax)
-        wrapped_cols[col_idx] = wrapped
-        row_height = math.max(row_height, #wrapped)
-      end
+  -- Разделитель шапки - единственный, который обязан быть из дефисов
+  if separator_idx then
+    formatted_lines[#formatted_lines + 1] = build_row(function(col_idx, width)
+      return format_separator_cell(width, alignments[col_idx] or 'default')
+    end)
+  end
 
-      for h = 1, row_height do
-        local formatted_cells = {}
-        for col_idx = 1, max_cols do
-          local cell_line = wrapped_cols[col_idx][h] or ''
-          local align = alignments[col_idx] or 'default'
-          local width = target_widths[col_idx]
-          table.insert(
-            formatted_cells,
-            pad_cell(cell_line, width, align, config.ignore_markdown_syntax)
-          )
-        end
-        table.insert(
-          formatted_lines,
-          indent .. '| ' .. table.concat(formatted_cells, ' | ') .. ' |'
+  local function needs_rule(prev, next_)
+    if not config.row_separators then
+      return false
+    end
+    if config.row_separators == 'multiline' then
+      return prev.height > 1 or next_.height > 1
+    end
+    return true
+  end
+
+  for i, row in ipairs(rendered) do
+    if i > 1 and needs_rule(rendered[i - 1], row) then
+      formatted_lines[#formatted_lines + 1] = build_row(function(_, width)
+        return string.rep(ROW_RULE_CHAR, width)
+      end)
+    end
+
+    for h = 1, row.height do
+      formatted_lines[#formatted_lines + 1] = build_row(function(col_idx, width)
+        return pad_cell(
+          row.cols[col_idx][h] or '',
+          width,
+          alignments[col_idx] or 'default',
+          config.ignore_markdown_syntax
         )
-      end
+      end)
     end
   end
 
