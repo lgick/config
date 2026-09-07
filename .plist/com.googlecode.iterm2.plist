@@ -3243,7 +3243,7 @@
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>JetBrainsMonoNFM-Regular 15</string>
+			<string>JetBrainsMonoNFM-Regular 14</string>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Prompt Before Closing 2</key>
@@ -3412,7 +3412,7 @@
 			<key>Use Underline Color (Light)</key>
 			<false/>
 			<key>Vertical Spacing</key>
-			<real>1</real>
+			<real>1.2</real>
 			<key>Visual Bell</key>
 			<true/>
 			<key>Window Type</key>
@@ -3524,7 +3524,7 @@
 				<key>Scroller Width</key>
 				<real>0.0</real>
 				<key>Selected Tab Index</key>
-				<integer>0</integer>
+				<integer>2</integer>
 				<key>Tabs</key>
 				<array>
 					<dict>
@@ -4497,7 +4497,7 @@
 												<real>0.30196076631546021</real>
 											</dict>
 											<key>Guid</key>
-											<string>1252AF1E-D7B2-4B31-97D2-18DF58F92DE5</string>
+											<string>0F6F63A8-D7AC-4485-9D1A-5E0022306CDE</string>
 											<key>Horizontal Spacing</key>
 											<real>1</real>
 											<key>Idle Code</key>
@@ -4887,7 +4887,7 @@
 											<key>Non-ASCII Anti Aliased</key>
 											<true/>
 											<key>Normal Font</key>
-											<string>JetBrainsMonoNFM-Regular 15</string>
+											<string>JetBrainsMonoNFM-Regular 14</string>
 											<key>Option Key Sends</key>
 											<integer>0</integer>
 											<key>Original Guid</key>
@@ -5073,7 +5073,7 @@
 											<key>Use Underline Color (Light)</key>
 											<false/>
 											<key>Vertical Spacing</key>
-											<real>1</real>
+											<real>1.2</real>
 											<key>Visual Bell</key>
 											<true/>
 											<key>Window Type</key>
@@ -5082,7 +5082,7 @@
 											<string>~.config/nvim</string>
 										</dict>
 										<key>Columns</key>
-										<integer>96</integer>
+										<integer>109</integer>
 										<key>Commands</key>
 										<array/>
 										<key>Directories</key>
@@ -5107,16 +5107,86 @@
 											<string>/</string>
 											<string>/Users/dmitry</string>
 											<string>/Users/dmitry/Sites/my/vimp</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
 										</array>
 										<key>Environment</key>
 										<dict>
 											<key>PWD</key>
-											<string>/Users/dmitry/Sites/my/vimp-p2p</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
 										</dict>
 										<key>Hostname to Shell</key>
 										<dict/>
 										<key>Hosts</key>
 										<array>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
 											<dict>
 												<key>Host name</key>
 												<string>dmitry.local</string>
@@ -5263,7 +5333,7 @@
 											<string>Shell Launcher</string>
 										</dict>
 										<key>Rows</key>
-										<integer>44</integer>
+										<integer>39</integer>
 										<key>Session GUID</key>
 										<string>59465958-244F-4083-B0B5-453BD0D28F85</string>
 										<key>Short Lived Single Use</key>
@@ -6259,7 +6329,7 @@
 												<real>0.30196076631546021</real>
 											</dict>
 											<key>Guid</key>
-											<string>46E23382-4881-46E9-A6C8-A127FF68BE69</string>
+											<string>5C9480A4-A079-488B-98E0-91DD8A18E02E</string>
 											<key>Horizontal Spacing</key>
 											<real>1</real>
 											<key>Idle Code</key>
@@ -6649,7 +6719,7 @@
 											<key>Non-ASCII Anti Aliased</key>
 											<true/>
 											<key>Normal Font</key>
-											<string>JetBrainsMonoNFM-Regular 15</string>
+											<string>JetBrainsMonoNFM-Regular 14</string>
 											<key>Option Key Sends</key>
 											<integer>0</integer>
 											<key>Original Guid</key>
@@ -6835,7 +6905,7 @@
 											<key>Use Underline Color (Light)</key>
 											<false/>
 											<key>Vertical Spacing</key>
-											<real>1</real>
+											<real>1.2</real>
 											<key>Visual Bell</key>
 											<true/>
 											<key>Window Type</key>
@@ -6844,7 +6914,7 @@
 											<string>~.config/nvim</string>
 										</dict>
 										<key>Columns</key>
-										<integer>71</integer>
+										<integer>79</integer>
 										<key>Commands</key>
 										<array/>
 										<key>Directories</key>
@@ -6856,16 +6926,86 @@
 											<string>/</string>
 											<string>/Users/dmitry</string>
 											<string>/Users/dmitry/Sites/my/vimp</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
 										</array>
 										<key>Environment</key>
 										<dict>
 											<key>PWD</key>
-											<string>/Users/dmitry/Sites/my/vimp-p2p</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
 										</dict>
 										<key>Hostname to Shell</key>
 										<dict/>
 										<key>Hosts</key>
 										<array>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
 											<dict>
 												<key>Host name</key>
 												<string>dmitry.local</string>
@@ -6928,7 +7068,7 @@
 											<string>Shell Launcher</string>
 										</dict>
 										<key>Rows</key>
-										<integer>44</integer>
+										<integer>39</integer>
 										<key>Session GUID</key>
 										<string>5EA54E1A-523E-4ECB-ADC5-D871149A46E8</string>
 										<key>Short Lived Single Use</key>
@@ -7951,7 +8091,7 @@
 												<real>0.30196076631546021</real>
 											</dict>
 											<key>Guid</key>
-											<string>934EE955-8606-4332-B232-E17A80FB4F1C</string>
+											<string>1791DA65-CDB5-4A65-B0EA-0416BED9FB5D</string>
 											<key>Horizontal Spacing</key>
 											<real>1</real>
 											<key>Idle Code</key>
@@ -8341,7 +8481,7 @@
 											<key>Non-ASCII Anti Aliased</key>
 											<true/>
 											<key>Normal Font</key>
-											<string>JetBrainsMonoNFM-Regular 15</string>
+											<string>JetBrainsMonoNFM-Regular 14</string>
 											<key>Option Key Sends</key>
 											<integer>0</integer>
 											<key>Original Guid</key>
@@ -8527,7 +8667,7 @@
 											<key>Use Underline Color (Light)</key>
 											<false/>
 											<key>Vertical Spacing</key>
-											<real>1</real>
+											<real>1.2</real>
 											<key>Visual Bell</key>
 											<true/>
 											<key>Window Type</key>
@@ -8536,7 +8676,7 @@
 											<string>~.config/nvim</string>
 										</dict>
 										<key>Columns</key>
-										<integer>103</integer>
+										<integer>115</integer>
 										<key>Commands</key>
 										<array/>
 										<key>Directories</key>
@@ -8560,16 +8700,86 @@
 											<string>/Users/dmitry</string>
 											<string>/Users/dmitry</string>
 											<string>/Users/dmitry/Sites/my/vimp</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
 										</array>
 										<key>Environment</key>
 										<dict>
 											<key>PWD</key>
-											<string>/Users/dmitry/Sites/my/notes.nvim</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
 										</dict>
 										<key>Hostname to Shell</key>
 										<dict/>
 										<key>Hosts</key>
 										<array>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
 											<dict>
 												<key>Host name</key>
 												<string>dmitry.local</string>
@@ -8704,7 +8914,7 @@
 											<string>Shell Launcher</string>
 										</dict>
 										<key>Rows</key>
-										<integer>44</integer>
+										<integer>39</integer>
 										<key>Session GUID</key>
 										<string>4BDA4B80-574D-4366-B008-87D0D904748C</string>
 										<key>Short Lived Single Use</key>
@@ -9700,7 +9910,7 @@
 												<real>0.30196076631546021</real>
 											</dict>
 											<key>Guid</key>
-											<string>1ABB741F-EC16-40A3-B557-6F7459F7C4DA</string>
+											<string>60E45A28-EA4A-4CF3-BD37-685ADC123B94</string>
 											<key>Horizontal Spacing</key>
 											<real>1</real>
 											<key>Idle Code</key>
@@ -10090,7 +10300,7 @@
 											<key>Non-ASCII Anti Aliased</key>
 											<true/>
 											<key>Normal Font</key>
-											<string>JetBrainsMonoNFM-Regular 15</string>
+											<string>JetBrainsMonoNFM-Regular 14</string>
 											<key>Option Key Sends</key>
 											<integer>0</integer>
 											<key>Original Guid</key>
@@ -10276,7 +10486,7 @@
 											<key>Use Underline Color (Light)</key>
 											<false/>
 											<key>Vertical Spacing</key>
-											<real>1</real>
+											<real>1.2</real>
 											<key>Visual Bell</key>
 											<true/>
 											<key>Window Type</key>
@@ -10285,7 +10495,7 @@
 											<string>~.config/nvim</string>
 										</dict>
 										<key>Columns</key>
-										<integer>64</integer>
+										<integer>73</integer>
 										<key>Commands</key>
 										<array/>
 										<key>Directories</key>
@@ -10296,16 +10506,86 @@
 											<string>/Users/dmitry/Sites/my/notes.nvim</string>
 											<string>/Users/dmitry/Sites/my/notes.nvim</string>
 											<string>/Users/dmitry/Sites/my/vimp</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
 										</array>
 										<key>Environment</key>
 										<dict>
 											<key>PWD</key>
-											<string>/Users/dmitry/Sites/my/notes.nvim</string>
+											<string>/Users/dmitry/Sites/my/vimp</string>
 										</dict>
 										<key>Hostname to Shell</key>
 										<dict/>
 										<key>Hosts</key>
 										<array>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
 											<dict>
 												<key>Host name</key>
 												<string>dmitry.local</string>
@@ -10362,13 +10642,13 @@
 											<string>Shell Launcher</string>
 										</dict>
 										<key>Rows</key>
-										<integer>44</integer>
+										<integer>39</integer>
 										<key>Session GUID</key>
 										<string>ABC5DE72-B72C-4409-BC22-F9973C2DE70C</string>
 										<key>Short Lived Single Use</key>
 										<false/>
 										<key>Should Expect Current Dir Updates</key>
-										<false/>
+										<true/>
 										<key>Should Expect Prompt Marks</key>
 										<true/>
 										<key>Substitutions</key>
@@ -10379,7 +10659,7 @@
 										<key>Working Directory</key>
 										<string>/Users/dmitry/Sites/my/vimp</string>
 										<key>Working Directory Poller Disabled</key>
-										<false/>
+										<true/>
 									</dict>
 									<key>View Type</key>
 									<string>SessionView</string>
@@ -11385,7 +11665,7 @@
 												<real>0.30196076631546021</real>
 											</dict>
 											<key>Guid</key>
-											<string>B9C4B2B2-D7B5-457B-9BCE-60EEFF711AA6</string>
+											<string>F02F71B4-74EC-426A-AB90-BD1186317350</string>
 											<key>Horizontal Spacing</key>
 											<real>1</real>
 											<key>Idle Code</key>
@@ -11775,7 +12055,7 @@
 											<key>Non-ASCII Anti Aliased</key>
 											<true/>
 											<key>Normal Font</key>
-											<string>JetBrainsMonoNFM-Regular 15</string>
+											<string>JetBrainsMonoNFM-Regular 14</string>
 											<key>Option Key Sends</key>
 											<integer>0</integer>
 											<key>Original Guid</key>
@@ -11961,7 +12241,7 @@
 											<key>Use Underline Color (Light)</key>
 											<false/>
 											<key>Vertical Spacing</key>
-											<real>1</real>
+											<real>1.2</real>
 											<key>Visual Bell</key>
 											<true/>
 											<key>Window Type</key>
@@ -11970,11 +12250,28 @@
 											<string>~.config/nvim</string>
 										</dict>
 										<key>Columns</key>
-										<integer>168</integer>
+										<integer>189</integer>
 										<key>Commands</key>
 										<array/>
 										<key>Directories</key>
 										<array>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
 											<string>/Users/dmitry</string>
 											<string>/Users/dmitry</string>
 											<string>/Users/dmitry</string>
@@ -12081,6 +12378,66 @@
 												<key>User name</key>
 												<string></string>
 											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
 										</array>
 										<key>Is UTF-8</key>
 										<true/>
@@ -12091,9 +12448,15 @@
 											<key>icon title stack</key>
 											<array>
 												<string>nvim</string>
+												<string>nvim</string>
+												<string>nvim</string>
+												<string>nvim</string>
 											</array>
 											<key>window title stack</key>
 											<array>
+												<string>nvim</string>
+												<string>nvim</string>
+												<string>nvim</string>
 												<string>nvim</string>
 											</array>
 										</dict>
@@ -12101,8 +12464,8 @@
 										<array>
 											<string>Use Tab Color (Light)</string>
 											<string>Title Components</string>
-											<string>Tab Color (Light)</string>
 											<string>Cursor Color (Light)</string>
+											<string>Tab Color (Light)</string>
 											<string>Original Guid</string>
 											<string>Guid</string>
 											<string>Cursor Color</string>
@@ -12113,7 +12476,7 @@
 											<string>Shell Launcher</string>
 										</dict>
 										<key>Rows</key>
-										<integer>46</integer>
+										<integer>40</integer>
 										<key>Session GUID</key>
 										<string>41D7071F-82A8-4ECC-87E5-D788A395CCEA</string>
 										<key>Short Lived Single Use</key>
@@ -13136,7 +13499,7 @@
 												<real>0.30196076631546021</real>
 											</dict>
 											<key>Guid</key>
-											<string>0AE45692-F0BE-4B74-8CA6-0793112620CD</string>
+											<string>512737CC-18EB-4F7B-B332-C37C3BA1AAE6</string>
 											<key>Horizontal Spacing</key>
 											<real>1</real>
 											<key>Idle Code</key>
@@ -13526,7 +13889,7 @@
 											<key>Non-ASCII Anti Aliased</key>
 											<true/>
 											<key>Normal Font</key>
-											<string>JetBrainsMonoNFM-Regular 15</string>
+											<string>JetBrainsMonoNFM-Regular 14</string>
 											<key>Option Key Sends</key>
 											<integer>0</integer>
 											<key>Original Guid</key>
@@ -13712,7 +14075,7 @@
 											<key>Use Underline Color (Light)</key>
 											<false/>
 											<key>Vertical Spacing</key>
-											<real>1</real>
+											<real>1.2</real>
 											<key>Visual Bell</key>
 											<true/>
 											<key>Window Type</key>
@@ -13721,7 +14084,7 @@
 											<string>~.config/nvim</string>
 										</dict>
 										<key>Columns</key>
-										<integer>93</integer>
+										<integer>105</integer>
 										<key>Commands</key>
 										<array/>
 										<key>Directories</key>
@@ -13731,16 +14094,86 @@
 											<string>/Users/dmitry</string>
 											<string>/Users/dmitry</string>
 											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
 										</array>
 										<key>Environment</key>
 										<dict>
 											<key>PWD</key>
-											<string>/Users/dmitry</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
 										</dict>
 										<key>Hostname to Shell</key>
 										<dict/>
 										<key>Hosts</key>
 										<array>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
 											<dict>
 												<key>Host name</key>
 												<string>dmitry.local</string>
@@ -13797,7 +14230,7 @@
 											<string>Shell Launcher</string>
 										</dict>
 										<key>Rows</key>
-										<integer>44</integer>
+										<integer>39</integer>
 										<key>Session GUID</key>
 										<string>A23D7CFD-478A-4710-90DE-3B8542252C9B</string>
 										<key>Short Lived Single Use</key>
@@ -14793,7 +15226,7 @@
 												<real>0.30196076631546021</real>
 											</dict>
 											<key>Guid</key>
-											<string>E89596CE-CD14-4151-AD2A-CC1D99C59AF1</string>
+											<string>AA252158-BE03-4EC6-B5DF-4EDB6CAFABED</string>
 											<key>Horizontal Spacing</key>
 											<real>1</real>
 											<key>Idle Code</key>
@@ -15183,7 +15616,7 @@
 											<key>Non-ASCII Anti Aliased</key>
 											<true/>
 											<key>Normal Font</key>
-											<string>JetBrainsMonoNFM-Regular 15</string>
+											<string>JetBrainsMonoNFM-Regular 14</string>
 											<key>Option Key Sends</key>
 											<integer>0</integer>
 											<key>Original Guid</key>
@@ -15369,7 +15802,7 @@
 											<key>Use Underline Color (Light)</key>
 											<false/>
 											<key>Vertical Spacing</key>
-											<real>1</real>
+											<real>1.2</real>
 											<key>Visual Bell</key>
 											<true/>
 											<key>Window Type</key>
@@ -15378,7 +15811,7 @@
 											<string>~.config/nvim</string>
 										</dict>
 										<key>Columns</key>
-										<integer>74</integer>
+										<integer>83</integer>
 										<key>Commands</key>
 										<array/>
 										<key>Directories</key>
@@ -15386,16 +15819,86 @@
 											<string>/Users/dmitry</string>
 											<string>/Users/dmitry</string>
 											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
 										</array>
 										<key>Environment</key>
 										<dict>
 											<key>PWD</key>
-											<string>/Users/dmitry</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
 										</dict>
 										<key>Hostname to Shell</key>
 										<dict/>
 										<key>Hosts</key>
 										<array>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
 											<dict>
 												<key>Host name</key>
 												<string>dmitry.local</string>
@@ -15428,21 +15931,19 @@
 										</dict>
 										<key>Overridden Fields</key>
 										<array>
-											<string>Tab Color (Light)</string>
 											<string>Use Tab Color (Light)</string>
+											<string>Tab Color (Light)</string>
 											<string>Original Guid</string>
 											<string>Guid</string>
 											<string>Title Components</string>
 										</array>
 										<key>Program</key>
 										<dict>
-											<key>Command</key>
-											<string>login -fp "dmitry"</string>
 											<key>Type</key>
-											<string>Command</string>
+											<string>Shell Launcher</string>
 										</dict>
 										<key>Rows</key>
-										<integer>44</integer>
+										<integer>39</integer>
 										<key>Session GUID</key>
 										<string>FFBF324C-6E30-4007-AF6C-100A7057F93F</string>
 										<key>Short Lived Single Use</key>
@@ -16465,7 +16966,7 @@
 												<real>0.30196076631546021</real>
 											</dict>
 											<key>Guid</key>
-											<string>F0D35DBB-59F6-4D42-9C20-5D254A1B37DA</string>
+											<string>78B57EAB-D842-44DD-BDE3-05FAE92CCA82</string>
 											<key>Horizontal Spacing</key>
 											<real>1</real>
 											<key>Idle Code</key>
@@ -16855,7 +17356,7 @@
 											<key>Non-ASCII Anti Aliased</key>
 											<true/>
 											<key>Normal Font</key>
-											<string>JetBrainsMonoNFM-Regular 15</string>
+											<string>JetBrainsMonoNFM-Regular 14</string>
 											<key>Option Key Sends</key>
 											<integer>0</integer>
 											<key>Original Guid</key>
@@ -17041,7 +17542,7 @@
 											<key>Use Underline Color (Light)</key>
 											<false/>
 											<key>Vertical Spacing</key>
-											<real>1</real>
+											<real>1.2</real>
 											<key>Visual Bell</key>
 											<true/>
 											<key>Window Type</key>
@@ -17050,7 +17551,7 @@
 											<string>~.config/nvim</string>
 										</dict>
 										<key>Columns</key>
-										<integer>99</integer>
+										<integer>112</integer>
 										<key>Commands</key>
 										<array/>
 										<key>Directories</key>
@@ -17058,16 +17559,86 @@
 											<string>/Users/dmitry</string>
 											<string>/Users/dmitry</string>
 											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
 										</array>
 										<key>Environment</key>
 										<dict>
 											<key>PWD</key>
-											<string>/Users/dmitry</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
 										</dict>
 										<key>Hostname to Shell</key>
 										<dict/>
 										<key>Hosts</key>
 										<array>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
 											<dict>
 												<key>Host name</key>
 												<string>dmitry.local</string>
@@ -17108,13 +17679,11 @@
 										</array>
 										<key>Program</key>
 										<dict>
-											<key>Command</key>
-											<string>login -fp "dmitry"</string>
 											<key>Type</key>
-											<string>Command</string>
+											<string>Shell Launcher</string>
 										</dict>
 										<key>Rows</key>
-										<integer>44</integer>
+										<integer>39</integer>
 										<key>Session GUID</key>
 										<string>A52D0085-F459-4C9C-B418-0372FEACF7AF</string>
 										<key>Short Lived Single Use</key>
@@ -17140,7 +17709,7 @@
 										<key>height</key>
 										<real>921</real>
 										<key>width</key>
-										<real>899</real>
+										<real>900</real>
 										<key>x</key>
 										<real>0.0</real>
 										<key>y</key>
@@ -18110,7 +18679,7 @@
 												<real>0.30196076631546021</real>
 											</dict>
 											<key>Guid</key>
-											<string>489D8324-E554-4A4A-A696-B9222709DD99</string>
+											<string>5D84DDC7-8713-49A3-8791-BC6EBAC644C0</string>
 											<key>Horizontal Spacing</key>
 											<real>1</real>
 											<key>Idle Code</key>
@@ -18500,7 +19069,7 @@
 											<key>Non-ASCII Anti Aliased</key>
 											<true/>
 											<key>Normal Font</key>
-											<string>JetBrainsMonoNFM-Regular 15</string>
+											<string>JetBrainsMonoNFM-Regular 14</string>
 											<key>Option Key Sends</key>
 											<integer>0</integer>
 											<key>Original Guid</key>
@@ -18686,7 +19255,7 @@
 											<key>Use Underline Color (Light)</key>
 											<false/>
 											<key>Vertical Spacing</key>
-											<real>1</real>
+											<real>1.2</real>
 											<key>Visual Bell</key>
 											<true/>
 											<key>Window Type</key>
@@ -18695,7 +19264,7 @@
 											<string>~.config/nvim</string>
 										</dict>
 										<key>Columns</key>
-										<integer>68</integer>
+										<integer>76</integer>
 										<key>Commands</key>
 										<array/>
 										<key>Directories</key>
@@ -18703,16 +19272,86 @@
 											<string>/Users/dmitry</string>
 											<string>/Users/dmitry</string>
 											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
 										</array>
 										<key>Environment</key>
 										<dict>
 											<key>PWD</key>
-											<string>/Users/dmitry</string>
+											<string>/Users/dmitry/Sites/my/vimp-tanks</string>
 										</dict>
 										<key>Hostname to Shell</key>
 										<dict/>
 										<key>Hosts</key>
 										<array>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
 											<dict>
 												<key>Host name</key>
 												<string>dmitry.local</string>
@@ -18745,21 +19384,19 @@
 										</dict>
 										<key>Overridden Fields</key>
 										<array>
-											<string>Tab Color (Light)</string>
 											<string>Use Tab Color (Light)</string>
+											<string>Tab Color (Light)</string>
 											<string>Original Guid</string>
 											<string>Guid</string>
 											<string>Title Components</string>
 										</array>
 										<key>Program</key>
 										<dict>
-											<key>Command</key>
-											<string>login -fp "dmitry"</string>
 											<key>Type</key>
-											<string>Command</string>
+											<string>Shell Launcher</string>
 										</dict>
 										<key>Rows</key>
-										<integer>44</integer>
+										<integer>39</integer>
 										<key>Session GUID</key>
 										<string>2752B133-0999-4078-AD59-7A108A3519E3</string>
 										<key>Short Lived Single Use</key>
@@ -18785,9 +19422,9 @@
 										<key>height</key>
 										<real>921</real>
 										<key>width</key>
-										<real>612</real>
+										<real>611</real>
 										<key>x</key>
-										<real>900</real>
+										<real>901</real>
 										<key>y</key>
 										<real>0.0</real>
 									</dict>
@@ -19636,13 +20273,13 @@
 												<key>Alpha Component</key>
 												<real>1</real>
 												<key>Blue Component</key>
-												<real>0.0</real>
+												<real>0.27450980392156865</real>
 												<key>Color Space</key>
-												<string>sRGB</string>
+												<string>P3</string>
 												<key>Green Component</key>
-												<real>0.0</real>
+												<real>0.27450980392156865</real>
 												<key>Red Component</key>
-												<real>0.0</real>
+												<real>0.27450980392156865</real>
 											</dict>
 											<key>Cursor Guide Color</key>
 											<dict>
@@ -19782,7 +20419,7 @@
 												<real>0.30196076631546021</real>
 											</dict>
 											<key>Guid</key>
-											<string>4795DB20-B393-4CC6-9CE1-84A6DE873CB2</string>
+											<string>CB72FB84-BEE8-4EF5-81F9-365BFD3D8249</string>
 											<key>Horizontal Spacing</key>
 											<real>1</real>
 											<key>Idle Code</key>
@@ -20172,7 +20809,7 @@
 											<key>Non-ASCII Anti Aliased</key>
 											<true/>
 											<key>Normal Font</key>
-											<string>JetBrainsMonoNFM-Regular 15</string>
+											<string>JetBrainsMonoNFM-Regular 14</string>
 											<key>Option Key Sends</key>
 											<integer>0</integer>
 											<key>Original Guid</key>
@@ -20345,7 +20982,7 @@
 											<key>Use Underline Color (Light)</key>
 											<false/>
 											<key>Vertical Spacing</key>
-											<real>1</real>
+											<real>1.2</real>
 											<key>Visual Bell</key>
 											<true/>
 											<key>Window Type</key>
@@ -20354,11 +20991,23 @@
 											<string>~.config/nvim</string>
 										</dict>
 										<key>Columns</key>
-										<integer>168</integer>
+										<integer>189</integer>
 										<key>Commands</key>
 										<array/>
 										<key>Directories</key>
 										<array>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
+											<string>/Users/dmitry</string>
 											<string>/Users/dmitry</string>
 											<string>/Users/dmitry</string>
 										</array>
@@ -20383,6 +21032,78 @@
 												<key>User name</key>
 												<string></string>
 											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>dmitry.local</string>
+												<key>User name</key>
+												<string></string>
+											</dict>
 										</array>
 										<key>Is UTF-8</key>
 										<true/>
@@ -20391,31 +21112,38 @@
 										<key>Name Controller State</key>
 										<dict>
 											<key>icon title stack</key>
-											<array/>
+											<array>
+												<string>nvim</string>
+												<string>nvim</string>
+												<string>nvim</string>
+											</array>
 											<key>window title stack</key>
-											<array/>
+											<array>
+												<string>nvim</string>
+												<string>nvim</string>
+												<string>nvim</string>
+											</array>
 										</dict>
 										<key>Overridden Fields</key>
 										<array>
+											<string>Cursor Color (Light)</string>
 											<string>Original Guid</string>
 											<string>Guid</string>
 											<string>Title Components</string>
 										</array>
 										<key>Program</key>
 										<dict>
-											<key>Command</key>
-											<string>login -fp "dmitry"</string>
 											<key>Type</key>
-											<string>Command</string>
+											<string>Shell Launcher</string>
 										</dict>
 										<key>Rows</key>
-										<integer>46</integer>
+										<integer>40</integer>
 										<key>Session GUID</key>
 										<string>D7D2CFE8-6475-44BD-95B6-56225895DF83</string>
 										<key>Short Lived Single Use</key>
 										<false/>
 										<key>Should Expect Current Dir Updates</key>
-										<false/>
+										<true/>
 										<key>Should Expect Prompt Marks</key>
 										<true/>
 										<key>Substitutions</key>
@@ -20426,7 +21154,7 @@
 										<key>Working Directory</key>
 										<string>/Users/dmitry</string>
 										<key>Working Directory Poller Disabled</key>
-										<false/>
+										<true/>
 									</dict>
 									<key>View Type</key>
 									<string>SessionView</string>
