@@ -8,15 +8,6 @@ const config = {
   trailingComma: 'all', // запятые в последнем значении объекта/массива
   printWidth: 80, // перенос кода по достижении порога
   tabWidth: 2, // количество пробелов на отступ
-  overrides: [
-    {
-      files: '*.md',
-      options: {
-        printWidth: 80,
-        proseWrap: 'preserve', // Не создавать новые строки в файле
-      },
-    },
-  ],
 };
 
 export default config;
