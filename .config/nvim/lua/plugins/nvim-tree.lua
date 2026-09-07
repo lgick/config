@@ -4,70 +4,100 @@ vim.g.loaded_netrwPlugin = 1
 
 local nvimtree = require('nvim-tree')
 
+-- Правила сортировки в дереве:
+-- 1. _папки (по алфавиту)
+-- 2. _файлы (по алфавиту)
+-- 3. Обычные папки (по алфавиту)
+-- 4. Обычные файлы (от новых к старым по дате изменения)
 local function custom_nvim_tree_sorter(nodes)
   local uv = vim.uv or vim.loop
 
-  -- Вспомогательная функция для гарантированного получения mtime
+  -- Вспомогательное алфавитное сравнение (DRY)
+  local function compare_names(a, b)
+    local a_name = (a.name or ''):lower()
+    local b_name = (b.name or ''):lower()
+    if a_name ~= b_name then
+      return a_name < b_name
+    end
+    return (a.name or '') < (b.name or '')
+  end
+
+  local function starts_with_underscore(node)
+    return (node.name or ''):sub(1, 1) == '_'
+  end
+
+  -- Безопасное извлечение mtime
   local function get_mtime(node)
     local stat = node.fs_stat
-    -- Если nvim-tree еще не заполнил поле fs_stat,
-    -- запрашиваем системную информацию о файле напрямую
     if not stat and node.absolute_path then
       stat = uv.fs_stat(node.absolute_path)
     end
-    return stat and stat.mtime or { sec = 0, nsec = 0 }
+
+    local mtime = stat and stat.mtime
+    if type(mtime) == 'table' then
+      return mtime.sec or 0, mtime.nsec or 0
+    elseif type(mtime) == 'number' then
+      return mtime, 0
+    end
+    return 0, 0
   end
 
+  -- Оптимизация: кэшируем mtime ТОЛЬКО для обычных файлов,
+  -- папки и элементы с "_" stat'ить не нужно.
   local mtime_cache = {}
   for _, node in ipairs(nodes) do
-    mtime_cache[node] = get_mtime(node)
+    if node.type ~= 'directory' and not starts_with_underscore(node) then
+      local sec, nsec = get_mtime(node)
+      mtime_cache[node] = { sec = sec, nsec = nsec }
+    end
   end
 
   table.sort(nodes, function(a, b)
-    -- 1. Папки всегда сверху
+    local a_und = starts_with_underscore(a)
+    local b_und = starts_with_underscore(b)
+
+    -- 0. Элементы с "_" всегда наверху
+    if a_und and not b_und then
+      return true
+    elseif not a_und and b_und then
+      return false
+    elseif a_und and b_und then
+      -- Папки с "_" выше файлов с "_"
+      if a.type == 'directory' and b.type ~= 'directory' then
+        return true
+      elseif a.type ~= 'directory' and b.type == 'directory' then
+        return false
+      end
+      -- Внутри своих групп — строго по алфавиту
+      return compare_names(a, b)
+    end
+
+    -- 1. Обычные папки всегда выше обычных файлов
     if a.type == 'directory' and b.type ~= 'directory' then
       return true
     elseif a.type ~= 'directory' and b.type == 'directory' then
       return false
     end
 
-    -- 2. Если оба элемента — папки, сортируем их по алфавиту
+    -- 2. Обычные папки сортируются по алфавиту
     if a.type == 'directory' and b.type == 'directory' then
-      local a_name = a.name:lower()
-      local b_name = b.name:lower()
-      if a_name ~= b_name then
-        return a_name < b_name
-      else
-        return a.name < b.name
-      end
+      return compare_names(a, b)
     end
 
-    -- 3. Если оба элемента — файлы, сортируем по времени модификации (сначала новые)
-    local a_mtime = mtime_cache[a]
-    local b_mtime = mtime_cache[b]
+    -- 3. Обычные файлы сортируются по mtime (сначала свежие)
+    local a_m = mtime_cache[a]
+    local b_m = mtime_cache[b]
 
-    local a_sec = a_mtime.sec or 0
-    local b_sec = b_mtime.sec or 0
-
-    if a_sec ~= b_sec then
-      return a_sec > b_sec
+    if a_m.sec ~= b_m.sec then
+      return a_m.sec > b_m.sec
     end
 
-    -- Сравнение наносекунд на случай одинаковых секунд
-    local a_nsec = a_mtime.nsec or 0
-    local b_nsec = b_mtime.nsec or 0
-
-    if a_nsec ~= b_nsec then
-      return a_nsec > b_nsec
+    if a_m.nsec ~= b_m.nsec then
+      return a_m.nsec > b_m.nsec
     end
 
-    -- 4. Если время модификации полностью совпадает, сортируем по алфавиту
-    local a_name = a.name:lower()
-    local b_name = b.name:lower()
-    if a_name ~= b_name then
-      return a_name < b_name
-    end
-    return a.name < b.name
+    -- 4. Если mtime совпал — по алфавиту
+    return compare_names(a, b)
   end)
 end
 
