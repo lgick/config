@@ -182,23 +182,6 @@ vim.api.nvim_create_autocmd('LspProgress', {
   end,
 })
 
------------------------------------------------------------
--- Перенос строк (wrap) в markdown файлах
------------------------------------------------------------
-
-vim.api.nvim_create_autocmd('FileType', {
-  group = vim.api.nvim_create_augroup('markdown_wrap', { clear = true }),
-  pattern = 'markdown',
-  callback = function()
-    vim.opt_local.list = false
-    vim.opt_local.cursorline = false
-    vim.opt_local.wrap = true -- Включает визуальный перенос на экране
-    vim.opt_local.linebreak = true -- Переносит строго по словам (не режет слова)
-    vim.opt_local.breakindent = true -- Сохраняет визуальный отступ для списков (- item)
-    vim.opt_local.textwidth = 80 -- Ограничение длины строки (например, 80 символов)
-  end,
-})
-
 -------------------------------------------------------
 -- Перезапуск prettierd при изменении конфига
 -------------------------------------------------------

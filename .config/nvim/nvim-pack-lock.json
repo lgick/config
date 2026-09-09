@@ -1,7 +1,7 @@
 {
   "plugins": {
     "SchemaStore.nvim": {
-      "rev": "2224119e0794fa979d435a7390fa6278877bf3ae",
+      "rev": "10c76a652d7b1a81bacf5449df76e6e83d367bff",
       "src": "https://github.com/b0o/SchemaStore.nvim"
     },
     "blink.cmp": {
@@ -70,7 +70,7 @@
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "paperblue.nvim": {
-      "rev": "5ed840293ca1f9bca462d5c67617d0b10be5559b",
+      "rev": "ab92708d1bd38e8d347da59129772f5f12a5eba6",
       "src": "https://github.com/lgick/paperblue.nvim"
     },
     "persistence.nvim": {

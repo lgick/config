@@ -1,5 +1,6 @@
-local ns = vim.api.nvim_create_namespace('md_links_conceal')
+local ns = vim.api.nvim_create_namespace('md_conceal')
 
+-- Поиск скрытых зон для быстрого перемещения
 local function get_concealed_ranges(row)
   local marks = vim.api.nvim_buf_get_extmarks(0, ns, { row, 0 }, { row, -1 }, { details = true })
   local ranges = {}
@@ -12,7 +13,7 @@ local function get_concealed_ranges(row)
   return ranges
 end
 
--- Назначаем клавиши ОДИН РАЗ на буфер
+-- Быстрая навигация без залипаний на h, l, w, b
 local function setup_smart_navigation(bufnr)
   if vim.b[bufnr].md_nav_setup then
     return
@@ -89,7 +90,8 @@ local function setup_smart_navigation(bufnr)
   vim.keymap.set({ 'n', 'v' }, 'b', move_word_backward, opts)
 end
 
-local function conceal_markdown_links(bufnr)
+-- Скрытие всех синтаксических спецсимволов Markdown
+local function conceal_markdown_syntax(bufnr)
   bufnr = bufnr or vim.api.nvim_get_current_buf()
   if not vim.api.nvim_buf_is_valid(bufnr) or vim.bo[bufnr].filetype ~= 'markdown' then
     return
@@ -99,30 +101,54 @@ local function conceal_markdown_links(bufnr)
   local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
 
   for row_idx, line in ipairs(lines) do
-    local search_start = 1
+    local r = row_idx - 1
+
+    -- 1. Ссылки: скрываем только '[' и '](url)'
+    local s = 1
     while true do
-      local s_b, s_e, label = line:find('%[([^%]]-)%]%([^%)]-%)', search_start)
+      local s_b, s_e, label = line:find('%[([^%]]-)%]%([^%)]-%)', s)
       if not s_b then
         break
       end
+      vim.api.nvim_buf_set_extmark(bufnr, ns, r, s_b - 1, { end_col = s_b, conceal = '' })
+      vim.api.nvim_buf_set_extmark(bufnr, ns, r, s_b + #label, { end_col = s_e, conceal = '' })
+      s = s_e + 1
+    end
 
-      vim.api.nvim_buf_set_extmark(bufnr, ns, row_idx - 1, s_b - 1, { end_col = s_b, conceal = '' })
-      vim.api.nvim_buf_set_extmark(
-        bufnr,
-        ns,
-        row_idx - 1,
-        s_b,
-        { end_col = s_b + #label, hl_group = 'Underlined' }
-      )
-      vim.api.nvim_buf_set_extmark(
-        bufnr,
-        ns,
-        row_idx - 1,
-        s_b + #label,
-        { end_col = s_e, conceal = '' }
-      )
+    -- 2. Инлайн-код: скрываем только `
+    s = 1
+    while true do
+      local s_b, s_e = line:find('`([^`]+)`', s)
+      if not s_b then
+        break
+      end
+      vim.api.nvim_buf_set_extmark(bufnr, ns, r, s_b - 1, { end_col = s_b, conceal = '' })
+      vim.api.nvim_buf_set_extmark(bufnr, ns, r, s_e - 1, { end_col = s_e, conceal = '' })
+      s = s_e + 1
+    end
 
-      search_start = s_e + 1
+    -- 3. Жирный: скрываем только **
+    s = 1
+    while true do
+      local s_b, s_e = line:find('%*%*([^%*]+)%*%*', s)
+      if not s_b then
+        break
+      end
+      vim.api.nvim_buf_set_extmark(bufnr, ns, r, s_b - 1, { end_col = s_b + 1, conceal = '' })
+      vim.api.nvim_buf_set_extmark(bufnr, ns, r, s_e - 2, { end_col = s_e, conceal = '' })
+      s = s_e + 1
+    end
+
+    -- 4. Зачёркнутый: скрываем только ~~
+    s = 1
+    while true do
+      local s_b, s_e = line:find('~~([^~]+)~~', s)
+      if not s_b then
+        break
+      end
+      vim.api.nvim_buf_set_extmark(bufnr, ns, r, s_b - 1, { end_col = s_b + 1, conceal = '' })
+      vim.api.nvim_buf_set_extmark(bufnr, ns, r, s_e - 2, { end_col = s_e, conceal = '' })
+      s = s_e + 1
     end
   end
 end
@@ -134,7 +160,36 @@ vim.api.nvim_create_autocmd({ 'FileType', 'BufWinEnter', 'TextChanged', 'TextCha
   callback = function(args)
     local bufnr = args.buf
 
+    -- Переносы и отступы
+    vim.opt_local.wrap = true
+    vim.opt_local.linebreak = true
+    vim.opt_local.breakindent = true
+    vim.opt_local.breakindentopt = 'shift:2'
+    vim.opt_local.statuscolumn = '   '
+    vim.opt_local.list = false
+    vim.opt_local.cursorline = false
+
+    -- Скрытие символов:
+    vim.opt_local.conceallevel = 2
+    vim.opt_local.concealcursor = 'nc' -- В Normal скрыто, в Insert открывается на текущей строке
+
     setup_smart_navigation(bufnr)
-    conceal_markdown_links(bufnr)
+    conceal_markdown_syntax(bufnr)
   end,
 })
+
+-- Раскомментировать, чтобы в Insert mode раскрывался ВЕСЬ ФАЙЛ сразу (а не только текущая строка)
+--vim.api.nvim_create_autocmd('InsertEnter', {
+--  pattern = { '*.md', 'markdown' },
+--  callback = function()
+--    vim.opt_local.conceallevel = 0
+--    vim.opt_local.cursorline = true
+--  end,
+--})
+--vim.api.nvim_create_autocmd('InsertLeave', {
+--  pattern = { '*.md', 'markdown' },
+--  callback = function()
+--    vim.opt_local.conceallevel = 2
+--    vim.opt_local.cursorline = false
+--  end,
+--})
