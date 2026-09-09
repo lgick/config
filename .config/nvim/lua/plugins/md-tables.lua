@@ -1,11 +1,13 @@
 -- Виртуальный рендерер markdown-таблиц (GitHub-style) для Neovim.
 --
 -- ОСОБЕННОСТИ:
+--   * Вертикальные отступы (padding_top, padding_bottom, margin_top, margin_bottom).
+--   * Сплошная зебра-подсветка (MdTableCellOdd / MdTableCellEven) без зазоров у рамок.
+--   * Полная защита от разрыва длинных строк Markdown терминалом при wrap = true.
 --   * Изолированный рендер без смазывания и просвечивания подсветки буфера.
---   * Сплошное отображение без пустых строк и дыр (overlay поверх строк буфера).
+--   * Сплошное отображение без пустых строк и дыр.
 --   * Полное скрытие технических символов (**, `, [], _, ~~, <br>) аналогично md-conceal.
 --   * Сохранение инлайн-подсветки (жирный, курсив, код, ссылки, зачёркивание).
---   * Полная поддержка wrap = true (визуальный перенос строк в окне).
 --   * Точный расчёт ширины колонок по чистому отображаемому тексту.
 --   * Поддерживает центрирование (:--:) и выравнивание колонок.
 --   * В Insert/Replace режиме рендер отключается (чистый исходный Markdown).
@@ -16,6 +18,18 @@ local M = {}
 M.config = {
   -- Стиль границ: 'ascii' | 'rounded' | 'single' | 'double' | 'github' | 'none'
   border = 'double',
+
+  -- Внутренние вертикальные отступы строк ячеек (число строк: 0, 1, 2...)
+  padding_top = 1,
+  padding_bottom = 1,
+
+  -- Отдельные отступы для шапки (nil - использовать padding_top/padding_bottom)
+  header_padding_top = nil,
+  header_padding_bottom = nil,
+
+  -- Внешние отступы вокруг таблицы (пустые строки до и после таблицы)
+  margin_top = 0,
+  margin_bottom = 0,
 
   -- Минимальная комфортная ширина колонки с текстом
   min_wrapped_width = 16,
@@ -81,6 +95,8 @@ local function setup_highlights()
   vim.api.nvim_set_hl(0, 'MdTableBorder', { link = 'Comment', italic = false, default = true })
   vim.api.nvim_set_hl(0, 'MdTableHead', { link = '@markup.strong', bold = true, default = true })
   vim.api.nvim_set_hl(0, 'MdTableCell', { link = 'Normal', default = true })
+  vim.api.nvim_set_hl(0, 'MdTableCellOdd', { link = 'MdTableCell', default = true })
+  vim.api.nvim_set_hl(0, 'MdTableCellEven', { link = 'MdTableCell', default = true })
   vim.api.nvim_set_hl(0, '@markup.strong', { bold = true, default = true })
   vim.api.nvim_set_hl(0, '@markup.italic', { italic = true, default = true })
   vim.api.nvim_set_hl(0, '@markup.strikethrough', { strikethrough = true, default = true })
@@ -229,7 +245,8 @@ local function slice_chunks(chunks, bounds, from, to, out)
       local b = math.min(to, e) - s + 1
       local text = chunk[1]:sub(a, b)
       if text ~= '' then
-        out[#out + 1] = { text, chunk[2] }
+        --out[#out + 1] = { text, chunk[2] }
+        out[#out + 1] = { text }
       end
     end
   end
@@ -735,7 +752,7 @@ local function render_virtual_table(buf, block, total_width)
   local target_widths = calculate_target_widths(natural_widths, max_word_widths, available)
   apply_comfort_widths(texts, max_cols, natural_widths, target_widths, available)
 
-  local function put(chunks, width, align, out, head)
+  local function put(chunks, width, align, out, default_hl)
     local content_w = 0
     for _, chunk in ipairs(chunks) do
       content_w = content_w + vis_width(chunk[1])
@@ -747,30 +764,37 @@ local function render_virtual_table(buf, block, total_width)
     elseif align == 'center' then
       left = math.floor(padding / 2)
     end
+    local hl_def = default_hl or 'MdTableCell'
     if left > 0 then
-      out[#out + 1] = { string.rep(' ', left), head and 'MdTableHead' or 'MdTableCell' }
+      out[#out + 1] = { string.rep(' ', left), hl_def }
     end
     for _, chunk in ipairs(chunks) do
-      out[#out + 1] = { chunk[1], chunk[2] or (head and 'MdTableHead' or 'MdTableCell') }
+      out[#out + 1] = { chunk[1], chunk[2] or hl_def }
     end
     if padding - left > 0 then
-      out[#out + 1] = { string.rep(' ', padding - left), head and 'MdTableHead' or 'MdTableCell' }
+      out[#out + 1] = { string.rep(' ', padding - left), hl_def }
     end
   end
 
-  local function emit_row(get_cell_chunks)
+  -- Отрисовка строки с непрерывной заливкой фона ячеек
+  local function emit_row(get_cell_chunks, default_hl)
     local out = {}
+    local hl_def = default_hl or 'MdTableCell'
     if indent ~= '' then
-      out[#out + 1] = { indent, 'MdTableCell' }
+      out[#out + 1] = { indent, hl_def }
     end
-    out[#out + 1] = { b_style.vert .. ' ', 'MdTableBorder' }
+    out[#out + 1] = { b_style.vert, 'MdTableBorder' }
+    out[#out + 1] = { ' ', hl_def }
     for col_idx = 1, max_cols do
       if col_idx > 1 then
-        out[#out + 1] = { ' ' .. b_style.vert .. ' ', 'MdTableBorder' }
+        out[#out + 1] = { ' ', hl_def }
+        out[#out + 1] = { b_style.vert, 'MdTableBorder' }
+        out[#out + 1] = { ' ', hl_def }
       end
       get_cell_chunks(col_idx, target_widths[col_idx], out)
     end
-    out[#out + 1] = { ' ' .. b_style.vert, 'MdTableBorder' }
+    out[#out + 1] = { ' ', hl_def }
+    out[#out + 1] = { b_style.vert, 'MdTableBorder' }
     return out
   end
 
@@ -779,8 +803,22 @@ local function render_virtual_table(buf, block, total_width)
   local bot_border = make_border_line(b_style, 'bot', target_widths, indent)
 
   local out_physical = {}
+  local data_row_idx = 0
 
   for _, row in ipairs(logical_rows) do
+    local row_hl = 'MdTableCell'
+    local is_head = row.header
+    if is_head then
+      row_hl = 'MdTableHead'
+    else
+      data_row_idx = data_row_idx + 1
+      if data_row_idx % 2 == 1 then
+        row_hl = 'MdTableCellOdd'
+      else
+        row_hl = 'MdTableCellEven'
+      end
+    end
+
     local wrapped, height = {}, 1
     for col_idx = 1, max_cols do
       local cell = row.cells[col_idx]
@@ -813,6 +851,17 @@ local function render_virtual_table(buf, block, total_width)
     end
 
     local rendered_lines = {}
+
+    -- Внутренний отступ сверху (padding_top)
+    local pad_top = is_head and (M.config.header_padding_top or M.config.padding_top or 0)
+      or (M.config.padding_top or 0)
+    for _ = 1, pad_top do
+      rendered_lines[#rendered_lines + 1] = emit_row(function(col_idx, width, out)
+        put({}, width, 'default', out, row_hl)
+      end, row_hl)
+    end
+
+    -- Текстовые строки ячейки
     for h = 1, height do
       rendered_lines[#rendered_lines + 1] = emit_row(function(col_idx, width, out)
         local line_data = wrapped[col_idx] and wrapped[col_idx][h]
@@ -825,8 +874,17 @@ local function render_virtual_table(buf, block, total_width)
             slice_chunks(line_data.chunks, line_data.bounds, span[1], span[2], chunks)
           end
         end
-        put(chunks, width, alignments[col_idx] or 'default', out, row.header)
-      end)
+        put(chunks, width, alignments[col_idx] or 'default', out, row_hl)
+      end, row_hl)
+    end
+
+    -- Внутренний отступ снизу (padding_bottom)
+    local pad_bot = is_head and (M.config.header_padding_bottom or M.config.padding_bottom or 0)
+      or (M.config.padding_bottom or 0)
+    for _ = 1, pad_bot do
+      rendered_lines[#rendered_lines + 1] = emit_row(function(col_idx, width, out)
+        put({}, width, 'default', out, row_hl)
+      end, row_hl)
     end
 
     local num_phys = #row.physical_rows
@@ -841,6 +899,7 @@ local function render_virtual_table(buf, block, total_width)
           line = rendered_lines[p],
           virt_lines = nil,
           is_header = row.header,
+          row_hl = row_hl,
         }
       end
     else
@@ -862,6 +921,7 @@ local function render_virtual_table(buf, block, total_width)
           line = rend_line,
           virt_lines = extra_virt,
           is_header = row.header,
+          row_hl = row_hl,
         }
       end
     end
@@ -875,7 +935,7 @@ local function render_virtual_table(buf, block, total_width)
     sep_line_rendered = {
       emit_row(function(col_idx, width, out)
         out[#out + 1] = { string.rep(b_style.horiz, width), 'MdTableBorder' }
-      end),
+      end, 'MdTableBorder'),
     }
   end
 
@@ -889,6 +949,7 @@ local function render_virtual_table(buf, block, total_width)
         len = #lines[separator_idx],
         line = sep_line_rendered,
         virt_lines = nil,
+        row_hl = 'MdTableBorder',
       }
       sep_inserted = true
     end
@@ -901,6 +962,7 @@ local function render_virtual_table(buf, block, total_width)
       len = #lines[separator_idx],
       line = sep_line_rendered,
       virt_lines = nil,
+      row_hl = 'MdTableBorder',
     }
   end
 
@@ -1018,6 +1080,10 @@ local function refresh()
         vim.api.nvim_buf_get_changedtick(buf),
         width,
         M.config.border,
+        tostring(M.config.padding_top),
+        tostring(M.config.padding_bottom),
+        tostring(M.config.margin_top),
+        tostring(M.config.margin_bottom),
       }, ':')
 
       if applied[buf] ~= key then
@@ -1031,25 +1097,26 @@ local function refresh()
           for _, item in ipairs(block.rendered) do
             local line_str = vim.api.nvim_buf_get_lines(buf, item.row, item.row + 1, false)[1] or ''
             local line_len = #line_str
+            local row_hl = item.row_hl or 'MdTableCell'
 
             if item.line then
-              -- Формируем чанки для overlay с изоляцией подсветки
+              -- Формируем чанки для строки
               local chunks_to_draw = {}
               local virt_w = 0
               for _, chunk in ipairs(item.line) do
                 local text = chunk[1]
-                local hl = chunk[2] or 'MdTableCell'
+                local hl = chunk[2] or row_hl
                 chunks_to_draw[#chunks_to_draw + 1] = { text, hl }
                 virt_w = virt_w + vis_width(text)
               end
 
-              -- Перекрываем хвост оригинальной строки Markdown
+              -- Перекрываем остаток длины строки
               local pad = line_len - virt_w
               if pad > 0 then
-                chunks_to_draw[#chunks_to_draw + 1] = { string.rep(' ', pad), 'MdTableCell' }
+                chunks_to_draw[#chunks_to_draw + 1] = { string.rep(' ', pad), row_hl }
               end
 
-              -- Виртуальные строки снизу
+              -- Виртуальные строки переноса (screen line 1..N) и нижняя рамка
               local extra_virt_below = nil
               if (item.virt_lines and #item.virt_lines > 0) or item.bot_border then
                 extra_virt_below = {}
@@ -1060,20 +1127,37 @@ local function refresh()
                 end
                 if item.bot_border then
                   extra_virt_below[#extra_virt_below + 1] = item.bot_border
+                  -- Внешний отступ снизу после таблицы (margin_bottom)
+                  if M.config.margin_bottom and M.config.margin_bottom > 0 then
+                    for _ = 1, M.config.margin_bottom do
+                      extra_virt_below[#extra_virt_below + 1] = { { ' ', 'Normal' } }
+                    end
+                  end
                 end
               end
 
-              -- Верхняя рамка
+              -- Верхняя рамка над первой строкой (+ внешний отступ margin_top)
               if item.top_border then
+                local top_lines = {}
+                if M.config.margin_top and M.config.margin_top > 0 then
+                  for _ = 1, M.config.margin_top do
+                    top_lines[#top_lines + 1] = { { ' ', 'Normal' } }
+                  end
+                end
+                top_lines[#top_lines + 1] = item.top_border
+
                 pcall(vim.api.nvim_buf_set_extmark, buf, ns, item.row, 0, {
-                  virt_lines = { item.top_border },
+                  virt_lines = top_lines,
                   virt_lines_above = true,
                   priority = 2000,
                 })
               end
 
-              -- Строка таблицы (hl_mode = replace предотвращает просвечивание)
+              -- Оверлей строки таблицы
               local extmark_opts = {
+                end_row = item.row,
+                end_col = line_len,
+                conceal = '',
                 virt_text = chunks_to_draw,
                 virt_text_pos = 'overlay',
                 hl_mode = 'replace',
@@ -1086,7 +1170,11 @@ local function refresh()
 
               pcall(vim.api.nvim_buf_set_extmark, buf, ns, item.row, 0, extmark_opts)
             else
+              -- Схлопываем лишние физические строки продолжения буфера
               pcall(vim.api.nvim_buf_set_extmark, buf, ns, item.row, 0, {
+                end_row = item.row,
+                end_col = line_len,
+                conceal = '',
                 virt_text = { { string.rep(' ', math.max(line_len, 1)), 'MdTableCell' } },
                 virt_text_pos = 'overlay',
                 hl_mode = 'replace',
