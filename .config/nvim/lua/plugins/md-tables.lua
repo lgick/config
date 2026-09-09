@@ -131,10 +131,6 @@ local function vis_width(str)
   return width
 end
 
-local function raw_width(str)
-  return vim.fn.strdisplaywidth(str)
-end
-
 local function utf8_char_spans(str)
   local spans = {}
   local len = #str
@@ -717,22 +713,6 @@ local function make_border_line(b_style, b_type, col_widths, indent)
   end
   local line = def[1] .. table.concat(parts, def[2]) .. def[3]
   return { { indent .. line, 'MdTableBorder' } }
-end
-
-local function make_empty_row(b_style, col_widths, indent)
-  local out = {}
-  if indent ~= '' then
-    out[#out + 1] = { indent }
-  end
-  out[#out + 1] = { b_style.vert .. ' ', 'MdTableBorder' }
-  for col_idx = 1, #col_widths do
-    if col_idx > 1 then
-      out[#out + 1] = { ' ' .. b_style.vert .. ' ', 'MdTableBorder' }
-    end
-    out[#out + 1] = { string.rep(' ', col_widths[col_idx]) }
-  end
-  out[#out + 1] = { ' ' .. b_style.vert, 'MdTableBorder' }
-  return out
 end
 
 local function render_virtual_table(buf, block, total_width)

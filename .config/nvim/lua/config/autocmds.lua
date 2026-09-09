@@ -70,11 +70,25 @@ vim.api.nvim_create_autocmd('BufRead', {
 
 local cursorline_group = vim.api.nvim_create_augroup('active_cursorline', { clear = true })
 
+-- Список типов файлов, где cursorline НЕ нужен
+local excluded_filetypes = {
+  markdown = true,
+  text = true,
+  gitcommit = true,
+}
+
 -- подсветка строки (cursorline) в активном окне
 vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter' }, {
   group = cursorline_group,
   callback = function()
-    vim.opt_local.cursorline = true
+    local ft = vim.bo.filetype
+
+    -- Включаем cursorline только если файл НЕ в списке исключений
+    if not excluded_filetypes[ft] then
+      vim.opt_local.cursorline = true
+    else
+      vim.opt_local.cursorline = false
+    end
   end,
 })
 
@@ -165,21 +179,6 @@ vim.api.nvim_create_autocmd('LspProgress', {
         vim.api.nvim_echo({}, false, {})
       end, 3000)
     end
-  end,
-})
-
------------------------------------------------------------
--- Перенос строк (wrap) в markdown файлах
------------------------------------------------------------
-
-vim.api.nvim_create_autocmd('FileType', {
-  group = vim.api.nvim_create_augroup('markdown_wrap', { clear = true }),
-  pattern = 'markdown',
-  callback = function()
-    vim.opt_local.wrap = true -- Включает визуальный перенос на экране
-    vim.opt_local.linebreak = true -- Переносит строго по словам (не режет слова)
-    vim.opt_local.breakindent = true -- Сохраняет визуальный отступ для списков (- item)
-    vim.opt_local.textwidth = 80 -- Ограничение длины строки (например, 80 символов)
   end,
 })
 

@@ -25,7 +25,7 @@ require('notes').setup({
     scroll_up = '<C-p>', -- notes: scroll the open note up
     close = 'q', -- close notes (works from any notes window)
     window_nav = '<C-w>', -- prefix; then h/j/k/l → move between windows
-    toggle_panels = '<C-t>', -- hide/show Folders + Notes columns
+    toggle_panels = 'f', -- hide/show Folders + Notes columns
     change_folder = 'o', -- folders: enter the folder under cursor / go up from row 1
     select = '<CR>', -- folders: enter child folder / focus notes; notes: focus editor
   },
