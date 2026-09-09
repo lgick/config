@@ -30,7 +30,7 @@
       "src": "https://github.com/lukas-reineke/indent-blankline.nvim"
     },
     "mason-lspconfig.nvim": {
-      "rev": "5d32a9b8de9f90466797a740edb0fb4b3c27e423",
+      "rev": "b5576cd62899a1a478d0e67ef3d378ee55dba82d",
       "src": "https://github.com/mason-org/mason-lspconfig.nvim"
     },
     "mason-tool-installer.nvim": {
@@ -70,7 +70,7 @@
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "paperblue.nvim": {
-      "rev": "ab92708d1bd38e8d347da59129772f5f12a5eba6",
+      "rev": "21d94ded03b512686680b5a03b09e8b7f4485ef5",
       "src": "https://github.com/lgick/paperblue.nvim"
     },
     "persistence.nvim": {
