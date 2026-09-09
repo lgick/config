@@ -22,7 +22,7 @@
       "src": "https://github.com/jghauser/follow-md-links.nvim"
     },
     "gitsigns.nvim": {
-      "rev": "5be654f2232c10ddcad19c1607a67b6b4b78fc29",
+      "rev": "f2421c550618d257048afa650413d9e542ddbe67",
       "src": "https://www.github.com/lewis6991/gitsigns.nvim"
     },
     "indent-blankline.nvim": {
@@ -50,7 +50,7 @@
       "src": "https://github.com/windwp/nvim-autopairs"
     },
     "nvim-lspconfig": {
-      "rev": "19576de1c1b6d1b5e231ea6ef9cba9a811c322bb",
+      "rev": "84b6b6c3f13cb34a6c8a0354b0da4c67d8ccf867",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-tree.lua": {
@@ -70,7 +70,7 @@
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "paperblue.nvim": {
-      "rev": "21d94ded03b512686680b5a03b09e8b7f4485ef5",
+      "rev": "9274dded4b446894001e41d42b3e84664ae9cfea",
       "src": "https://github.com/lgick/paperblue.nvim"
     },
     "snacks.nvim": {
