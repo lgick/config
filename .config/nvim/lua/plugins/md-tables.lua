@@ -1,19 +1,21 @@
 -- Виртуальный рендерер markdown-таблиц (GitHub-style) для Neovim.
 --
 -- ОСОБЕННОСТИ:
---   * Все символы разметки (**, `, [], _) остаются видимыми без скрытия в документе.
+--   * Изолированный рендер без смазывания и просвечивания подсветки буфера.
+--   * Сплошное отображение без пустых строк и дыр (overlay поверх строк буфера).
+--   * Полное скрытие технических символов (**, `, [], _, ~~, <br>) аналогично md-conceal.
+--   * Сохранение инлайн-подсветки (жирный, курсив, код, ссылки, зачёркивание).
 --   * Полная поддержка wrap = true (визуальный перенос строк в окне).
---   * Полная защита от разрыва длинных строк таблицы терминалом (без паразитных строк и пробелов).
+--   * Точный расчёт ширины колонок по чистому отображаемому тексту.
 --   * Поддерживает центрирование (:--:) и выравнивание колонок.
---   * Корректно объединяет и выравнивает многострочные строки продолжения (| | |).
 --   * В Insert/Replace режиме рендер отключается (чистый исходный Markdown).
---   * Сплошные рамки (ascii, rounded, single, double, github).
+--   * Сплошные рамки (ascii, rounded, single, double, github, none).
 
 local M = {}
 
 M.config = {
   -- Стиль границ: 'ascii' | 'rounded' | 'single' | 'double' | 'github' | 'none'
-  border = 'ascii',
+  border = 'double',
 
   -- Минимальная комфортная ширина колонки с текстом
   min_wrapped_width = 16,
@@ -75,35 +77,15 @@ local BORDER_STYLES = {
   },
 }
 
-local function disable_markdown_syntax_conceal()
-  vim.g.markdown_syntax_conceal = 0
-  for _, lang in ipairs({ 'markdown', 'markdown_inline' }) do
-    pcall(function()
-      local files = vim.treesitter.query.get_files(lang, 'highlights')
-      if files and #files > 0 then
-        local parts = {}
-        for _, file in ipairs(files) do
-          local f = io.open(file, 'r')
-          if f then
-            local content = f:read('*a')
-            f:close()
-            -- Удаляем правила скрытия символов разметки
-            content = content:gsub('%(#[%w_]+!%s+conceal[^%)]*%)', '')
-            parts[#parts + 1] = content
-          end
-        end
-        if #parts > 0 then
-          vim.treesitter.query.set(lang, 'highlights', table.concat(parts, '\n'))
-        end
-      end
-    end)
-  end
-end
-
 local function setup_highlights()
-  vim.api.nvim_set_hl(0, 'MdTableBorder', { link = 'Comment', default = true })
-  vim.api.nvim_set_hl(0, 'MdTableHead', { link = '@markup.strong', default = true })
-  disable_markdown_syntax_conceal()
+  vim.api.nvim_set_hl(0, 'MdTableBorder', { link = 'Comment', italic = false, default = true })
+  vim.api.nvim_set_hl(0, 'MdTableHead', { link = '@markup.strong', bold = true, default = true })
+  vim.api.nvim_set_hl(0, 'MdTableCell', { link = 'Normal', default = true })
+  vim.api.nvim_set_hl(0, '@markup.strong', { bold = true, default = true })
+  vim.api.nvim_set_hl(0, '@markup.italic', { italic = true, default = true })
+  vim.api.nvim_set_hl(0, '@markup.strikethrough', { strikethrough = true, default = true })
+  vim.api.nvim_set_hl(0, '@markup.raw', { link = 'Special', default = true })
+  vim.api.nvim_set_hl(0, '@markup.link.label', { link = 'Underlined', default = true })
 end
 
 setup_highlights()
@@ -150,6 +132,107 @@ local function utf8_char_spans(str)
     i = next_i
   end
   return spans
+end
+
+--------------------------------------------------------------------------------
+-- Парсинг Markdown-разметки ячеек (Conceal + Highlight)
+--------------------------------------------------------------------------------
+
+local function parse_markdown_inlines(raw_text)
+  local text = raw_text:gsub('\\|', '|')
+  local chunks = {}
+  local len = #text
+  local i = 1
+
+  while i <= len do
+    -- 1. Инлайн-код: `code`
+    local c_start, c_end, code_text = text:find('^`([^`]+)`', i)
+    if c_start then
+      chunks[#chunks + 1] = { code_text, '@markup.raw' }
+      i = c_end + 1
+    else
+      -- 2. Ссылки: [label](url)
+      local l_start, l_end, label = text:find('^%[([^%]]-)%]%([^%)]-%)', i)
+      if l_start then
+        chunks[#chunks + 1] = { label, '@markup.link.label' }
+        i = l_end + 1
+      else
+        -- 3. Зачёркнутый текст: ~~text~~
+        local s_start, s_end, s_text = text:find('^~~([^~]+)~~', i)
+        if s_start then
+          chunks[#chunks + 1] = { s_text, '@markup.strikethrough' }
+          i = s_end + 1
+        else
+          -- 4. Жирный + курсив: ***text*** или ___text___
+          local bi_start, bi_end, bi_text = text:find('^%*%*%*([^*]+)%*%*%*', i)
+          if not bi_start then
+            bi_start, bi_end, bi_text = text:find('^___([^_]+)___', i)
+          end
+          if bi_start then
+            chunks[#chunks + 1] = { bi_text, '@markup.strong' }
+            i = bi_end + 1
+          else
+            -- 5. Жирный: **text** или __text__
+            local b_start, b_end, b_text = text:find('^%*%*([^*]+)%*%*', i)
+            if not b_start then
+              b_start, b_end, b_text = text:find('^__([^_]+)__', i)
+            end
+            if b_start then
+              chunks[#chunks + 1] = { b_text, '@markup.strong' }
+              i = b_end + 1
+            else
+              -- 6. Курсив: *text* или _text_
+              local it_start, it_end, it_text = text:find('^%*([^*]+)%*', i)
+              if not it_start then
+                it_start, it_end, it_text = text:find('^_([^_]+)_', i)
+              end
+              if it_start then
+                chunks[#chunks + 1] = { it_text, '@markup.italic' }
+                i = it_end + 1
+              else
+                -- Обычный текст до следующего спецсимвола
+                local next_special = text:find('[`%[%~%*_]', i)
+                local plain_end = next_special and (next_special - 1) or len
+                if plain_end >= i then
+                  chunks[#chunks + 1] = { text:sub(i, plain_end), nil }
+                  i = plain_end + 1
+                else
+                  chunks[#chunks + 1] = { text:sub(i, i), nil }
+                  i = i + 1
+                end
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+
+  return chunks
+end
+
+local function chunks_text(chunks)
+  local parts, bounds, offset = {}, {}, 1
+  for i, chunk in ipairs(chunks) do
+    parts[i] = chunk[1]
+    bounds[i] = { offset, offset + #chunk[1] - 1 }
+    offset = offset + #chunk[1]
+  end
+  return table.concat(parts), bounds
+end
+
+local function slice_chunks(chunks, bounds, from, to, out)
+  for i, chunk in ipairs(chunks) do
+    local s, e = bounds[i][1], bounds[i][2]
+    if e >= from and s <= to then
+      local a = math.max(from, s) - s + 1
+      local b = math.min(to, e) - s + 1
+      local text = chunk[1]:sub(a, b)
+      if text ~= '' then
+        out[#out + 1] = { text, chunk[2] }
+      end
+    end
+  end
 end
 
 --------------------------------------------------------------------------------
@@ -213,7 +296,7 @@ local function is_continuation_row(cells)
 end
 
 --------------------------------------------------------------------------------
--- Токенизация и безопасный перенос
+-- Токенизация и перенос слов
 --------------------------------------------------------------------------------
 
 local function tokenize_spans_simple(text)
@@ -452,128 +535,7 @@ local function apply_comfort_widths(texts, max_cols, natural_widths, target_widt
 end
 
 --------------------------------------------------------------------------------
--- Treesitter & Инлайн подсветка (без скрытия символов)
---------------------------------------------------------------------------------
-
-local function line_marks(buf, row)
-  local ok, parser = pcall(vim.treesitter.get_parser, buf, 'markdown', { error = false })
-  if not ok or not parser then
-    return nil
-  end
-
-  pcall(parser.parse, parser, { row, row + 1 })
-
-  local hl = {}
-
-  parser:for_each_tree(function(tree, ltree)
-    local lang = ltree:lang()
-    local query = vim.treesitter.query.get(lang, 'highlights')
-    if not query then
-      return
-    end
-
-    local root = tree:root()
-    local root_start, _, root_end, _ = root:range()
-    if row < root_start or row > root_end then
-      return
-    end
-
-    for id, node, meta in query:iter_captures(root, buf, row, row + 1) do
-      local sr, sc, er, ec = node:range()
-      local entry = meta[id]
-      local offset = entry and entry.offset
-      if offset then
-        sr = sr + tonumber(offset[1])
-        sc = sc + tonumber(offset[2])
-        er = er + tonumber(offset[3])
-        ec = ec + tonumber(offset[4])
-      end
-
-      if sr <= row and er >= row then
-        local from = (sr == row) and sc + 1 or 1
-        local to = (er == row) and ec or math.huge
-
-        local name = query.captures[id]
-        local group = (name and name:sub(1, 1) ~= '_') and ('@' .. name) or nil
-
-        if group then
-          local line_str = vim.api.nvim_buf_get_lines(buf, row, row + 1, false)[1] or ''
-          local last = (to == math.huge) and #line_str or to
-          for i = from, last do
-            hl[i] = group
-          end
-        end
-      end
-    end
-  end)
-
-  return { hl = hl }
-end
-
-local function cell_chunks(line, marks, from, to)
-  while from <= to and line:sub(from, from) == ' ' do
-    from = from + 1
-  end
-  while to >= from and line:sub(to, to) == ' ' do
-    to = to - 1
-  end
-
-  if to < from then
-    return {}
-  end
-
-  local chunks = {}
-  local run_start, run_hl = nil, nil
-
-  local function flush(stop)
-    if run_start and stop >= run_start then
-      chunks[#chunks + 1] = { line:sub(run_start, stop), run_hl }
-      run_start = nil
-    end
-  end
-
-  local i = from
-  while i <= to do
-    local group = marks and marks.hl and marks.hl[i] or nil
-    if not run_start then
-      run_start, run_hl = i, group
-    elseif group ~= run_hl then
-      flush(i - 1)
-      run_start, run_hl = i, group
-    end
-    i = i + 1
-  end
-  flush(to)
-
-  return chunks
-end
-
-local function chunks_text(chunks)
-  local parts, bounds, offset = {}, {}, 1
-  for i, chunk in ipairs(chunks) do
-    parts[i] = chunk[1]
-    bounds[i] = { offset, offset + #chunk[1] - 1 }
-    offset = offset + #chunk[1]
-  end
-  return table.concat(parts), bounds
-end
-
-local function slice_chunks(chunks, bounds, from, to, out)
-  for i, chunk in ipairs(chunks) do
-    local s, e = bounds[i][1], bounds[i][2]
-    if e >= from and s <= to then
-      local a = math.max(from, s) - s + 1
-      local b = math.min(to, e) - s + 1
-      local text = chunk[1]:sub(a, b)
-      if text ~= '' then
-        out[#out + 1] = { text, chunk[2] }
-      end
-    end
-  end
-end
-
---------------------------------------------------------------------------------
--- Парсинг логических строк
+-- Парсинг логических строк таблицы
 --------------------------------------------------------------------------------
 
 local function parse_logical_rows(buf, block)
@@ -601,14 +563,13 @@ local function parse_logical_rows(buf, block)
     else
       local row_num = block.start_line - 1 + idx - 1
       local raw_line = lines[idx]
-      local marks = line_marks(buf, row_num)
       local splitted = split_row(raw_line)
 
       local parsed_cells = {}
       for col_idx, cell in ipairs(splitted) do
-        local chunks = cell_chunks(raw_line, marks, cell.from, cell.to)
+        local chunks = parse_markdown_inlines(cell.text)
         local text, bounds = chunks_text(chunks)
-        parsed_cells[col_idx] = { chunks = chunks, bounds = bounds, text = text }
+        parsed_cells[col_idx] = { chunks = chunks, bounds = bounds, text = text, raw = cell.text }
       end
 
       local raw_texts = cell_texts(raw_line)
@@ -632,7 +593,12 @@ local function parse_logical_rows(buf, block)
               comb_chunks[#comb_chunks + 1] = ch
             end
             local comb_text, comb_bounds = chunks_text(comb_chunks)
-            cur_row.cells[c] = { chunks = comb_chunks, bounds = comb_bounds, text = comb_text }
+            cur_row.cells[c] = {
+              chunks = comb_chunks,
+              bounds = comb_bounds,
+              text = comb_text,
+              raw = (c1.raw or '') .. ' ' .. (c2.raw or ''),
+            }
           elseif t1 == '' and t2 ~= '' then
             cur_row.cells[c] = c2
           end
@@ -708,7 +674,7 @@ local function make_border_line(b_style, b_type, col_widths, indent)
     return nil
   end
   local parts = {}
-  for i, w in ipairs(col_widths) do
+  for _, w in ipairs(col_widths) do
     parts[#parts + 1] = string.rep(b_style.horiz, w)
   end
   local line = def[1] .. table.concat(parts, def[2]) .. def[3]
@@ -744,10 +710,24 @@ local function render_virtual_table(buf, block, total_width)
   for _, row in ipairs(logical_rows) do
     local row_texts = {}
     for col_idx = 1, max_cols do
-      local text = row.cells[col_idx] and row.cells[col_idx].text or ''
+      local cell = row.cells[col_idx]
+      local raw = cell and cell.raw or ''
+      local text = cell and cell.text or ''
       row_texts[col_idx] = text
-      natural_widths[col_idx] = math.max(natural_widths[col_idx] or 3, vis_width(text))
-      max_word_widths[col_idx] = math.max(max_word_widths[col_idx] or 0, get_max_word_width(text))
+
+      if M.config.expand_br and raw:find('<br%s*/?>') then
+        local parts = vim.split(raw, '<br%s*/?>')
+        for _, part in ipairs(parts) do
+          local p_chunks = parse_markdown_inlines(trim(part))
+          local p_text = chunks_text(p_chunks)
+          natural_widths[col_idx] = math.max(natural_widths[col_idx] or 3, vis_width(p_text))
+          max_word_widths[col_idx] =
+            math.max(max_word_widths[col_idx] or 0, get_max_word_width(p_text))
+        end
+      else
+        natural_widths[col_idx] = math.max(natural_widths[col_idx] or 3, vis_width(text))
+        max_word_widths[col_idx] = math.max(max_word_widths[col_idx] or 0, get_max_word_width(text))
+      end
     end
     texts[#texts + 1] = row_texts
   end
@@ -768,20 +748,20 @@ local function render_virtual_table(buf, block, total_width)
       left = math.floor(padding / 2)
     end
     if left > 0 then
-      out[#out + 1] = { string.rep(' ', left) }
+      out[#out + 1] = { string.rep(' ', left), head and 'MdTableHead' or 'MdTableCell' }
     end
     for _, chunk in ipairs(chunks) do
-      out[#out + 1] = { chunk[1], chunk[2] or (head and 'MdTableHead' or nil) }
+      out[#out + 1] = { chunk[1], chunk[2] or (head and 'MdTableHead' or 'MdTableCell') }
     end
     if padding - left > 0 then
-      out[#out + 1] = { string.rep(' ', padding - left) }
+      out[#out + 1] = { string.rep(' ', padding - left), head and 'MdTableHead' or 'MdTableCell' }
     end
   end
 
   local function emit_row(get_cell_chunks)
     local out = {}
     if indent ~= '' then
-      out[#out + 1] = { indent }
+      out[#out + 1] = { indent, 'MdTableCell' }
     end
     out[#out + 1] = { b_style.vert .. ' ', 'MdTableBorder' }
     for col_idx = 1, max_cols do
@@ -800,27 +780,34 @@ local function render_virtual_table(buf, block, total_width)
 
   local out_physical = {}
 
-  -- Рендерим логические строки
   for _, row in ipairs(logical_rows) do
     local wrapped, height = {}, 1
     for col_idx = 1, max_cols do
       local cell = row.cells[col_idx]
+      local cell_lines = {}
+
       if cell then
-        local cell_lines = {}
-        if M.config.expand_br and cell.text:find('<br%s*/?>') then
-          local raw_parts = vim.split(cell.text, '<br%s*/?>')
+        if M.config.expand_br and (cell.raw and cell.raw:find('<br%s*/?>')) then
+          local raw_parts = vim.split(cell.raw, '<br%s*/?>')
           for _, part in ipairs(raw_parts) do
-            local p_wrapped = wrap_spans(part, target_widths[col_idx])
-            for _, w_line in ipairs(p_wrapped) do
-              cell_lines[#cell_lines + 1] = w_line
+            local p_chunks = parse_markdown_inlines(trim(part))
+            local p_text, p_bounds = chunks_text(p_chunks)
+            local p_wrapped = wrap_spans(p_text, target_widths[col_idx])
+            for _, w_spans in ipairs(p_wrapped) do
+              cell_lines[#cell_lines + 1] =
+                { spans = w_spans, chunks = p_chunks, bounds = p_bounds }
             end
           end
         else
-          cell_lines = wrap_spans(cell.text, target_widths[col_idx])
+          local w_spans = wrap_spans(cell.text, target_widths[col_idx])
+          for _, spans in ipairs(w_spans) do
+            cell_lines[#cell_lines + 1] =
+              { spans = spans, chunks = cell.chunks, bounds = cell.bounds }
+          end
         end
         wrapped[col_idx] = cell_lines
       else
-        wrapped[col_idx] = { {} }
+        wrapped[col_idx] = {}
       end
       height = math.max(height, #wrapped[col_idx])
     end
@@ -828,46 +815,33 @@ local function render_virtual_table(buf, block, total_width)
     local rendered_lines = {}
     for h = 1, height do
       rendered_lines[#rendered_lines + 1] = emit_row(function(col_idx, width, out)
-        local cell = row.cells[col_idx]
-        local line_spans = wrapped[col_idx][h]
+        local line_data = wrapped[col_idx] and wrapped[col_idx][h]
         local chunks = {}
-        if cell and line_spans then
-          for i, span in ipairs(line_spans) do
+        if line_data and line_data.spans then
+          for i, span in ipairs(line_data.spans) do
             if i > 1 then
               chunks[#chunks + 1] = { ' ', nil }
             end
-            slice_chunks(cell.chunks, cell.bounds, span[1], span[2], chunks)
+            slice_chunks(line_data.chunks, line_data.bounds, span[1], span[2], chunks)
           end
         end
         put(chunks, width, alignments[col_idx] or 'default', out, row.header)
       end)
     end
 
-    -- Распределяем строки по физическим строкам буфера
     local num_phys = #row.physical_rows
     local num_rend = #rendered_lines
 
     if num_rend <= num_phys then
       for p = 1, num_phys do
         local phys = row.physical_rows[p]
-        if p <= num_rend then
-          out_physical[#out_physical + 1] = {
-            row = phys.row,
-            len = phys.len,
-            line = rendered_lines[p],
-            virt_lines = nil,
-            is_header = row.header,
-          }
-        else
-          -- Лишние физические строки буфера полностью скрываем (0 высоты)
-          out_physical[#out_physical + 1] = {
-            row = phys.row,
-            len = phys.len,
-            line = nil,
-            virt_lines = nil,
-            is_header = row.header,
-          }
-        end
+        out_physical[#out_physical + 1] = {
+          row = phys.row,
+          len = phys.len,
+          line = rendered_lines[p],
+          virt_lines = nil,
+          is_header = row.header,
+        }
       end
     else
       for p = 1, num_phys do
@@ -893,7 +867,6 @@ local function render_virtual_table(buf, block, total_width)
     end
   end
 
-  -- Подготавливаем разделитель таблицы
   local sep_row_num = block.start_line - 1 + separator_idx - 1
   local sep_line_rendered = nil
   if sep_border then
@@ -1051,45 +1024,73 @@ local function refresh()
         vim.api.nvim_buf_clear_namespace(buf, ns, 0, -1)
 
         for _, block in ipairs(blocks) do
+          -- Изолируем таблицу от md-conceal на строках таблицы
+          local conceal_ns = vim.api.nvim_create_namespace('md_conceal')
+          vim.api.nvim_buf_clear_namespace(buf, conceal_ns, block.first, block.last + 1)
+
           for _, item in ipairs(block.rendered) do
             local line_str = vim.api.nvim_buf_get_lines(buf, item.row, item.row + 1, false)[1] or ''
             local line_len = #line_str
 
-            -- Мы выводим ВСЕ виртуальные строки таблицы через virt_lines_above.
-            -- Это на 100% поддерживается в любых версиях Neovim (начиная с 0.6)
-            -- и гарантированно не конфликтует с API и опцией wrap.
-            local all_lines_to_draw = {}
-            if item.top_border then
-              all_lines_to_draw[#all_lines_to_draw + 1] = item.top_border
-            end
             if item.line then
-              all_lines_to_draw[#all_lines_to_draw + 1] = item.line
-            end
-            if item.virt_lines and #item.virt_lines > 0 then
-              for _, vl in ipairs(item.virt_lines) do
-                all_lines_to_draw[#all_lines_to_draw + 1] = vl
+              -- Формируем чанки для overlay с изоляцией подсветки
+              local chunks_to_draw = {}
+              local virt_w = 0
+              for _, chunk in ipairs(item.line) do
+                local text = chunk[1]
+                local hl = chunk[2] or 'MdTableCell'
+                chunks_to_draw[#chunks_to_draw + 1] = { text, hl }
+                virt_w = virt_w + vis_width(text)
               end
-            end
-            if item.bot_border then
-              all_lines_to_draw[#all_lines_to_draw + 1] = item.bot_border
-            end
 
-            if #all_lines_to_draw > 0 then
-              pcall(vim.api.nvim_buf_set_extmark, buf, ns, item.row, 0, {
-                end_row = item.row,
-                end_col = line_len,
-                conceal = '',
-                virt_lines = all_lines_to_draw,
-                virt_lines_above = true,
-                priority = 1000,
-              })
+              -- Перекрываем хвост оригинальной строки Markdown
+              local pad = line_len - virt_w
+              if pad > 0 then
+                chunks_to_draw[#chunks_to_draw + 1] = { string.rep(' ', pad), 'MdTableCell' }
+              end
+
+              -- Виртуальные строки снизу
+              local extra_virt_below = nil
+              if (item.virt_lines and #item.virt_lines > 0) or item.bot_border then
+                extra_virt_below = {}
+                if item.virt_lines then
+                  for _, vl in ipairs(item.virt_lines) do
+                    extra_virt_below[#extra_virt_below + 1] = vl
+                  end
+                end
+                if item.bot_border then
+                  extra_virt_below[#extra_virt_below + 1] = item.bot_border
+                end
+              end
+
+              -- Верхняя рамка
+              if item.top_border then
+                pcall(vim.api.nvim_buf_set_extmark, buf, ns, item.row, 0, {
+                  virt_lines = { item.top_border },
+                  virt_lines_above = true,
+                  priority = 2000,
+                })
+              end
+
+              -- Строка таблицы (hl_mode = replace предотвращает просвечивание)
+              local extmark_opts = {
+                virt_text = chunks_to_draw,
+                virt_text_pos = 'overlay',
+                hl_mode = 'replace',
+                priority = 2000,
+              }
+              if extra_virt_below and #extra_virt_below > 0 then
+                extmark_opts.virt_lines = extra_virt_below
+                extmark_opts.virt_lines_above = false
+              end
+
+              pcall(vim.api.nvim_buf_set_extmark, buf, ns, item.row, 0, extmark_opts)
             else
-              -- Лишняя физическая строка полностью скрывается через conceal (0 высоты)
               pcall(vim.api.nvim_buf_set_extmark, buf, ns, item.row, 0, {
-                end_row = item.row,
-                end_col = line_len,
-                conceal = '',
-                priority = 1000,
+                virt_text = { { string.rep(' ', math.max(line_len, 1)), 'MdTableCell' } },
+                virt_text_pos = 'overlay',
+                hl_mode = 'replace',
+                priority = 2000,
               })
             end
           end
