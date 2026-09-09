@@ -38,11 +38,14 @@ M.config = {
 
   -- Преобразовывать теги <br> / <br/> внутри ячеек в перенос строки
   expand_br = true,
+
+  -- Склеивать ли строки продолжения вида | | Описание | с предыдущей строкой
+  merge_continuation_rows = false,
 }
 
----------------------
+--------------------------------------------------------------------------------
 -- Стили рамок
----------------------
+--------------------------------------------------------------------------------
 
 local BORDER_STYLES = {
   rounded = {
@@ -89,9 +92,9 @@ local BORDER_STYLES = {
   },
 }
 
---------------------------------------
+--------------------------------------------------------------------------------
 -- Общие утилиты и UTF-8
---------------------------------------
+--------------------------------------------------------------------------------
 
 local function trim(str)
   return (str:gsub('^%s+', ''):gsub('%s+$', ''))
@@ -133,9 +136,9 @@ local function utf8_char_spans(str)
   return spans
 end
 
--------------------------------------------------------
+--------------------------------------------------------------------------------
 -- Очистка Markdown-разметки ячеек (чистый текст)
--------------------------------------------------------
+--------------------------------------------------------------------------------
 
 local function clean_markdown_inlines(raw_text)
   local text = raw_text:gsub('\\|', '|')
@@ -173,9 +176,9 @@ local function clean_markdown_inlines(raw_text)
   return s:sub(2, -2)
 end
 
-------------------------------------
+--------------------------------------------------------------------------------
 -- Разбор строк таблицы
-------------------------------------
+--------------------------------------------------------------------------------
 
 local function split_row(line)
   local cells = {}
@@ -188,20 +191,12 @@ local function split_row(line)
       escaped = true
     elseif char == '|' then
       if from then
-        cells[#cells + 1] = { text = trim(line:sub(from, i - 1)), from = from, to = i - 1 }
+        cells[#cells + 1] = trim(line:sub(from, i - 1))
       end
       from = i + 1
     end
   end
   return cells
-end
-
-local function cell_texts(line)
-  local out = {}
-  for i, cell in ipairs(split_row(line)) do
-    out[i] = cell.text
-  end
-  return out
 end
 
 local function is_table_line(line)
@@ -230,12 +225,12 @@ local function is_continuation_row(cells)
   if #cells == 0 then
     return false
   end
-  return trim(cells[1] or '') == ''
+  return (cells[1] or '') == ''
 end
 
-----------------------------------------
+--------------------------------------------------------------------------------
 -- Токенизация и перенос слов
-----------------------------------------
+--------------------------------------------------------------------------------
 
 local function tokenize_spans_simple(text)
   local spans = {}
@@ -345,9 +340,9 @@ local function get_max_word_width(text)
   return max_w
 end
 
--------------------------------------
+--------------------------------------------------------------------------------
 -- Расчёт ширин колонок
--------------------------------------
+--------------------------------------------------------------------------------
 
 local function read_alignments(separator_cells)
   local alignments = {}
@@ -472,18 +467,19 @@ local function apply_comfort_widths(texts, max_cols, natural_widths, target_widt
   end
 end
 
-------------------------------------------
+--------------------------------------------------------------------------------
 -- Парсинг логических строк таблицы
-------------------------------------------
+--------------------------------------------------------------------------------
 
 local function parse_logical_rows(buf, block)
   local lines = block.lines
-  if #lines < 2 or not is_separator_row(cell_texts(lines[2])) then
+  local sep_cells = split_row(lines[2] or '')
+  if #lines < 2 or not is_separator_row(sep_cells) then
     return nil, nil, nil
   end
 
   local separator_idx = 2
-  local alignments = read_alignments(cell_texts(lines[2]))
+  local alignments = read_alignments(sep_cells)
 
   local logical_rows = {}
   local cur_row = nil
@@ -504,15 +500,16 @@ local function parse_logical_rows(buf, block)
       local splitted = split_row(raw_line)
 
       local parsed_cells = {}
-      for col_idx, cell in ipairs(splitted) do
+      for col_idx, cell_text in ipairs(splitted) do
         parsed_cells[col_idx] = {
-          text = clean_markdown_inlines(cell.text),
-          raw = cell.text,
+          text = clean_markdown_inlines(cell_text),
+          raw = cell_text,
         }
       end
 
-      local raw_texts = cell_texts(raw_line)
-      local is_cont = (idx > separator_idx) and is_continuation_row(raw_texts)
+      local is_cont = M.config.merge_continuation_rows
+        and (idx > separator_idx)
+        and is_continuation_row(splitted)
 
       if is_cont and cur_row then
         cur_row.physical_rows[#cur_row.physical_rows + 1] = { row = row_num, len = #raw_line }
@@ -546,9 +543,9 @@ local function parse_logical_rows(buf, block)
   return logical_rows, alignments, separator_idx
 end
 
------------------------------------------
+--------------------------------------------------------------------------------
 -- Отрисовка виртуальной таблицы
------------------------------------------
+--------------------------------------------------------------------------------
 
 local function find_table_blocks(lines)
   local blocks = {}
@@ -823,11 +820,9 @@ local function render_virtual_table(buf, block, total_width)
   if sep_border then
     sep_line_rendered = sep_border
   else
-    sep_line_rendered = {
-      emit_row(function(col_idx, width, out)
-        out[#out + 1] = { string.rep(b_style.horiz, width), 'MdTableBorder' }
-      end, 'MdTableBorder'),
-    }
+    sep_line_rendered = emit_row(function(col_idx, width, out)
+      out[#out + 1] = { string.rep(b_style.horiz, width), 'MdTableBorder' }
+    end, 'MdTableBorder')
   end
 
   local final_items = {}
@@ -865,9 +860,9 @@ local function render_virtual_table(buf, block, total_width)
   return final_items
 end
 
------------------------------------------
+--------------------------------------------------------------------------------
 -- Управление метками и отрисовка
------------------------------------------
+--------------------------------------------------------------------------------
 
 local ns = vim.api.nvim_create_namespace('md_table_render')
 local cache = {}
@@ -1101,9 +1096,9 @@ local function schedule()
   end)
 end
 
-----------------------------------------
+--------------------------------------------------------------------------------
 -- Инициализация и автокоманды
-----------------------------------------
+--------------------------------------------------------------------------------
 
 function M.setup(opts)
   M.config = vim.tbl_deep_extend('force', M.config, opts or {})
