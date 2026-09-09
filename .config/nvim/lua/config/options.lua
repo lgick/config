@@ -59,7 +59,7 @@ opt.cursorcolumn = false
 opt.fillchars:append({ diff = ' ', vert = '|', eob = ' ', fold = ' ', msgsep = ' ' })
 
 -- Автоматическое изменение размера окон
-opt.equalalways = false
+opt.equalalways = true
 
 ------------------------------------------
 -- Форматирование текста
@@ -108,24 +108,6 @@ opt.softtabstop = 2
 -- Количество символов при автоматическом табе
 opt.shiftwidth = 2
 
--- Настройка сессий
-opt.sessionoptions = {
-  'blank',
-  'buffers',
-  'curdir',
-  'folds',
-  'globals',
-  'help',
-  'localoptions',
-  'options',
-  'skiprtp',
-  'resize',
-  'tabpages',
-  'terminal',
-  'winpos',
-  'winsize',
-}
-
 ------------------------------------------
 -- Цвет
 ------------------------------------------
@@ -137,7 +119,7 @@ opt.termguicolors = true
 opt.background = 'light'
 
 -- Правило подсветки для символов после 80 столбца
-fn.matchadd('OverLength', [[\%81v.\+]])
+--fn.matchadd('WarningMsg', [[\%81v.\+]])
 
 ------------------------------------------
 -- Невидимые символы (пробелы, табуляция)
