@@ -1,13 +1,11 @@
 -- Виртуальный рендерер markdown-таблиц (GitHub-style) для Neovim.
 --
 -- ОСОБЕННОСТИ:
+--   * Отображение чистого текста без технической разметки и без лишней подсветки.
 --   * Вертикальные отступы (padding_top, padding_bottom, margin_top, margin_bottom).
 --   * Сплошная зебра-подсветка (MdTableCellOdd / MdTableCellEven) без зазоров у рамок.
 --   * Полная защита от разрыва длинных строк Markdown терминалом при wrap = true.
 --   * Изолированный рендер без смазывания и просвечивания подсветки буфера.
---   * Сплошное отображение без пустых строк и дыр.
---   * Полное скрытие технических символов (**, `, [], _, ~~, <br>) аналогично md-conceal.
---   * Сохранение инлайн-подсветки (жирный, курсив, код, ссылки, зачёркивание).
 --   * Точный расчёт ширины колонок по чистому отображаемому тексту.
 --   * Поддерживает центрирование (:--:) и выравнивание колонок.
 --   * В Insert/Replace режиме рендер отключается (чистый исходный Markdown).
@@ -42,9 +40,9 @@ M.config = {
   expand_br = true,
 }
 
---------------------------------------------------------------------------------
+---------------------
 -- Стили рамок
---------------------------------------------------------------------------------
+---------------------
 
 local BORDER_STYLES = {
   rounded = {
@@ -91,24 +89,9 @@ local BORDER_STYLES = {
   },
 }
 
-local function setup_highlights()
-  vim.api.nvim_set_hl(0, 'MdTableBorder', { link = 'Comment', italic = false, default = true })
-  vim.api.nvim_set_hl(0, 'MdTableHead', { link = '@markup.strong', bold = true, default = true })
-  vim.api.nvim_set_hl(0, 'MdTableCell', { link = 'Normal', default = true })
-  vim.api.nvim_set_hl(0, 'MdTableCellOdd', { link = 'MdTableCell', default = true })
-  vim.api.nvim_set_hl(0, 'MdTableCellEven', { link = 'MdTableCell', default = true })
-  vim.api.nvim_set_hl(0, '@markup.strong', { bold = true, default = true })
-  vim.api.nvim_set_hl(0, '@markup.italic', { italic = true, default = true })
-  vim.api.nvim_set_hl(0, '@markup.strikethrough', { strikethrough = true, default = true })
-  vim.api.nvim_set_hl(0, '@markup.raw', { link = 'Special', default = true })
-  vim.api.nvim_set_hl(0, '@markup.link.label', { link = 'Underlined', default = true })
-end
-
-setup_highlights()
-
---------------------------------------------------------------------------------
+--------------------------------------
 -- Общие утилиты и UTF-8
---------------------------------------------------------------------------------
+--------------------------------------
 
 local function trim(str)
   return (str:gsub('^%s+', ''):gsub('%s+$', ''))
@@ -150,111 +133,49 @@ local function utf8_char_spans(str)
   return spans
 end
 
---------------------------------------------------------------------------------
--- Парсинг Markdown-разметки ячеек (Conceal + Highlight)
---------------------------------------------------------------------------------
+-------------------------------------------------------
+-- Очистка Markdown-разметки ячеек (чистый текст)
+-------------------------------------------------------
 
-local function parse_markdown_inlines(raw_text)
+local function clean_markdown_inlines(raw_text)
   local text = raw_text:gsub('\\|', '|')
-  local chunks = {}
-  local len = #text
-  local i = 1
+  -- 1. Инлайн-код: `code` -> code
+  text = text:gsub('`([^`]+)`', '%1')
+  -- 2. Ссылки: [label](url) -> label
+  text = text:gsub('%[([^%]]-)%]%([^%)]-%)', '%1')
+  -- 3. Зачёркнутый: ~~text~~ -> text
+  text = text:gsub('~~([^~]+)~~', '%1')
+  -- 4. Звёздочки: ***text***, **text**, *text*
+  text = text:gsub('%*%*%*([^*]+)%*%*%*', '%1')
+  text = text:gsub('%*%*([^*]+)%*%*', '%1')
+  text = text:gsub('%*([^*]+)%*', '%1')
 
-  while i <= len do
-    -- 1. Инлайн-код: `code`
-    local c_start, c_end, code_text = text:find('^`([^`]+)`', i)
-    if c_start then
-      chunks[#chunks + 1] = { code_text, '@markup.raw' }
-      i = c_end + 1
-    else
-      -- 2. Ссылки: [label](url)
-      local l_start, l_end, label = text:find('^%[([^%]]-)%]%([^%)]-%)', i)
-      if l_start then
-        chunks[#chunks + 1] = { label, '@markup.link.label' }
-        i = l_end + 1
-      else
-        -- 3. Зачёркнутый текст: ~~text~~
-        local s_start, s_end, s_text = text:find('^~~([^~]+)~~', i)
-        if s_start then
-          chunks[#chunks + 1] = { s_text, '@markup.strikethrough' }
-          i = s_end + 1
-        else
-          -- 4. Жирный + курсив: ***text*** или ___text___
-          local bi_start, bi_end, bi_text = text:find('^%*%*%*([^*]+)%*%*%*', i)
-          if not bi_start then
-            bi_start, bi_end, bi_text = text:find('^___([^_]+)___', i)
-          end
-          if bi_start then
-            chunks[#chunks + 1] = { bi_text, '@markup.strong' }
-            i = bi_end + 1
-          else
-            -- 5. Жирный: **text** или __text__
-            local b_start, b_end, b_text = text:find('^%*%*([^*]+)%*%*', i)
-            if not b_start then
-              b_start, b_end, b_text = text:find('^__([^_]+)__', i)
-            end
-            if b_start then
-              chunks[#chunks + 1] = { b_text, '@markup.strong' }
-              i = b_end + 1
-            else
-              -- 6. Курсив: *text* или _text_
-              local it_start, it_end, it_text = text:find('^%*([^*]+)%*', i)
-              if not it_start then
-                it_start, it_end, it_text = text:find('^_([^_]+)_', i)
-              end
-              if it_start then
-                chunks[#chunks + 1] = { it_text, '@markup.italic' }
-                i = it_end + 1
-              else
-                -- Обычный текст до следующего спецсимвола
-                local next_special = text:find('[`%[%~%*_]', i)
-                local plain_end = next_special and (next_special - 1) or len
-                if plain_end >= i then
-                  chunks[#chunks + 1] = { text:sub(i, plain_end), nil }
-                  i = plain_end + 1
-                else
-                  chunks[#chunks + 1] = { text:sub(i, i), nil }
-                  i = i + 1
-                end
-              end
-            end
-          end
-        end
-      end
+  -- 5. Подчёркивания (___text___, __text__, _text_) ТОЛЬКО на границах слов/пробелах,
+  -- чтобы не портить константы вида FIRST_SHOT_DATA и переменные snake_case
+  local s = ' ' .. text .. ' '
+  local changed = true
+  while changed do
+    local count = 0
+    local c = 0
+    s, c = s:gsub('([^%w])___([^_]+)___([^%w])', '%1%2%3')
+    count = count + c
+    if c == 0 then
+      s, c = s:gsub('([^%w])__([^_]+)__([^%w])', '%1%2%3')
+      count = count + c
     end
-  end
-
-  return chunks
-end
-
-local function chunks_text(chunks)
-  local parts, bounds, offset = {}, {}, 1
-  for i, chunk in ipairs(chunks) do
-    parts[i] = chunk[1]
-    bounds[i] = { offset, offset + #chunk[1] - 1 }
-    offset = offset + #chunk[1]
-  end
-  return table.concat(parts), bounds
-end
-
-local function slice_chunks(chunks, bounds, from, to, out)
-  for i, chunk in ipairs(chunks) do
-    local s, e = bounds[i][1], bounds[i][2]
-    if e >= from and s <= to then
-      local a = math.max(from, s) - s + 1
-      local b = math.min(to, e) - s + 1
-      local text = chunk[1]:sub(a, b)
-      if text ~= '' then
-        --out[#out + 1] = { text, chunk[2] }
-        out[#out + 1] = { text }
-      end
+    if c == 0 then
+      s, c = s:gsub('([^%w])_([^_]+)_([^%w])', '%1%2%3')
+      count = count + c
     end
+    changed = (count > 0)
   end
+
+  return s:sub(2, -2)
 end
 
---------------------------------------------------------------------------------
+------------------------------------
 -- Разбор строк таблицы
---------------------------------------------------------------------------------
+------------------------------------
 
 local function split_row(line)
   local cells = {}
@@ -312,9 +233,9 @@ local function is_continuation_row(cells)
   return trim(cells[1] or '') == ''
 end
 
---------------------------------------------------------------------------------
+----------------------------------------
 -- Токенизация и перенос слов
---------------------------------------------------------------------------------
+----------------------------------------
 
 local function tokenize_spans_simple(text)
   local spans = {}
@@ -424,9 +345,9 @@ local function get_max_word_width(text)
   return max_w
 end
 
---------------------------------------------------------------------------------
+-------------------------------------
 -- Расчёт ширин колонок
---------------------------------------------------------------------------------
+-------------------------------------
 
 local function read_alignments(separator_cells)
   local alignments = {}
@@ -551,9 +472,9 @@ local function apply_comfort_widths(texts, max_cols, natural_widths, target_widt
   end
 end
 
---------------------------------------------------------------------------------
+------------------------------------------
 -- Парсинг логических строк таблицы
---------------------------------------------------------------------------------
+------------------------------------------
 
 local function parse_logical_rows(buf, block)
   local lines = block.lines
@@ -584,9 +505,10 @@ local function parse_logical_rows(buf, block)
 
       local parsed_cells = {}
       for col_idx, cell in ipairs(splitted) do
-        local chunks = parse_markdown_inlines(cell.text)
-        local text, bounds = chunks_text(chunks)
-        parsed_cells[col_idx] = { chunks = chunks, bounds = bounds, text = text, raw = cell.text }
+        parsed_cells[col_idx] = {
+          text = clean_markdown_inlines(cell.text),
+          raw = cell.text,
+        }
       end
 
       local raw_texts = cell_texts(raw_line)
@@ -601,19 +523,8 @@ local function parse_logical_rows(buf, block)
           local t1 = c1 and c1.text or ''
           local t2 = c2 and c2.text or ''
           if t1 ~= '' and t2 ~= '' then
-            local comb_chunks = {}
-            for _, ch in ipairs(c1.chunks) do
-              comb_chunks[#comb_chunks + 1] = ch
-            end
-            comb_chunks[#comb_chunks + 1] = { ' ', nil }
-            for _, ch in ipairs(c2.chunks) do
-              comb_chunks[#comb_chunks + 1] = ch
-            end
-            local comb_text, comb_bounds = chunks_text(comb_chunks)
             cur_row.cells[c] = {
-              chunks = comb_chunks,
-              bounds = comb_bounds,
-              text = comb_text,
+              text = t1 .. ' ' .. t2,
               raw = (c1.raw or '') .. ' ' .. (c2.raw or ''),
             }
           elseif t1 == '' and t2 ~= '' then
@@ -635,9 +546,9 @@ local function parse_logical_rows(buf, block)
   return logical_rows, alignments, separator_idx
 end
 
---------------------------------------------------------------------------------
+-----------------------------------------
 -- Отрисовка виртуальной таблицы
---------------------------------------------------------------------------------
+-----------------------------------------
 
 local function find_table_blocks(lines)
   local blocks = {}
@@ -735,8 +646,7 @@ local function render_virtual_table(buf, block, total_width)
       if M.config.expand_br and raw:find('<br%s*/?>') then
         local parts = vim.split(raw, '<br%s*/?>')
         for _, part in ipairs(parts) do
-          local p_chunks = parse_markdown_inlines(trim(part))
-          local p_text = chunks_text(p_chunks)
+          local p_text = clean_markdown_inlines(trim(part))
           natural_widths[col_idx] = math.max(natural_widths[col_idx] or 3, vis_width(p_text))
           max_word_widths[col_idx] =
             math.max(max_word_widths[col_idx] or 0, get_max_word_width(p_text))
@@ -752,11 +662,8 @@ local function render_virtual_table(buf, block, total_width)
   local target_widths = calculate_target_widths(natural_widths, max_word_widths, available)
   apply_comfort_widths(texts, max_cols, natural_widths, target_widths, available)
 
-  local function put(chunks, width, align, out, default_hl)
-    local content_w = 0
-    for _, chunk in ipairs(chunks) do
-      content_w = content_w + vis_width(chunk[1])
-    end
+  local function put(str, width, align, out, default_hl)
+    local content_w = vis_width(str)
     local padding = math.max(0, width - content_w)
     local left = 0
     if align == 'right' then
@@ -768,8 +675,8 @@ local function render_virtual_table(buf, block, total_width)
     if left > 0 then
       out[#out + 1] = { string.rep(' ', left), hl_def }
     end
-    for _, chunk in ipairs(chunks) do
-      out[#out + 1] = { chunk[1], chunk[2] or hl_def }
+    if str ~= '' then
+      out[#out + 1] = { str, hl_def }
     end
     if padding - left > 0 then
       out[#out + 1] = { string.rep(' ', padding - left), hl_def }
@@ -828,20 +735,13 @@ local function render_virtual_table(buf, block, total_width)
         if M.config.expand_br and (cell.raw and cell.raw:find('<br%s*/?>')) then
           local raw_parts = vim.split(cell.raw, '<br%s*/?>')
           for _, part in ipairs(raw_parts) do
-            local p_chunks = parse_markdown_inlines(trim(part))
-            local p_text, p_bounds = chunks_text(p_chunks)
-            local p_wrapped = wrap_spans(p_text, target_widths[col_idx])
-            for _, w_spans in ipairs(p_wrapped) do
-              cell_lines[#cell_lines + 1] =
-                { spans = w_spans, chunks = p_chunks, bounds = p_bounds }
+            local p_text = clean_markdown_inlines(trim(part))
+            for _, w_line in ipairs(wrap_text(p_text, target_widths[col_idx])) do
+              cell_lines[#cell_lines + 1] = w_line
             end
           end
         else
-          local w_spans = wrap_spans(cell.text, target_widths[col_idx])
-          for _, spans in ipairs(w_spans) do
-            cell_lines[#cell_lines + 1] =
-              { spans = spans, chunks = cell.chunks, bounds = cell.bounds }
-          end
+          cell_lines = wrap_text(cell.text, target_widths[col_idx])
         end
         wrapped[col_idx] = cell_lines
       else
@@ -857,24 +757,15 @@ local function render_virtual_table(buf, block, total_width)
       or (M.config.padding_top or 0)
     for _ = 1, pad_top do
       rendered_lines[#rendered_lines + 1] = emit_row(function(col_idx, width, out)
-        put({}, width, 'default', out, row_hl)
+        put('', width, 'default', out, row_hl)
       end, row_hl)
     end
 
     -- Текстовые строки ячейки
     for h = 1, height do
       rendered_lines[#rendered_lines + 1] = emit_row(function(col_idx, width, out)
-        local line_data = wrapped[col_idx] and wrapped[col_idx][h]
-        local chunks = {}
-        if line_data and line_data.spans then
-          for i, span in ipairs(line_data.spans) do
-            if i > 1 then
-              chunks[#chunks + 1] = { ' ', nil }
-            end
-            slice_chunks(line_data.chunks, line_data.bounds, span[1], span[2], chunks)
-          end
-        end
-        put(chunks, width, alignments[col_idx] or 'default', out, row_hl)
+        local text_line = (wrapped[col_idx] and wrapped[col_idx][h]) or ''
+        put(text_line, width, alignments[col_idx] or 'default', out, row_hl)
       end, row_hl)
     end
 
@@ -883,7 +774,7 @@ local function render_virtual_table(buf, block, total_width)
       or (M.config.padding_bottom or 0)
     for _ = 1, pad_bot do
       rendered_lines[#rendered_lines + 1] = emit_row(function(col_idx, width, out)
-        put({}, width, 'default', out, row_hl)
+        put('', width, 'default', out, row_hl)
       end, row_hl)
     end
 
@@ -974,9 +865,9 @@ local function render_virtual_table(buf, block, total_width)
   return final_items
 end
 
---------------------------------------------------------------------------------
+-----------------------------------------
 -- Управление метками и отрисовка
---------------------------------------------------------------------------------
+-----------------------------------------
 
 local ns = vim.api.nvim_create_namespace('md_table_render')
 local cache = {}
@@ -1210,13 +1101,12 @@ local function schedule()
   end)
 end
 
---------------------------------------------------------------------------------
+----------------------------------------
 -- Инициализация и автокоманды
---------------------------------------------------------------------------------
+----------------------------------------
 
 function M.setup(opts)
   M.config = vim.tbl_deep_extend('force', M.config, opts or {})
-  setup_highlights()
   schedule()
 end
 
