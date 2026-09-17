@@ -20,10 +20,10 @@ require('conform').setup({
     css = { 'prettierd' },
     json = { 'prettierd' },
     jsonc = { 'prettierd' },
-    markdown = { 'prettierd' },
     graphql = { 'prettierd' },
     nginx = { 'nginx-config-formatter' },
     rust = { 'rustfmt' },
+    markdown = { 'prettierd' },
   },
 
   format_on_save = function(bufnr)

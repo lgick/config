@@ -135,7 +135,7 @@ opt.listchars = {
   extends = '>',
   precedes = '<',
   nbsp = '&',
-  leadmultispace = '· ',
+  --leadmultispace = '· ',
 }
 
 ------------------------------------------

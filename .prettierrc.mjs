@@ -12,8 +12,7 @@ const config = {
     {
       files: '*.md',
       options: {
-        printWidth: 100,
-        proseWrap: 'always',
+        proseWrap: 'preserve', // длина прозы не переносится
       },
     },
   ],

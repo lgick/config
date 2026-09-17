@@ -28,6 +28,7 @@ vim.pack.add({
 
   { src = 'https://github.com/lgick/notes.nvim' }, -- notes
 
+  { src = 'https://github.com/meanderingprogrammer/render-markdown.nvim' }, -- отображение в md
   { src = 'https://github.com/jghauser/follow-md-links.nvim' }, -- переходы по ссылкам в md
 })
 
@@ -46,6 +47,6 @@ require('plugins.trouble')
 require('plugins.gitsigns')
 require('plugins.diffview')
 require('plugins.notes')
-require('plugins.md-tables')
+require('plugins.render-markdown')
 require('plugins.md-conceal')
 require('plugins.statusline')
