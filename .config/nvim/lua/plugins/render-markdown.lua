@@ -22,6 +22,15 @@ require('render-markdown').setup({
     },
   },
 
+  paragraph = {
+    enabled = true,
+    left_margin = 0,
+  },
+
+  bullet = {
+    left_pad = 3,
+  },
+
   pipe_table = {
     enabled = true,
     style = 'full',
@@ -41,6 +50,8 @@ require('render-markdown').setup({
     conceal_delimiters = false,
     -- отключение обработки инлайн-кода `code` (скрывается в md-conceal)
     inline = false,
+    left_pad = 3,
+    right_pad = 3,
   },
 
   -- отключение скрытия HTML-комментариев

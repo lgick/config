@@ -164,11 +164,13 @@ vim.api.nvim_create_autocmd({ 'FileType', 'BufWinEnter', 'TextChanged', 'TextCha
     vim.opt_local.wrap = true
     vim.opt_local.linebreak = true
     vim.opt_local.breakindent = true
-    vim.opt_local.breakindentopt = 'shift:3'
     vim.opt_local.statuscolumn = '   '
     vim.opt_local.list = false
     vim.opt_local.cursorline = false
-    vim.opt_local.formatexpr = 'v:lua.vim.lsp.formatexpr()'
+
+    -- перенос строк только по пробелам
+    -- запрещаются разрывы на @, *, /, -, . и т.д.
+    vim.opt.breakat = ' \t'
 
     -- Скрытие символов:
     vim.opt_local.conceallevel = 2

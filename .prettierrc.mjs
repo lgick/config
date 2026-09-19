@@ -12,6 +12,7 @@ const config = {
     {
       files: '*.md',
       options: {
+        printWidth: 100, // перенос текста по достижении порога при вызове gq
         proseWrap: 'preserve', // длина прозы не переносится
       },
     },

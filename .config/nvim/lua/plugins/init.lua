@@ -22,6 +22,7 @@ vim.pack.add({
 
   { src = 'https://github.com/folke/snacks.nvim' }, -- дашборд, окно picker с поиском, буфферами
   { src = 'https://github.com/folke/trouble.nvim' }, -- окно ошибок и предупреждений
+  { src = 'https://github.com/folke/zen-mode.nvim' }, -- отображение буфера по центру
 
   { src = 'https://www.github.com/lewis6991/gitsigns.nvim' }, -- git stager
   { src = 'https://github.com/sindrets/diffview.nvim' }, -- git diff
@@ -44,6 +45,7 @@ require('nvim-autopairs').setup()
 require('nvim-ts-autotag').setup()
 require('plugins.snacks')
 require('plugins.trouble')
+require('plugins.zen-mode')
 require('plugins.gitsigns')
 require('plugins.diffview')
 require('plugins.notes')
