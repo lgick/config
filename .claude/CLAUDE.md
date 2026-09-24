@@ -18,7 +18,7 @@
 - **Master Index**: For multi-stage plans only, maintain a master plan file at `plan/README.md`. This file must act as an index containing a high-level summary of all stages and their completion status. A single-file plan needs no index.
 - **Token Saving**: When asked to execute a specific stage (e.g., "Сделай 5-й этап плана"), first inspect `plan/README.md` and then open ONLY the specific stage file (e.g., `plan/stage_5.md`). Do not read or load other stage files unless explicitly instructed, to save context tokens.
 - **Progress Verification**: When working on a task defined by a plan (whether it is a multi-file plan in `plan/`, a single plan file, or a single `PLAN.md` file), you must mark completed stages with a "✅ выполнен" tag next to the stage header. The plan must always accurately reflect the current progress of the work.
-- **Archiving Completed Plans**: As soon as a plan located in the project's `plan/` directory is fully completed (all stages marked "✅ выполнен"), move it into `plan/done/`, creating that directory if it does not exist. Use `git mv` for tracked files. A multi-stage plan must be moved as a whole set (all stage files together with their index) into a single subdirectory, e.g. `plan/done/<plan-name>/`. Never commit the move — leave it in the working tree per section 6.
+- **Archiving Completed Plans**: As soon as a plan located in the project's `plan/` directory is fully completed (all stages marked "✅ выполнен"), move it into `plan/done/`, creating that directory if it does not exist. Use `git mv` for tracked files. A multi-stage plan must be moved as a whole set (all stage files together with their index) into a single subdirectory, e.g. `plan/done/<plan-name>/`. Commit the move per section 6.
 
 ## 3. Command Execution & Noise Reduction
 - **Silent Commands**: When running tests, builds, linting, or compilations, always use flags that minimize console output to prevent bloated logs from polluting the session context (e.g., use `npm test -- --silent`, `vitest --reporter=terse`, `--quiet`, or respective quiet flags).
@@ -34,5 +34,8 @@ Before completing any task, evaluate and execute the following if required:
 - Update or add relevant tests to verify the implemented changes.
 - Update the project documentation to align with the changes made.
 
-## 6. Git Workflow Constraints
-- **No Automatic Commits**: Never run `git commit` or execute automatic commit hooks. All code modifications must be left in the working tree (staged or unstaged) so that the user can review, verify, and commit them manually.
+## 6. Git Workflow
+- **Automatic Commits**: Upon completing any task and verifying that checks/tests pass, automatically stage and commit the changes.
+- **Selective Staging**: Use targeted `git add <files>`. Never use `git add .` or stage secrets, build artifacts, or temporary files.
+- **Commit Format**: Use Conventional Commits (`feat:`, `fix:`, `refactor:`, etc.) with a concise description in English.
+- **No Automatic Push**: Never execute `git push`. Remote syncing is strictly manual by the user.
