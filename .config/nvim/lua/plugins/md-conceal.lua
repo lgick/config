@@ -1,3 +1,32 @@
+-- Убираем встроенное скрытие ``` треситтером (queries/markdown/highlights.scm):
+-- закрывающая (и иногда открывающая) строка блока кода не должна скрываться
+-- никогда, независимо от настроек render-markdown.nvim.
+local function patch_markdown_fence_conceal()
+  local files = vim.api.nvim_get_runtime_file('queries/markdown/highlights.scm', true)
+  if #files == 0 then
+    return
+  end
+  local parts = {}
+  for _, f in ipairs(files) do
+    local content = table.concat(vim.fn.readfile(f), '\n')
+    content = content:gsub(
+      '%(fenced_code_block%s+%(fenced_code_block_delimiter%)%s-@markup%.raw%.block%s-%(#set!%s-conceal%s-""%)%s-%(#set!%s-conceal_lines%s-""%)%)',
+      ''
+    )
+    content = content:gsub(
+      '%(fenced_code_block%s+%(info_string%s+%(language%)%s-@label%s-%(#set!%s-conceal%s-""%)%s-%(#set!%s-conceal_lines%s-""%)%)%)',
+      ''
+    )
+    table.insert(parts, content)
+  end
+  vim.treesitter.query.set('markdown', 'highlights', table.concat(parts, '\n'))
+end
+
+local ok, err = pcall(patch_markdown_fence_conceal)
+if not ok then
+  vim.notify('md-conceal: не удалось убрать treesitter-conceal у ```: ' .. err, vim.log.levels.WARN)
+end
+
 local ns = vim.api.nvim_create_namespace('md_conceal')
 
 -- Поиск скрытых зон для быстрого перемещения

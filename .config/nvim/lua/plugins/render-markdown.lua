@@ -28,7 +28,7 @@ require('render-markdown').setup({
   },
 
   bullet = {
-    left_pad = 3,
+    left_pad = 0,
   },
 
   pipe_table = {
@@ -48,6 +48,12 @@ require('render-markdown').setup({
   code = {
     -- отключение скрытия бэктиков ``` в блоках кода
     conceal_delimiters = false,
+    -- отключение скрытия строк-границ блока кода (иначе плагин всё равно
+    -- прячет закрывающую ```, даже при conceal_delimiters = false)
+    border = 'none',
+    -- отключение рендера иконки/имени языка вместо строки ```lang
+    -- (иначе верхняя строка блока подменяется на иконку + название языка)
+    language = false,
     -- отключение обработки инлайн-кода `code` (скрывается в md-conceal)
     inline = false,
     left_pad = 3,
