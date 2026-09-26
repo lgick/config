@@ -10,7 +10,7 @@ require('render-markdown').setup({
     width = 'block',
     icons = { '# ', '## ', '### ', '#### ', '##### ', '###### ' },
     sign = false,
-    right_pad = 2,
+    right_pad = 0,
     left_margin = 0,
     backgrounds = {
       '@markup.heading.1',
