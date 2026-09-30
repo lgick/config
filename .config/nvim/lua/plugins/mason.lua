@@ -10,7 +10,6 @@ require('mason-tool-installer').setup({
     'prettierd',
     'eslint-lsp',
     'lua_ls',
-    'tailwindcss-language-server',
     'graphql',
     'nginx_language_server',
     'nginx-config-formatter',
@@ -18,7 +17,7 @@ require('mason-tool-installer').setup({
     'json-lsp',
     'rust-analyzer',
   },
-  auto_update = true,
+  auto_update = false,
   run_on_start = true,
 })
 
