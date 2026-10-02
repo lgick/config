@@ -1,7 +1,7 @@
 # Global Instructions & Constraints
 
 ## 1. Language Split & Token Optimization
-- **Internal Reasoning**: You must conduct all your internal reasoning, chain of thought (CoT), planning, and intermediate analysis STRICTLY in English. This is critical to prevent Russian text from flooding the JSONL logs and wasting output tokens.
+- **Internal Reasoning**: You must conduct all your internal reasoning, chain of thought (CoT), internal planning, and intermediate analysis STRICTLY in English. This is critical to prevent Russian text from flooding the JSONL logs and wasting output tokens.
 - **User-Facing Communication**: All explanations, answers, inline code comments, documentation, user messages, **and especially all interactive prompts, questions, consent requests, and choice menus** must be written EXCLUSIVELY in Russian.
 - **Task Summarization**: Upon completing any task, provide a highly concise summary of your accomplishments in Russian. Avoid long, verbose explanations unless specifically requested.
 - **Token Conservation & Consent**: Be extremely mindful of token consumption. You must ask the user for explicit consent **strictly in Russian** before executing any high-token or high-risk operations, which include:
@@ -13,11 +13,13 @@
 ## 2. Planning, Modularization & Progress Tracking
 - **Plan Format**: All detailed planning must be written in Russian.
 - **Plan Directory**: Store all detailed plans inside the `plan/` directory.
-- **Splitting Is Conditional**: Do NOT split a plan into stages by default. A small plan stays in a single file (e.g., `plan/<name>.md`). Only when the plan is genuinely large (many independent milestones, wide code scope, or work that cannot be delivered in one pass) must you **first propose the split to the user strictly in Russian**, and only after their consent break it into separate stage files (e.g., `plan/<name>/stage_1.md`, `plan/<name>/stage_2.md`).
+- **Splitting Is Conditional**: Do NOT split a plan into stages by default. A small plan stays in a single file (e.g., `plan/<name>.md`). Only when the plan is genuinely large (many independent milestones, wide code scope, or work that cannot be delivered in one pass) must you split it into separate stage files (e.g., `plan/<name>/stage_1.md`, `plan/<name>/stage_2.md`).
 - **Heavy Stages**: If a stage is complex or heavy, it must be subdivided into sub-stages or sub-steps within its respective stage file.
 - **Master Index**: For multi-stage plans only, maintain a master plan file at `plan/<name>/README.md`. This file must act as an index containing a high-level summary of all stages and their completion status. A single-file plan needs no index.
 - **Token Saving**: When asked to execute a specific stage (e.g., "Сделай 5-й этап плана"), first inspect `plan/<name>/README.md` and then open ONLY the specific stage file (e.g., `plan/<name>/stage_5.md`). Do not read or load other stage files unless explicitly instructed, to save context tokens.
 - **Progress Verification**: When working on a task defined by a plan (whether it is a multi-file plan or a single plan file), you must mark completed stages with a "✅ выполнен" tag next to the stage header. The plan must always accurately reflect the current progress of the work.
+- **Strict Plan Adherence**: You must strictly follow the plan. Absolutely no self-directed initiatives are permitted without explicit user approval!
+- **Plan Revision**: If contradictions arise in the plan, you must stop and propose options (mark the recommended one). Before working with code, update the plan to reflect the agreed solution.
 - **Archiving**: When every stage of a plan in `plan/` is marked "✅ выполнен", move it unchanged into `plan/done/` (create it if missing): `plan/<name>.md` → `plan/done/<name>.md`, `plan/<name>/` → `plan/done/<name>/`. Use `git mv` for tracked files and `mv` for untracked ones.
 
 ## 3. Command Execution & Noise Reduction
