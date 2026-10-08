@@ -23,7 +23,7 @@
 - **Silent Commands**: When running tests, builds, linting, or compilations, always use flags that minimize console output to prevent bloated logs from polluting the session context (e.g., use `npm test -- --silent`, `vitest run --reporter=dot`, `--quiet`, or respective quiet flags).
 
 ## 4. Project-level CLAUDE.md Hygiene
-- **Language & Size Limit**: The project-level `CLAUDE.md` file must be written strictly in English and must never exceed 1000 tokens (ideally kept highly compact, between 300 and 600 tokens).
+- **Language & Size Limit**: The project-level `CLAUDE.md` file must be written strictly in English and must never exceed 2000 tokens (ideally kept highly compact, between 800 and 1500 tokens).
 - **Allowed Content**: Include only invariants: the core tech stack, commands to run tests/linting, and essential style rules.
 - **Forbidden Content**: Never store temporary notes, task histories, verbose feature requirements, or command outputs in `CLAUDE.md`.
 
@@ -33,5 +33,11 @@ Before completing any task, evaluate and execute the following if required:
 - Update or add relevant tests to verify the implemented changes.
 - Update the project documentation to align with the changes made.
 
-## 6. Git Workflow Constraints
+## 6. Documentation & Comments
+- **Accurate and complete**: Docs and docstrings describe only current live code, verified against it; cover all public behavior (purpose, parameters, defaults, errors, commands), nothing stale.
+- **Clean slate**: Present tense, as if this implementation is the only version that ever existed. No history, migrations, or temporal words ("previously", "no longer", "now"). Exception: changelogs. Design rationale ("X, not Y, because …") is allowed without historical framing.
+- **Code comments**: Describe only the current code; short, concise, no restating the code.
+- **Compact**: Dense, zero filler or duplication; edit in place and delete outdated text instead of appending.
+
+## 7. Git Workflow Constraints
 - **No Automatic Commits**: Never run `git commit` or execute automatic commit hooks unless the user explicitly asks for a commit in the current message. All code modifications must be left in the working tree (staged or unstaged) so that the user can review, verify, and commit them manually.
