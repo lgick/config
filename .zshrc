@@ -111,3 +111,41 @@ export PATH="$HOME/.local/bin:$PATH"
 
 # Показать все запущенные серверы и порты
 alias ports="sudo lsof -i -P -n | grep LISTEN"
+
+# Скопировать содержимое всех измененных git-файлов в буфер с разделителями
+gcopy() {
+  local files=""
+  local mode="all"
+
+  # Обработка флагов
+  case "$1" in
+    -s|--staged)
+      mode="staged"
+      files=$(git diff --cached --name-only --diff-filter=d)
+      ;;
+    -u|--unstaged)
+      mode="unstaged"
+      files=$(git diff --name-only --diff-filter=d)
+      ;;
+    *)
+      mode="all"
+      # Собираем staged, unstaged и untracked (новые файлы)
+      files=$( { git diff --cached --name-only --diff-filter=d; git diff --name-only --diff-filter=d; git ls-files --others --exclude-standard; } | sort -u )
+      ;;
+  esac
+
+  if [ -z "$files" ]; then
+    echo "❌ Нет измененных файлов для копирования (режим: $mode)."
+    return 0
+  fi
+
+  # Собираем код файлов с красивыми заголовками в буфер обмена
+  echo "$files" | while read -r file; do
+    if [ -f "$file" ]; then
+      echo -e "\n--- FILE: $file ---\n"
+      cat "$file"
+    fi
+  done | pbcopy
+
+  echo "✅ Код файлов скопирован в буфер обмена! (режим: $mode)"
+}
