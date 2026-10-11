@@ -2573,6 +2573,8 @@
 				<key>Red Component</key>
 				<real>0.84288102388381958</real>
 			</dict>
+			<key>Automatically Enable Alternate Mouse Scroll</key>
+			<false/>
 			<key>BM Growl</key>
 			<true/>
 			<key>Background Color</key>
