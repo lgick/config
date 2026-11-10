@@ -21,3 +21,7 @@
 !.claude/keybindings.json
 !.claude/CLAUDE.md
 !.claude/statusline-command.sh
+
+!.claude/skills/
+.claude/skills/*
+!.claude/skills/solution-review/
