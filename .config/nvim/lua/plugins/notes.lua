@@ -7,7 +7,7 @@ require('notes').setup({
   repo = 'git@github.com:lgick/my_notes.git',
 
   -- Height of the folders/notes row in rows (content rows, excluding statusline).
-  list_height = 10,
+  list_height = 7,
 
   -- Width of the folders column.
   folders_width = 35,

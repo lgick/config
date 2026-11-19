@@ -5,7 +5,9 @@ require('render-markdown').setup({
   anti_conceal = {
     enabled = false,
   },
-
+  checkbox = {
+    enabled = false,
+  },
   heading = {
     width = 'block',
     icons = { '# ', '## ', '### ', '#### ', '##### ', '###### ' },
